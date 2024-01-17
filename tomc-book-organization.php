@@ -21,6 +21,8 @@ class TOMCBookOrganizationPlugin {
         $this->book_readalikes_table = $wpdb->prefix . "tomc_book_readalikes";
         $this->genres_table = $wpdb->prefix . "tomc_genres";
         $this->book_genres_table = $wpdb->prefix . "tomc_book_genres";
+        $this->content_warnings_table = $wpdb->prefix . "tomc_content_warnings";
+        $this->book_warnings_table = $wpdb->prefix . "tomc_book_warnings";
         $this->users_table = $wpdb->prefix . "users";
         $this->posts_table = $wpdb->prefix . "posts";
 
@@ -51,7 +53,7 @@ class TOMCBookOrganizationPlugin {
 
     function addMyPennamesPage() {
         $my_pennames_page = array(
-            'post_title' => 'My Pennames',
+            'post_title' => 'My Pen Names',
             'post_content' => '',
             'post_status' => 'publish',
             'post_author' => 0,
@@ -73,7 +75,6 @@ class TOMCBookOrganizationPlugin {
             image_address varchar(200),
             createdate datetime NOT NULL,
             islive bit NOT NULL DEFAULT 0,
-            publicationdate datetime NOT NULL,
             PRIMARY KEY  (id)
         ) $this->charset;");
 
@@ -156,12 +157,29 @@ class TOMCBookOrganizationPlugin {
             FOREIGN KEY  (genreid) REFERENCES $this->genres_table(id)
         ) $this->charset;");
 
+        dbDelta("CREATE TABLE IF NOT EXISTS $this->content_warnings_table (
+            id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            warning_name varchar(200) NOT NULL,
+            createdate datetime NOT NULL,
+            PRIMARY KEY  (id)
+        ) $this->charset;");
+
+        dbDelta("CREATE TABLE IF NOT EXISTS $this->book_warnings_table (
+            id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            bookid bigint(20) unsigned NOT NULL,
+            warningid bigint(20) unsigned NOT NULL,
+            createdate datetime NOT NULL,
+            PRIMARY KEY  (id),
+            FOREIGN KEY  (bookid) REFERENCES $this->books_table(id),
+            FOREIGN KEY  (warningid) REFERENCES $this->content_warnings_table(id)
+        ) $this->charset;");
+
         if (post_exists('My Books', '', '', 'page', 'publish') == 0){
             $this->addMyBooksPage();
         }
 
-        if (post_exists('My Pennames', '', '', 'page', 'publish') == 0){
-            $this->addMyPennamesPage();
+        if (post_exists('My Pen Names', '', '', 'page', 'publish') == 0){
+            $this->addMyPenNamesPage();
         }
 
     }
@@ -169,8 +187,8 @@ class TOMCBookOrganizationPlugin {
     function loadTemplate($template){
         if (is_page('my-books')){
             return plugin_dir_path(__FILE__) . 'inc/template-my-books.php';
-        } elseif (is_page('my-pennames')){
-            return plugin_dir_path(__FILE__) . 'inc/template-my-pennames.php';
+        } elseif (is_page('my-pen-names')){
+            return plugin_dir_path(__FILE__) . 'inc/template-my-pen-names.php';
         } else
         return $template;
     }
