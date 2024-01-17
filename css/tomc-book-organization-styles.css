@@ -1,0 +1,13 @@
+#add-book-button{
+    background-color: #0c698e;
+    color: white;
+    font-size: 16;
+    border-radius: 15px;
+    padding: 20px 40px;
+    cursor: pointer;
+    display: block;
+    margin: 40px auto;
+}
+/* #tomc-book-organization--new-book-overlay{
+    visibility: hidden;
+} */
