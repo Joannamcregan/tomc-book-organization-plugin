@@ -7,6 +7,7 @@
 */
 
 if( ! defined('ABSPATH') ) exit;
+require_once plugin_dir_path(__FILE__) . 'inc/tomc-bookorg-route.php';
 
 class TOMCBookOrganizationPlugin {
     function __construct() {
@@ -15,9 +16,9 @@ class TOMCBookOrganizationPlugin {
         $this->books_table = $wpdb->prefix .  "tomc_books";
         $this->product_types_table = $wpdb->prefix . "tomc_product_types";
         $this->book_products_table = $wpdb->prefix . "tomc_book_products";
-        $this->pennames_table = $wpdb->prefix . "tomc_pennames";
-        $this->user_pennames_table = $wpdb->prefix . "tomc_user_pennames";
-        $this->pennames_books_table = $wpdb->prefix . "tomc_pennames_books";
+        // $this->pennames_table = $wpdb->prefix . "tomc_pennames";
+        $this->user_pen_names_table = $wpdb->prefix . "tomc_user_pen_names";
+        $this->pen_names_books_table = $wpdb->prefix . "tomc_pen_names_books";
         $this->book_readalikes_table = $wpdb->prefix . "tomc_book_readalikes";
         $this->genres_table = $wpdb->prefix . "tomc_genres";
         $this->book_genres_table = $wpdb->prefix . "tomc_book_genres";
@@ -25,6 +26,10 @@ class TOMCBookOrganizationPlugin {
         $this->book_warnings_table = $wpdb->prefix . "tomc_book_warnings";
         $this->users_table = $wpdb->prefix . "users";
         $this->posts_table = $wpdb->prefix . "posts";
+
+        wp_localize_script('tomc-bookorg-js', 'tomcBookorgData', array(
+            'root_url' => get_site_url()
+        ));
 
         add_action('activate_tomc-book-organization/tomc-book-organization.php', array($this, 'onActivate'));
         add_action('init', array($this, 'registerScripts'));
@@ -38,6 +43,10 @@ class TOMCBookOrganizationPlugin {
 
     function pluginFiles(){
         wp_enqueue_style('tomc_bookorg_styles');
+        wp_enqueue_script('tomc-bookorg-js', plugin_dir_url(__FILE__) . '/build/index.js', array('jquery'), '1.0', true);
+        wp_localize_script('tomc-bookorg-js', 'tomcBookorgData', array(
+            'root_url' => get_site_url()
+        ));
     }
 
     function addMyBooksPage() {
@@ -51,7 +60,29 @@ class TOMCBookOrganizationPlugin {
         wp_insert_post($my_books_page);
     }
 
-    function addMyPennamesPage() {
+    function addAddBookPage() {
+        $add_book_page = array(
+            'post_title' => 'Add a Book',
+            'post_content' => '',
+            'post_status' => 'publish',
+            'post_author' => 0,
+            'post_type' => 'page'
+        );
+        wp_insert_post($add_book_page);
+    }
+
+    function addEditBookPage() {
+        $edit_book_page = array(
+            'post_title' => 'Edit Your Book',
+            'post_content' => '',
+            'post_status' => 'publish',
+            'post_author' => 0,
+            'post_type' => 'page'
+        );
+        wp_insert_post($edit_book_page);
+    }
+
+    function addMyPenNamesPage() {
         $my_pennames_page = array(
             'post_title' => 'My Pen Names',
             'post_content' => '',
@@ -97,33 +128,33 @@ class TOMCBookOrganizationPlugin {
             FOREIGN KEY  (typeid) REFERENCES $this->product_types_table(id)
         ) $this->charset;");
 
-        dbDelta("CREATE TABLE IF NOT EXISTS $this->pennames_table (
-            id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-            penname varchar(200) NOT NULL,
-            bio varchar(2000) NOT NULL,
-            image_address varchar(200),
-            createdate datetime NOT NULL,
-            PRIMARY KEY  (id)
-        ) $this->charset;");
+        // dbDelta("CREATE TABLE IF NOT EXISTS $this->pennames_table (
+        //     id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+        //     penname varchar(200) NOT NULL,
+        //     bio varchar(2000) NOT NULL,
+        //     image_address varchar(200),
+        //     createdate datetime NOT NULL,
+        //     PRIMARY KEY  (id)
+        // ) $this->charset;");
 
-        dbDelta("CREATE TABLE IF NOT EXISTS $this->user_pennames_table (
+        dbDelta("CREATE TABLE IF NOT EXISTS $this->user_pen_names_table (
             id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
             userid bigint(20) unsigned NOT NULL,
             pennameid bigint(20) unsigned NOT NULL,
             createdate datetime NOT NULL,
             PRIMARY KEY  (id),
             FOREIGN KEY  (userid) REFERENCES $this->users_table(id),
-            FOREIGN KEY  (pennameid) REFERENCES $this->pennames_table(id)
+            FOREIGN KEY  (pennameid) REFERENCES $this->posts_table(id)
         ) $this->charset;");
 
-        dbDelta("CREATE TABLE IF NOT EXISTS $this->pennames_books_table (
+        dbDelta("CREATE TABLE IF NOT EXISTS $this->pen_names_books_table (
             id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
             pennameid bigint(20) unsigned NOT NULL,
             bookid bigint(20) unsigned NOT NULL,
             createdate datetime NOT NULL,
             PRIMARY KEY  (id),
             FOREIGN KEY  (bookid) REFERENCES $this->books_table(id),
-            FOREIGN KEY  (pennameid) REFERENCES $this->pennames_table(id)
+            FOREIGN KEY  (pennameid) REFERENCES $this->posts_table(id)
         ) $this->charset;");
 
         dbDelta("CREATE TABLE IF NOT EXISTS $this->book_readalikes_table (
@@ -182,11 +213,23 @@ class TOMCBookOrganizationPlugin {
             $this->addMyPenNamesPage();
         }
 
+        if(post_exists('Add a Book', '', '', 'page', 'publish') == 0){
+            $this->addAddBookPage();
+        }
+
+        if(post_exists('Edit Your Book', '', '', 'page', 'publish') == 0){
+            $this->addEditBookPage();
+        }
+
     }
 
     function loadTemplate($template){
         if (is_page('my-books')){
             return plugin_dir_path(__FILE__) . 'inc/template-my-books.php';
+        } elseif (is_page('add-a-book')){
+            return plugin_dir_path(__FILE__) . 'inc/template-add-book.php';
+        } elseif (is_page('edit-your-book')){
+            return plugin_dir_path(__FILE__) . 'inc/template-edit-book.php';
         } elseif (is_page('my-pen-names')){
             return plugin_dir_path(__FILE__) . 'inc/template-my-pen-names.php';
         } else
