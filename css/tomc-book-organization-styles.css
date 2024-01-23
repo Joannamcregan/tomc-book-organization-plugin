@@ -40,6 +40,7 @@
     font-size: 16;
     display: block;
     margin: 10px auto 20px auto;
+    padding: 2px 5px;
 }
 .tomc-book-organization--form textarea{
     border-radius: 10px;
@@ -73,3 +74,4 @@
 /* #tomc-book-organization--new-book-overlay{
     visibility: hidden;
 } */
+

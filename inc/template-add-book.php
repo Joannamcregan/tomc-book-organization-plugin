@@ -57,32 +57,29 @@ get_header();
                         <label for="tomc-book-organization--excerpt">Please enter a short excerpt from your book (up to 500 characters. You can add longer excerpts on the individual product pages for each format of your book.)</label><br>
                         <textarea class="tomc-book-organization--new-book centered-text" name="tomc-book-organization--excerpt" id="tomc-book-organization--excerpt" required></textarea>
                     </div>          
-                    <div class="tomc-book-organization--form-div hidden" id="tomc-book-organization--additional-genres-option">
+                    <div class="tomc-book-organization--form-div" id="tomc-book-organization--additional-genres-option">
                         <p>Which category does your book fit into best?</p>
-                        <input type="radio" id="tomc-book-organization--fiction" name="tomc-book-organization--fiction" value="fiction">
+                        <input type="radio" id="tomc-book-organization--fiction" name="tomc-book-organization--category" value="fiction">
                         <label for="tomc-book-organization--fiction">Fiction</label>
-                        <input type="radio" id="tomc-book-organization--nonfiction" name="tomc-book-organization--nonfiction" value="nonfiction">
+                        <input type="radio" id="tomc-book-organization--nonfiction" name="tomc-book-organization--category" value="nonfiction">
                         <label for="tomc-book-organization--nonfiction">Nonfiction</label>
-                        <input type="radio" id="tomc-book-organization--poetry" name="tomc-book-organization--poetry" value="poetry">
+                        <input type="radio" id="tomc-book-organization--poetry" name="tomc-book-organization--category" value="poetry">
                         <label for="tomc-book-organization--poetry">Poetry</label>
                     </div>
                     <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text left-text" id="tomc-book-organization--add-book-errors">
                         <p class="hidden" id="tomc-book-organization--add-book-errors-title">Your book's title cannot be blank.</p>
                         <p class="hidden" id="tomc-book-organization--add-book-errors-description">Add a description to help readers who will love your book find it.</p>
                         <p class="hidden" id="tomc-book-organization--add-book-errors-excerpt">Add an excerpt to help readers get a feel for your book.</p>
+                        <p class="hidden" id="tomc-book-organization--add-book-errors-category">Select a main category for your book.</p>
                     </div>                                    
                     <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book" data-user="<?php get_current_user_id(); ?>">save and continue</button>
                 </div>
 
-                <?php $genres = $wpdb->get_results("SELECT * from $genres_table WHERE parentid1 is NULL and parentid2 is NULL and parentid3 is NULL;"); ?>
                 <div class="tomc-book-organization--form <!--hidden-->" id="tomc-book-organization--book-genre-form" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="POST">
                     <div class="tomc-book-organization--form-div">
                         <p>Please choose the genre that best represents your book.</p>
-                        <select name="tomc-book-organization--genre-0">
-                            <?php foreach($genres as $genre){
-                                ?><option value="<?php echo $genre->genre_name ?>"><?php echo $genre->genre_name ?></option>
-                            <?php }                           
-                        ?></select>
+                        <select name="tomc-book-organization--genre-0" id="tomc-book-organization--genre-0">
+                        </select>
                     </div>
                     <div id="tomc-book-organization--genre-0-subgenres" class="tomc-book-organization--form-div">
                         <p>Now choose two subgenres to help readers find your book.</p>

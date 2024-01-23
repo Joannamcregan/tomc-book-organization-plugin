@@ -17,9 +17,7 @@ get_header();
 
 ?><main class="half-screen">    
     <?php if (is_user_logged_in()){
-        ?><div class="banner">
-            <h2 class="centered-text">Manage Your Books</h2>
-        </div>
+        ?><div class="banner"><h1 class="centered-text">Manage Your Books</h1></div>
         <?php if (in_array( 'dc_vendor', (array) $user->roles ) ){
             $books = $wpdb->get_results("SELECT b.* from $books_table b JOIN $pennames_books_table pb ON b.id = pb.bookid JOIN $user_pennames_table u on pb.pennameid = u.pennameid WHERE u.userid = $userid;");
             if ($books){

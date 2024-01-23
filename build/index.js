@@ -20,10 +20,6 @@ class NewBookForm {
     // main elements in the main form to create a new book
     this.addBookForm = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--add-book");
     this.addBookSaveButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--save-book");
-    this.subtitleYesButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--subtitle-yes");
-    this.subtitleDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--subtitle-div");
-    this.editionYesButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--new-edition-yes");
-    this.editionDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--edition-div");
     // required inputs
     this.bookTitle = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--title");
     this.bookDescription = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--description");
@@ -31,13 +27,23 @@ class NewBookForm {
     // optional inputs
     this.bookSubtitle = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--subtitle");
     this.bookEdition = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--edition");
+    //radio buttons
+    this.subtitleYesButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--subtitle-yes");
+    this.subtitleNoButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--subtitle-no");
+    this.editionYesButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--new-edition-yes");
+    this.editionNoButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--new-edition-no");
+    this.fictionButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--fiction");
+    this.nonfictionButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--nonfiction");
+    this.poetryButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--poetry");
     // errors
     this.addBookErrorsDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--add-book-errors");
     this.addBookTitleError = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--add-book-errors-title");
     this.addBookDescriptionError = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--add-book-errors-description");
     this.addBookExcerptError = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--add-book-errors-excerpt");
+    this.addBookCategoryError = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--add-book-errors-category");
     // book genres form
     this.bookGenresForm = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--book-genre-form");
+    this.genreSelect0 = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--genre-0");
     this.additionalGenreButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--additional-genre");
     this.additionalSubgenreButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--additional-subgenre");
     this.noAdditonalGenreButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--no-additional-genres");
@@ -45,15 +51,35 @@ class NewBookForm {
     this.additionalSubgenresDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--genre-0-additional-subgenres");
     // book pen name form
     this.bookPenNameForm = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--book-pen-name");
+    this.bookCategory = '';
     this.events();
     this.createdBookId;
   }
   events() {
+    this.subtitleYesButton.on("click", function () {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--subtitle-div").removeClass("hidden");
+    });
+    this.subtitleNoButton.on("click", function () {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--subtitle-div").addClass("hidden");
+    });
+    this.editionYesButton.on("click", function () {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--edition-div").removeClass("hidden");
+    });
+    this.editionNoButton.on("click", function () {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--edition-div").addClass("hidden");
+    });
     this.addBookSaveButton.on("click", this.addNewBook.bind(this));
   }
   addNewBook(e) {
-    console.log(parseInt(this.bookEdition.val().substring(0, 10)));
-    if (this.bookTitle.val() != '' && this.bookDescription.val() != '' && this.bookExcerpt.val() != '') {
+    if (this.fictionButton.is(':checked')) {
+      this.bookCategory = 'fiction';
+    } else if (this.nonfictionButton.is(':checked')) {
+      this.bookCategory = 'nonfiction';
+    } else if (this.poetryButton.is(':checked')) {
+      this.bookCategory = 'poetry';
+    }
+    console.log('the book category at addNewBook is ' + this.bookCategory);
+    if (this.bookTitle.val() != '' && this.bookDescription.val() != '' && this.bookExcerpt.val() != '' && this.bookCategory != '') {
       jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
         beforeSend: xhr => {
           xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -72,6 +98,7 @@ class NewBookForm {
           this.createdBookId = response;
           this.addBookForm.addClass("hidden");
           this.bookGenresForm.removeClass("hidden");
+          this.getChildGenres(this.genreSelect0);
         },
         error: response => {
           console.log(response);
@@ -94,7 +121,34 @@ class NewBookForm {
       } else {
         this.addBookExcerptError.addClass("hidden");
       }
+      if (this.bookCategory == '') {
+        this.addBookCategoryError.removeClass("hidden");
+      } else {
+        this.addBookCategoryError.addClass("hidden");
+      }
     }
+  }
+  getChildGenres(selectToFill) {
+    console.log(selectToFill);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      beforeSend: xhr => {
+        xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+      },
+      url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getChildGenres',
+      type: 'POST',
+      data: {
+        'category': this.bookCategory
+      },
+      success: response => {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default().each(response, function (i, item) {
+          console.log(response[i].id);
+          selectToFill.append("<option value='" + response[i].id + "'>" + response[i].genre_name + "</option>");
+        });
+      },
+      error: response => {
+        console.log(response);
+      }
+    });
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (NewBookForm);
