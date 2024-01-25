@@ -103,10 +103,13 @@ class TOMCBookOrganizationPlugin {
             publication_edition int,
             book_description varchar(2000) NOT NULL,
             book_excerpt varchar(500),
-            image_address varchar(200),
+            product_image_id bigint(20) unsigned,
             createdate datetime NOT NULL,
+            createdby bigint(20) unsigned NOT NULL,
             islive bit NOT NULL DEFAULT 0,
-            PRIMARY KEY  (id)
+            PRIMARY KEY  (id),
+            FOREIGN KEY  (product_image_id) REFERENCES $this->posts_table(id),
+            FOREIGN KEY  (createdby) REFERENCES $this->users_table(id)
         ) $this->charset;");
 
         dbDelta("CREATE TABLE IF NOT EXISTS $this->product_types_table (
@@ -127,15 +130,6 @@ class TOMCBookOrganizationPlugin {
             FOREIGN KEY  (productid) REFERENCES $this->posts_table(id),
             FOREIGN KEY  (typeid) REFERENCES $this->product_types_table(id)
         ) $this->charset;");
-
-        // dbDelta("CREATE TABLE IF NOT EXISTS $this->pennames_table (
-        //     id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-        //     penname varchar(200) NOT NULL,
-        //     bio varchar(2000) NOT NULL,
-        //     image_address varchar(200),
-        //     createdate datetime NOT NULL,
-        //     PRIMARY KEY  (id)
-        // ) $this->charset;");
 
         dbDelta("CREATE TABLE IF NOT EXISTS $this->user_pen_names_table (
             id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -162,7 +156,7 @@ class TOMCBookOrganizationPlugin {
             bookid bigint(20) unsigned NOT NULL,
             createdate datetime NOT NULL,
             readalike_title varchar(200) NOT NULL,
-            readalike_author varchar(200)
+            readalike_author varchar(200),
             PRIMARY KEY  (id),
             FOREIGN KEY  (bookid) REFERENCES $this->books_table(id)
         ) $this->charset;");
@@ -170,12 +164,12 @@ class TOMCBookOrganizationPlugin {
         dbDelta("CREATE TABLE IF NOT EXISTS $this->genres_table (
             id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
             genre_name varchar(200) NOT NULL,
-            parentid1 bigint(20) unsigned,
-            parentid2 bigint(20) unsigned,
-            parentid3 bigint(20) unsigned,
+            genre_level bigint(20) unsigned,
             genre_description varchar(500),
             createdate datetime NOT NULL,
-            PRIMARY KEY  (id)
+            createdby bigint(20) unsigned NOT NULL,
+            PRIMARY KEY  (id),
+            FOREIGN KEY  (createdby) REFERENCES $this->users_table(id)
         ) $this->charset;");
 
         dbDelta("CREATE TABLE IF NOT EXISTS $this->book_genres_table (
