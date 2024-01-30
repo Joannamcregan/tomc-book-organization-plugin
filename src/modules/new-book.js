@@ -25,10 +25,11 @@ class NewBookForm{
         this.addBookTitleError = $("#tomc-book-organization--add-book-errors-title");
         this.addBookDescriptionError = $("#tomc-book-organization--add-book-errors-description");
         this.addBookExcerptError = $("#tomc-book-organization--add-book-errors-excerpt");
-        this.addBookCategoryError = $("#tomc-book-organization--add-book-errors-category");
+        this.addBookGenresErrorsDiv = $("#tomc-book-organization--add-book-genre-errors");
         // book genres form
         this.bookGenresForm = $("#tomc-book-organization--book-genre-form");
         this.addGenreButtons = $(".tomc-book-organization--add-genre");
+        this.selectGenreButtons = $(".tomc-book-organization--option");
         // book pen name form
         this.bookPenNameForm = $("#tomc-book-organization--book-pen-name");
         //overlays
@@ -41,7 +42,7 @@ class NewBookForm{
         this.createdBookId;
         this.currentUserId;
         this.addedGenreLevel = '';
-        this.chosenGenres1 = '';
+        this.chosenGenres1 = 0;
         this.chosenGenres2 = [];
         this.chosenGenres3 = [];
     }
@@ -63,6 +64,8 @@ class NewBookForm{
         this.addGenreButtons.on("click", this.openGenreOverlay.bind(this));
         this.overlayCloseButtons.on("click", this.closeGenreOverlay.bind(this));
         this.addGenreButton.on("click", this.addGenre.bind(this));
+        this.selectGenreButtons.on("click", this.toggleGenreSelection.bind(this));
+        this.saveGenresButton.on("click", this.addBookGenres.bind(this));
     }
 
     closeGenreOverlay(){
@@ -80,7 +83,53 @@ class NewBookForm{
     }
 
     toggleGenreSelection(e){
-        console.log('toggle time');
+        if ($(e.target).hasClass('tomc-book-organization--option-selected')){
+            $(e.target).removeClass('tomc-book-organization--option-selected');
+            if ($(e.target).data('genre-level') == 1){
+                this.chosenGenres1 = 0;
+                $(e.target).removeClass('tomc-book-organization--option-selected');
+                $('#tomc-book-organization--genres1-error-section').addClass('hidden');
+            } else if ($(e.target).data('genre-level') == 2){
+                for (let i = 0; i < this.chosenGenres2.length; i++){
+                    if (this.chosenGenres2[i] == $(e.target).data('genre-id')){
+                        this.chosenGenres2.splice(i, 1);
+                    }
+                }
+                $(e.target).removeClass('tomc-book-organization--option-selected');
+                $('#tomc-book-organization--genres2-error-section').addClass('hidden');
+            } else if ($(e.target).data('genre-level') == 3){
+                for (let i = 0; i < this.chosenGenres3.length; i++){
+                    if (this.chosenGenres3[i] == $(e.target).data('genre-id')){
+                        this.chosenGenres3.splice(i, 1);
+                    }
+                }
+                $(e.target).removeClass('tomc-book-organization--option-selected');
+                $('#tomc-book-organization--genres3-error-section').addClass('hidden');
+            }
+        } else {
+            if ($(e.target).data('genre-level') == 1){
+                if (this.chosenGenres1 == 0) {
+                    this.chosenGenres1 = $(e.target).data('genre-id');
+                    $(e.target).addClass('tomc-book-organization--option-selected');
+                } else {
+                    $('#tomc-book-organization--genres1-error-section').removeClass('hidden');
+                }
+            } else if ($(e.target).data('genre-level') == 2){
+                if (this.chosenGenres2.length < 2) {
+                    this.chosenGenres2.push($(e.target).data('genre-id'));
+                    $(e.target).addClass('tomc-book-organization--option-selected');
+                } else {
+                    $('#tomc-book-organization--genres2-error-section').removeClass('hidden');
+                }
+            } else if ($(e.target).data('genre-level') == 3){
+                if (this.chosenGenres3.length < 10) {
+                    this.chosenGenres3.push($(e.target).data('genre-id'));
+                    $(e.target).addClass('tomc-book-organization--option-selected');
+                } else {
+                    $('#tomc-book-organization--genres3-error-section').removeClass('hidden');
+                }
+            }
+        }
     }
 
     addGenre(){
@@ -98,23 +147,23 @@ class NewBookForm{
                     'user' : this.currentUserId
                 },
                 success: (response) => {
+                    this.newSpan = $('<span />').addClass('tomc-book-organization--option').attr('data-genre-id', response).attr('aria-checked', true).html(this.genreName).on('click', this.toggleGenreSelection.bind(this));
+                    $('#tomc-book-organization--genres-' + this.addedGenreLevel).prepend(this.newSpan);
                     if (this.addedGenreLevel == 2){
-                        console.log('if genre-level == 2 met');
                         if (this.chosenGenres2.length < 2) {
-                            console.log('less than 3 genres');
                             this.chosenGenres2.push(response);
-                            console.log('the first item in the array is ' + this.chosenGenres2[0]);
+                            this.newSpan.addClass('tomc-book-organization--option-selected');
+                        } else {
+                            $('#tomc-book-organization--genres2-error-section').removeClass('hidden');
                         }
                     } else if (this.addedGenreLevel == 3){
-                        console.log('if genre level == 3 met');
                         if (this.chosenGenres3.length < 10) {
-                            console.log('less than 11 genres');
                             this.chosenGenres3.push(response);
-                            console.log('the first item in the array is ' + this.chosenGenres3[0]);
+                            this.newSpan.addClass('tomc-book-organization--option-selected');
+                        } else {
+                            $('#tomc-book-organization--genres3-error-section').removeClass('hidden');
                         }
                     }
-                    this.newSpan = $('<span />').addClass('tomc-book-organization--option').addClass('tomc-book-organization--option-selected').attr('data-genre-id', response).attr('aria-checked', true).html(this.genreName).on('click', this.toggleGenreSelection.bind(this));
-                    $('#tomc-book-organization--genres-' + this.addedGenreLevel).prepend(this.newSpan);
                     this.closeGenreOverlay();
                     $('html, body').animate({ scrollTop: 0 }, 'fast');
                 },
@@ -127,8 +176,37 @@ class NewBookForm{
         }
     }
 
+    addBookGenres(e){
+        if (this.chosenGenres1 == 0 && this.chosenGenres2.length == 0 && this.chosenGenres3.length == 0){
+            this.addBookGenresErrorsDiv.removeClass("hidden");
+        } else {
+            this.addBookGenresErrorsDiv.addClass("hidden");
+            $.ajax({
+                beforeSend: (xhr) => {
+                    xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+                },
+                url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/addBookGenres',
+                type: 'POST',
+                data: {
+                    'book' : this.createdBookId,
+                    'genres1' : this.chosenGenres1,
+                    'genres2' : JSON.stringify(this.chosenGenres2),
+                    'genres3' : JSON.stringify(this.chosenGenres3)
+                },
+                success: (response) => {
+                    this.bookGenresForm.addClass("hidden");
+                    this.bookPenNameForm.removeClass("hidden");
+                    $('html, body').animate({ scrollTop: 0 }, 'fast');
+                    console.log(response);
+                },
+                error: (response) => {
+                    console.log(response);
+                }
+            })
+        }
+    }
+
     addNewBook(e){
-        console.log('the user id is ' + $(e.target).data('user'));
         if (this.bookTitle.val() != '' && this.bookDescription.val() != '' && this.bookExcerpt.val() != ''){
             $.ajax({
                 beforeSend: (xhr) => {

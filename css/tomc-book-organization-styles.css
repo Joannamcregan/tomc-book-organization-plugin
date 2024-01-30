@@ -66,7 +66,7 @@
     color: white;
     font-size: 16;
     border-radius: 15px;
-    padding: 5px 10px;
+    padding: 10px 20px;
     cursor: pointer;
     display: block;
     margin: 40px auto 10px auto;
@@ -136,4 +136,20 @@
     background-color: transparent;
     color: #b41414;
     line-height: 0.7;
+}
+.tomc-book-organization--genres-error-section-mobile{
+    visibility: hidden;
+    line-height: 0;
+}
+.tomc-book-organization--genres-error-section-desktop{
+    visibility: visible;
+}
+@media screen and (max-width: 750px){
+    .tomc-book-organization--genres-error-section-mobile{
+        visibility: visible;
+    }
+    .tomc-book-organization--genres-error-section-desktop{
+        visibility: hidden;
+        line-height: 0;
+    }
 }
