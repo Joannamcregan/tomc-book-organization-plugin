@@ -186,7 +186,9 @@ class TOMCBookOrganizationPlugin {
             id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
             warning_name varchar(200) NOT NULL,
             createdate datetime NOT NULL,
-            PRIMARY KEY  (id)
+            createdBy bigint(20) unsigned NOT NULL,
+            PRIMARY KEY  (id),
+            FOREIGN KEY  (createdby) REFERENCES $this->users_table(id)
         ) $this->charset;");
 
         dbDelta("CREATE TABLE IF NOT EXISTS $this->book_warnings_table (

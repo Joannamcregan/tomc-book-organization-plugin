@@ -15,6 +15,18 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'addNewBookGenres'
     ));
+    register_rest_route('tomcBookorg/v1', 'addBookReadalikes', array(
+        'methods' => 'POST',
+        'callback' => 'addNewBookReadalikes'
+    ));
+    register_rest_route('tomcBookorg/v1', 'addWarning', array(
+        'methods' => 'POST',
+        'callback' => 'addNewWarning'
+    ));
+    register_rest_route('tomcBookorg/v1', 'addBookWarnings', array(
+        'methods' => 'POST',
+        'callback' => 'addNewBookWarnings'
+    ));
 }
 
 function addNewBook($data){
@@ -46,6 +58,41 @@ function addNewBook($data){
     }
 }
 
+function addNewBookReadalikes($data) {
+    $book = sanitize_text_field($data['book']);
+    $book0 = sanitize_text_field($data['book0']);
+    $author0 = sanitize_text_field($data['author0']);
+    $book1 = sanitize_text_field($data['book1']);
+    $author1 = sanitize_text_field($data['author1']);
+    $now = date('Y-m-d H:i:s');
+    $user = wp_get_current_user();
+    global $wpdb;
+    $book_readalikes_table = $wpdb->prefix . "tomc_book_readalikes";
+    $bookReadalikesQuery = 'insert into ' . $book_readalikes_table . '(bookid, createdate, readalike_title, readalike_author) values';
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        if ($book0 != ''){
+            $value = '(' . $book . ', "' . $now . '", "' . $book0 . '", ';
+            $value .= ($author0 == '') ? 'NULL' : '"' . $author0 . '"';
+            $value .= ')';
+            $bookReadalikesQuery .= $value;
+        }
+        if ($book0 != '' && $book1 != '') {
+            $bookReadalikesQuery .= ', ';
+        }
+        if ($book1 != ''){
+            $value = '(' . $book . ', "' . $now . '", "' . $book1 . '", ';
+            $value .= ($author1 == '') ? 'NULL' : '"' . $author1 . '"';
+            $value .= ')';
+            $bookReadalikesQuery .= $value;
+        }
+        $wpdb->query($bookReadalikesQuery);
+        return 'success';
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
 function addNewGenre($data) {
     $genre_name = sanitize_text_field($data['genre_name']);
     $genre_level = sanitize_text_field($data['genre_level']);
@@ -62,6 +109,26 @@ function addNewGenre($data) {
         $wpdb->insert($genres_table, $newGenre);
         $newGenreId = $wpdb->insert_id;
         return $newGenreId;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function addNewWarning($data) {
+    $warning_name = sanitize_text_field($data['warning_name']);
+    $userid = sanitize_text_field($data['user']);
+    $user = wp_get_current_user();
+    global $wpdb;
+    $warnings_table = $wpdb->prefix . "tomc_content_warnings";
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $newWarning = [];
+        $newWarning['warning_name'] = $warning_name;
+        $newWarning['createdBy'] = $userid;
+        $newWarning['createdate'] = date('Y-m-d H:i:s');
+        $wpdb->insert($warnings_table, $newWarning);
+        $newWarningId = $wpdb->insert_id;
+        return $newWarningId;
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';
@@ -96,6 +163,31 @@ function addNewBookGenres($data) {
             }
         }
         $wpdb->query($bookGenresQuery);
+        return 'success';
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function addNewBookWarnings($data) {
+    $book = sanitize_text_field($data['book']);
+    $warnings = explode(',', trim(sanitize_text_field($data['warnings']), '[]'));
+    $now = date('Y-m-d H:i:s');
+    $user = wp_get_current_user();
+    global $wpdb;
+    $book_warnings_table = $wpdb->prefix . "tomc_book_warnings";
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $bookWarningsQuery = 'insert into ' . $book_warnings_table . '(bookid, warningid, createdate) values ';
+        if (count($warnings) > 0){
+            foreach($warnings as $warning){
+                if (is_numeric($warning)){
+                    $values = ', (' . $book . ', ' . $warning . ', "' . $now . '")';
+                    $bookWarningsQuery .= $values;
+                }
+            }
+        }
+        $wpdb->query($bookWarningsQuery);
         return 'success';
     } else {
         wp_safe_redirect(site_url('/my-account'));

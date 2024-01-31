@@ -10,6 +10,7 @@ $genres_table = $wpdb->prefix . "tomc_genres";
 $book_genres_table = $wpdb->prefix . "tomc_book_genres";
 $users_table = $wpdb->prefix . "users";
 $posts_table = $wpdb->prefix . "posts";
+$warnings_table = $wpdb->prefix . "tomc_content_warnings";
 $userid = get_current_user_id();
 $user = wp_get_current_user();
 
@@ -113,6 +114,44 @@ get_header();
                     <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book-genres">save and continue</button>
                 </div>
 
+                <div class="tomc-book-organization--form hidden" id="tomc-book-organization--readalikes" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="POST">
+                    <h3>Please add one or two books you feel are similar to yours.</h3>
+                    <div class="tomc-book-organization--form-div">
+                        <input type="text" placeholder = "book title" id = "tomc-book-organization__readalike-book-0">
+                        <span>by</span>
+                        <input type="text" placeholder = "author" id = "tomc-book-organization__readalike-author-0">
+                    </div>
+                    <div class="tomc-book-organization--form-div">
+                        <input type="text" placeholder = "book title" id = "tomc-book-organization__readalike-book-1">
+                        <span>by</span>
+                        <input type="text" placeholder = "author" id = "tomc-book-organization__readalike-author-1">
+                    </div>     
+                    <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text left-text" id="tomc-book-organization--add-readalike-errors">
+                        <p>Choose at least one similar title to help readers find your book.</p>
+                    </div>
+                    <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book-readalikes">save and continue</button>
+                </div>
+
+                <div class="tomc-book-organization--form hidden" id="tomc-book-organization--book-warnings-form" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="POST">
+                    <h3>Does your book need any content warnings?</h3>
+                    <p>Please choose up to ten.</p>
+                    <p><em>This step is optional but appreciated by many readers. If a reader indicates that they find certain topics triggering, we will exclude books with matching content warnings from their search results.</em></p>
+                    <?php $warnings = $wpdb->get_results("SELECT * from $warnings_table ORDER BY warning_name;"); ?>
+                    <div class="tomc-book-organization--options-container" id="tomc-book-organization--warnings">
+                        <?php if ($warnings) {
+                            foreach($warnings as $warning) {
+                                ?><span data-warning-id="<?php echo $warning->id; ?>" class="tomc-book-organization--option-alt"><?php echo $warning ->warning_name;  ?></span>
+                            <?php }
+                        }
+                        ?><span class="tomc-book-organization--add-warning" data-user-id="<?php echo $userid; ?>">add a new warning</span>
+                    </div>
+                    <div class="hidden tomc-book-organization--red-text left-text" id="tomc-book-organization--warnings-error-section">
+                        <p class="tomc-book-organization--genres-error-section-mobile">To add another warning, first deselect one of the triggers you've already chosen by tapping it again.</p>
+                        <p class="tomc-book-organization--genres-error-section-desktop">To add another warning, first deselect one of the triggers you've already chosen by clicking it again.</p>
+                    </div>
+                    <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book-warnings">continue</button>
+                </div>
+
                 <div class="tomc-book-organization--form hidden" id="tomc-book-organization--book-pen-name" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="POST">
                     <p>Which name will you be publishing this book under?</p>
                     <select name="tomc-book-organization--book-pen-name">
@@ -124,14 +163,24 @@ get_header();
             </div>
 
             <div class="tomc-book-organization__overlay" id="tomc-book-organization__genre-overlay">
-            <div class="tomc-book-organization__overlay__top">
                 <div class="overlay-main-container"> 
-                    <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true"></i> -->
-                    <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button">X</span>
+                    <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" id="tomc-book-organization__genre-overlay-close"></i> -->
+                    <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__genre-overlay-close">X</span>
                     <div class="overlay-input-container">
-                        <input type="text" placeholder = "What's your book about?" id = "tomc-book-organization__new-genre">
+                        <input type="text" placeholder="What's your book about?" id="tomc-book-organization__new-genre">
                         <p class="hidden" id="tomc-book-organization--genre-overlay-error">Cannot be blank.</p>
                         <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-genre">save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tomc-book-organization__overlay" id="tomc-book-organization__warning-overlay">
+                <div class="overlay-main-container"> 
+                    <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" id="tomc-book-organization__warning-overlay-close"></i> -->
+                    <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__warning-overlay-close">X</span>
+                    <div class="overlay-input-container">
+                        <input type="text" placeholder="Content Warning" id="tomc-book-organization__new-warning">
+                        <p class="hidden" id="tomc-book-organization--warning-overlay-error">Cannot be blank.</p>
+                        <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-warning">save</button>
                     </div>
                 </div>
             </div>
