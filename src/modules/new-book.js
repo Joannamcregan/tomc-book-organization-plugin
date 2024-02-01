@@ -27,11 +27,16 @@ class NewBookForm{
         this.addBookExcerptError = $("#tomc-book-organization--add-book-errors-excerpt");
         this.addBookGenresErrorsDiv = $("#tomc-book-organization--add-book-genre-errors");
         this.addReadalikesError = $("#tomc-book-organization--add-readalike-errors");
-        // book genres form
+        //book genres form
         this.bookGenresForm = $("#tomc-book-organization--book-genre-form");
         this.addGenreButtons = $(".tomc-book-organization--add-genre");
         this.selectGenreButtons = $(".tomc-book-organization--option");
         this.saveGenresButton = $("#tomc-book-organization--save-book-genres");
+        //book identities form
+        this.bookIdentitiesForm = $("#tomc-book-organization--book-identities-form");
+        this.addIdentityOverlayButton = $(".tomc-book-organization--add-identity");
+        this.selectIdentityButtons = $(".tomc-book-organization--option-alt-0");
+        this.saveIdentitiesButton = $("#tomc-book-organization--save-book-identities");
         //book readalikes form
         this.bookReadalikesForm = $("#tomc-book-organization--readalikes");
         this.readalikeBook0 = $("#tomc-book-organization__readalike-book-0");
@@ -51,6 +56,10 @@ class NewBookForm{
         this.genreOverlay = $("#tomc-book-organization__genre-overlay");
         this.genreInput = $("#tomc-book-organization__new-genre");
         this.addGenreButton = $('#tomc-book-organization--new-genre');
+        this.identityOverlayCloseButton = $("#tomc-book-organization__identity-overlay-close");
+        this.identityOverlay = $("#tomc-book-organization__identity-overlay");
+        this.identityInput = $("#tomc-book-organization__new-identity");
+        this.addIdentityButton = $("#tomc-book-organization--new-identity");
         this.warningOverlayCloseButton = $("#tomc-book-organization__warning-overlay-close");
         this.warningOverlay = $("#tomc-book-organization__warning-overlay");
         this.warningInput = $("#tomc-book-organization__new-warning");
@@ -63,6 +72,7 @@ class NewBookForm{
         this.chosenGenres2 = [];
         this.chosenGenres3 = [];
         this.chosenWarnings = [];
+        this.chosenIdentities = [];
     }
 
     events() {
@@ -90,6 +100,11 @@ class NewBookForm{
         this.addNewWarningButton.on("click", this.addWarning.bind(this));
         this.selectWarningButtons.on("click", this.toggleWarningSelection.bind(this));
         this.saveWarningsButton.on("click", this.addBookWarnings.bind(this));
+        this.addIdentityOverlayButton.on("click", this.openIdentityOverlay.bind(this));
+        this.identityOverlayCloseButton.on("click", this.closeIdentityOverlay.bind(this));
+        this.addIdentityButton.on("click", this.addIdentity.bind(this));
+        this.selectIdentityButtons.on("click", this.toggleIdentitySelection.bind(this));
+        this.saveIdentitiesButton.on("click", this.addBookIdentities.bind(this));
     }
 
     closeGenreOverlay(){
@@ -102,7 +117,18 @@ class NewBookForm{
         this.addedGenreLevel = $(e.target).data('genre-level');
         this.currentUserId = $(e.target).data('user-id');
         this.genreOverlay.addClass("tomc-book-organization__box--active");
-        // console.log(this.searchOverlay.data('id'));
+        $("body").addClass("body-no-scroll");
+    }
+
+    closeIdentityOverlay(){
+        this.identityOverlay.removeClass("tomc-book-organization__box--active");
+        this.identityInput.val('');
+        $("body").removeClass("body-no-scroll");
+    }
+
+    openIdentityOverlay(e){
+        this.currentUserId = $(e.target).data('user-id');
+        this.identityOverlay.addClass("tomc-book-organization__box--active");
         $("body").addClass("body-no-scroll");
     }
 
@@ -168,6 +194,25 @@ class NewBookForm{
         }
     }
 
+    toggleIdentitySelection(e){
+        if ($(e.target).hasClass('tomc-book-organization--option-selected')){
+            $(e.target).removeClass('tomc-book-organization--option-selected');
+            for (let i = 0; i < this.chosenIdentities.length; i++){
+                if (this.chosenIdentities[i] == $(e.target).data('identity-id')){
+                    this.chosenIdentities.splice(i, 1);
+                }
+            }
+            $('#tomc-book-organization--identities-error-section').addClass('hidden');
+        } else {
+            if (this.chosenIdentities.length < 5) {
+                this.chosenIdentities.push($(e.target).data('identity-id'));
+                $(e.target).addClass('tomc-book-organization--option-selected');
+            } else {
+                $('#tomc-book-organization--identities-error-section').removeClass('hidden');
+            }
+        }
+    }
+
     toggleWarningSelection(e){
         if ($(e.target).hasClass('tomc-book-organization--option-selected')){
             $(e.target).removeClass('tomc-book-organization--option-selected');
@@ -184,6 +229,11 @@ class NewBookForm{
             } else {
                 $('#tomc-book-organization--warnings-error-section').removeClass('hidden');
             }
+        }
+        if (this.chosenWarnings.length > 0) {
+            this.saveWarningsButton.innerText = 'save and continue';
+        } else {
+            this.saveWarningsButton.innerText = 'save';
         }
     }
 
@@ -233,11 +283,45 @@ class NewBookForm{
         }
     }
 
+    addIdentity(){
+        this.identityName =  this.identityInput.val().substring(0, 200);
+        if (this.identityName != ''){
+            $.ajax({
+                beforeSend: (xhr) => {
+                    xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+                },
+                url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/addIdentity',
+                type: 'POST',
+                data: {
+                    'identity_name' : this.identityName,
+                    'user' : this.currentUserId
+                },
+                success: (response) => {
+                    if (response != 0 && response != 'fail') {
+                        this.newSpan = $('<span />').addClass('tomc-book-organization--option-alt-0').attr('data-identity-id', response).attr('aria-checked', true).html(this.identityName).on('click', this.toggleIdentitySelection.bind(this));
+                        $('#tomc-book-organization--identities').prepend(this.newSpan);
+                        if (this.chosenIdentities.length < 5) {
+                            this.chosenIdentities.push(response);
+                            this.newSpan.addClass('tomc-book-organization--option-selected');
+                        } else {
+                            $('#tomc-book-organization--identities-error-section').removeClass('hidden');
+                        }
+                    }                    
+                    this.closeIdentityOverlay();
+                    $('html, body').animate({ scrollTop: 0 }, 'fast');
+                },
+                error: (response) => {
+                    console.log(response);
+                }
+            })
+        } else {
+            $('#tomc-book-organization--identity-overlay-error').removeClass("hidden");
+        }
+    }
+
     addWarning(){
-        console.log('add warning got called');
         this.warningName =  this.warningInput.val().substring(0, 200);
-        console.log('the warning to add is ' + this.warningName);
-        if (this.warningInput != ''){
+        if (this.warningName != ''){
             $.ajax({
                 beforeSend: (xhr) => {
                     xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -249,9 +333,7 @@ class NewBookForm{
                     'user' : this.currentUserId
                 },
                 success: (response) => {
-                    console.log('adding the warning came back as a success')
                     if (response != 0 && response != 'fail') {
-                        console.log('the response from adding the warning is ' + response);
                         this.newSpan = $('<span />').addClass('tomc-book-organization--option-alt').attr('data-warning-id', response).attr('aria-checked', true).html(this.warningName).on('click', this.toggleWarningSelection.bind(this));
                         $('#tomc-book-organization--warnings').prepend(this.newSpan);
                         if (this.chosenWarnings.length < 10) {
@@ -292,7 +374,7 @@ class NewBookForm{
                 },
                 success: (response) => {
                     this.bookGenresForm.addClass("hidden");
-                    this.bookPenNameForm.removeClass("hidden");
+                    this.bookIdentitiesForm.removeClass("hidden");
                     $('html, body').animate({ scrollTop: 0 }, 'fast');
                     console.log(response);
                 },
@@ -301,6 +383,29 @@ class NewBookForm{
                 }
             })
         }
+    }chosenIdentities
+
+    addBookIdentities(e){
+        $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+            },
+            url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/addBookIdentities',
+            type: 'POST',
+            data: {
+                'book' : this.createdBookId,
+                'identities' : JSON.stringify(this.chosenIdentities)
+            },
+            success: (response) => {
+                this.bookIdentitiesForm.addClass("hidden");
+                this.bookWarningsForm.removeClass("hidden");
+                $('html, body').animate({ scrollTop: 0 }, 'fast');
+                console.log(response);
+            },
+            error: (response) => {
+                console.log(response);
+            }
+        })
     }
 
     addBookWarnings(e){
@@ -313,13 +418,12 @@ class NewBookForm{
                 type: 'POST',
                 data: {
                     'book' : this.createdBookId,
-                    'warnings' : this.chosenWarnings
+                    'warnings' : JSON.stringify(this.chosenWarnings)
                 },
                 success: (response) => {
                     this.bookWarningsForm.addClass("hidden");
                     this.bookReadalikesForm.removeClass("hidden");
                     $('html, body').animate({ scrollTop: 0 }, 'fast');
-                    console.log(response);
                 },
                 error: (response) => {
                     console.log(response);
@@ -354,7 +458,6 @@ class NewBookForm{
                     this.bookReadalikesForm.addClass("hidden");
                     this.bookWarningsForm.removeClass("hidden");
                     $('html, body').animate({ scrollTop: 0 }, 'fast');
-                    console.log(response);
                 },
                 error: (response) => {
                     console.log(response);
@@ -384,7 +487,6 @@ class NewBookForm{
                     this.addBookForm.addClass("hidden");
                     this.bookGenresForm.removeClass("hidden");
                     $('html, body').animate({ scrollTop: 0 }, 'fast');
-                    console.log(response);
                 },
                 error: (response) => {
                     console.log(response);

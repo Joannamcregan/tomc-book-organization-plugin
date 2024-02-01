@@ -24,6 +24,8 @@ class TOMCBookOrganizationPlugin {
         $this->book_genres_table = $wpdb->prefix . "tomc_book_genres";
         $this->content_warnings_table = $wpdb->prefix . "tomc_content_warnings";
         $this->book_warnings_table = $wpdb->prefix . "tomc_book_warnings";
+        $this->character_identities_table = $wpdb->prefix . "tomc_character_identities";
+        $this->book_identities_table = $wpdb->prefix . "tomc_book_identities";
         $this->users_table = $wpdb->prefix . "users";
         $this->posts_table = $wpdb->prefix . "posts";
 
@@ -69,17 +71,6 @@ class TOMCBookOrganizationPlugin {
             'post_type' => 'page'
         );
         wp_insert_post($add_book_page);
-    }
-
-    function addEditBookPage() {
-        $edit_book_page = array(
-            'post_title' => 'Edit Your Book',
-            'post_content' => '',
-            'post_status' => 'publish',
-            'post_author' => 0,
-            'post_type' => 'page'
-        );
-        wp_insert_post($edit_book_page);
     }
 
     function addMyPenNamesPage() {
@@ -182,6 +173,25 @@ class TOMCBookOrganizationPlugin {
             FOREIGN KEY  (genreid) REFERENCES $this->genres_table(id)
         ) $this->charset;");
 
+        dbDelta("CREATE TABLE IF NOT EXISTS $this->character_identities_table (
+            id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            identity_name varchar(200) NOT NULL,
+            createdate datetime NOT NULL,
+            createdBy bigint(20) unsigned NOT NULL,
+            PRIMARY KEY  (id),
+            FOREIGN KEY  (createdby) REFERENCES $this->users_table(id)
+        ) $this->charset;");
+
+        dbDelta("CREATE TABLE IF NOT EXISTS $this->book_identities_table (
+            id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            bookid bigint(20) unsigned NOT NULL,
+            identityid bigint(20) unsigned NOT NULL,
+            createdate datetime NOT NULL,
+            PRIMARY KEY  (id),
+            FOREIGN KEY  (bookid) REFERENCES $this->books_table(id),
+            FOREIGN KEY  (identityid) REFERENCES $this->character_identities_table(id)
+        ) $this->charset;");
+        
         dbDelta("CREATE TABLE IF NOT EXISTS $this->content_warnings_table (
             id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
             warning_name varchar(200) NOT NULL,

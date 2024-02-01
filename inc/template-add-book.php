@@ -11,6 +11,7 @@ $book_genres_table = $wpdb->prefix . "tomc_book_genres";
 $users_table = $wpdb->prefix . "users";
 $posts_table = $wpdb->prefix . "posts";
 $warnings_table = $wpdb->prefix . "tomc_content_warnings";
+$identities_table = $wpdb->prefix . "tomc_character_identities";
 $userid = get_current_user_id();
 $user = wp_get_current_user();
 
@@ -110,8 +111,27 @@ get_header();
                     </div>     
                     <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text left-text" id="tomc-book-organization--add-book-genre-errors">
                         <p>Please choose at least one thing that your book is about.</p>
-                    </div>  
+                    </div>
                     <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book-genres">save and continue</button>
+                </div>
+
+                <div class="tomc-book-organization--form hidden" id="tomc-book-organization--book-identities-form" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="POST">
+                    <h3>Which identities describe your main character(s)?</h3>
+                    <p>Please choose up to five.</p>
+                    <?php $identities = $wpdb->get_results("SELECT * from $identities_table ORDER BY identity_name;"); ?>
+                    <div class="tomc-book-organization--options-container" id="tomc-book-organization--identities">
+                        <?php if ($identities) {
+                            foreach($identities as $identity) {
+                                ?><span data-identity-id="<?php echo $identity->id; ?>" class="tomc-book-organization--option-alt-0"><?php echo $identity ->identity_name;  ?></span>
+                            <?php }
+                        }
+                        ?><span class="tomc-book-organization--add-identity" data-user-id="<?php echo $userid; ?>">add a new identity</span>
+                    </div>
+                    <div class="hidden tomc-book-organization--red-text left-text" id="tomc-book-organization--identities-error-section">
+                        <p class="tomc-book-organization--genres-error-section-mobile">To add another identity, first deselect one of the identities you've already chosen by tapping it again.</p>
+                        <p class="tomc-book-organization--genres-error-section-desktop">To add another identity, first deselect one of the identities you've already chosen by clicking it again.</p>
+                    </div>
+                    <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book-identities">save and continue</button>
                 </div>
 
                 <div class="tomc-book-organization--form hidden" id="tomc-book-organization--readalikes" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="POST">
@@ -181,6 +201,17 @@ get_header();
                         <input type="text" placeholder="Content Warning" id="tomc-book-organization__new-warning">
                         <p class="hidden" id="tomc-book-organization--warning-overlay-error">Cannot be blank.</p>
                         <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-warning">save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tomc-book-organization__overlay" id="tomc-book-organization__identity-overlay">
+                <div class="overlay-main-container"> 
+                    <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" id="tomc-book-organization__identity-overlay-close"></i> -->
+                    <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__identity-overlay-close">X</span>
+                    <div class="overlay-input-container">
+                        <input type="text" placeholder="Main Character Identity" id="tomc-book-organization__new-identity">
+                        <p class="hidden" id="tomc-book-organization--identity-overlay-error">Cannot be blank.</p>
+                        <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-identity">save</button>
                     </div>
                 </div>
             </div>

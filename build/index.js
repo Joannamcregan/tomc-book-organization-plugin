@@ -42,11 +42,16 @@ class NewBookForm {
     this.addBookExcerptError = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--add-book-errors-excerpt");
     this.addBookGenresErrorsDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--add-book-genre-errors");
     this.addReadalikesError = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--add-readalike-errors");
-    // book genres form
+    //book genres form
     this.bookGenresForm = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--book-genre-form");
     this.addGenreButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".tomc-book-organization--add-genre");
     this.selectGenreButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".tomc-book-organization--option");
     this.saveGenresButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--save-book-genres");
+    //book identities form
+    this.bookIdentitiesForm = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--book-identities-form");
+    this.addIdentityOverlayButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".tomc-book-organization--add-identity");
+    this.selectIdentityButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".tomc-book-organization--option-alt-0");
+    this.saveIdentitiesButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--save-book-identities");
     //book readalikes form
     this.bookReadalikesForm = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--readalikes");
     this.readalikeBook0 = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization__readalike-book-0");
@@ -66,6 +71,10 @@ class NewBookForm {
     this.genreOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization__genre-overlay");
     this.genreInput = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization__new-genre");
     this.addGenreButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--new-genre');
+    this.identityOverlayCloseButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization__identity-overlay-close");
+    this.identityOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization__identity-overlay");
+    this.identityInput = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization__new-identity");
+    this.addIdentityButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--new-identity");
     this.warningOverlayCloseButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization__warning-overlay-close");
     this.warningOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization__warning-overlay");
     this.warningInput = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization__new-warning");
@@ -78,6 +87,7 @@ class NewBookForm {
     this.chosenGenres2 = [];
     this.chosenGenres3 = [];
     this.chosenWarnings = [];
+    this.chosenIdentities = [];
   }
   events() {
     this.subtitleYesButton.on("click", function () {
@@ -104,6 +114,11 @@ class NewBookForm {
     this.addNewWarningButton.on("click", this.addWarning.bind(this));
     this.selectWarningButtons.on("click", this.toggleWarningSelection.bind(this));
     this.saveWarningsButton.on("click", this.addBookWarnings.bind(this));
+    this.addIdentityOverlayButton.on("click", this.openIdentityOverlay.bind(this));
+    this.identityOverlayCloseButton.on("click", this.closeIdentityOverlay.bind(this));
+    this.addIdentityButton.on("click", this.addIdentity.bind(this));
+    this.selectIdentityButtons.on("click", this.toggleIdentitySelection.bind(this));
+    this.saveIdentitiesButton.on("click", this.addBookIdentities.bind(this));
   }
   closeGenreOverlay() {
     this.genreOverlay.removeClass("tomc-book-organization__box--active");
@@ -114,7 +129,16 @@ class NewBookForm {
     this.addedGenreLevel = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-level');
     this.currentUserId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('user-id');
     this.genreOverlay.addClass("tomc-book-organization__box--active");
-    // console.log(this.searchOverlay.data('id'));
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
+  }
+  closeIdentityOverlay() {
+    this.identityOverlay.removeClass("tomc-book-organization__box--active");
+    this.identityInput.val('');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").removeClass("body-no-scroll");
+  }
+  openIdentityOverlay(e) {
+    this.currentUserId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('user-id');
+    this.identityOverlay.addClass("tomc-book-organization__box--active");
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
   }
   closeWarningOverlay() {
@@ -176,6 +200,24 @@ class NewBookForm {
       }
     }
   }
+  toggleIdentitySelection(e) {
+    if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-book-organization--option-selected')) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--option-selected');
+      for (let i = 0; i < this.chosenIdentities.length; i++) {
+        if (this.chosenIdentities[i] == jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('identity-id')) {
+          this.chosenIdentities.splice(i, 1);
+        }
+      }
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--identities-error-section').addClass('hidden');
+    } else {
+      if (this.chosenIdentities.length < 5) {
+        this.chosenIdentities.push(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('identity-id'));
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('tomc-book-organization--option-selected');
+      } else {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--identities-error-section').removeClass('hidden');
+      }
+    }
+  }
   toggleWarningSelection(e) {
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-book-organization--option-selected')) {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--option-selected');
@@ -192,6 +234,11 @@ class NewBookForm {
       } else {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--warnings-error-section').removeClass('hidden');
       }
+    }
+    if (this.chosenWarnings.length > 0) {
+      this.saveWarningsButton.innerText = 'save and continue';
+    } else {
+      this.saveWarningsButton.innerText = 'save';
     }
   }
   addGenre() {
@@ -241,11 +288,46 @@ class NewBookForm {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--genre-overlay-error').removeClass("hidden");
     }
   }
+  addIdentity() {
+    this.identityName = this.identityInput.val().substring(0, 200);
+    if (this.identityName != '') {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+        beforeSend: xhr => {
+          xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+        },
+        url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/addIdentity',
+        type: 'POST',
+        data: {
+          'identity_name': this.identityName,
+          'user': this.currentUserId
+        },
+        success: response => {
+          if (response != 0 && response != 'fail') {
+            this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-alt-0').attr('data-identity-id', response).attr('aria-checked', true).html(this.identityName).on('click', this.toggleIdentitySelection.bind(this));
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--identities').prepend(this.newSpan);
+            if (this.chosenIdentities.length < 5) {
+              this.chosenIdentities.push(response);
+              this.newSpan.addClass('tomc-book-organization--option-selected');
+            } else {
+              jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--identities-error-section').removeClass('hidden');
+            }
+          }
+          this.closeIdentityOverlay();
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
+            scrollTop: 0
+          }, 'fast');
+        },
+        error: response => {
+          console.log(response);
+        }
+      });
+    } else {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--identity-overlay-error').removeClass("hidden");
+    }
+  }
   addWarning() {
-    console.log('add warning got called');
     this.warningName = this.warningInput.val().substring(0, 200);
-    console.log('the warning to add is ' + this.warningName);
-    if (this.warningInput != '') {
+    if (this.warningName != '') {
       jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
         beforeSend: xhr => {
           xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -257,9 +339,7 @@ class NewBookForm {
           'user': this.currentUserId
         },
         success: response => {
-          console.log('adding the warning came back as a success');
           if (response != 0 && response != 'fail') {
-            console.log('the response from adding the warning is ' + response);
             this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-alt').attr('data-warning-id', response).attr('aria-checked', true).html(this.warningName).on('click', this.toggleWarningSelection.bind(this));
             jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--warnings').prepend(this.newSpan);
             if (this.chosenWarnings.length < 10) {
@@ -301,7 +381,7 @@ class NewBookForm {
         },
         success: response => {
           this.bookGenresForm.addClass("hidden");
-          this.bookPenNameForm.removeClass("hidden");
+          this.bookIdentitiesForm.removeClass("hidden");
           jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
             scrollTop: 0
           }, 'fast');
@@ -313,6 +393,31 @@ class NewBookForm {
       });
     }
   }
+  chosenIdentities;
+  addBookIdentities(e) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      beforeSend: xhr => {
+        xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+      },
+      url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/addBookIdentities',
+      type: 'POST',
+      data: {
+        'book': this.createdBookId,
+        'identities': JSON.stringify(this.chosenIdentities)
+      },
+      success: response => {
+        this.bookIdentitiesForm.addClass("hidden");
+        this.bookWarningsForm.removeClass("hidden");
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
+          scrollTop: 0
+        }, 'fast');
+        console.log(response);
+      },
+      error: response => {
+        console.log(response);
+      }
+    });
+  }
   addBookWarnings(e) {
     if (this.chosenWarnings.length > 0) {
       jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
@@ -323,7 +428,7 @@ class NewBookForm {
         type: 'POST',
         data: {
           'book': this.createdBookId,
-          'warnings': this.chosenWarnings
+          'warnings': JSON.stringify(this.chosenWarnings)
         },
         success: response => {
           this.bookWarningsForm.addClass("hidden");
@@ -331,7 +436,6 @@ class NewBookForm {
           jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
             scrollTop: 0
           }, 'fast');
-          console.log(response);
         },
         error: response => {
           console.log(response);
@@ -369,7 +473,6 @@ class NewBookForm {
           jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
             scrollTop: 0
           }, 'fast');
-          console.log(response);
         },
         error: response => {
           console.log(response);
@@ -400,7 +503,6 @@ class NewBookForm {
           jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
             scrollTop: 0
           }, 'fast');
-          console.log(response);
         },
         error: response => {
           console.log(response);

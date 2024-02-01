@@ -27,6 +27,14 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'addNewBookWarnings'
     ));
+    register_rest_route('tomcBookorg/v1', 'addIdentity', array(
+        'methods' => 'POST',
+        'callback' => 'addNewIdentity'
+    )); 
+    register_rest_route('tomcBookorg/v1', 'addBookIdentities', array(
+        'methods' => 'POST',
+        'callback' => 'addNewBookIdentities'
+    ));
 }
 
 function addNewBook($data){
@@ -115,6 +123,26 @@ function addNewGenre($data) {
     }
 }
 
+function addNewIdentity($data) {
+    $identity_name = sanitize_text_field($data['identity_name']);
+    $userid = sanitize_text_field($data['user']);
+    $user = wp_get_current_user();
+    global $wpdb;
+    $identities_table = $wpdb->prefix . "tomc_character_identities";
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $newIdentity = [];
+        $newIdentity['identity_name'] = $identity_name;
+        $newIdentity['createdBy'] = $userid;
+        $newIdentity['createdate'] = date('Y-m-d H:i:s');
+        $wpdb->insert($identities_table, $newIdentity);
+        $newIdentityId = $wpdb->insert_id;
+        return $newIdentityId;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
 function addNewWarning($data) {
     $warning_name = sanitize_text_field($data['warning_name']);
     $userid = sanitize_text_field($data['user']);
@@ -170,6 +198,35 @@ function addNewBookGenres($data) {
     }
 }
 
+function addNewBookIdentities($data) {
+    $book = sanitize_text_field($data['book']);
+    $identities = explode(',', trim(sanitize_text_field($data['identities']), '[]'));
+    $now = date('Y-m-d H:i:s');
+    $user = wp_get_current_user();
+    global $wpdb;
+    $book_identities_table = $wpdb->prefix . "tomc_book_identities";
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $bookIdentitiesQuery = 'insert into ' . $book_identities_table . '(bookid, identityid, createdate) values ';
+        if (count($identities) > 0){
+            for($i = 0; $i < count($identities); $i++){
+                if (is_numeric($identities[$i])){
+                    if($i == 0){
+                        $values = '(' . $book . ', ' . $identities[$i] . ', "' . $now . '")';                        
+                    }else{
+                        $values = ', (' . $book . ', ' . $identities[$i] . ', "' . $now . '")';  
+                    }
+                    $bookIdentitiesQuery .= $values;
+                }
+            }
+        }
+        $wpdb->query($bookIdentitiesQuery);
+        return $bookIdentitiesQuery;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
 function addNewBookWarnings($data) {
     $book = sanitize_text_field($data['book']);
     $warnings = explode(',', trim(sanitize_text_field($data['warnings']), '[]'));
@@ -180,9 +237,13 @@ function addNewBookWarnings($data) {
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
         $bookWarningsQuery = 'insert into ' . $book_warnings_table . '(bookid, warningid, createdate) values ';
         if (count($warnings) > 0){
-            foreach($warnings as $warning){
-                if (is_numeric($warning)){
-                    $values = ', (' . $book . ', ' . $warning . ', "' . $now . '")';
+            for($i = 0; $i < count($warnings); $i++){
+                if (is_numeric($warnings[$i])){
+                    if($i == 0){
+                        $values = '(' . $book . ', ' . $warnings[$i] . ', "' . $now . '")';                        
+                    }else{
+                        $values = ', (' . $book . ', ' . $warnings[$i] . ', "' . $now . '")';  
+                    }
                     $bookWarningsQuery .= $values;
                 }
             }
