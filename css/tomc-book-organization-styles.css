@@ -51,9 +51,9 @@
     padding: 10px;
 }
 .tomc-book-organization--save-button-alt{
-    background-color: white;
-    color: black;
-    font-size: 14;
+    background-color: #0c6980;
+    color: white;
+    font-size: 16;
     border-radius: 10px;
     padding: 5px 10px;
     width: 300px;
@@ -78,53 +78,20 @@
     flex-wrap: wrap;
     max-width: 90%;
 }
-.tomc-book-organization--add-genre{
+.tomc-book-organization--add-option{
     margin: 3px;
-    border-radius: 15px;
+    border-radius: 5px;
     border: solid #0c6980 5px;
-    background: #0c6980;
-    color: white;
+    /* background: #0c6980;
+    color: white; */
     padding: 10px;
     cursor: pointer;
+    max-height: fit-content;
 }
-.tomc-book-organization--add-identity{
-    margin: 3px;
-    border-radius: 15px;
-    border: solid #014a5c 5px;
-    background: #014a5c;
-    color: white;
-    padding: 10px;
-    cursor: pointer;
-}
-.tomc-book-organization--add-warning{
-    margin: 3px;
-    border-radius: 15px;
-    border: solid #602f32 5px;
-    background: #602f32;
-    color: white;
-    padding: 10px;
-    cursor: pointer;
-}
-.tomc-book-organization--option{
+.tomc-book-organization--option-span{
     margin: 3px;
     border-radius: 15px;
     border: solid #e44e2d 5px;
-    padding: 10px;
-    background: none;
-    cursor: pointer;
-}
-.tomc-book-organization--option-alt{
-    margin: 3px;
-    border-radius: 15px;
-    border: solid #893e43 5px;
-    padding: 10px;
-    background: none;
-    cursor: pointer;
-}
-.tomc-book-organization--option-alt-0{
-    margin: 3px;
-    border-radius: 15px;
-    border: solid #0c698e 5px;
     padding: 10px;
     background: none;
     cursor: pointer;
@@ -177,6 +144,53 @@
 }
 .tomc-book-organization--genres-error-section-desktop{
     visibility: visible;
+}
+.tomc-book-organization--product-option{
+    margin: 10px auto 40px auto;
+    min-width: 300px;
+    max-width: 500px;
+    background: #e3caab;
+    padding: 30px 10px;
+    border-radius: 15px;
+    justify-content: center;
+}
+.tomc-book-organization--product-option img{
+    max-width: 200px;
+    margin: 10px auto;
+    display: block;
+}
+.tomc-book-organization--product-option input[type=checkbox]{
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+}
+.tomc-book-organization--product-option input[type=radio]{
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+}
+.tomc-book-organization--product-option select{
+    border-radius: 5px;
+    text-align: left;
+    width: 300px;
+    margin-top: 10px;
+    font-size: 16;
+    display: block;
+    margin: 10px auto 20px auto;
+    padding: 2px 5px;
+}
+.tomc-book-organization--centered-label{
+    display: block;
+    margin: auto;
+    text-align: center;
+    /* max-width: fit-content; */
+}
+.tomc-book-organization--large-label{
+    font-size: 18;
+}
+.tomc-book-organization--add-product{
+    margin: auto;
+    max-width: fit-content;
 }
 @media screen and (max-width: 750px){
     .tomc-book-organization--genres-error-section-mobile{

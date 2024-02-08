@@ -35,6 +35,18 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'addNewBookIdentities'
     ));
+    register_rest_route('tomcBookorg/v1', 'addBookPenName', array(
+        'methods' => 'POST',
+        'callback' => 'addNewBookPenName'
+    ));
+    register_rest_route('tomcBookorg/v1', 'addBookProducts', array(
+        'methods' => 'POST',
+        'callback' => 'addNewBookProducts'
+    ));
+    register_rest_route('tomcBookorg/v1', 'addBookPublish', array(
+        'methods' => 'POST',
+        'callback' => 'publishNewBook'
+    ));
 }
 
 function addNewBook($data){
@@ -93,7 +105,7 @@ function addNewBookReadalikes($data) {
             $value .= ')';
             $bookReadalikesQuery .= $value;
         }
-        $wpdb->query($bookReadalikesQuery);
+        $wpdb->query($wpdb->prepare($bookReadalikesQuery));
         return 'success';
     } else {
         wp_safe_redirect(site_url('/my-account'));
@@ -190,7 +202,7 @@ function addNewBookGenres($data) {
                 }
             }
         }
-        $wpdb->query($bookGenresQuery);
+        $wpdb->query($wpdb->prepare($bookGenresQuery));
         return 'success';
     } else {
         wp_safe_redirect(site_url('/my-account'));
@@ -219,7 +231,7 @@ function addNewBookIdentities($data) {
                 }
             }
         }
-        $wpdb->query($bookIdentitiesQuery);
+        $wpdb->query($wpdb->prepare($bookIdentitiesQuery));
         return $bookIdentitiesQuery;
     } else {
         wp_safe_redirect(site_url('/my-account'));
@@ -248,7 +260,109 @@ function addNewBookWarnings($data) {
                 }
             }
         }
-        $wpdb->query($bookWarningsQuery);
+        $wpdb->query($wpdb->prepare($bookWarningsQuery));
+        return 'success';
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function addNewBookPenName($data) {
+    $book = sanitize_text_field($data['book']);
+    $penname = sanitize_text_field($data['penname']);
+    $now = date('Y-m-d H:i:s');
+    $user = wp_get_current_user();
+    global $wpdb;
+    $book_pen_name_table = $wpdb->prefix . "tomc_pen_names_books";
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $newBookPenName = [];
+        $newBookPenName['bookid'] = $book;
+        $newBookPenName['pennameid'] = $penname;
+        $newBookPenName['createdate'] = date('Y-m-d H:i:s');
+        $wpdb->insert($book_pen_name_table, $newBookPenName);
+        $newBookPenNameId = $wpdb->insert_id;
+        return $newBookPenNameId;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function addNewBookProducts($data) {
+    $book = sanitize_text_field($data['book']);
+    $products = explode(',', trim(sanitize_text_field($data['products']), '[]'));
+    $types = explode(',', trim(sanitize_text_field($data['types']), '[]'));
+    $imageProductId = sanitize_text_field($data['image']);
+    $now = date('Y-m-d H:i:s');
+    $user = wp_get_current_user();
+    global $wpdb;
+    $book_products_table = $wpdb->prefix . "tomc_book_products";
+    $books_table = $wpdb->prefix .  "tomc_books";
+
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $bookProductsQuery = 'INSERT INTO ' . $book_products_table . '(bookid, productid, typeid, createdate) VALUES ';
+        if (count($products) > 0){
+            for($i = 0; $i < count($products); $i++){
+                if ($i == 0){
+                    $values = '(' . $book . ', ' . $products[$i] . ', ' . $types[$i] . ', "' . $now . '")';                        
+                } else {
+                    $values = ', (' . $book . ', ' . $products[$i] . ', ' . $types[$i] . ', "' . $now . '")';  
+                }
+                $bookProductsQuery .= $values;
+            }
+        }
+        $wpdb->query($wpdb->prepare($bookProductsQuery));
+        $wpdb->update(
+            $books_table,
+            array(
+                'product_image_id' => $imageProductId
+            ),
+            array(
+                'id' => $book
+            )
+        );
+        return 'success';
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function publishNewBook($data) {
+    $book = sanitize_text_field($data['book']);
+    $products = explode(',', trim(sanitize_text_field($data['products']), '[]'));
+    $types = explode(',', trim(sanitize_text_field($data['types']), '[]'));
+    $imageProductId = sanitize_text_field($data['image']);
+    $now = date('Y-m-d H:i:s');
+    $user = wp_get_current_user();
+    global $wpdb;
+    $book_products_table = $wpdb->prefix . "tomc_book_products";
+    $books_table = $wpdb->prefix .  "tomc_books";
+
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $bookProductsQuery = 'INSERT INTO ' . $book_products_table . '(bookid, productid, typeid, createdate) VALUES ';
+        if (count($products) > 0){
+            for($i = 0; $i < count($products); $i++){
+                if ($i == 0){
+                    $values = '(' . $book . ', ' . $products[$i] . ', ' . $types[$i] . ', "' . $now . '")';                        
+                } else {
+                    $values = ', (' . $book . ', ' . $products[$i] . ', ' . $types[$i] . ', "' . $now . '")';  
+                }
+                $bookProductsQuery .= $values;
+            }
+        }
+        $wpdb->query($wpdb->prepare($bookProductsQuery));
+        $wpdb->update(
+            $books_table,
+            array(
+                'product_image_id' => $imageProductId,
+                'isLive' => 1
+            ),
+            array(
+                'id' => $book
+            )
+        );
         return 'success';
     } else {
         wp_safe_redirect(site_url('/my-account'));

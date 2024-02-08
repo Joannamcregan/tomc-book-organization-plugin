@@ -12,6 +12,7 @@ $users_table = $wpdb->prefix . "users";
 $posts_table = $wpdb->prefix . "posts";
 $warnings_table = $wpdb->prefix . "tomc_content_warnings";
 $identities_table = $wpdb->prefix . "tomc_character_identities";
+$product_types_table = $wpdb->prefix . "tomc_product_types";
 $userid = get_current_user_id();
 $user = wp_get_current_user();
 
@@ -59,7 +60,7 @@ get_header();
                         <label for="tomc-book-organization--excerpt">Please enter a short excerpt from your book (up to 500 characters. You can add longer excerpts on the individual product pages for each format of your book.)</label><br>
                         <textarea class="tomc-book-organization--new-book centered-text" name="tomc-book-organization--excerpt" id="tomc-book-organization--excerpt" required></textarea>
                     </div>     
-                    <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text left-text" id="tomc-book-organization--add-book-errors">
+                    <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text" id="tomc-book-organization--add-book-errors">
                         <p class="hidden" id="tomc-book-organization--add-book-errors-title">Your book's title cannot be blank.</p>
                         <p class="hidden" id="tomc-book-organization--add-book-errors-description">Add a description to help readers who will love your book find it.</p>
                         <p class="hidden" id="tomc-book-organization--add-book-errors-excerpt">Add an excerpt to help readers get a feel for your book.</p>
@@ -73,10 +74,10 @@ get_header();
                     <div class="tomc-book-organization--options-container" id="tomc-book-organization--genres-1">
                         <?php if ($genres1) {
                             foreach($genres1 as $genre1) {
-                                ?><span id="tomc-book-organization-genre1-<?php echo $genre1->id; ?>" data-genre-level="1" data-genre-id="<?php echo $genre1->id; ?>" class="tomc-book-organization--option"><?php echo $genre1 ->genre_name;  ?></span>
+                                ?><span id="tomc-book-organization-genre1-<?php echo $genre1->id; ?>" data-genre-level="1" data-genre-id="<?php echo $genre1->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre1 ->genre_name;  ?></span>
                             <?php }
                         }
-                        ?><div class="hidden tomc-book-organization--red-text left-text" id="tomc-book-organization--genres1-error-section">
+                        ?><div class="hidden tomc-book-organization--red-text" id="tomc-book-organization--genres1-error-section">
                             <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
                             <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
                         </div>
@@ -86,11 +87,11 @@ get_header();
                     <div class="tomc-book-organization--options-container" id="tomc-book-organization--genres-2">
                         <?php if ($genres2) {
                             foreach($genres2 as $genre2) {
-                                ?><span id="tomc-book-organization-genre2-<?php echo $genre2->id; ?>" data-genre-level="2" data-genre-id="<?php echo $genre2->id; ?>" class="tomc-book-organization--option" aria-checked="false"><?php echo $genre2 ->genre_name;  ?></span>
+                                ?><span id="tomc-book-organization-genre2-<?php echo $genre2->id; ?>" data-genre-level="2" data-genre-id="<?php echo $genre2->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span" aria-checked="false"><?php echo $genre2 ->genre_name;  ?></span>
                             <?php }
-                            ?><span class="tomc-book-organization--add-genre" data-genre-level="2" data-user-id="<?php echo $userid; ?>">add a new genre</span>
+                            ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="2" data-user-id="<?php echo $userid; ?>">add a new genre</span>
                         <?php }
-                        ?><div class="hidden tomc-book-organization--red-text left-text" id="tomc-book-organization--genres2-error-section">
+                        ?><div class="hidden tomc-book-organization--red-text" id="tomc-book-organization--genres2-error-section">
                             <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
                             <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
                         </div>
@@ -100,16 +101,16 @@ get_header();
                     <div class="tomc-book-organization--options-container" id="tomc-book-organization--genres-3">
                         <?php if ($genres3) {
                             foreach($genres3 as $genre3) {
-                                ?><span id="tomc-book-organization-genre3-<?php echo $genre3->id; ?>" data-genre-level="3" data-genre-id="<?php echo $genre3->id; ?>" class="tomc-book-organization--option"><?php echo $genre3 ->genre_name;  ?></span>
+                                ?><span id="tomc-book-organization-genre3-<?php echo $genre3->id; ?>" data-genre-level="3" data-genre-id="<?php echo $genre3->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre3 ->genre_name;  ?></span>
                             <?php }
-                            ?><span class="tomc-book-organization--add-genre" data-genre-level="3" data-user-id="<?php echo $userid; ?>">add a new subgenre</span>
+                            ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="3" data-user-id="<?php echo $userid; ?>">add a new subgenre</span>
                         <?php }
-                        ?><div class="hidden tomc-book-organization--red-text left-text" id="tomc-book-organization--genres3-error-section">
+                        ?><div class="hidden tomc-book-organization--red-text" id="tomc-book-organization--genres3-error-section">
                             <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
                             <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
                         </div>
                     </div>     
-                    <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text left-text" id="tomc-book-organization--add-book-genre-errors">
+                    <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text" id="tomc-book-organization--add-book-genre-errors">
                         <p>Please choose at least one thing that your book is about.</p>
                     </div>
                     <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book-genres">save and continue</button>
@@ -122,14 +123,17 @@ get_header();
                     <div class="tomc-book-organization--options-container" id="tomc-book-organization--identities">
                         <?php if ($identities) {
                             foreach($identities as $identity) {
-                                ?><span data-identity-id="<?php echo $identity->id; ?>" class="tomc-book-organization--option-alt-0"><?php echo $identity ->identity_name;  ?></span>
+                                ?><span data-identity-id="<?php echo $identity->id; ?>" class="tomc-book-organization--option-alt-0 tomc-book-organization--option-span"><?php echo $identity ->identity_name;  ?></span>
                             <?php }
                         }
-                        ?><span class="tomc-book-organization--add-identity" data-user-id="<?php echo $userid; ?>">add a new identity</span>
+                        ?><span class="tomc-book-organization--add-identity tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new identity</span>
                     </div>
-                    <div class="hidden tomc-book-organization--red-text left-text" id="tomc-book-organization--identities-error-section">
+                    <div class="hidden tomc-book-organization--red-text" id="tomc-book-organization--identities-error-section">
                         <p class="tomc-book-organization--genres-error-section-mobile">To add another identity, first deselect one of the identities you've already chosen by tapping it again.</p>
                         <p class="tomc-book-organization--genres-error-section-desktop">To add another identity, first deselect one of the identities you've already chosen by clicking it again.</p>
+                    </div>
+                    <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text" id="tomc-book-organization--add-no-identities-selected">
+                        <p>Please choose as least one identity.</p>
                     </div>
                     <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book-identities">save and continue</button>
                 </div>
@@ -146,7 +150,7 @@ get_header();
                         <span>by</span>
                         <input type="text" placeholder = "author" id = "tomc-book-organization__readalike-author-1">
                     </div>     
-                    <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text left-text" id="tomc-book-organization--add-readalike-errors">
+                    <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text" id="tomc-book-organization--add-readalike-errors">
                         <p>Choose at least one similar title to help readers find your book.</p>
                     </div>
                     <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book-readalikes">save and continue</button>
@@ -160,12 +164,12 @@ get_header();
                     <div class="tomc-book-organization--options-container" id="tomc-book-organization--warnings">
                         <?php if ($warnings) {
                             foreach($warnings as $warning) {
-                                ?><span data-warning-id="<?php echo $warning->id; ?>" class="tomc-book-organization--option-alt"><?php echo $warning ->warning_name;  ?></span>
+                                ?><span data-warning-id="<?php echo $warning->id; ?>" class="tomc-book-organization--option-alt tomc-book-organization--option-span"><?php echo $warning ->warning_name;  ?></span>
                             <?php }
                         }
-                        ?><span class="tomc-book-organization--add-warning" data-user-id="<?php echo $userid; ?>">add a new warning</span>
+                        ?><span class="tomc-book-organization--add-warning tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new warning</span>
                     </div>
-                    <div class="hidden tomc-book-organization--red-text left-text" id="tomc-book-organization--warnings-error-section">
+                    <div class="hidden tomc-book-organization--red-text" id="tomc-book-organization--warnings-error-section">
                         <p class="tomc-book-organization--genres-error-section-mobile">To add another warning, first deselect one of the triggers you've already chosen by tapping it again.</p>
                         <p class="tomc-book-organization--genres-error-section-desktop">To add another warning, first deselect one of the triggers you've already chosen by clicking it again.</p>
                     </div>
@@ -173,12 +177,51 @@ get_header();
                 </div>
 
                 <div class="tomc-book-organization--form hidden" id="tomc-book-organization--book-pen-name" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="POST">
-                    <p>Which name will you be publishing this book under?</p>
-                    <select name="tomc-book-organization--book-pen-name">
-                        <option value="test">test</option>
-                    </select>
-                    <button class="tomc-book-organization--save-button-alt" id="tomc-book-organization--new-pen-name">a new pen name</button>
+                    <h3>Which name will you be publishing this book under?</h3>
+                    <?php $pen_names = $wpdb->get_results("SELECT * from $posts_table WHERE post_type = 'author-profile' and post_author = $userid ORDER BY post_title;");
+                    if ($pen_names) {
+                        ?><select name="tomc-book-organization--book-pen-name" id="tomc-book-organization--book-pen-name-select">
+                        <?php foreach($pen_names as $name) {
+                            ?><option value="<?php echo $name->ID; ?>"><?php echo $name->post_title; ?></option>
+                        <?php }
+                    ?></select><br>
+                    <?php }                    
+                    ?><span class="tomc-book-organization--add-pen-name tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new author name</span>
                     <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book-pen-name">save and continue</button>
+                </div>
+
+                <div class="hidden" id="tomc-book-organization--book-products" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="POST">
+                    <h3 class="centered-text">Please select all products associated with this book.</h3>
+                    <?php $product_types = $wpdb->get_results("SELECT * from $product_types_table ORDER BY type_name;"); 
+                    $author_products = $wpdb->get_results("SELECT * from $posts_table WHERE post_type = 'product' and post_status = 'publish' and post_author = $userid ORDER BY post_title;");
+                    foreach($author_products as $product) {
+                        ?><div id="tomc-book-organization--book-products-div">
+                            <div class="tomc-book-organization--product-option">
+                                <input class="tomc-book-organization--product-checkbox" type="checkbox" id="<?php echo 'tomc-book-organization--book-product-id-' . $product->ID; ?>" value="<?php echo $product->ID; ?>">
+                                <label class="tomc-book-organization--large-label" for="<?php echo 'tomc-book-organization--book-product-id-' . $product->ID; ?>"><?php echo $product->post_title; ?></label></br>
+                                <img src="<?php echo get_the_post_thumbnail_url($product->ID); ?>" /><br><br>
+                                <label class="tomc-book-organization--centered-label" for="<?php echo 'tomc-book-organization--select-for-' . $product->ID; ?>">Which format is this product?</label>
+                                <select class="tomc-book-organization--product-format" id="<?php echo 'tomc-book-organization--select-for-' . $product->ID; ?>">
+                                    <?php foreach($product_types as $type) {
+                                        ?><option value="<?php echo $type->id; ?>"><?php echo $type->type_name; ?></option>
+                                    <?php }
+                                ?></select><br>
+                                <input type="radio" name="tomc-book-organization--main-image-product" value="<?php echo $product->ID; ?>" id="<?php echo 'tomc-book-organization--book-product-image-' . $product->ID; ?>">
+                                <label for="<?php echo 'tomc-book-organization--book-product-image-' . $product->ID; ?>">use this product's image as the main image for this book.</labal>
+                            </div>                        
+                        </div>
+                    <?php }
+                    ?><div class="tomc-book-organization--add-product tomc-book-organization--add-option">
+                        <span>add a new product</span>
+                    </div>
+                    <div id="tomc-book-organization--products-instruction-section" class="hidden">
+                        <p class="centered-text">Add your new product through your <a href="<?php echo esc_url(site_url('/dashboard'));?>">Vendor Dashboard</a>, then visit your Books By Me page to link your product to this book. We've saved everything you've entered so far.</p>
+                    </div>
+                    <div id="tomc-book-organization--product-image-error" class="hidden">
+                        <p class="centered-text">Please select the product whose image you want to use as the main image for this book.</p>
+                    </div>
+                    <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book-products">save</button>
+                    <button class="tomc-book-organization--save-button-alt" id="tomc-book-organization--save-book-products-publish">save and publish</button>
                 </div>
             </div>
 
@@ -188,7 +231,7 @@ get_header();
                     <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__genre-overlay-close">X</span>
                     <div class="overlay-input-container">
                         <input type="text" placeholder="What's your book about?" id="tomc-book-organization__new-genre">
-                        <p class="hidden" id="tomc-book-organization--genre-overlay-error">Cannot be blank.</p>
+                        <p class="hidden centered-text" id="tomc-book-organization--genre-overlay-error">Cannot be blank.</p>
                         <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-genre">save</button>
                     </div>
                 </div>
@@ -199,7 +242,7 @@ get_header();
                     <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__warning-overlay-close">X</span>
                     <div class="overlay-input-container">
                         <input type="text" placeholder="Content Warning" id="tomc-book-organization__new-warning">
-                        <p class="hidden" id="tomc-book-organization--warning-overlay-error">Cannot be blank.</p>
+                        <p class="hidden centered-text" id="tomc-book-organization--warning-overlay-error">Cannot be blank.</p>
                         <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-warning">save</button>
                     </div>
                 </div>
@@ -210,8 +253,19 @@ get_header();
                     <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__identity-overlay-close">X</span>
                     <div class="overlay-input-container">
                         <input type="text" placeholder="Main Character Identity" id="tomc-book-organization__new-identity">
-                        <p class="hidden" id="tomc-book-organization--identity-overlay-error">Cannot be blank.</p>
+                        <p class="hidden centered-text" id="tomc-book-organization--identity-overlay-error">Cannot be blank.</p>
                         <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-identity">save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tomc-book-organization__overlay" id="tomc-book-organization__pen-name-overlay">
+                <div class="overlay-main-container"> 
+                    <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" id="tomc-book-organization__pen-name-overlay-close"></i> -->
+                    <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__pen-name-overlay-close">X</span>
+                    <div class="overlay-input-container">
+                        <input type="text" placeholder="New Name" id="tomc-book-organization__new-pen-name">
+                        <p class="hidden centered-text" id="tomc-book-organization--pen-name-overlay-error">Cannot be blank.</p>
+                        <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-pen-name">save</button>
                     </div>
                 </div>
             </div>
