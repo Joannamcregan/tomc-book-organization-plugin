@@ -24,6 +24,8 @@ class TOMCBookOrganizationPlugin {
         $this->book_genres_table = $wpdb->prefix . "tomc_book_genres";
         $this->content_warnings_table = $wpdb->prefix . "tomc_content_warnings";
         $this->book_warnings_table = $wpdb->prefix . "tomc_book_warnings";
+        $this->publication_languages_table = $wpdb->prefix . "tomc_publication_languages";
+        $this->book_languages_table = $wpdb->prefix . "tomc_book_languages";
         $this->character_identities_table = $wpdb->prefix . "tomc_character_identities";
         $this->book_identities_table = $wpdb->prefix . "tomc_book_identities";
         $this->users_table = $wpdb->prefix . "users";
@@ -209,6 +211,25 @@ class TOMCBookOrganizationPlugin {
             PRIMARY KEY  (id),
             FOREIGN KEY  (bookid) REFERENCES $this->books_table(id),
             FOREIGN KEY  (warningid) REFERENCES $this->content_warnings_table(id)
+        ) $this->charset;");
+
+        dbDelta("CREATE TABLE IF NOT EXISTS $this->publication_languages_table (
+            id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            language_name varchar(200) NOT NULL,
+            createdate datetime NOT NULL,
+            createdBy bigint(20) unsigned NOT NULL,
+            PRIMARY KEY  (id),
+            FOREIGN KEY  (createdby) REFERENCES $this->users_table(id)
+        ) $this->charset;");
+
+        dbDelta("CREATE TABLE IF NOT EXISTS $this->book_languages_table (
+            id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            bookid bigint(20) unsigned NOT NULL,
+            languageid bigint(20) unsigned NOT NULL,
+            createdate datetime NOT NULL,
+            PRIMARY KEY  (id),
+            FOREIGN KEY  (bookid) REFERENCES $this->books_table(id),
+            FOREIGN KEY  (languageid) REFERENCES $this->publication_languages_table(id)
         ) $this->charset;");
 
         if (post_exists('My Books', '', '', 'page', 'publish') == 0){

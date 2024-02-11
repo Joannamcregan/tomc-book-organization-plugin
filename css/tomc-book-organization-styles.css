@@ -1,3 +1,6 @@
+.tomc-book-options--cursor-pointer{
+    cursor: pointer;
+}
 #add-book-button{
     background-color: #0c698e;
     color: white;
@@ -10,6 +13,9 @@
 }
 .tomc-book-organization--red-text{
     color: #893e43;
+}
+.tomc-book-organization--blue-text{
+    color: #0c6980;
 }
 .tomc-book-organization--form{
     margin: auto;

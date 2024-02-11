@@ -7,6 +7,14 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'addNewBook'
     ));
+    register_rest_route('tomcBookorg/v1', 'addLanguage', array(
+        'methods' => 'POST',
+        'callback' => 'addNewLanguage'
+    ));
+    register_rest_route('tomcBookorg/v1', 'addBookLanguages', array(
+        'methods' => 'POST',
+        'callback' => 'addNewBookLanguages'
+    ));
     register_rest_route('tomcBookorg/v1', 'addGenre', array(
         'methods' => 'POST',
         'callback' => 'addNewGenre'
@@ -63,7 +71,7 @@ function addNewBook($data){
         $newBook = [];
         $newBook['title'] = $title;
         $newBook['subtitle'] = $subtitle != '' ? $subtitle : NULL;
-        $newBook['publication_edition'] = is_int($edition) ? $edition : NULL;
+        $newBook['publication_edition'] = $edition;
         $newBook['product_image_id'] = NULL;
         $newBook['book_description'] = $description;
         $newBook['book_excerpt'] = $excerpt;
@@ -72,6 +80,26 @@ function addNewBook($data){
         $wpdb->insert($books_table, $newBook);
         $newBookId = $wpdb->insert_id;
         return $newBookId;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function addNewLanguage($data) {
+    $language_name = sanitize_text_field($data['language_name']);
+    $userid = sanitize_text_field($data['user']);
+    $user = wp_get_current_user();
+    global $wpdb;
+    $languages_table = $wpdb->prefix . "tomc_publication_languages";
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $newLanguage = [];
+        $newLanguage['language_name'] = $language_name;
+        $newLanguage['createdBy'] = $userid;
+        $newLanguage['createdate'] = date('Y-m-d H:i:s');
+        $wpdb->insert($languages_table, $newLanguage);
+        $newLanguageId = $wpdb->insert_id;
+        return $newLanguageId;
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';
@@ -204,6 +232,35 @@ function addNewBookGenres($data) {
         }
         $wpdb->query($wpdb->prepare($bookGenresQuery));
         return 'success';
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function addNewBookLanguages($data) {
+    $book = sanitize_text_field($data['book']);
+    $languages = explode(',', trim(sanitize_text_field($data['languages']), '[]'));
+    $now = date('Y-m-d H:i:s');
+    $user = wp_get_current_user();
+    global $wpdb;
+    $book_languages_table = $wpdb->prefix . "tomc_book_languages";
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $bookLanguagesQuery = 'insert into ' . $book_languages_table . '(bookid, languageid, createdate) values ';
+        if (count($languages) > 0){
+            for($i = 0; $i < count($languages); $i++){
+                if (is_numeric($languages[$i])){
+                    if($i == 0){
+                        $values = '(' . $book . ', ' . $languages[$i] . ', "' . $now . '")';                        
+                    }else{
+                        $values = ', (' . $book . ', ' . $languages[$i] . ', "' . $now . '")';  
+                    }
+                    $bookLanguagesQuery .= $values;
+                }
+            }
+        }
+        $wpdb->query($wpdb->prepare($bookLanguagesQuery));
+        return $bookLanguagesQuery;
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';

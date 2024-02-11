@@ -27,6 +27,11 @@ class NewBookForm{
         this.addBookExcerptError = $("#tomc-book-organization--add-book-errors-excerpt");
         this.addBookGenresErrorsDiv = $("#tomc-book-organization--add-book-genre-errors");
         this.addReadalikesError = $("#tomc-book-organization--add-readalike-errors");
+        //book languages form
+        this.bookLanguagesForm = $("#tomc-book-organization--book-languages-form");
+        this.addLanguageButton = $(".tomc-book-organization--add-language");
+        this.selectLanguageButtons = $(".tomc-book-organization--option-languages");
+        this.saveLanguagesButton = $("#tomc-book-organization--save-book-languages");
         //book genres form
         this.bookGenresForm = $("#tomc-book-organization--book-genre-form");
         this.addGenreButtons = $(".tomc-book-organization--add-genre");
@@ -61,6 +66,10 @@ class NewBookForm{
         this.bookProductsAddProductButton = $(".tomc-book-organization--add-product");
         this.bookProductsAddInstructions = $("#tomc-book-organization--products-instruction-section");
         //overlays
+        this.languageOverlayCloseButton = $("#tomc-book-organization__language-overlay-close");
+        this.languageOverlay = $("#tomc-book-organization__language-overlay");
+        this.languageInput = $("#tomc-book-organization__new-language");
+        this.addNewLanguageButton = $("#tomc-book-organization--new-language");
         this.genreOverlayCloseButton = $("#tomc-book-organization__genre-overlay-close");
         this.genreOverlay = $("#tomc-book-organization__genre-overlay");
         this.genreInput = $("#tomc-book-organization__new-genre");
@@ -80,6 +89,7 @@ class NewBookForm{
         this.events();
         this.createdBookId;
         this.currentUserId;
+        this.chosenLanguages = [];
         this.addedGenreLevel = '';
         this.chosenGenres1 = 0;
         this.chosenGenres2 = [];
@@ -102,7 +112,12 @@ class NewBookForm{
             $("#tomc-book-organization--edition-div").addClass("hidden");
         });
         this.bookProductsAddProductButton.on("click", this.showAddProductsInstructions.bind(this));
-        this.addBookSaveButton.on("click", this.addNewBook.bind(this));        
+        this.addBookSaveButton.on("click", this.addNewBook.bind(this));         
+        this.addLanguageButton.on("click", this.openLanguageOverlay.bind(this));
+        this.languageOverlayCloseButton.on("click", this.closeLanguageOverlay.bind(this));
+        this.addNewLanguageButton.on("click", this.addLanguage.bind(this));
+        this.selectLanguageButtons.on("click", this.toggleLanguageSelection.bind(this));
+        this.saveLanguagesButton.on("click", this.addBookLanguages.bind(this));        
         this.addGenreButtons.on("click", this.openGenreOverlay.bind(this));
         this.genreOverlayCloseButton.on("click", this.closeGenreOverlay.bind(this));
         this.addGenreButton.on("click", this.addGenre.bind(this));
@@ -130,6 +145,18 @@ class NewBookForm{
     showAddProductsInstructions(){
         console.log('book products add button called');
         this.bookProductsAddInstructions .hasClass("hidden") ? this.bookProductsAddInstructions.removeClass("hidden") : this.bookProductsAddInstructions.addClass("hidden");
+    }
+
+    closeLanguageOverlay(){
+        this.languageOverlay.removeClass("tomc-book-organization__box--active");
+        this.languageInput.val('');
+        $("body").removeClass("body-no-scroll");
+    }
+
+    openLanguageOverlay(e){
+        this.currentUserId = $(e.target).data('user-id');
+        this.languageOverlay.addClass("tomc-book-organization__box--active");
+        $("body").addClass("body-no-scroll");
     }
 
     closeGenreOverlay(){
@@ -251,6 +278,26 @@ class NewBookForm{
         }
     }
 
+    toggleLanguageSelection(e){
+        if ($(e.target).hasClass('tomc-book-organization--option-selected')){
+            $(e.target).removeClass('tomc-book-organization--option-selected');
+            for (let i = 0; i < this.chosenLanguages.length; i++){
+                if (this.chosenLanguages[i] == $(e.target).data('language-id')){
+                    this.chosenLanguages.splice(i, 1);
+                }
+            }
+            $('#tomc-book-organization--languages-error-section').addClass('hidden');
+        } else {
+            if (this.chosenLanguages.length < 3) {
+                $("#tomc-book-organization--add-no-languages-selected").addClass("hidden");
+                this.chosenLanguages.push($(e.target).data('language-id'));
+                $(e.target).addClass('tomc-book-organization--option-selected');
+            } else {
+                $('#tomc-book-organization--languages-error-section').removeClass('hidden');
+            }
+        }
+    }
+
     toggleWarningSelection(e){
         if ($(e.target).hasClass('tomc-book-organization--option-selected')){
             $(e.target).removeClass('tomc-book-organization--option-selected');
@@ -358,6 +405,43 @@ class NewBookForm{
         }
     }
 
+    addLanguage(){
+        this.languageName =  this.languageInput.val().substring(0, 200);
+        if (this.languageName != ''){
+            $.ajax({
+                beforeSend: (xhr) => {
+                    xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+                },
+                url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/addLanguage',
+                type: 'POST',
+                data: {
+                    'language_name' : this.languageName,
+                    'user' : this.currentUserId
+                },
+                success: (response) => {
+                    if (response != 0 && response != 'fail') {
+                        this.newSpan = $('<span />').addClass('tomc-book-organization--option-span').attr('data-language-id', response).attr('aria-checked', true).html(this.languageName).on('click', this.toggleLanguageSelection.bind(this));
+                        $('#tomc-book-organization--languages').prepend(this.newSpan);                        
+                        $("#tomc-book-organization--add-no-identities-selected").addClass("hidden");
+                        if (this.chosenLanguages.length < 3) {
+                            this.chosenLanguages.push(response);
+                            this.newSpan.addClass('tomc-book-organization--option-selected');
+                        } else {
+                            $('#tomc-book-organization--languages-error-section').removeClass('hidden');
+                        }
+                    }                    
+                    this.closeLanguageOverlay();
+                    $('html, body').animate({ scrollTop: 0 }, 'fast');
+                },
+                error: (response) => {
+                    console.log(response);
+                }
+            })
+        } else {
+            $('#tomc-book-organization--language-overlay-error').removeClass("hidden");
+        }
+    }
+
     addWarning(){
         this.warningName =  this.warningInput.val().substring(0, 200);
         if (this.warningName != ''){
@@ -457,6 +541,33 @@ class NewBookForm{
         }
     }chosenIdentities
 
+    addBookLanguages(e){
+        if (this.chosenLanguages.length > 0){
+            $.ajax({
+                beforeSend: (xhr) => {
+                    xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+                },
+                url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/addBookLanguages',
+                type: 'POST',
+                data: {
+                    'book' : this.createdBookId,
+                    'languages' : JSON.stringify(this.chosenLanguages)
+                },
+                success: (response) => {
+                    console.log(response);
+                    this.bookLanguagesForm.addClass("hidden");
+                    this.bookGenresForm.removeClass("hidden");
+                    $('html, body').animate({ scrollTop: 0 }, 'fast');
+                },
+                error: (response) => {
+                    console.log(response);
+                }
+            })
+        } else {
+            $("#tomc-book-organization--add-no-languages-selected").removeClass("hidden");
+        }        
+    }
+
     addBookIdentities(e){
         if (this.chosenIdentities.length > 0){
             $.ajax({
@@ -506,7 +617,7 @@ class NewBookForm{
             })
         } else {
             this.bookWarningsForm.addClass("hidden");
-            this.bookPenNameForm.removeClass("hidden");
+            this.bookReadalikesForm.removeClass("hidden");
             $('html, body').animate({ scrollTop: 0 }, 'fast');
         }
     }
@@ -565,6 +676,8 @@ class NewBookForm{
     }
 
     addNewBook(e){
+        console.log('book edition is ' + this.bookEdition.val().substring(0, 10));
+        console.log('and as an int it is ' + parseInt(this.bookEdition.val().substring(0, 10)));
         if (this.bookTitle.val() != '' && this.bookDescription.val() != '' && this.bookExcerpt.val() != ''){
             $.ajax({
                 beforeSend: (xhr) => {
@@ -575,15 +688,17 @@ class NewBookForm{
                 data: {
                     'title' : this.bookTitle.val().substring(0, 200),
                     'subtitle' : this.bookSubtitle.val().substring(0, 200),
-                    'edition' : parseInt(this.bookEdition.val().substring(0, 10)),
+                    'edition' : parseInt(this.bookEdition.val().substring(0, 10), 10),
                     'description' : this.bookDescription.val().substring(0, 1000),
                     'excerpt' : this.bookExcerpt.val().substring(0, 500),
                     'user' : $(e.target).data('user')
                 },
                 success: (response) => {
+                    console.log(response);
                     this.createdBookId = response;
                     this.addBookForm.addClass("hidden");
-                    this.bookGenresForm.removeClass("hidden");
+                    // this.bookGenresForm.removeClass("hidden");                    
+                    this.bookLanguagesForm.removeClass("hidden");
                     $('html, body').animate({ scrollTop: 0 }, 'fast');
                 },
                 error: (response) => {
