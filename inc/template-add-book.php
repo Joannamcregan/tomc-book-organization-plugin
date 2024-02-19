@@ -28,38 +28,38 @@ get_header();
                 <h2 class="centered-text">Your Book's Details</h2>
                 <div class="tomc-book-organization--form" id="tomc-book-organization--add-book" >
                     <input type="hidden" name="action" value="addbook">
-                    <div class="tomc-book-organization--form-div">
-                        <label for="tomc-book-organization--title"  class="tomc-book-organization--new-book centered-text">What is your book's title? </label><br>
+                    <div class="tomc-book-organization--form-div background-stripe-0">
+                        <label for="tomc-book-organization--title"  class="tomc-book-organization--new-book centered-text">Enter your book's title. </label><br>
                         <input type="text" class="tomc-book-organization--new-book centered-text" name="tomc-book-organization--title" id="tomc-book-organization--title" required>
                     </div>
-                    <div class="tomc-book-organization--form-div">
+                    <div class="tomc-book-organization--form-div background-stripe-1">
                         <p>Does your book have a subtitle?</p>
                         <input type="radio" id="tomc-book-organization--subtitle-yes" name="tomc-book-organization--subtitle" value="yes">
                         <label for="tomc-book-organization--subtitle-yes">yes</label>
                         <input type="radio" id="tomc-book-organization--subtitle-no" name="tomc-book-organization--subtitle" value="no" checked>
                         <label for="tomc-book-organization--subtitle-no">no</label>
                     </div>
-                    <div class="tomc-book-organization--form-div hidden" id="tomc-book-organization--subtitle-div">
-                        <label for="tomc-book-organization--subtitle">What is your book's subtitle?</label><br>
+                    <div class="tomc-book-organization--form-div hidden background-stripe-2" id="tomc-book-organization--subtitle-div">
+                        <label for="tomc-book-organization--subtitle">Enter your book's subtitle</label><br>
                         <input type="text" class="tomc-book-organization--new-book centered-text" name="tomc-book-organization--subtitle" id="tomc-book-organization--subtitle">
                     </div>
-                    <div class="tomc-book-organization--form-div">
+                    <div class="tomc-book-organization--form-div background-stripe-3">
                         <p>Is this book a new edition of a previously published work? (Please note: we consider a new edition to be a book with updated content, not a book that was previously published in another format or on another platform.)</p>
                         <input type="radio" id="tomc-book-organization--new-edition-yes" name="tomc-book-organization--new-edition" value="yes">
                         <label for="tomc-book-organization--new-edition-yes">yes</label>
                         <input type="radio" id="tomc-book-organization--new-edition-no" name="tomc-book-organization--new-edition" value="no" checked>
                         <label for="tomc-book-organization--new-edition-no">no</label>
                     </div>
-                    <div class="tomc-book-organization--form-div hidden" id="tomc-book-organization--edition-div">
-                        <label for="tomc-book-organization--edition">What is your book's current edition number?</label><br>
+                    <div class="tomc-book-organization--form-div hidden background-stripe-4" id="tomc-book-organization--edition-div">
+                        <label for="tomc-book-organization--edition">Enter this book's edition number.</label><br>
                         <input type="text" class="tomc-book-organization--new-book centered-text" name="tomc-book-organization--edition" id="tomc-book-organization--edition">
                     </div>
-                    <div class="tomc-book-organization--form-div">
-                        <label for="tomc-book-organization--description">Please enter your book's description (up to 1000 characters). </label><br>
+                    <div class="tomc-book-organization--form-div background-stripe-5">
+                        <label for="tomc-book-organization--description">Enter your book's description (up to 1000 characters). </label><br>
                         <textarea class="tomc-book-organization--new-book centered-text" name="tomc-book-organization--description" id="tomc-book-organization--description" required></textarea>
                     </div>
-                    <div class="tomc-book-organization--form-div">
-                        <label for="tomc-book-organization--excerpt">Please enter a short excerpt from your book (up to 500 characters. You can add longer excerpts on the individual product pages for each format of your book.)</label><br>
+                    <div class="tomc-book-organization--form-div background-stripe-0">
+                        <label for="tomc-book-organization--excerpt">Enter a short excerpt from your book (up to 500 characters. You can add longer excerpts on the individual product pages for each format of your book.)</label><br>
                         <textarea class="tomc-book-organization--new-book centered-text" name="tomc-book-organization--excerpt" id="tomc-book-organization--excerpt" required></textarea>
                     </div>     
                     <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text" id="tomc-book-organization--add-book-errors">
@@ -251,8 +251,8 @@ get_header();
 
             <div class="tomc-book-organization__overlay" id="tomc-book-organization__genre-overlay">
                 <div class="overlay-main-container"> 
-                    <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" id="tomc-book-organization__genre-overlay-close"></i> -->
-                    <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__genre-overlay-close">X</span>
+                    <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" id="tomc-book-organization__genre-overlay-close"></i>
+                    <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__genre-overlay-close">X</span> -->
                     <div class="overlay-input-container">
                         <input type="text" placeholder="What's your book about?" id="tomc-book-organization__new-genre">
                         <p class="hidden centered-text" id="tomc-book-organization--genre-overlay-error">Cannot be blank.</p>
@@ -262,8 +262,8 @@ get_header();
             </div>
             <div class="tomc-book-organization__overlay" id="tomc-book-organization__warning-overlay">
                 <div class="overlay-main-container"> 
-                    <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" id="tomc-book-organization__warning-overlay-close"></i> -->
-                    <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__warning-overlay-close">X</span>
+                    <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" id="tomc-book-organization__warning-overlay-close"></i>
+                    <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__warning-overlay-close">X</span> -->
                     <div class="overlay-input-container">
                         <input type="text" placeholder="Content Warning" id="tomc-book-organization__new-warning">
                         <p class="hidden centered-text" id="tomc-book-organization--warning-overlay-error">Cannot be blank.</p>
@@ -273,8 +273,8 @@ get_header();
             </div>
             <div class="tomc-book-organization__overlay" id="tomc-book-organization__identity-overlay">
                 <div class="overlay-main-container"> 
-                    <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" id="tomc-book-organization__identity-overlay-close"></i> -->
-                    <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__identity-overlay-close">X</span>
+                    <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" id="tomc-book-organization__identity-overlay-close"></i>
+                    <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__identity-overlay-close">X</span> -->
                     <div class="overlay-input-container">
                         <input type="text" placeholder="Main Character Identity" id="tomc-book-organization__new-identity">
                         <p class="hidden centered-text" id="tomc-book-organization--identity-overlay-error">Cannot be blank.</p>
@@ -284,8 +284,8 @@ get_header();
             </div>
             <div class="tomc-book-organization__overlay" id="tomc-book-organization__pen-name-overlay">
                 <div class="overlay-main-container"> 
-                    <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" id="tomc-book-organization__pen-name-overlay-close"></i> -->
-                    <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__pen-name-overlay-close">X</span>
+                    <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" id="tomc-book-organization__pen-name-overlay-close"></i>
+                    <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__pen-name-overlay-close">X</span> -->
                     <div class="overlay-input-container">
                         <input type="text" placeholder="New Name" id="tomc-book-organization__new-pen-name">
                         <p class="hidden centered-text" id="tomc-book-organization--pen-name-overlay-error">Cannot be blank.</p>
@@ -295,8 +295,8 @@ get_header();
             </div>
             <div class="tomc-book-organization__overlay" id="tomc-book-organization__language-overlay">
                 <div class="overlay-main-container"> 
-                    <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" id="tomc-book-organization__pen-name-overlay-close"></i> -->
-                    <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__language-overlay-close">X</span>
+                    <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" id="tomc-book-organization__pen-name-overlay-close"></i>
+                    <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__language-overlay-close">X</span> -->
                     <div class="overlay-input-container">
                         <input type="text" placeholder="New Language" id="tomc-book-organization__new-language">
                         <p class="hidden centered-text" id="tomc-book-organization--pen-name-overlay-error">Cannot be blank.</p>

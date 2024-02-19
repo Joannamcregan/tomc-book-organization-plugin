@@ -55,6 +55,18 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'publishNewBook'
     ));
+    register_rest_route('tomcBookorg/v1', 'getBasicInfo', array(
+        'methods' => 'POST',
+        'callback' => 'getBasicInfo'
+    ));
+    register_rest_route('tomcBookorg/v1', 'updateBasicInfo', array(
+        'methods' => 'POST',
+        'callback' => 'updateBasicInfo'
+    ));
+    register_rest_route('tomcBookorg/v1', 'getLanguages', array(
+        'methods' => 'POST',
+        'callback' => 'getLanguages'
+    ));
 }
 
 function addNewBook($data){
@@ -86,6 +98,49 @@ function addNewBook($data){
     }
 }
 
+function getBasicInfo($data){
+    $user = wp_get_current_user();
+    global $wpdb;
+    $books_table = $wpdb->prefix .  "tomc_books";
+    $book = sanitize_text_field($data['book']);
+    $query = 'SELECT * FROM ' . $books_table . ' WHERE ID = ' . $book;
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $result = $wpdb->get_row($query, ARRAY_A);
+        return $result;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function updateBasicInfo($data){
+    $user = wp_get_current_user();
+    global $wpdb;
+    $books_table = $wpdb->prefix .  "tomc_books";
+    $book = sanitize_text_field($data['book']);
+    $title = sanitize_text_field($data['title']);
+    $subtitle = sanitize_text_field($data['subtitle']);
+    $edition = sanitize_text_field($data['edition']);
+    $description = sanitize_text_field($data['description']);
+    $excerpt = sanitize_text_field($data['excerpt']);
+    $query = 'SELECT * FROM ' . $books_table . ' WHERE ID = ' . $book;
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $wpdb->update(
+            $books_table, 
+            array(
+                'title' => $title,
+                'subtitle' => $subtitle,
+                'publication_edition' => $edition,
+                'book_description' => $description,
+                'book_excerpt' => $excerpt
+            ), 
+            array('id' => $book));
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
 function addNewLanguage($data) {
     $language_name = sanitize_text_field($data['language_name']);
     $userid = sanitize_text_field($data['user']);
@@ -100,6 +155,28 @@ function addNewLanguage($data) {
         $wpdb->insert($languages_table, $newLanguage);
         $newLanguageId = $wpdb->insert_id;
         return $newLanguageId;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function getLanguages($data){
+    $user = wp_get_current_user();
+    global $wpdb;
+    $languages_table = $wpdb->prefix . "tomc_publication_languages";
+    $book_languages_table = $wpdb->prefix .  "tomc_book_languages";
+    $book = sanitize_text_field($data['book']);
+    // $query = 'SELECT a.id, a.language_name, CASE WHEN a.id IN (SELECT b.languageid FROM %i b WHERE b.bookid = %s) THEN 1 ELSE 0 END AS isselected FROM %i a;';
+    $query = 'WITH cte AS (SELECT languageid FROM %i WHERE bookid = %d)
+    SELECT a.id, a.language_name, b.languageid
+    FROM %i a
+    LEFT JOIN cte b ON a.id = b.languageid';
+    // $query = 'SELECT a.id, a.language_name, if(a.id IN (SELECT b.languageid FROM %i b WHERE b.bookid = %s), true, false) AS selected FROM %i a;';
+if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        // $prepare = $wpdb->prepare($query, $book_languages_table, $book, $languages_table);
+        $results = $wpdb->get_results($wpdb->prepare($query, $book_languages_table, $book, $languages_table), ARRAY_A);
+        return $results;
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';

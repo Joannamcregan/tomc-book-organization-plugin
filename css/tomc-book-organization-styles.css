@@ -68,7 +68,7 @@
     margin: 20px auto;
 }
 .tomc-book-organization--save-button{
-    background-color: #e44e2d;
+    background-color: #0c6980;
     color: white;
     font-size: 16;
     border-radius: 15px;
@@ -206,4 +206,24 @@
         visibility: hidden;
         line-height: 0;
     }
+}
+.tomc-book-organization-label--edit{
+    display: block;
+    margin: 30px auto 10px auto;
+}
+.tomc-book-organization-input--edit{
+    display: block;
+    margin: 0 auto 20px auto;
+    min-width: 300px;
+    border-radius: 10px;
+    font-size: 16;
+}
+.tomc-book-organization-textarea--edit{
+    display: block;
+    border-radius: 10px;
+    width: 90%;
+    height: 200px;
+    margin: 0 auto 20px auto;
+    text-align: left;
+    padding: 10px;
 }

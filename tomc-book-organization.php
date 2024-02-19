@@ -99,6 +99,7 @@ class TOMCBookOrganizationPlugin {
             product_image_id bigint(20) unsigned,
             createdate datetime NOT NULL,
             createdby bigint(20) unsigned NOT NULL,
+            lastupdated datetime,
             islive bit NOT NULL DEFAULT 0,
             PRIMARY KEY  (id),
             FOREIGN KEY  (product_image_id) REFERENCES $this->posts_table(id),
@@ -118,6 +119,7 @@ class TOMCBookOrganizationPlugin {
             productid bigint(20) unsigned NOT NULL,
             typeid bigint(20) unsigned NOT NULL,
             createdate datetime NOT NULL,
+            lastupdated datetime,
             PRIMARY KEY  (id),
             FOREIGN KEY  (bookid) REFERENCES $this->books_table(id),
             FOREIGN KEY  (productid) REFERENCES $this->posts_table(id),
@@ -129,6 +131,7 @@ class TOMCBookOrganizationPlugin {
             userid bigint(20) unsigned NOT NULL,
             pennameid bigint(20) unsigned NOT NULL,
             createdate datetime NOT NULL,
+            lastupdated datetime,
             PRIMARY KEY  (id),
             FOREIGN KEY  (userid) REFERENCES $this->users_table(id),
             FOREIGN KEY  (pennameid) REFERENCES $this->posts_table(id)
@@ -139,6 +142,7 @@ class TOMCBookOrganizationPlugin {
             pennameid bigint(20) unsigned NOT NULL,
             bookid bigint(20) unsigned NOT NULL,
             createdate datetime NOT NULL,
+            lastupdated datetime,
             PRIMARY KEY  (id),
             FOREIGN KEY  (bookid) REFERENCES $this->books_table(id),
             FOREIGN KEY  (pennameid) REFERENCES $this->posts_table(id)
@@ -148,6 +152,7 @@ class TOMCBookOrganizationPlugin {
             id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
             bookid bigint(20) unsigned NOT NULL,
             createdate datetime NOT NULL,
+            lastupdated datetime,
             readalike_title varchar(200) NOT NULL,
             readalike_author varchar(200),
             PRIMARY KEY  (id),
@@ -170,6 +175,7 @@ class TOMCBookOrganizationPlugin {
             bookid bigint(20) unsigned NOT NULL,
             genreid bigint(20) unsigned NOT NULL,
             createdate datetime NOT NULL,
+            lastupdated datetime,
             PRIMARY KEY  (id),
             FOREIGN KEY  (bookid) REFERENCES $this->books_table(id),
             FOREIGN KEY  (genreid) REFERENCES $this->genres_table(id)
@@ -189,6 +195,7 @@ class TOMCBookOrganizationPlugin {
             bookid bigint(20) unsigned NOT NULL,
             identityid bigint(20) unsigned NOT NULL,
             createdate datetime NOT NULL,
+            lastupdated datetime,
             PRIMARY KEY  (id),
             FOREIGN KEY  (bookid) REFERENCES $this->books_table(id),
             FOREIGN KEY  (identityid) REFERENCES $this->character_identities_table(id)
@@ -208,6 +215,7 @@ class TOMCBookOrganizationPlugin {
             bookid bigint(20) unsigned NOT NULL,
             warningid bigint(20) unsigned NOT NULL,
             createdate datetime NOT NULL,
+            lastupdated datetime,
             PRIMARY KEY  (id),
             FOREIGN KEY  (bookid) REFERENCES $this->books_table(id),
             FOREIGN KEY  (warningid) REFERENCES $this->content_warnings_table(id)
@@ -227,6 +235,7 @@ class TOMCBookOrganizationPlugin {
             bookid bigint(20) unsigned NOT NULL,
             languageid bigint(20) unsigned NOT NULL,
             createdate datetime NOT NULL,
+            lastupdated datetime,
             PRIMARY KEY  (id),
             FOREIGN KEY  (bookid) REFERENCES $this->books_table(id),
             FOREIGN KEY  (languageid) REFERENCES $this->publication_languages_table(id)

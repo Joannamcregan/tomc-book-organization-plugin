@@ -24,51 +24,55 @@ get_header();
                 ?><div class="third-screen">
                     <h2 class="centered-text">Choose a Book to Edit</h2>
                     <?php foreach($books as $book){
-                        ?><div class="tomc-book-organization--book-to-edit page-accent-alt-thin tomc-book-options--cursor-pointer">
+                        ?><div class="tomc-book-organization--book-to-edit page-accent-alt-thin">
                             <p class="centered-text"><strong class="tomc-book-organization--book-to-edit-title tomc-book-options--cursor-pointer"><?php echo $book->title; ?></strong></p>
-                            <div class="tomc-book-organization--edit-book-options hidden">
-                                <p class="centered-text tomc-book-organization--blue-text tomc-book-organization--edit-basic-info tomc-book-options--cursor-pointer">basic info</p>
-                                <p class="centered-text tomc-book-organization--blue-text tomc-book-organization--edit-languages tomc-book-options--cursor-pointer">languages</p>
-                                <p class="centered-text tomc-book-organization--blue-text tomc-book-organization--edit-genres tomc-book-options--cursor-pointer">genres and subgenres</p>
-                                <p class="centered-text tomc-book-organization--blue-text tomc-book-organization--edit-character-identities tomc-book-options--cursor-pointer">character identities</p>
-                                <p class="centered-text tomc-book-organization--blue-text tomc-book-organization--edit-readalikes tomc-book-options--cursor-pointer">read-alikes</p>
-                                <p class="centered-text tomc-book-organization--blue-text tomc-book-organization--edit-content-warnings tomc-book-options--cursor-pointer">content warnings</p>
-                                <p class="centered-text tomc-book-organization--blue-text tomc-book-organization--edit-linked-products tomc-book-options--cursor-pointer">linked products</p>
+                            <div class="tomc-book-organization--edit-book-options hidden" data-book="<?php echo $book->id; ?>">
+                                <p class="centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-basic-info">basic info</p>
+                                <p class="centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-languages">languages</p>
+                                <p class="centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-genres">genres and subgenres</p>
+                                <p class="centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-character-identities">character identities</p>
+                                <p class="centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-readalikes">read-alikes</p>
+                                <p class="centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-content-warnings">content warnings</p>
+                                <p class="centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-linked-products">linked products</p>
                             </div>
                         </div>
                     <?php }
 
                     ?><div class="tomc-book-organization__overlay" id="tomc-book-organization__edit-basic-info-overlay">
-                        <div class="overlay-main-container"> 
-                            <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i> -->
-                            <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-basic-info-overlay-close">X</span>
-                            <div class="tomc-book-organization__edit-basic-info-container"></div>
+                        <div class="overlay-main-container">
+                            <br>
+                            <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i>
+                            <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-basic-info-overlay-close">X</span> -->
+                            <div class="tomc-book-organization__edit-basic-info-container tomc-book-organization__container tomc-book-org-html"></div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-basic-info-edits">save</button>
                         </div>
                     </div>
 
                     <div class="tomc-book-organization__overlay" id="tomc-book-organization__edit-languages-overlay">
                         <div class="overlay-main-container"> 
-                            <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i> -->
-                            <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-languages-overlay-close">X</span>
-                            <div class="tomc-book-organization__edit-languages-container"></div>
+                            <br><br>
+                            <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i>
+                            <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-languages-overlay-close">X</span> -->
+                            <div class="tomc-book-organization__edit-languages-container tomc-book-organization--options-container tomc-book-org-html"></div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-languages-edits">save</button>
                         </div>
                     </div>
 
                     <div class="tomc-book-organization__overlay" id="tomc-book-organization__edit-genres-overlay">
-                        <div class="overlay-main-container"> 
-                            <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i> -->
-                            <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-genres-overlay-close">X</span>
+                        <div class="overlay-main-container">
+                            <br>
+                            <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i>
+                            <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-genres-overlay-close">X</span> -->
                             <div class="tomc-book-organization__edit-genres-container"></div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-genres-edits">save</button>
                         </div>
                     </div>
 
                     <div class="tomc-book-organization__overlay" id="tomc-book-organization__edit-identities-overlay">
-                        <div class="overlay-main-container"> 
-                            <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i> -->
-                            <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-identities-overlay-close">X</span>
+                        <div class="overlay-main-container">
+                            <br>
+                            <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i>
+                            <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-identities-overlay-close">X</span> -->
                             <div class="tomc-book-organization__edit-identities-container"></div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-identities-edits">save</button>
                         </div>
@@ -76,26 +80,29 @@ get_header();
 
                     <div class="tomc-book-organization__overlay" id="tomc-book-organization__edit-readalikes-overlay">
                         <div class="overlay-main-container"> 
-                            <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i> -->
-                            <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-readalikes-overlay-close">X</span>
+                            <br>
+                            <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i>
+                            <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-readalikes-overlay-close">X</span> -->
                             <div class="tomc-book-organization__edit-readalikes-container"></div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-readalikes-edits">save</button>
                         </div>
                     </div>
 
                     <div class="tomc-book-organization__overlay" id="tomc-book-organization__edit-content-warnings-overlay">
-                        <div class="overlay-main-container"> 
-                            <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i> -->
-                            <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-content-warnings-overlay-close">X</span>
+                        <div class="overlay-main-container">
+                            <br>
+                            <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i>
+                            <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-content-warnings-overlay-close">X</span> -->
                             <div class="tomc-book-organization__edit-content-warnings-container"></div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-content-warnings-edits">save</button>
                         </div>
                     </div>
 
                     <div class="tomc-book-organization__overlay" id="tomc-book-organization__edit-products-overlay">
-                        <div class="overlay-main-container"> 
-                            <!-- <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i> -->
-                            <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-products-overlay-close">X</span>
+                        <div class="overlay-main-container">
+                            <br>
+                            <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i>
+                            <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-products-overlay-close">X</span> -->
                             <div class="tomc-book-organization__edit-products-container"></div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-products-edits">save</button>
                         </div>
