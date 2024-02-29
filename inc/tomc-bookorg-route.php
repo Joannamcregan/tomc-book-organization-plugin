@@ -67,6 +67,10 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'getLanguages'
     ));
+    register_rest_route('tomcBookorg/v1', 'editBookLanguages', array(
+        'methods' => 'POST',
+        'callback' => 'editBookLanguages'
+    ));
 }
 
 function addNewBook($data){
@@ -135,6 +139,26 @@ function updateBasicInfo($data){
                 'book_excerpt' => $excerpt
             ), 
             array('id' => $book));
+            return 'success';
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function editBookLanguages($data) {
+    $book = sanitize_text_field($data['book']);
+    $languages = explode(',', trim(sanitize_text_field($data['languages']), '[]'));
+    $now = date('Y-m-d H:i:s');
+    $user = wp_get_current_user();
+    global $wpdb;
+    $book_languages_table = $wpdb->prefix . "tomc_book_languages";
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $wpdb->delete(
+            $book_languages_table,
+            array('bookid' => $book));
+            addNewBookLanguages($data);
+            return 'success';
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';

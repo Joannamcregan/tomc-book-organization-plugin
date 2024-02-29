@@ -82,11 +82,11 @@ get_header();
                         }
                         ?><span class="tomc-book-organization--add-language tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new language</span>
                     </div>
-                    <div class="hidden tomc-book-organization--red-text" id="tomc-book-organization--languages-error-section">
+                    <div class="hidden tomc-book-organization--red-text tomc-book-organization--languages-error-section">
                         <p class="tomc-book-organization--genres-error-section-mobile">To add another language, first deselect one of the identities you've already chosen by tapping it again.</p>
                         <p class="tomc-book-organization--genres-error-section-desktop">To add another language, first deselect one of the identities you've already chosen by clicking it again.</p>
                     </div>
-                    <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text" id="tomc-book-organization--add-no-languages-selected">
+                    <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text tomc-book-organization--add-no-languages-selected">
                         <p>Please choose as least one language to ensure your book shows up in search results.</p>
                     </div>
                     <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book-languages">save and continue</button>

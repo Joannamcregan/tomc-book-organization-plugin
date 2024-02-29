@@ -44,6 +44,12 @@ get_header();
                             <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i>
                             <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-basic-info-overlay-close">X</span> -->
                             <div class="tomc-book-organization__edit-basic-info-container tomc-book-organization__container tomc-book-org-html"></div>
+                            <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text centered-text" id="tomc-book-organization--edit-basic-info-errors">
+                                <p class="hidden" id="tomc-book-organization--edit-basic-info-errors-title">Your book's title cannot be blank.</p>
+                                <p class="hidden" id="tomc-book-organization--edit-basic-info-errors-description">Add a description to help readers who will love your book find it.</p>
+                                <p class="hidden" id="tomc-book-organization--edit-basic-info-errors-excerpt">Add an excerpt to help readers get a feel for your book.</p>
+                                <p class="hidden" id="tomc-book-organization--edit-basic-info-no-changes">No changes appear to have been made.</p>
+                            </div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-basic-info-edits">save</button>
                         </div>
                     </div>
@@ -54,6 +60,14 @@ get_header();
                             <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i>
                             <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-languages-overlay-close">X</span> -->
                             <div class="tomc-book-organization__edit-languages-container tomc-book-organization--options-container tomc-book-org-html"></div>
+                            <div class="hidden tomc-book-organization--red-text tomc-book-organization--languages-error-section">
+                                <p class="centered-text tomc-book-organization--genres-error-section-mobile">To add another language, first deselect one of the identities you've already chosen by tapping it again.</p>
+                                <p class="centered-text tomc-book-organization--genres-error-section-desktop">To add another language, first deselect one of the identities you've already chosen by clicking it again.</p>
+                            </div>
+                            <div class="centered-text tomc-book-organization--form-div hidden tomc-book-organization--red-text" id="tomc-book-organization--edit-languages-errors">
+                                <p class="hidden" id="tomc-book-organization--edit-no-languages-selected">Please choose as least one language to ensure your book shows up in search results.</p>
+                                <p class="hidden" id="tomc-book-organization--edit-languages-no-changes">No changes appear to have been made.</p>
+                            </div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-languages-edits">save</button>
                         </div>
                     </div>
