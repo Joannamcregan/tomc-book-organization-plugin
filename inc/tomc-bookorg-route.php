@@ -71,6 +71,10 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'editBookLanguages'
     ));
+    register_rest_route('tomcBookorg/v1', 'getGenres', array(
+        'methods' => 'POST',
+        'callback' => 'getGenres'
+    ));
 }
 
 function addNewBook($data){
@@ -197,9 +201,30 @@ function getLanguages($data){
     FROM %i a
     LEFT JOIN cte b ON a.id = b.languageid';
     // $query = 'SELECT a.id, a.language_name, if(a.id IN (SELECT b.languageid FROM %i b WHERE b.bookid = %s), true, false) AS selected FROM %i a;';
-if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
         // $prepare = $wpdb->prepare($query, $book_languages_table, $book, $languages_table);
         $results = $wpdb->get_results($wpdb->prepare($query, $book_languages_table, $book, $languages_table), ARRAY_A);
+        return $results;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function getGenres($data){
+    $user = wp_get_current_user();
+    global $wpdb;
+    $genres_table = $wpdb->prefix . "tomc_genres";
+    $book_genres_table = $wpdb->prefix .  "tomc_book_genres";
+    $book = sanitize_text_field($data['book']);
+    $level = sanitize_text_field($data['level']);
+    $query = 'WITH cte AS (SELECT genreid FROM %i WHERE bookid = %d)
+    SELECT a.id, a.genre_name, b.genreid
+    FROM %i a
+    LEFT JOIN cte b ON a.id = b.genreid
+    WHERE a.genre_level = %d';
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $results = $wpdb->get_results($wpdb->prepare($query, $book_genres_table, $book, $genres_table, $level), ARRAY_A);
         return $results;
     } else {
         wp_safe_redirect(site_url('/my-account'));

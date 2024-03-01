@@ -28,30 +28,16 @@ get_header();
                 <h2 class="centered-text">Your Book's Details</h2>
                 <div class="tomc-book-organization--form" id="tomc-book-organization--add-book" >
                     <input type="hidden" name="action" value="addbook">
-                    <div class="tomc-book-organization--form-div background-stripe-0">
+                    <div class="tomc-book-organization--form-div background-stripe-1">
                         <label for="tomc-book-organization--title"  class="tomc-book-organization--new-book centered-text">Enter your book's title. </label><br>
                         <input type="text" class="tomc-book-organization--new-book centered-text" name="tomc-book-organization--title" id="tomc-book-organization--title" required>
                     </div>
-                    <div class="tomc-book-organization--form-div background-stripe-1">
-                        <p>Does your book have a subtitle?</p>
-                        <input type="radio" id="tomc-book-organization--subtitle-yes" name="tomc-book-organization--subtitle" value="yes">
-                        <label for="tomc-book-organization--subtitle-yes">yes</label>
-                        <input type="radio" id="tomc-book-organization--subtitle-no" name="tomc-book-organization--subtitle" value="no" checked>
-                        <label for="tomc-book-organization--subtitle-no">no</label>
-                    </div>
-                    <div class="tomc-book-organization--form-div hidden background-stripe-2" id="tomc-book-organization--subtitle-div">
-                        <label for="tomc-book-organization--subtitle">Enter your book's subtitle</label><br>
+                    <div class="tomc-book-organization--form-div background-stripe-2" id="tomc-book-organization--subtitle-div">
+                        <label for="tomc-book-organization--subtitle">If your book has a subtitle, enter it here</label><br>
                         <input type="text" class="tomc-book-organization--new-book centered-text" name="tomc-book-organization--subtitle" id="tomc-book-organization--subtitle">
                     </div>
-                    <div class="tomc-book-organization--form-div background-stripe-3">
-                        <p>Is this book a new edition of a previously published work? (Please note: we consider a new edition to be a book with updated content, not a book that was previously published in another format or on another platform.)</p>
-                        <input type="radio" id="tomc-book-organization--new-edition-yes" name="tomc-book-organization--new-edition" value="yes">
-                        <label for="tomc-book-organization--new-edition-yes">yes</label>
-                        <input type="radio" id="tomc-book-organization--new-edition-no" name="tomc-book-organization--new-edition" value="no" checked>
-                        <label for="tomc-book-organization--new-edition-no">no</label>
-                    </div>
-                    <div class="tomc-book-organization--form-div hidden background-stripe-4" id="tomc-book-organization--edition-div">
-                        <label for="tomc-book-organization--edition">Enter this book's edition number.</label><br>
+                    <div class="tomc-book-organization--form-div background-stripe-3" id="tomc-book-organization--edition-div">
+                        <label for="tomc-book-organization--edition">If your book has an edition number, please enter it here. (Please note: we consider a new edition to be a book with updated content, not a book with a new cover or one that was previously published in another format or on another platform.)</label><br>
                         <input type="text" class="tomc-book-organization--new-book centered-text" name="tomc-book-organization--edition" id="tomc-book-organization--edition">
                     </div>
                     <div class="tomc-book-organization--form-div background-stripe-5">
@@ -70,7 +56,7 @@ get_header();
                     <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book" data-user="<?php echo get_current_user_id(); ?>">save and continue</button>
                 </div>
 
-                <div class="tomc-book-organization--form hidden" id="tomc-book-organization--book-languages-form" >
+                <div class="tomc-book-organization--form hidden background-container-1" id="tomc-book-organization--book-languages-form" >
                     <h3>Which language(s) is your book written in?</h3>
                     <p>Please choose up to three.</p>
                     <?php $languages = $wpdb->get_results("SELECT * from $publication_languages_table ORDER BY language_name;"); ?>
@@ -93,47 +79,54 @@ get_header();
                 </div>
 
                 <div class="tomc-book-organization--form hidden" id="tomc-book-organization--book-genre-form" >
-                    <h3>Which medium did you use to create your book? (Please choose only one option.)</h3>
-                    <?php $genres1 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 1 ORDER BY genre_name;"); ?>
-                    <div class="tomc-book-organization--options-container" id="tomc-book-organization--genres-1">
-                        <?php if ($genres1) {
-                            foreach($genres1 as $genre1) {
-                                ?><span id="tomc-book-organization-genre1-<?php echo $genre1->id; ?>" data-genre-level="1" data-genre-id="<?php echo $genre1->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre1 ->genre_name;  ?></span>
-                            <?php }
-                        }
-                        ?><div class="hidden tomc-book-organization--red-text" id="tomc-book-organization--genres1-error-section">
-                            <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
-                            <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
+                    <div class="background-container-2">
+                        <h3>Which genre(s) does your book fit?</h3>
+                        <?php $genres1 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 1 ORDER BY genre_name;"); ?>
+                        <div class="tomc-book-organization--options-container" id="tomc-book-organization--genres-1">
+                            <?php if ($genres1) {
+                                foreach($genres1 as $genre1) {
+                                    ?><span id="tomc-book-organization-genre1-<?php echo $genre1->id; ?>" data-genre-level="1" data-genre-id="<?php echo $genre1->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre1 ->genre_name;  ?></span>
+                                <?php }
+                            }
+                            ?>
+                            <!-- <div class="hidden tomc-book-organization--red-text" id="tomc-book-organization--genres1-error-section">
+                                <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
+                                <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
+                            </div> -->
                         </div>
                     </div>
-                    <h3>What is your book about? (Please select up to two options.)</h3>
-                    <?php $genres2 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 2 ORDER BY genre_name;"); ?>
-                    <div class="tomc-book-organization--options-container" id="tomc-book-organization--genres-2">
-                        <?php if ($genres2) {
-                            foreach($genres2 as $genre2) {
-                                ?><span id="tomc-book-organization-genre2-<?php echo $genre2->id; ?>" data-genre-level="2" data-genre-id="<?php echo $genre2->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span" aria-checked="false"><?php echo $genre2 ->genre_name;  ?></span>
+                    <div class="background-container-3">
+                        <h3>Which subgenres does your book fit? (Please select up to two options.)</h3>
+                        <?php $genres2 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 2 ORDER BY genre_name;"); ?>
+                        <div class="tomc-book-organization--options-container" id="tomc-book-organization--genres-2">
+                            <?php if ($genres2) {
+                                foreach($genres2 as $genre2) {
+                                    ?><span id="tomc-book-organization-genre2-<?php echo $genre2->id; ?>" data-genre-level="2" data-genre-id="<?php echo $genre2->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span" aria-checked="false"><?php echo $genre2 ->genre_name;  ?></span>
+                                <?php }
+                                ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="2" data-user-id="<?php echo $userid; ?>">add a new genre</span>
                             <?php }
-                            ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="2" data-user-id="<?php echo $userid; ?>">add a new genre</span>
-                        <?php }
-                        ?><div class="hidden tomc-book-organization--red-text" id="tomc-book-organization--genres2-error-section">
-                            <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
-                            <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
+                            ?><div class="hidden tomc-book-organization--red-text" id="tomc-book-organization--genres2-error-section">
+                                <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
+                                <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
+                            </div>
                         </div>
                     </div>
-                    <h3>What else is it about? (Please select up to ten options.)</h3>
-                    <?php $genres3 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 3 ORDER BY genre_name;"); ?>
-                    <div class="tomc-book-organization--options-container" id="tomc-book-organization--genres-3">
-                        <?php if ($genres3) {
-                            foreach($genres3 as $genre3) {
-                                ?><span id="tomc-book-organization-genre3-<?php echo $genre3->id; ?>" data-genre-level="3" data-genre-id="<?php echo $genre3->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre3 ->genre_name;  ?></span>
+                    <div class="background-container-4">
+                        <h3>Which topics does your book include? (Please select up to ten options.)</h3>
+                        <?php $genres3 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 3 ORDER BY genre_name;"); ?>
+                        <div class="tomc-book-organization--options-container" id="tomc-book-organization--genres-3">
+                            <?php if ($genres3) {
+                                foreach($genres3 as $genre3) {
+                                    ?><span id="tomc-book-organization-genre3-<?php echo $genre3->id; ?>" data-genre-level="3" data-genre-id="<?php echo $genre3->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre3 ->genre_name;  ?></span>
+                                <?php }
+                                ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="3" data-user-id="<?php echo $userid; ?>">add a new subgenre</span>
                             <?php }
-                            ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="3" data-user-id="<?php echo $userid; ?>">add a new subgenre</span>
-                        <?php }
-                        ?><div class="hidden tomc-book-organization--red-text" id="tomc-book-organization--genres3-error-section">
-                            <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
-                            <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
-                        </div>
-                    </div>     
+                            ?><div class="hidden tomc-book-organization--red-text" id="tomc-book-organization--genres3-error-section">
+                                <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
+                                <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
+                            </div>
+                        </div>     
+                    </div>
                     <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text" id="tomc-book-organization--add-book-genre-errors">
                         <p>Please choose at least one thing that your book is about.</p>
                     </div>
@@ -163,7 +156,7 @@ get_header();
                 </div>
 
                 <div class="tomc-book-organization--form hidden" id="tomc-book-organization--readalikes" >
-                    <h3>Please add one or two books you feel are similar to yours.</h3>
+                    <h3>Add one or two books you feel are similar to yours. (This is optional, but can help readers find your book.)</h3>
                     <div class="tomc-book-organization--form-div">
                         <input type="text" placeholder = "book title" id = "tomc-book-organization__readalike-book-0">
                         <span>by</span>
