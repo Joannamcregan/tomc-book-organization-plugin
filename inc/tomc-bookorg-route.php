@@ -75,6 +75,10 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'getGenres'
     ));
+    register_rest_route('tomcBookorg/v1', 'editBookGenres', array(
+        'methods' => 'POST',
+        'callback' => 'editBookGenres'
+    ));
 }
 
 function addNewBook($data){
@@ -143,6 +147,23 @@ function updateBasicInfo($data){
                 'book_excerpt' => $excerpt
             ), 
             array('id' => $book));
+            return 'success';
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function editBookGenres($data) {
+    $book = sanitize_text_field($data['book']);
+    $user = wp_get_current_user();
+    global $wpdb;
+    $book_genres_table = $wpdb->prefix . "tomc_book_genres";
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $wpdb->delete(
+            $book_genres_table,
+            array('bookid' => $book));
+            addNewBookGenres($data);
             return 'success';
     } else {
         wp_safe_redirect(site_url('/my-account'));
@@ -329,7 +350,7 @@ function addNewWarning($data) {
 
 function addNewBookGenres($data) {
     $book = sanitize_text_field($data['book']);
-    $genres1 = sanitize_text_field($data['genres1']);
+    $genres1 = explode(',', trim(sanitize_text_field($data['genres1']), '[]'));
     $genres2 = explode(',', trim(sanitize_text_field($data['genres2']), '[]'));
     $genres3 = explode(',', trim(sanitize_text_field($data['genres3']), '[]'));
     $now = date('Y-m-d H:i:s');
@@ -337,11 +358,19 @@ function addNewBookGenres($data) {
     global $wpdb;
     $book_genres_table = $wpdb->prefix . "tomc_book_genres";
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
-        $bookGenresQuery = 'insert into ' . $book_genres_table . '(bookid, genreid, createdate) values (' . $book . ', ' . $genres1 . ', "' . $now . '")';
+        $bookGenresQuery = 'insert into ' . $book_genres_table . '(bookid, genreid, createdate) values '; //(' . $book . ', ' . $genres1 . ', "' . $now . '")
+        if (count($genres1) > 0){
+            foreach($genres1 as $genre){
+                if (is_numeric($genre)){
+                    $values = '(' . $book . ', ' . $genre . ', "' . $now . '"), ';
+                    $bookGenresQuery .= $values;
+                }
+            }
+        }
         if (count($genres2) > 0){
             foreach($genres2 as $genre){
                 if (is_numeric($genre)){
-                    $values = ', (' . $book . ', ' . $genre . ', "' . $now . '")';
+                    $values = '(' . $book . ', ' . $genre . ', "' . $now . '"), ';
                     $bookGenresQuery .= $values;
                 }
             }
@@ -349,11 +378,12 @@ function addNewBookGenres($data) {
         if (count($genres3) > 0){
             foreach($genres3 as $genre){
                 if (is_numeric($genre)){
-                    $values = ', (' . $book . ', ' . $genre . ', "' . $now . '")';
+                    $values = '(' . $book . ', ' . $genre . ', "' . $now . '"), ';
                     $bookGenresQuery .= $values;
                 }
             }
         }
+        $bookGenresQuery = rtrim($bookGenresQuery, ', ');
         $wpdb->query($wpdb->prepare($bookGenresQuery));
         return 'success';
     } else {

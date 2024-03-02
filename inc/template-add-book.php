@@ -127,7 +127,7 @@ get_header();
                             </div>
                         </div>     
                     </div>
-                    <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text" id="tomc-book-organization--add-book-genre-errors">
+                    <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text tomc-book-organization--no-genres-added-error">
                         <p>Please choose at least one thing that your book is about.</p>
                     </div>
                     <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book-genres">save and continue</button>

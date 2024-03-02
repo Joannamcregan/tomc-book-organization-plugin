@@ -95,6 +95,10 @@ get_header();
                                     <br><br>
                                 </div>
                             </div>
+                            <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text tomc-book-organization--no-genres-added-edit-error">
+                                <p class="centered-text">Please choose at least one thing that your book is about.</p>
+                            </div>
+                            <p class="hidden centered-text tomc-book-organization--red-text" id="tomc-book-organization--edit-genres-no-changes">No changes appear to have been made.</p>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-genres-edits">save</button>
                         </div>
                     </div>
