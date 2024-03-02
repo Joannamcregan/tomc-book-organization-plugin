@@ -105,7 +105,7 @@ get_header();
                                 <?php }
                                 ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="2" data-user-id="<?php echo $userid; ?>">add a new genre</span>
                             <?php }
-                            ?><div class="hidden tomc-book-organization--red-text" id="tomc-book-organization--genres2-error-section">
+                            ?><div class="hidden tomc-book-organization--red-text tomc-book-organization--genres2-error-section">
                                 <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
                                 <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
                             </div>
@@ -121,7 +121,7 @@ get_header();
                                 <?php }
                                 ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="3" data-user-id="<?php echo $userid; ?>">add a new subgenre</span>
                             <?php }
-                            ?><div class="hidden tomc-book-organization--red-text" id="tomc-book-organization--genres3-error-section">
+                            ?><div class="hidden tomc-book-organization--red-text tomc-book-organization--genres3-error-section">
                                 <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
                                 <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
                             </div>

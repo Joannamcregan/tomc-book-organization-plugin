@@ -78,9 +78,22 @@ get_header();
                             <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i>
                             <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-genres-overlay-close">X</span> -->
                             <div class="tomc-book-organization__edit-genres-container">
-                                <div class="tomc-book-organization__edit-genres-container--1 tomc-book-organization--options-container"></div>
-                                <div class="tomc-book-organization__edit-genres-container--2 tomc-book-organization--options-container"></div>
-                                <div class="tomc-book-organization__edit-genres-container--3 tomc-book-organization--options-container"></div>
+                                <h3 class="centered-text">Genres</h3>
+                                <div class="tomc-book-organization__edit-genres-container--1 tomc-book-organization--options-container tomc-book-org-html"></div>
+                                <h3 class="centered-text">Subgenres</h3>
+                                <div class="tomc-book-organization__edit-genres-container--2 tomc-book-organization--options-container tomc-book-org-html"></div>
+                                <div class="hidden tomc-book-organization--red-text tomc-book-organization--genres2-error-section centered-text">
+                                    <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
+                                    <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
+                                    <br><br>
+                                </div>
+                                <h3 class="centered-text">Topics</h3>
+                                <div class="tomc-book-organization__edit-genres-container--3 tomc-book-organization--options-container tomc-book-org-html"></div>
+                                <div class="hidden tomc-book-organization--red-text tomc-book-organization--genres3-error-section centered-text">
+                                    <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
+                                    <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
+                                    <br><br>
+                                </div>
                             </div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-genres-edits">save</button>
                         </div>
