@@ -217,14 +217,12 @@ function getGenres($data){
     $genres_table = $wpdb->prefix . "tomc_genres";
     $book_genres_table = $wpdb->prefix .  "tomc_book_genres";
     $book = sanitize_text_field($data['book']);
-    $level = sanitize_text_field($data['level']);
     $query = 'WITH cte AS (SELECT genreid FROM %i WHERE bookid = %d)
-    SELECT a.id, a.genre_name, b.genreid
+    SELECT a.id, a.genre_name, a.genre_level, b.genreid
     FROM %i a
-    LEFT JOIN cte b ON a.id = b.genreid
-    WHERE a.genre_level = %d';
+    LEFT JOIN cte b ON a.id = b.genreid';
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
-        $results = $wpdb->get_results($wpdb->prepare($query, $book_genres_table, $book, $genres_table, $level), ARRAY_A);
+        $results = $wpdb->get_results($wpdb->prepare($query, $book_genres_table, $book, $genres_table), ARRAY_A);
         return $results;
     } else {
         wp_safe_redirect(site_url('/my-account'));

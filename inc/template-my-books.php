@@ -30,8 +30,6 @@ get_header();
                                 <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-basic-info">basic info</p>
                                 <p class="transparent-stripe-1 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-languages">languages</p>
                                 <p class="transparent-stripe-2 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-genres">genres</p>
-                                <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-subgenres">subgenres</p>
-                                <p class="transparent-stripe-1 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-topics">topics</p>
                                 <p class="transparent-stripe-2 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-character-identities">character identities</p>
                                 <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-readalikes">read-alikes</p>
                                 <p class="transparent-stripe-1 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-content-warnings">content warnings</p>
@@ -80,9 +78,9 @@ get_header();
                             <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i>
                             <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-genres-overlay-close">X</span> -->
                             <div class="tomc-book-organization__edit-genres-container">
-                                <div class="tomc-book-organization__edit-genres-container--1"></div>
-                                <div class="tomc-book-organization__edit-genres-container--2"></div>
-                                <div class="tomc-book-organization__edit-genres-container--3"></div>
+                                <div class="tomc-book-organization__edit-genres-container--1 tomc-book-organization--options-container"></div>
+                                <div class="tomc-book-organization__edit-genres-container--2 tomc-book-organization--options-container"></div>
+                                <div class="tomc-book-organization__edit-genres-container--3 tomc-book-organization--options-container"></div>
                             </div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-genres-edits">save</button>
                         </div>
