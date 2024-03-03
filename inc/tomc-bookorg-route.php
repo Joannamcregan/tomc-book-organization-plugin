@@ -79,6 +79,14 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'editBookGenres'
     ));
+    register_rest_route('tomcBookorg/v1', 'getIdentities', array(
+        'methods' => 'POST',
+        'callback' => 'getIdentities'
+    ));
+    register_rest_route('tomcBookorg/v1', 'editBookIdentities', array(
+        'methods' => 'POST',
+        'callback' => 'editBookIdentities'
+    ));
 }
 
 function addNewBook($data){
@@ -225,6 +233,43 @@ function getLanguages($data){
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
         // $prepare = $wpdb->prepare($query, $book_languages_table, $book, $languages_table);
         $results = $wpdb->get_results($wpdb->prepare($query, $book_languages_table, $book, $languages_table), ARRAY_A);
+        return $results;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function editBookIdentities($data) {
+    $book = sanitize_text_field($data['book']);
+    $identities = explode(',', trim(sanitize_text_field($data['identities']), '[]'));
+    $user = wp_get_current_user();
+    global $wpdb;
+    $book_identities_table = $wpdb->prefix . "tomc_book_identities";
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $wpdb->delete(
+            $book_identities_table,
+            array('bookid' => $book));
+            addNewBookIdentities($data);
+            return 'success';
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function getIdentities($data){
+    $user = wp_get_current_user();
+    global $wpdb;
+    $identities_table = $wpdb->prefix . "tomc_character_identities";
+    $book_identities_table = $wpdb->prefix .  "tomc_book_identities";
+    $book = sanitize_text_field($data['book']);
+    $query = 'WITH cte AS (SELECT identityid FROM %i WHERE bookid = %d)
+    SELECT a.id, a.identity_name, b.identityid
+    FROM %i a
+    LEFT JOIN cte b ON a.id = b.identityid';
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $results = $wpdb->get_results($wpdb->prepare($query, $book_identities_table, $book, $identities_table), ARRAY_A);
         return $results;
     } else {
         wp_safe_redirect(site_url('/my-account'));

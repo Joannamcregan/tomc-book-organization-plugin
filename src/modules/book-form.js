@@ -102,6 +102,7 @@ class BookInfo{
         this.saveBasicInfoEditsButton = $('#tomc-book-organization--save-basic-info-edits');
         this.saveLanguageEditsButton = $('#tomc-book-organization--save-languages-edits');
         this.saveGenreEditsButton = $('#tomc-book-organization--save-genres-edits');
+        this.saveIdentityEditsButton = $('#tomc-book-organization--save-identities-edits');
         this.events();
         this.createdBookId;
         this.currentUserId;
@@ -113,9 +114,12 @@ class BookInfo{
         this.chosenWarnings = [];
         this.chosenIdentities = [];
         this.bookId = 0;
+        //track if overlays are open
         this.basicInfoOverlayIsOpen = false;
         this.languageOverlayIsOpen = false;
         this.genresOverlayIsOpen = false;
+        this.identitiesOverlayIsOpen = false;
+        this.warningsOverlayIsOpen = false;
         this.title = '';
         this.subTitle = '';
         this.edition = '';
@@ -125,6 +129,8 @@ class BookInfo{
         this.oldGenres1 = [];
         this.oldGenres2 = [];
         this.oldGenres3 = [];
+        this.oldIdentities = [];
+        this.oldWarnings = [];
     }
 
     events(){
@@ -166,7 +172,7 @@ class BookInfo{
         this.editBasicInfoOption.on('click', this.openBasicInfoOverlay.bind(this));
         this.editLanguagesOption.on('click', this.openLanguagesOverlay.bind(this));
         this.editGenresOption.on('click', this.openGenresOverlay.bind(this));
-        // this.editIdentitiesOption.on('click', this.openIdentitiesOverlay.bind(this));
+        this.editIdentitiesOption.on('click', this.openIdentitiesOverlay.bind(this));
         // this.editReadalikesOption.on('click', this.openReadalikesOverlay.bind(this));
         // this.editWarningsOption.on('click', this.openContentWarningsOverlay.bind(this));
         // this.editProductsOption.on('click', this.openProductsOverlay.bind(this));
@@ -174,6 +180,7 @@ class BookInfo{
         this.saveBasicInfoEditsButton.on('click', this.saveBasicInfoEdits.bind(this));
         this.saveLanguageEditsButton.on('click', this.saveLanguageEdits.bind(this));
         this.saveGenreEditsButton.on('click', this.saveGenreEdits.bind(this));
+        this.saveIdentityEditsButton.on('click', this.saveIdentityEdits.bind(this));
     }
 
     toggleLanguageSelection(e){
@@ -268,14 +275,14 @@ class BookInfo{
                     this.chosenIdentities.splice(i, 1);
                 }
             }
-            $('#tomc-book-organization--identities-error-section').addClass('hidden');
+            $('.tomc-book-organization--identities-error-section').addClass('hidden');
         } else {
             if (this.chosenIdentities.length < 5) {
                 $("#tomc-book-organization--add-no-identities-selected").addClass("hidden");
                 this.chosenIdentities.push($(e.target).data('identity-id'));
                 $(e.target).addClass('tomc-book-organization--option-selected');
             } else {
-                $('#tomc-book-organization--identities-error-section').removeClass('hidden');
+                $('.tomc-book-organization--identities-error-section').removeClass('hidden');
             }
         }
     }
@@ -438,7 +445,7 @@ class BookInfo{
                             this.chosenIdentities.push(response);
                             this.newSpan.addClass('tomc-book-organization--option-selected');
                         } else {
-                            $('#tomc-book-organization--identities-error-section').removeClass('hidden');
+                            $('.tomc-book-organization--identities-error-section').removeClass('hidden');
                         }
                     }                    
                     this.closeIdentityOverlay();
@@ -902,9 +909,42 @@ class BookInfo{
             }
         })
     }
+
+    openIdentitiesOverlay(e){
+        this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+        $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+            },
+            url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getIdentities',
+            type: 'POST',
+            data: {
+                'book' : this.bookId
+            },
+            success: (response) => {
+                if (this.identitiesOverlayIsOpen != true){
+                    this.identitiesOverlayIsOpen = true;
+                    for(let i = 0; i < response.length; i++){
+                        if (response[i]['identityid']){
+                            this.newSpan = $('<span />').addClass('tomc-book-organization--option-span tomc-book-organization--option-selected').attr('data-identity-id', response[i]['id']).attr('aria-checked', true).html(response[i]['identity_name']).on('click', this.toggleIdentitySelection.bind(this));
+                            this.chosenIdentities.push(Number(response[i]['identityid']));
+                            this.oldIdentities.push(Number(response[i]['identityid']));
+                            $('.tomc-book-organization__edit-identities-container').append(this.newSpan);
+                        } else {
+                            this.newSpan = $('<span />').addClass('tomc-book-organization--option-span').attr('data-identity-id', response[i]['id']).attr('aria-checked', false).html(response[i]['identity_name']).on('click', this.toggleIdentitySelection.bind(this));
+                            $('.tomc-book-organization__edit-identities-container').append(this.newSpan);
+                        }
+                        this.identitiesOverlay.addClass("tomc-book-organization__box--active");
+                    }
+                }
+            },
+            failure: (response) => {
+                console.log(response);
+            }
+        })
+    }
     
     openLanguagesOverlay(e){
-        this.chosenLanguages = [];
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
         console.log('the book id is ' + this.bookId);
         $.ajax({
@@ -1024,9 +1064,7 @@ class BookInfo{
                         'genres3' : JSON.stringify(this.chosenGenres3)
                     },
                     success: (response) => {
-                        console.log(response);
-                        console.log('success has happened here today!');
-                        // $('html, body').animate({ scrollTop: 0 }, 'fast');
+                        location.reload(true);
                     },
                     error: (response) => {
                         console.log(response);
@@ -1058,8 +1096,33 @@ class BookInfo{
                     'languages' : JSON.stringify(this.chosenLanguages)
                 },
                 success: (response) => {
-                    console.log('success occurred');
+                    location.reload(true);
+                },
+                error: (response) => {
                     console.log(response);
+                }
+            })
+        }
+    }
+
+    saveIdentityEdits(e){
+        console.log('the chosen identities are ' + this.chosenIdentities);
+        if (JSON.stringify(this.chosenIdentities) === JSON.stringify(this.oldIdentities)){
+            $('#tomc-book-organization--edit-identities-no-changes').removeClass('hidden');
+        } else if (this.chosenIdentities.length === 0){
+            $('#tomc-book-organization--edit-no-identities-selected').removeClass('hidden');
+        } else {
+            $.ajax({
+                beforeSend: (xhr) => {
+                    xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+                },
+                url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/editBookIdentities',
+                type: 'POST',
+                data: {
+                    'book' : this.bookId,
+                    'identities' : JSON.stringify(this.chosenIdentities)
+                },
+                success: (response) => {
                     location.reload(true);
                 },
                 error: (response) => {
@@ -1135,11 +1198,19 @@ class BookInfo{
         this.basicInfoOverlayIsOpen = false;
         this.languageOverlayIsOpen = false;
         this.genresOverlayIsOpen = false;
+        this.identitiesOverlayIsOpen = false;
+        this.warningsOverlayIsOpen = false;
         this.title = '';
         this.subTitle = '';
         this.edition = '';
         this.description = '';
         this.excerpt = '';
+        this.chosenLanguages = [];
+        this.oldLanguages = [];
+        this.chosenIdentities = [];
+        this.oldIdentities = [];
+        this.chosenWarnings = [];
+        this.oldWarnings = [];
         $('.tomc-book-organization--genres2-error-section').addClass('hidden');
         $('.tomc-book-organization--genres3-error-section').addClass('hidden');
         this.chosenGenres1 = [];

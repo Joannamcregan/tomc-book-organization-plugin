@@ -145,7 +145,7 @@ get_header();
                         }
                         ?><span class="tomc-book-organization--add-identity tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new identity</span>
                     </div>
-                    <div class="hidden tomc-book-organization--red-text" id="tomc-book-organization--identities-error-section">
+                    <div class="hidden tomc-book-organization--red-text tomc-book-organization--identities-error-section">
                         <p class="tomc-book-organization--genres-error-section-mobile">To add another identity, first deselect one of the identities you've already chosen by tapping it again.</p>
                         <p class="tomc-book-organization--genres-error-section-desktop">To add another identity, first deselect one of the identities you've already chosen by clicking it again.</p>
                     </div>
