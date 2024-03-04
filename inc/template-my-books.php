@@ -30,10 +30,10 @@ get_header();
                                 <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-basic-info">basic info</p>
                                 <p class="transparent-stripe-1 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-languages">languages</p>
                                 <p class="transparent-stripe-2 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-genres">genres</p>
-                                <p class="transparent-stripe-2 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-character-identities">character identities</p>
-                                <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-readalikes">read-alikes</p>
-                                <p class="transparent-stripe-1 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-content-warnings">content warnings</p>
-                                <p class="transparent-stripe-2 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-linked-products">linked products</p>
+                                <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-character-identities">character identities</p>
+                                <p class="transparent-stripe-1 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-readalikes">read-alikes</p>
+                                <p class="transparent-stripe-2 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-content-warnings">content warnings</p>
+                                <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-linked-products">linked products</p>
                             </div>
                         </div>
                     <?php }
@@ -142,7 +142,10 @@ get_header();
                             <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" id="tomc-book-organization__editing-overlay-close"></i>
                             <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-content-warnings-overlay-close">X</span> -->
                             <h3 class="centered-text">Content Warnings</h3>
-                            <div class="tomc-book-organization__edit-content-warnings-containe  tomc-book-org-htmlr"></div>
+                            <div class="tomc-book-organization__edit-content-warnings-container  tomc-book-organization--options-container tomc-book-org-html"></div>
+                            <div id="tomc-book-organization--edit-warnings-no-changes">
+                                <p class="hidden centered-text tomc-book-organization--red-text">No changes appear to have been made.</p>
+                            </div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-content-warnings-edits">save</button>
                         </div>
                     </div>

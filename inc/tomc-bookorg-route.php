@@ -87,6 +87,14 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'editBookIdentities'
     ));
+    register_rest_route('tomcBookorg/v1', 'getContentWarnings', array(
+        'methods' => 'POST',
+        'callback' => 'getContentWarnings'
+    ));
+    register_rest_route('tomcBookorg/v1', 'editBookWarnings', array(
+        'methods' => 'POST',
+        'callback' => 'editBookWarnings'
+    ));
 }
 
 function addNewBook($data){
@@ -270,6 +278,43 @@ function getIdentities($data){
     LEFT JOIN cte b ON a.id = b.identityid';
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
         $results = $wpdb->get_results($wpdb->prepare($query, $book_identities_table, $book, $identities_table), ARRAY_A);
+        return $results;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function editBookWarnings($data) {
+    $book = sanitize_text_field($data['book']);
+    $warnings = explode(',', trim(sanitize_text_field($data['warnings']), '[]'));
+    $user = wp_get_current_user();
+    global $wpdb;
+    $book_warnings_table = $wpdb->prefix . "tomc_book_warnings";
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $wpdb->delete(
+            $book_warnings_table,
+            array('bookid' => $book));
+            addNewBookWarnings($data);
+            return 'success';
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function getContentWarnings($data){
+    $user = wp_get_current_user();
+    global $wpdb;
+    $warnings_table = $wpdb->prefix . "tomc_content_warnings";
+    $book_warnings_table = $wpdb->prefix .  "tomc_book_warnings";
+    $book = sanitize_text_field($data['book']);
+    $query = 'WITH cte AS (SELECT warningid FROM %i WHERE bookid = %d)
+    SELECT a.id, a.warning_name, b.warningid
+    FROM %i a
+    LEFT JOIN cte b ON a.id = b.warningid';
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $results = $wpdb->get_results($wpdb->prepare($query, $book_warnings_table, $book, $warnings_table), ARRAY_A);
         return $results;
     } else {
         wp_safe_redirect(site_url('/my-account'));

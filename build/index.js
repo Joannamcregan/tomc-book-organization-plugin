@@ -103,7 +103,7 @@ class BookInfo {
     this.genresOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__edit-genres-overlay');
     this.identitiesOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__edit-identities-overlay');
     this.readalikesOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__edit-readalikes-overlay');
-    this.contentWarningsOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('tomc-book-organization__edit-content-warnings-overlay');
+    this.contentWarningsOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__edit-content-warnings-overlay');
     this.productsOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('tomc-book-organization__edit-products-overlay');
     // edit options
     this.editBasicInfoOption = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--edit-basic-info');
@@ -118,6 +118,7 @@ class BookInfo {
     this.saveLanguageEditsButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--save-languages-edits');
     this.saveGenreEditsButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--save-genres-edits');
     this.saveIdentityEditsButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--save-identities-edits');
+    this.saveWarningEditsButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--save-content-warnings-edits');
     this.events();
     this.createdBookId;
     this.currentUserId;
@@ -188,13 +189,14 @@ class BookInfo {
     this.editGenresOption.on('click', this.openGenresOverlay.bind(this));
     this.editIdentitiesOption.on('click', this.openIdentitiesOverlay.bind(this));
     // this.editReadalikesOption.on('click', this.openReadalikesOverlay.bind(this));
-    // this.editWarningsOption.on('click', this.openContentWarningsOverlay.bind(this));
+    this.editWarningsOption.on('click', this.openContentWarningsOverlay.bind(this));
     // this.editProductsOption.on('click', this.openProductsOverlay.bind(this));
-    // basic info
+    // save edits
     this.saveBasicInfoEditsButton.on('click', this.saveBasicInfoEdits.bind(this));
     this.saveLanguageEditsButton.on('click', this.saveLanguageEdits.bind(this));
     this.saveGenreEditsButton.on('click', this.saveGenreEdits.bind(this));
     this.saveIdentityEditsButton.on('click', this.saveIdentityEdits.bind(this));
+    this.saveWarningEditsButton.on('click', this.saveWarningEdits.bind(this));
   }
   toggleLanguageSelection(e) {
     console.log('before toggling the chosen language length is ' + this.chosenLanguages.length);
@@ -305,13 +307,13 @@ class BookInfo {
           this.chosenWarnings.splice(i, 1);
         }
       }
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--warnings-error-section').addClass('hidden');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--warnings-error-section').addClass('hidden');
     } else {
       if (this.chosenWarnings.length < 10) {
         this.chosenWarnings.push(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('warning-id'));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('tomc-book-organization--option-selected');
       } else {
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--warnings-error-section').removeClass('hidden');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--warnings-error-section').removeClass('hidden');
       }
     }
     if (this.chosenWarnings.length > 0) {
@@ -520,7 +522,7 @@ class BookInfo {
               this.newSpan.addClass('tomc-book-organization--option-selected');
               this.saveWarningsButton.text('save and continue');
             } else {
-              jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--warnings-error-section').removeClass('hidden');
+              jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--warnings-error-section').removeClass('hidden');
             }
           }
           this.closeWarningOverlay();
@@ -985,6 +987,39 @@ class BookInfo {
       }
     });
   }
+  openContentWarningsOverlay(e) {
+    this.bookId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      beforeSend: xhr => {
+        xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+      },
+      url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getContentWarnings',
+      type: 'POST',
+      data: {
+        'book': this.bookId
+      },
+      success: response => {
+        if (this.warningsOverlayIsOpen != true) {
+          this.warningsOverlayIsOpen = true;
+          for (let i = 0; i < response.length; i++) {
+            if (response[i]['warningid']) {
+              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span tomc-book-organization--option-selected').attr('data-warning-id', response[i]['id']).attr('aria-checked', true).html(response[i]['warning_name']).on('click', this.toggleWarningSelection.bind(this));
+              this.chosenWarnings.push(Number(response[i]['warningid']));
+              this.oldWarnings.push(Number(response[i]['warningid']));
+              jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-content-warnings-container').append(this.newSpan);
+            } else {
+              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-warning-id', response[i]['id']).attr('aria-checked', false).html(response[i]['warning_name']).on('click', this.toggleWarningSelection.bind(this));
+              jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-content-warnings-container').append(this.newSpan);
+            }
+            this.contentWarningsOverlay.addClass("tomc-book-organization__box--active");
+          }
+        }
+      },
+      failure: response => {
+        console.log(response);
+      }
+    });
+  }
   openBasicInfoOverlay(e) {
     this.bookId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
@@ -1098,6 +1133,30 @@ class BookInfo {
         data: {
           'book': this.bookId,
           'languages': JSON.stringify(this.chosenLanguages)
+        },
+        success: response => {
+          location.reload(true);
+        },
+        error: response => {
+          console.log(response);
+        }
+      });
+    }
+  }
+  saveWarningEdits(e) {
+    console.log('the chosen warnings are ' + this.chosenWarnings);
+    if (JSON.stringify(this.chosenWarnings) === JSON.stringify(this.oldWarnings)) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--edit-warnings-no-changes').removeClass('hidden');
+    } else {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+        beforeSend: xhr => {
+          xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+        },
+        url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/editBookWarnings',
+        type: 'POST',
+        data: {
+          'book': this.bookId,
+          'warnings': JSON.stringify(this.chosenWarnings)
         },
         success: response => {
           location.reload(true);

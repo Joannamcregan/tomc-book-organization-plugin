@@ -186,7 +186,7 @@ get_header();
                         }
                         ?><span class="tomc-book-organization--add-warning tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new warning</span>
                     </div>
-                    <div class="hidden tomc-book-organization--red-text" id="tomc-book-organization--warnings-error-section">
+                    <div class="hidden tomc-book-organization--red-text tomc-book-organization--warnings-error-section">
                         <p class="tomc-book-organization--genres-error-section-mobile">To add another warning, first deselect one of the triggers you've already chosen by tapping it again.</p>
                         <p class="tomc-book-organization--genres-error-section-desktop">To add another warning, first deselect one of the triggers you've already chosen by clicking it again.</p>
                     </div>
