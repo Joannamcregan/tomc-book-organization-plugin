@@ -121,6 +121,8 @@ class BookInfo{
         this.genresOverlayIsOpen = false;
         this.identitiesOverlayIsOpen = false;
         this.warningsOverlayIsOpen = false;
+        this.readalikesOverlayIsOpen = false;
+        //hold values
         this.title = '';
         this.subTitle = '';
         this.edition = '';
@@ -132,6 +134,10 @@ class BookInfo{
         this.oldGenres3 = [];
         this.oldIdentities = [];
         this.oldWarnings = [];
+        this.editReadalikeBook0 = '';
+        this.editReadalikeAuthor0 = '';
+        this.editReadalikeBook1 = '';
+        this.editReadalikeAuthor1 = '';
     }
 
     events(){
@@ -174,7 +180,7 @@ class BookInfo{
         this.editLanguagesOption.on('click', this.openLanguagesOverlay.bind(this));
         this.editGenresOption.on('click', this.openGenresOverlay.bind(this));
         this.editIdentitiesOption.on('click', this.openIdentitiesOverlay.bind(this));
-        // this.editReadalikesOption.on('click', this.openReadalikesOverlay.bind(this));
+        this.editReadalikesOption.on('click', this.openReadalikesOverlay.bind(this));
         this.editWarningsOption.on('click', this.openContentWarningsOverlay.bind(this));
         // this.editProductsOption.on('click', this.openProductsOverlay.bind(this));
         // save edits
@@ -1075,6 +1081,80 @@ class BookInfo{
         })
     }
 
+    openReadalikesOverlay(e){
+        this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+        $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+            },
+            url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getReadalikes',
+            type: 'POST',
+            data: {
+                'book' : this.bookId
+            },
+            success: (response) => {
+                console.log(response);
+                if (this.readalikesOverlayIsOpen != true){
+                    this.readalikesOverlayIsOpen = true;
+                    if (response[0]){
+                        this.newFormDiv = $('<div />').addClass('tomc-book-organization--edit-overlay-new-form');
+                        this.newDiv = $('<div />').addClass('tomc-book-organization--form tomc-book-organization--form-div');
+                        this.newInput = $('<input />').attr('type', 'text').attr('name', 'tomc-book-organization--readalike-book-0-edit').val(response[0]['readalike_title']);
+                        this.newDiv.append(this.newInput);
+                        this.newSpan = $('<span />').html(' by ');
+                        this.newDiv.append(this.newSpan);
+                        this.newInput = $('<input />').attr('type', 'text').attr('name', 'tomc-book-organization--readalike-author-0-edit').val(response[0]['readalike_author']);
+                        this.newDiv.append(this.newInput);
+                        this.newFormDiv.append(this.newDiv);
+                        $('.tomc-book-organization__edit-basic-info-container').append(this.newFormDiv);
+                        this.editReadalikeBook0 = response[0]['readalike_title'];
+                        this.editReadalikeAuthor0 = response[0]['readalike_author'];
+                    } else {
+                        this.newFormDiv = $('<div />').addClass('tomc-book-organization--edit-overlay-new-form');
+                        this.newDiv = $('<div />').addClass('tomc-book-organization--form tomc-book-organization--form-div');
+                        this.newInput = $('<input />').attr('type', 'text').attr('name', 'tomc-book-organization--readalike-book-0-edit').attr('placeholder', 'book title');
+                        this.newDiv.append(this.newInput);
+                        this.newSpan = $('<span />').html(' by ');
+                        this.newDiv.append(this.newSpan);
+                        this.newInput = $('<input />').attr('type', 'text').attr('name', 'tomc-book-organization--readalike-author-0-edit').attr('placeholder', 'author');
+                        this.newDiv.append(this.newInput);
+                        this.newFormDiv.append(this.newDiv);
+                        $('.tomc-book-organization__edit-basic-info-container').append(this.newFormDiv);
+                    }
+                    if (response[1]){
+                        this.newFormDiv = $('<div />').addClass('tomc-book-organization--edit-overlay-new-form');
+                        this.newDiv = $('<div />').addClass('tomc-book-organization--form tomc-book-organization--form-div');
+                        this.newInput = $('<input />').attr('type', 'text').attr('name', 'tomc-book-organization--readalike-book-1-edit').val(response[1]['readalike_title']);
+                        this.newDiv.append(this.newInput);
+                        this.newSpan = $('<span />').html(' by ');
+                        this.newDiv.append(this.newSpan);
+                        this.newInput = $('<input />').attr('type', 'text').attr('name', 'tomc-book-organization--readalike-author-1-edit').val(response[1]['readalike_author']);
+                        this.newDiv.append(this.newInput);
+                        this.newFormDiv.append(this.newDiv);
+                        $('.tomc-book-organization__edit-basic-info-container').append(this.newFormDiv);
+                        this.editReadalikeBook1 = response[1]['readalike_title'];
+                        this.editReadalikeAuthor1 = response[1]['readalike_author'];
+                    } else {
+                        this.newFormDiv = $('<div />').addClass('tomc-book-organization--edit-overlay-new-form');
+                        this.newDiv = $('<div />').addClass('tomc-book-organization--form tomc-book-organization--form-div');
+                        this.newInput = $('<input />').attr('type', 'text').attr('name', 'tomc-book-organization--readalike-book-1-edit').attr('placeholder', 'book title');
+                        this.newDiv.append(this.newInput);
+                        this.newSpan = $('<span />').html(' by ');
+                        this.newDiv.append(this.newSpan);
+                        this.newInput = $('<input />').attr('type', 'text').attr('name', 'tomc-book-organization--readalike-author-1-edit').attr('placeholder', 'author');
+                        this.newDiv.append(this.newInput);
+                        this.newFormDiv.append(this.newDiv);
+                        $('.tomc-book-organization__edit-basic-info-container').append(this.newFormDiv);
+                    }
+                    this.basicInfoOverlay.addClass("tomc-book-organization__box--active");
+                }
+            },
+            error: (response) => {
+                console.log(response);
+            }
+        })
+    }
+
     saveGenreEdits(e){
         if (this.chosenGenres1.length == 0 && this.chosenGenres2.length == 0 && this.chosenGenres3.length == 0){
             this.editBookGenresNoneAddedError.removeClass("hidden");
@@ -1261,6 +1341,7 @@ class BookInfo{
         this.genresOverlayIsOpen = false;
         this.identitiesOverlayIsOpen = false;
         this.warningsOverlayIsOpen = false;
+        this.readalikesOverlayIsOpen = false;
         this.title = '';
         this.subTitle = '';
         this.edition = '';
@@ -1272,6 +1353,10 @@ class BookInfo{
         this.oldIdentities = [];
         this.chosenWarnings = [];
         this.oldWarnings = [];
+        this.editReadalikeBook0 = '';
+        this.editReadalikeAuthor0 = '';
+        this.editReadalikeBook1 = '';
+        this.editReadalikeAuthor1 = '';
         $('.tomc-book-organization--genres2-error-section').addClass('hidden');
         $('.tomc-book-organization--genres3-error-section').addClass('hidden');
         this.chosenGenres1 = [];

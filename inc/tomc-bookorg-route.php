@@ -95,6 +95,10 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'editBookWarnings'
     ));
+    register_rest_route('tomcBookorg/v1', 'getReadalikes', array(
+        'methods' => 'POST',
+        'callback' => 'getReadalikes'
+    ));
 }
 
 function addNewBook($data){
@@ -120,6 +124,21 @@ function addNewBook($data){
         $wpdb->insert($books_table, $newBook);
         $newBookId = $wpdb->insert_id;
         return $newBookId;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function getReadalikes($data){
+    $user = wp_get_current_user();
+    global $wpdb;
+    $readalikes_table = $wpdb->prefix .  "tomc_book_readalikes";
+    $book = sanitize_text_field($data['book']);
+    $query = 'SELECT * FROM ' . $readalikes_table . ' WHERE bookid = ' . $book . ' LIMIT 2';
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $result = $wpdb->get_results($query, ARRAY_A);
+        return $result;
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';
