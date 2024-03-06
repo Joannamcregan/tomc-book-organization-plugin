@@ -118,8 +118,8 @@ get_header();
                             <div class="hidden centered-text tomc-book-organization--red-text" id="tomc-book-organization--edit-no-identities-selected">
                                 <p>Please choose as least one character identity.</p>
                             </div>
-                            <div id="tomc-book-organization--edit-identities-no-changes">
-                                <p class="hidden centered-text tomc-book-organization--red-text">No changes appear to have been made.</p>
+                            <div id="tomc-book-organization--edit-identities-no-changes" class="hidden">
+                                <p class="centered-text tomc-book-organization--red-text">No changes appear to have been made.</p>
                             </div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-identities-edits">save</button>
                         </div>
@@ -132,6 +132,9 @@ get_header();
                             <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-readalikes-overlay-close">X</span> -->
                             <h3 class="centered-text">Similar Books</h3>
                             <div class="tomc-book-organization__edit-readalikes-container  tomc-book-org-html"></div>
+                            <div id="tomc-book-organization--edit-readalikes-no-changes" class="hidden">
+                                <p class="centered-text tomc-book-organization--red-text">No changes appear to have been made.</p>
+                            </div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-readalikes-edits">save</button>
                         </div>
                     </div>
@@ -143,8 +146,8 @@ get_header();
                             <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-content-warnings-overlay-close">X</span> -->
                             <h3 class="centered-text">Content Warnings</h3>
                             <div class="tomc-book-organization__edit-content-warnings-container  tomc-book-organization--options-container tomc-book-org-html"></div>
-                            <div id="tomc-book-organization--edit-warnings-no-changes">
-                                <p class="hidden centered-text tomc-book-organization--red-text">No changes appear to have been made.</p>
+                            <div id="tomc-book-organization--edit-warnings-no-changes" class="hidden">
+                                <p class="centered-text tomc-book-organization--red-text">No changes appear to have been made.</p>
                             </div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-content-warnings-edits">save</button>
                         </div>
