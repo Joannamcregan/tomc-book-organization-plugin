@@ -644,12 +644,19 @@ function getBookProducts($data){
     $book = sanitize_text_field($data['book']);
     $now = date('Y-m-d H:i:s');
     $user = wp_get_current_user();
+    $userId = get_current_user_id();
     global $wpdb;
+    $posts_table = $wpdb->prefix . "posts";
     $book_products_table = $wpdb->prefix . "tomc_book_products";
     $books_table = $wpdb->prefix .  "tomc_books";
-    $query = 'SELECT b.*, a.product_image_id FROM %i a JOIN %i b ON a.id = b.bookid WHERE a.id = ' . $book;
+    $query = 'WITH cte AS (SELECT b.*, a.product_image_id FROM %i a JOIN %i b ON a.id = b.bookid WHERE a.id = %d)
+    SELECT a.id, a.post_title, b.productid, b.typeid, b.product_image_id
+    FROM %i a
+    LEFT JOIN cte b ON a.id = b.productid
+    WHERE a.post_type = %s and a.post_status = %s and a.post_author = %d 
+    ORDER BY a.post_title;';
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
-        $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table), ARRAY_A);
+        $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $book, $posts_table, 'product', 'publish', $userId), ARRAY_A);
         return $results;
     } else {
         wp_safe_redirect(site_url('/my-account'));
