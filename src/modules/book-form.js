@@ -1404,7 +1404,7 @@ class BookInfo{
                                 let thumbnail = $('<img />').attr('src', response[i]['guid']);
                                 productOption.append(thumbnail);
                                 productOption.append('<br><br>');
-                                let selectLabel = $('<label />').addClass('tomc-book-organization--centered-label').attr('for', 'tomc-book-organization--select-for-' + response[i]['id']).html('Which format is this product?');
+                                let selectLabel = $('<label />').addClass('tomc-book-organization--select-label').attr('for', 'tomc-book-organization--select-for-' + response[i]['id']).html('Which format is this product?');
                                 productOption.append(selectLabel);
                                 let typeSelect = $('<select />').addClass('tomc-book-organization--product-format').attr('id', 'tomc-book-organization--select-for-' + response[i]['id']);
                                 for (let j = 0; j < formatOptions.length; j++){

@@ -217,7 +217,7 @@ get_header();
                                 <input class="tomc-book-organization--product-checkbox" type="checkbox" id="<?php echo 'tomc-book-organization--book-product-id-' . $product->ID; ?>" value="<?php echo $product->ID; ?>">
                                 <label class="tomc-book-organization--large-label" for="<?php echo 'tomc-book-organization--book-product-id-' . $product->ID; ?>"><?php echo $product->post_title; ?></label></br>
                                 <img src="<?php echo get_the_post_thumbnail_url($product->ID); ?>" /><br><br>
-                                <label class="tomc-book-organization--centered-label" for="<?php echo 'tomc-book-organization--select-for-' . $product->ID; ?>">Which format is this product?</label>
+                                <label class="tomc-book-organization--select-label" for="<?php echo 'tomc-book-organization--select-for-' . $product->ID; ?>">Which format is this product?</label>
                                 <select class="tomc-book-organization--product-format" id="<?php echo 'tomc-book-organization--select-for-' . $product->ID; ?>">
                                     <?php foreach($product_types as $type) {
                                         ?><option value="<?php echo $type->id; ?>"><?php echo $type->type_name; ?></option>
