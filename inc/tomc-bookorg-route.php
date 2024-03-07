@@ -103,6 +103,10 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'editReadalikes'
     ));
+    register_rest_route('tomcBookorg/v1', 'getProductTypes', array(
+        'methods' => 'POST',
+        'callback' => 'getProductTypes'
+    ));
     register_rest_route('tomcBookorg/v1', 'getBookProducts', array(
         'methods' => 'POST',
         'callback' => 'getBookProducts'
@@ -640,6 +644,20 @@ function addNewBookPenName($data) {
     }
 }
 
+function getProductTypes(){
+    $user = wp_get_current_user();
+    global $wpdb;
+    $types_table = $wpdb->prefix . "tomc_product_types";
+    $query = 'SELECT id, type_name FROM %i';
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $results = $wpdb->get_results($wpdb->prepare($query, $types_table), ARRAY_A);
+        return $results;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
 function getBookProducts($data){
     $book = sanitize_text_field($data['book']);
     $now = date('Y-m-d H:i:s');
@@ -647,17 +665,26 @@ function getBookProducts($data){
     $userId = get_current_user_id();
     global $wpdb;
     $posts_table = $wpdb->prefix . "posts";
+    $meta_table = $wpdb->prefix . "postmeta";
     $book_products_table = $wpdb->prefix . "tomc_book_products";
     $books_table = $wpdb->prefix .  "tomc_books";
-    $query = 'WITH cte AS (SELECT b.*, a.product_image_id FROM %i a JOIN %i b ON a.id = b.bookid WHERE a.id = %d)
-    SELECT a.id, a.post_title, b.productid, b.typeid, b.product_image_id
+    $query = 'WITH cte AS 
+        (SELECT b.* 
+        FROM %i a 
+        JOIN %i b ON a.id = b.bookid 
+        WHERE a.id = %d)
+    SELECT a.id, a.post_title, p.guid, b.productid, b.typeid, p.guid
     FROM %i a
+    JOIN %i m ON a.id = m.post_id
+    AND m.meta_key = %s
+    JOIN %i p ON m.meta_value =  p.id
     LEFT JOIN cte b ON a.id = b.productid
     WHERE a.post_type = %s and a.post_status = %s and a.post_author = %d 
     ORDER BY a.post_title;';
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
-        $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $book, $posts_table, 'product', 'publish', $userId), ARRAY_A);
+        $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $book, $posts_table, $meta_table, '_thumbnail_id', $posts_table, 'product', 'publish', $userId), ARRAY_A);
         return $results;
+        // return $wpdb->prepare($query, $books_table, $book_products_table, $book, $posts_table, $meta_table, '_thumbnail_id', $posts_table, 'product', 'publish', $userId);
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';

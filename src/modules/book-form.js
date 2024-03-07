@@ -89,7 +89,7 @@ class BookInfo{
         this.identitiesOverlay = $('#tomc-book-organization__edit-identities-overlay');
         this.readalikesOverlay = $('#tomc-book-organization__edit-readalikes-overlay');
         this.contentWarningsOverlay = $('#tomc-book-organization__edit-content-warnings-overlay');
-        this.productsOverlay = $('tomc-book-organization__edit-products-overlay');
+        this.productsOverlay = $('#tomc-book-organization__edit-products-overlay');
         // edit options
         this.editBasicInfoOption = $('.tomc-book-organization--edit-basic-info');
         this.editLanguagesOption = $('.tomc-book-organization--edit-languages');
@@ -1367,32 +1367,66 @@ class BookInfo{
 
     openProductsOverlay(e){
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+        let formatOptions = [];
         $.ajax({
             beforeSend: (xhr) => {
                 xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
             },
-            url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getBookProducts',
+            url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getProductTypes',
             type: 'POST',
-            data: {
-                'book' : this.bookId
-            },
             success: (response) => {
-                // if (this.languageOverlayIsOpen != true){
-                //     this.languageOverlayIsOpen = true;
-                //     for(let i = 0; i < response.length; i++){
-                //         if (response[i]['languageid']){
-                //             this.newSpan = $('<span />').addClass('tomc-book-organization--option-span tomc-book-organization--option-selected').attr('data-language-id', response[i]['id']).attr('aria-checked', true).html(response[i]['language_name']).on('click', this.toggleLanguageSelection.bind(this));
-                //             this.chosenLanguages.push(Number(response[i]['languageid']));
-                //             this.oldLanguages.push(Number(response[i]['languageid']));
-                //             $('.tomc-book-organization__edit-languages-container').append(this.newSpan);
-                //         } else {
-                //             this.newSpan = $('<span />').addClass('tomc-book-organization--option-span').attr('data-language-id', response[i]['id']).attr('aria-checked', false).html(response[i]['language_name']).on('click', this.toggleLanguageSelection.bind(this));
-                //             $('.tomc-book-organization__edit-languages-container').append(this.newSpan);
-                //         }
-                //         this.languagesOverlay.addClass("tomc-book-organization__box--active");
-                //     }
-                // }
-                console.log(response);
+                for(let i = 0; i < response.length; i++){
+                    formatOptions.push(response[i]);
+                }
+                console.log(formatOptions);
+                $.ajax({
+                    beforeSend: (xhr) => {
+                        xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+                    },
+                    url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getBookProducts',
+                    type: 'POST',
+                    data: {
+                        'book' : this.bookId
+                    },
+                    success: (response) => {
+                        if (this.productsOverlayIsOpen != true){
+                            this.productsOverlayIsOpen = true;
+                            for(let i = 0; i < response.length; i++){
+                                let productDiv = $('<div />').addClass('tomc-book-organization--book-products-div');
+                                let productOption = $('<div />').addClass('tomc-book-organization--product-option');
+                                let checkbox = $('<input />').addClass('tomc-book-organization--product-checkbox').attr('type', 'checkbox').attr('id', 'tomc-book-organization--book-product-id-' + response[i]['id']).val(response[i]['id']);
+                                if (response[i]['productid']){
+                                    checkbox.prop("checked", true);
+                                }
+                                productOption.append(checkbox);
+                                let checkboxLabel = $('<label />').addClass('tomc-book-organization--large-label').attr('for', 'tomc-book-organization--book-product-id-' + response[i]['id']).html(response[i]['post_title']);
+                                productOption.append(checkboxLabel);
+                                let thumbnail = $('<img />').attr('src', response[i]['guid']);
+                                productOption.append(thumbnail);
+                                productOption.append('<br><br>');
+                                let selectLabel = $('<label />').addClass('tomc-book-organization--centered-label').attr('for', 'tomc-book-organization--select-for-' + response[i]['id']).html('Which format is this product?');
+                                productOption.append(selectLabel);
+                                let typeSelect = $('<select />').addClass('tomc-book-organization--product-format').attr('id', 'tomc-book-organization--select-for-' + response[i]['id']);
+                                for (let j = 0; j < formatOptions.length; j++){
+                                    let selectOption = $('<option />').attr('value', formatOptions[j]['id']).text(formatOptions[j]['type_name']);
+                                    if (formatOptions[j]['id'] == response[i]['typeid']){
+                                        selectOption.attr('selected', 'selected');
+                                    }
+                                    typeSelect.append(selectOption);
+                                }
+                                productOption.append(typeSelect);
+        
+                                productDiv.append(productOption);
+                                $('.tomc-book-organization__edit-products-container').append(productDiv);
+                            }
+                            this.productsOverlay.addClass("tomc-book-organization__box--active");
+                        }
+                        console.log(response);
+                    },
+                    failure: (response) => {
+                        console.log(response);
+                    }
+                })
             },
             failure: (response) => {
                 console.log(response);

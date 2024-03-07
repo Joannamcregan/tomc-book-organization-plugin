@@ -212,7 +212,7 @@ get_header();
                     <?php $product_types = $wpdb->get_results("SELECT * from $product_types_table ORDER BY type_name;"); 
                     $author_products = $wpdb->get_results("SELECT * from $posts_table WHERE post_type = 'product' and post_status = 'publish' and post_author = $userid ORDER BY post_title;");
                     foreach($author_products as $product) {
-                        ?><div id="tomc-book-organization--book-products-div">
+                        ?><div class="tomc-book-organization--book-products-div">
                             <div class="tomc-book-organization--product-option">
                                 <input class="tomc-book-organization--product-checkbox" type="checkbox" id="<?php echo 'tomc-book-organization--book-product-id-' . $product->ID; ?>" value="<?php echo $product->ID; ?>">
                                 <label class="tomc-book-organization--large-label" for="<?php echo 'tomc-book-organization--book-product-id-' . $product->ID; ?>"><?php echo $product->post_title; ?></label></br>
