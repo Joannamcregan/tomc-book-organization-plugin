@@ -669,11 +669,11 @@ function getBookProducts($data){
     $book_products_table = $wpdb->prefix . "tomc_book_products";
     $books_table = $wpdb->prefix .  "tomc_books";
     $query = 'WITH cte AS 
-        (SELECT b.* 
+        (SELECT b.*, a.product_image_id
         FROM %i a 
         JOIN %i b ON a.id = b.bookid 
         WHERE a.id = %d)
-    SELECT a.id, a.post_title, p.guid, b.productid, b.typeid, p.guid
+    SELECT a.id, a.post_title, p.guid, b.productid, b.typeid, p.guid, b.product_image_id
     FROM %i a
     JOIN %i m ON a.id = m.post_id
     AND m.meta_key = %s

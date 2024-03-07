@@ -1415,6 +1415,14 @@ class BookInfo{
                                     typeSelect.append(selectOption);
                                 }
                                 productOption.append(typeSelect);
+                                productOption.append('<br>');
+                                let radio = $('<input />').attr('type', 'radio').attr('name', 'tomc-book-organization--main-image-product').val(response[i]['id']).attr('id', 'tomc-book-organization--book-product-image-' + response[i]['id']);
+                                if (response[i]['productid'] == response[i]['product_image_id']){
+                                    radio.prop('checked', true);
+                                }
+                                productOption.append(radio);
+                                let radioLabel = $('<label />').attr('for', 'tomc-book-organization--book-product-image-' + response[i]['id']).text("use this product's image as the main image for this book.");
+                                productOption.append(radioLabel);
         
                                 productDiv.append(productOption);
                                 $('.tomc-book-organization__edit-products-container').append(productDiv);
