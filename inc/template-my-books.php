@@ -26,13 +26,6 @@ get_header();
                     <?php foreach($books as $book){
                         ?><div class="tomc-book-organization--book-to-edit page-accent-alt-thin">
                             <p class="centered-text"><strong class="tomc-book-organization--book-to-edit-title tomc-book-options--cursor-pointer"><?php echo $book->title; ?></strong></p>
-                            <?php if ($book->isLive == 1){
-                                ?><button class="tomc-book-organization--save-button tomc-book-organization--unpublish">unpublish</button>
-                                <p>Unpublishing your book will remove it from search results and browsing areas.</p>
-                            <?php } else {
-                                ?><button class="tomc-book-organization--save-button tomc-book-organization--publish">publish</button>
-                                <p>Publishing your book will add it to search results and browsing areas.</p>
-                            <?php } ?>
                             <div class="tomc-book-organization--edit-book-options hidden" data-book="<?php echo $book->id; ?>">
                                 <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-basic-info">basic info</p>
                                 <p class="transparent-stripe-1 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-languages">languages</p>
@@ -41,6 +34,13 @@ get_header();
                                 <p class="transparent-stripe-1 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-readalikes">read-alikes</p>
                                 <p class="transparent-stripe-2 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-content-warnings">content warnings</p>
                                 <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-linked-products">linked products</p>
+                                <?php if ($book->islive == 1){
+                                    ?><button data-toggle=0 class="tomc-book-organization--save-button tomc-book-organization--unpublish">unpublish</button>
+                                    <p class="centered-text"><em>Unpublishing your book will remove it from search results and browsing areas.</em></p>
+                                <?php } else {
+                                    ?><button data-toggle=1 class="tomc-book-organization--save-button tomc-book-organization--publish">publish</button>
+                                    <p class="centered-text"><em>Publishing your book will add it to search results and browsing areas.</em></p>
+                                <?php } ?>
                             </div>
                         </div>
                     <?php }

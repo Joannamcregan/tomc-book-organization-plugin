@@ -802,12 +802,12 @@ function togglePublish($data){
     global $wpdb;
     $books_table = $wpdb->prefix .  "tomc_books";
     $book = sanitize_text_field($data['book']);
-    $isLive = $data['status'];
+    $isLive = sanitize_text_field($data['status']);
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
         $wpdb->update(
             $books_table, 
             array(
-                'islive' => $isLive
+                'islive' => boolval($isLive)
             ), 
             array('id' => $book));
             return 'success';

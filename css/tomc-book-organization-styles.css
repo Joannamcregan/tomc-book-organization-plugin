@@ -157,13 +157,19 @@
     max-width: 500px;
     background: #e3caab;
     padding: 30px 10px;
+    border-top: solid #d34a24 15px;
+    border-right: solid #d34a24 15px;
+    border-bottom: solid #d38124 15px;
+    border-left: solid #d38124 15px;
     border-radius: 15px;
     justify-content: center;
 }
 .tomc-book-organization--product-option img{
     max-width: 200px;
-    margin: 10px auto;
+    /* margin: 10px auto; */
+    margin: 10px;
     display: block;
+    border: solid white 10px;
 }
 .tomc-book-organization--product-option input[type=checkbox]{
     height: 20px;
@@ -182,13 +188,13 @@
     margin-top: 10px;
     font-size: 16;
     display: block;
-    margin: 10px auto 20px auto;
+    /* margin: 10px auto 20px auto; */
+    margin: 10px 10px 20px 10px;
     padding: 2px 5px;
 }
-.tomc-book-organization--centered-label{
+.tomc-book-organization--select-label{
     display: block;
-    margin: auto;
-    text-align: center;
+    margin: 10px;
     /* max-width: fit-content; */
 }
 .tomc-book-organization--large-label{
