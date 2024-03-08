@@ -197,7 +197,8 @@ class BookInfo{
         this.saveWarningEditsButton.on('click', this.saveWarningEdits.bind(this));
         this.saveReadalikesEditsButton.on('click', this.saveReadalikesEdits.bind(this));
         this.saveProductsEditsButton.on('click', this.saveBookProducts.bind(this, 'updateBookProducts'));
-        this.publishButtons.on('click', togglePublish.bind(this, 1));
+        this.publishButtons.on('click', this.togglePublish.bind(this));
+        this.unpublishButtons.on('click', this.togglePublish.bind(this));
     }
 
     toggleLanguageSelection(e){
@@ -1354,6 +1355,31 @@ class BookInfo{
                 }
             })
         }
+    }
+
+    togglePublish(e){
+        let bookToUpdate = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+        let newStatus = $(e.target).data('toggle');
+        console.log('the new book status is ' + newStatus);
+        $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+            },
+            url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/togglePublish',
+            type: 'POST',
+            data: {
+                'book' : bookToUpdate,
+                'status' : newStatus,
+            },
+            success: (response) => {
+                console.log(response);
+                location.reload(true);
+            },
+            error: (response) => {
+                console.log('error occurred.');
+                console.log(response);
+            }
+        })
     }
 
     saveBasicInfoEdits(e){
