@@ -173,6 +173,14 @@ get_header();
                     <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book-readalikes">save and continue</button>
                 </div>
 
+                <div class="tomc-book-organization--form hidden" id="tomc-book-organization--complete">
+                    <h3>Thank you!</h3>
+                    <br><br>
+                    <p><a href="<?php echo esc_url(site_url('/add-a-book'));?>">add another book</a></p>
+                    <p><a href="<?php echo esc_url(site_url('/my-books'));?>">edit books you've added</a></p>
+                    <p><a href="<?php echo esc_url(site_url('/dashboard'));?>">add a product</a>, like an ebook or audiobook</p>
+                </div>
+
                 <div class="tomc-book-organization--form hidden" id="tomc-book-organization--book-warnings-form" >
                     <h3>Does your book need any content warnings?</h3>
                     <p>Please choose up to ten.</p>

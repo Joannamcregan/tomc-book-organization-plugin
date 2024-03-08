@@ -26,6 +26,13 @@ get_header();
                     <?php foreach($books as $book){
                         ?><div class="tomc-book-organization--book-to-edit page-accent-alt-thin">
                             <p class="centered-text"><strong class="tomc-book-organization--book-to-edit-title tomc-book-options--cursor-pointer"><?php echo $book->title; ?></strong></p>
+                            <?php if ($book->isLive == 1){
+                                ?><button class="tomc-book-organization--save-button tomc-book-organization--unpublish">unpublish</button>
+                                <p>Unpublishing your book will remove it from search results and browsing areas.</p>
+                            <?php } else {
+                                ?><button class="tomc-book-organization--save-button tomc-book-organization--publish">publish</button>
+                                <p>Publishing your book will add it to search results and browsing areas.</p>
+                            <?php } ?>
                             <div class="tomc-book-organization--edit-book-options hidden" data-book="<?php echo $book->id; ?>">
                                 <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-basic-info">basic info</p>
                                 <p class="transparent-stripe-1 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-languages">languages</p>
@@ -160,6 +167,9 @@ get_header();
                             <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-products-overlay-close">X</span> -->
                             <h3 class="centered-text">Linked Products</h3>
                             <div class="tomc-book-organization__edit-products-container  tomc-book-org-html"></div>
+                            <div id="tomc-book-organization--product-image-error" class="hidden">
+                                <p class="centered-text">Please select the product whose image you want to use as the main image for this book.</p>
+                            </div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-products-edits">save</button>
                         </div>
                     </div>

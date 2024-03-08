@@ -111,6 +111,14 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'getBookProducts'
     ));
+    register_rest_route('tomcBookorg/v1', 'updateBookProducts', array(
+        'methods' => 'POST',
+        'callback' => 'editBookProducts'
+    ));
+    register_rest_route('tomcBookorg/v1', 'togglePublish', array(
+        'methods' => 'POST',
+        'callback' => 'togglePublish'
+    ));
 }
 
 function addNewBook($data){
@@ -658,6 +666,23 @@ function getProductTypes(){
     }
 }
 
+function editBookProducts($data){
+    $user = wp_get_current_user();
+    global $wpdb;
+    $products_table = $wpdb->prefix .  "tomc_book_products";
+    $book = sanitize_text_field($data['book']);
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $wpdb->delete(
+            $products_table,
+            array('bookid' => $book));
+            addNewBookProducts($data);
+            return 'success';
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
 function getBookProducts($data){
     $book = sanitize_text_field($data['book']);
     $now = date('Y-m-d H:i:s');
@@ -766,6 +791,26 @@ function publishNewBook($data) {
             )
         );
         return 'success';
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function togglePublish($data){
+    $user = wp_get_current_user();
+    global $wpdb;
+    $books_table = $wpdb->prefix .  "tomc_books";
+    $book = sanitize_text_field($data['book']);
+    $isLive = $data['status'];
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $wpdb->update(
+            $books_table, 
+            array(
+                'islive' => $isLive
+            ), 
+            array('id' => $book));
+            return 'success';
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';
