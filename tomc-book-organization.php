@@ -8,6 +8,7 @@
 
 if( ! defined('ABSPATH') ) exit;
 require_once plugin_dir_path(__FILE__) . 'inc/tomc-bookorg-route.php';
+require_once plugin_dir_path(__FILE__) . 'inc/tomc-browse-route.php';
 
 class TOMCBookOrganizationPlugin {
     function __construct() {
@@ -75,15 +76,15 @@ class TOMCBookOrganizationPlugin {
         wp_insert_post($add_book_page);
     }
 
-    function addMyPenNamesPage() {
-        $my_pennames_page = array(
-            'post_title' => 'My Pen Names',
+    function browseByGenrePage() {
+        $add_book_page = array(
+            'post_title' => 'Browse by Genre',
             'post_content' => '',
             'post_status' => 'publish',
             'post_author' => 0,
             'post_type' => 'page'
         );
-        wp_insert_post($my_pennames_page);
+        wp_insert_post($add_book_page);
     }
 
     function onActivate() {
@@ -245,18 +246,13 @@ class TOMCBookOrganizationPlugin {
             $this->addMyBooksPage();
         }
 
-        if (post_exists('My Pen Names', '', '', 'page', 'publish') == 0){
-            $this->addMyPenNamesPage();
-        }
-
         if(post_exists('Add a Book', '', '', 'page', 'publish') == 0){
             $this->addAddBookPage();
         }
 
-        if(post_exists('Edit Your Book', '', '', 'page', 'publish') == 0){
-            $this->addEditBookPage();
+        if(post_exists('Browse by Genre', '', '', 'page', 'publish') == 0){
+            $this->browseByGenrePage();
         }
-
     }
 
     function loadTemplate($template){
@@ -264,10 +260,8 @@ class TOMCBookOrganizationPlugin {
             return plugin_dir_path(__FILE__) . 'inc/template-my-books.php';
         } elseif (is_page('add-a-book')){
             return plugin_dir_path(__FILE__) . 'inc/template-add-book.php';
-        } elseif (is_page('edit-your-book')){
-            return plugin_dir_path(__FILE__) . 'inc/template-edit-book.php';
-        } elseif (is_page('my-pen-names')){
-            return plugin_dir_path(__FILE__) . 'inc/template-my-pen-names.php';
+        } elseif (is_page('browse-by-genre')){
+            return plugin_dir_path(__FILE__) . 'inc/template-browse-by-genre.php';
         } else
         return $template;
     }

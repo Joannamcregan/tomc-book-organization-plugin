@@ -397,6 +397,11 @@ class BookInfo{
 
     addGenre(){
         this.genreName =  this.genreInput.val().substring(0, 200);
+        if (toLowerCase(this.genreName) == 'any genre'){
+            this.genreName = 'the any-genre genre'
+        } else if (toLowerCase(this.genreName) == 'anything'){
+            this.genreName = 'books about ' + this.genreName;
+        }
         if (this.genreInput != ''){
             $.ajax({
                 beforeSend: (xhr) => {
@@ -758,7 +763,7 @@ class BookInfo{
                     'subtitle' : this.bookSubtitle.val().substring(0, 200),
                     'edition' : parseInt(this.bookEdition.val().substring(0, 10), 10),
                     'description' : this.bookDescription.val().substring(0, 1000),
-                    'excerpt' : this.bookExcerpt.val().substring(0, 500),
+                    'excerpt' : this.bookExcerpt.val().substring(0, 10000),
                     'user' : $(e.target).data('user')
                 },
                 success: (response) => {
@@ -1385,7 +1390,7 @@ class BookInfo{
     saveBasicInfoEdits(e){
         let newTitle = $(e.target).parent('.overlay-main-container').children('.tomc-book-organization__edit-basic-info-container').children('.tomc-book-organization--edit-overlay-new-form').children('.tomc-book-organization--form-div-title').children('.tomc-book-organization-input--edit').val();
         let newDescription = $(e.target).parent('.overlay-main-container').children('.tomc-book-organization__edit-basic-info-container').children('.tomc-book-organization--edit-overlay-new-form').children('.tomc-book-organization--form-div-description').children('.tomc-book-organization-textarea--edit').val().substring(0, 1000);
-        let newExcerpt = $(e.target).parent('.overlay-main-container').children('.tomc-book-organization__edit-basic-info-container').children('.tomc-book-organization--edit-overlay-new-form').children('.tomc-book-organization--form-div-excerpt').children('.tomc-book-organization-textarea--edit').val().substring(0, 500);
+        let newExcerpt = $(e.target).parent('.overlay-main-container').children('.tomc-book-organization__edit-basic-info-container').children('.tomc-book-organization--edit-overlay-new-form').children('.tomc-book-organization--form-div-excerpt').children('.tomc-book-organization-textarea--edit').val().substring(0, 10000);
         if (this.title != newTitle
         || ((this.subTitle) && (this.subTitle != $(e.target).parent('.overlay-main-container').children('.tomc-book-organization__edit-basic-info-container').children('.tomc-book-organization--edit-overlay-new-form').children('.tomc-book-organization--form-div-subtitle').children('.tomc-book-organization-input--edit').val()))
         || ((! this.subTitle) && $(e.target).parent('.overlay-main-container').children('.tomc-book-organization__edit-basic-info-container').children('.tomc-book-organization--edit-overlay-new-form').children('.tomc-book-organization--form-div-subtitle').children('.tomc-book-organization-input--edit').val())

@@ -94,6 +94,39 @@
     cursor: pointer;
     max-height: fit-content;
 }
+.tomc-book-organization--browse-option-1{
+    margin: 3px;
+    border-radius: 15px;
+    border: solid #3c7f72 5px;
+    padding: 10px;
+    background: none;
+    cursor: pointer;
+}
+.tomc-book-organization--browse-option-1-selected{
+    background: #c5dcd7;
+}
+.tomc-book-organization--browse-option-2{
+    margin: 3px;
+    border-radius: 15px;
+    border: solid #3c727f 5px;
+    padding: 10px;
+    background: none;
+    cursor: pointer;
+}
+.tomc-book-organization--browse-option-2-selected{
+    background: #c2d3dc;
+}
+.tomc-book-organization--browse-option-3{
+    margin: 3px;
+    border-radius: 15px;
+    border: solid #570096 5px;
+    padding: 10px;
+    background: none;
+    cursor: pointer;
+}
+.tomc-book-organization--browse-option-3-selected{
+    background: #cfc7ea;
+}
 .tomc-book-organization--option-span{
     margin: 3px;
     border-radius: 15px;
@@ -232,4 +265,14 @@
     margin: 0 auto 20px auto;
     text-align: left;
     padding: 10px;
+}
+#tomc-book-organization--lets-roll-genres{
+    background-color: #790372;
+    color: white;
+    font-size: 16;
+    border-radius: 45px;
+    padding: 15px 30px;
+    cursor: pointer;
+    display: block;
+    margin: 40px auto;
 }

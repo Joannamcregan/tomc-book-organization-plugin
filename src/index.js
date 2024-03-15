@@ -1,7 +1,5 @@
 import BookInfo from './modules/book-form';
-// import NewBookForm from './modules/new-book';
-// import EditBookForm from './modules/edit-book';
+import BrowseStuff from './modules/browse';
 
 const tomcBookForm = new BookInfo();
-// const tomcNewBookForm = new NewBookForm();
-// const tomcEditBookForm = new EditBookForm();
+const tomcBrowseStuff = new BrowseStuff();
