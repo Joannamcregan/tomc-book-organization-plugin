@@ -25,7 +25,7 @@ function getBooksByGenre($data){
     $product_types_table = $wpdb->prefix . "tomc_product_types";
     $pen_names_table = $wpdb->prefix . "tomc_pen_names_books";
     if ($anyLevel1 > 0 && $anyLevel2 > 0 && $anyLevel3 > 0){
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description
+        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
@@ -42,7 +42,7 @@ function getBooksByGenre($data){
             $level3clause .= ', ';
         }
         $level3clause = rtrim($level3clause, ', ');
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description
+        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
@@ -52,18 +52,114 @@ function getBooksByGenre($data){
         order by b.createdate desc';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $book_genres_table), ARRAY_A);
         return $results;
-    // } else if ($anyLevel1 && $anyLevel3){
-
-    // } else if ($anyLevel2 && $anyLevel3){
-
-    // } else if ($anyLevel1){
-
-    // } else if ($anyLevel2){
-
-    // } else if ($anyLevel3){
-
+    } else if ($anyLevel1 > 0 && $anyLevel3 > 0){
+        $level2clause = '';
+        foreach($selectedGenres2 as $genre){
+            $level2clause .= intval($genre);
+            $level2clause .= ', ';
+        }
+        $level2clause = rtrim($level2clause, ', ');
+        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate
+        from %i b
+        join %i c on b.id = c.bookid
+        join %i d on c.typeid = d.id
+        join %i e on b.id = e.bookid
+        join %i f on e.pennameid = f.id
+        where b.id in (select bookid from %i where genreid in (' . $level2clause . '))
+        order by b.createdate desc';
+        $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $book_genres_table), ARRAY_A);
+        return $results;
+    } else if ($anyLevel2 > 0 && $anyLevel3 > 0){
+        $level1clause = '';
+        foreach($selectedGenres1 as $genre){
+            $level1clause .= intval($genre);
+            $level1clause .= ', ';
+        }
+        $level1clause = rtrim($level1clause, ', ');
+        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate
+        from %i b
+        join %i c on b.id = c.bookid
+        join %i d on c.typeid = d.id
+        join %i e on b.id = e.bookid
+        join %i f on e.pennameid = f.id
+        where b.id in (select bookid from %i where genreid in (' . $level1clause . '))
+        order by b.createdate desc';
+        $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $book_genres_table), ARRAY_A);
+        return $results;
+    } else if ($anyLevel1){
+        $level2clause = '';
+        foreach($selectedGenres2 as $genre){
+            $level2clause .= intval($genre);
+            $level2clause .= ', ';
+        }
+        $level3clause = '';
+        foreach($selectedGenres3 as $genre){
+            $level3clause .= intval($genre);
+            $level3clause .= ', ';
+        }
+        $level2clause = rtrim($level2clause, ', ');
+        $level3clause = rtrim($level3clause, ', ');
+        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate
+        from %i b
+        join %i c on b.id = c.bookid
+        join %i d on c.typeid = d.id
+        join %i e on b.id = e.bookid
+        join %i f on e.pennameid = f.id
+        where b.id in (select bookid from %i where genreid in (' . $level2clause . '))
+        and b.id in (select bookid from %i where genreid in (' . $level3clause . '))
+        order by b.createdate desc';
+        $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $book_genres_table, $book_genres_table), ARRAY_A);
+        return $results;
+    } else if ($anyLevel2){
+        $level1clause = '';
+        foreach($selectedGenres1 as $genre){
+            $level1clause .= intval($genre);
+            $level1clause .= ', ';
+        }
+        $level3clause = '';
+        foreach($selectedGenres3 as $genre){
+            $level3clause .= intval($genre);
+            $level3clause .= ', ';
+        }
+        $level1clause = rtrim($level1clause, ', ');
+        $level3clause = rtrim($level3clause, ', ');
+        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate
+        from %i b
+        join %i c on b.id = c.bookid
+        join %i d on c.typeid = d.id
+        join %i e on b.id = e.bookid
+        join %i f on e.pennameid = f.id
+        where b.id in (select bookid from %i where genreid in (' . $level1clause . '))
+        and b.id in (select bookid from %i where genreid in (' . $level3clause . '))
+        order by b.createdate desc';
+        $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $book_genres_table, $book_genres_table), ARRAY_A);
+        return $results;
+    } else if ($anyLevel3){
+        $level1clause = '';
+        foreach($selectedGenres1 as $genre){
+            $level1clause .= intval($genre);
+            $level1clause .= ', ';
+        }
+        $level2clause = '';
+        foreach($selectedGenres2 as $genre){
+            $level2clause .= intval($genre);
+            $level2clause .= ', ';
+        }
+        $level1clause = rtrim($level1clause, ', ');
+        $level2clause = rtrim($level2clause, ', ');
+        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate
+        from %i b
+        join %i c on b.id = c.bookid
+        join %i d on c.typeid = d.id
+        join %i e on b.id = e.bookid
+        join %i f on e.pennameid = f.id
+        where b.id in (select bookid from %i where genreid in (' . $level1clause . '))
+        and b.id in (select bookid from %i where genreid in (' . $level2clause . '))
+        order by b.createdate desc';
+        $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $book_genres_table, $book_genres_table), ARRAY_A);
+        return $results;
     } else {
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description
+        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id

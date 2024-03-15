@@ -5,7 +5,7 @@ class BrowseStuff{
         this.anyLevel1 = true;
         this.anyLevel2 = true;
         this.anyLevel3 = true;
-        this.selectedGenres1 = ['1', '2', '3'];
+        this.selectedGenres1 = [1, 2, 3];
         this.selectedGenres2 = [];
         this.selectedGenres3 = [];
         this.genreOptions1 = $('.tomc-book-organization--browse-option-1');
@@ -122,9 +122,9 @@ class BrowseStuff{
         console.log('at the end the selected genre 3s are ' + this.selectedGenres3 + ' and AnyGenre3 is ' + this.anyLevel3);
     }
     rollResults(){
-        console.log('anyLevel1 is ' + this.anyLevel1);
-        console.log('anyLevel2 is ' + this.anyLevel2);
-        console.log('anyLevel3 is ' + this.anyLevel3);
+        // console.log(this.selectedGenres1);
+        // console.log(this.selectedGenres2);
+        // console.log(this.selectedGenres3);
         if ($('#tomc-book-organization--browse-genres-1-error').hasClass('hidden') && $('#tomc-book-organization--browse-genres-2-error').hasClass('hidden') && $('#tomc-book-organization--browse-genres-3-error').hasClass('hidden')){
             $.ajax({
                 beforeSend: (xhr) => {
