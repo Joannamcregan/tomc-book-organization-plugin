@@ -276,3 +276,8 @@
     display: block;
     margin: 40px auto;
 }
+#tomc-browse--search-results-container{
+    width: 95%;
+    border-radius: 25% 0;
+    background: #f6ece1;
+}

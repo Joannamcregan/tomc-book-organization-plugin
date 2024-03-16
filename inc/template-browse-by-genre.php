@@ -51,6 +51,9 @@ get_header();
         </div>
     <?php }
 ?><button id="tomc-book-organization--lets-roll-genres">let's roll!</button>
+<div id="tomc-browse--search-results-container" class="hidden">
+
+</div>
 </main>
 
 <?php get_footer(); ?>

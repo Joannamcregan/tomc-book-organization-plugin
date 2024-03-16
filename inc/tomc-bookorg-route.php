@@ -676,7 +676,7 @@ function editBookProducts($data){
             $products_table,
             array('bookid' => $book));
             addNewBookProducts($data);
-            return 'success';
+            return $book;
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';

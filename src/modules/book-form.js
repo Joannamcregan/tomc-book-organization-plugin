@@ -806,8 +806,9 @@ class BookInfo{
             typesToAdd.push(parseInt($(this).parent('.tomc-book-organization--product-option').children('select.tomc-book-organization--product-format').val()));
         });
         var imageProduct = $("input[name='tomc-book-organization--main-image-product']:checked").val();
-        console.log('image product is ' + imageProduct);
+        // console.log('image product is ' + imageProduct);
         if(imageProduct){
+            // console.log('moving on');
             $("#tomc-book-organization--product-image-error").addClass("hidden");
             $.ajax({
                 beforeSend: (xhr) => {
@@ -816,7 +817,7 @@ class BookInfo{
                 url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/' + routePath,
                 type: 'POST',
                 data: {
-                    'book' : this.createdBookId,
+                    'book' : routePath == 'updateBookProducts' ? this.bookId : this.createdBookId,
                     'products': JSON.stringify(productsToAdd),
                     'types': JSON.stringify(typesToAdd),
                     'image' : imageProduct

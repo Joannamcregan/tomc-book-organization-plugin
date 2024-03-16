@@ -12,6 +12,7 @@ class BrowseStuff{
         this.genreOptions2 = $('.tomc-book-organization--browse-option-2');
         this.genreOptions3 = $('.tomc-book-organization--browse-option-3');
         this.rollButton = $('#tomc-book-organization--lets-roll-genres');
+        this.resultsSection = $('#tomc-browse--search-results-container');
         this.events();
     }
     events(){
@@ -122,9 +123,6 @@ class BrowseStuff{
         console.log('at the end the selected genre 3s are ' + this.selectedGenres3 + ' and AnyGenre3 is ' + this.anyLevel3);
     }
     rollResults(){
-        // console.log(this.selectedGenres1);
-        // console.log(this.selectedGenres2);
-        // console.log(this.selectedGenres3);
         if ($('#tomc-book-organization--browse-genres-1-error').hasClass('hidden') && $('#tomc-book-organization--browse-genres-2-error').hasClass('hidden') && $('#tomc-book-organization--browse-genres-3-error').hasClass('hidden')){
             $.ajax({
                 beforeSend: (xhr) => {
@@ -142,6 +140,15 @@ class BrowseStuff{
                 },
                 success: (response) => {
                     console.log(response);
+                    for(let i = 0; i < response.length; i++){
+                        if ($("#tomc-browse-genres--results--book-" + response[i]['id']).length){
+                            $("#tomc-browse-genres--results--book-" + response[i]['id']).append('<p>test</p>');
+                        } else {
+                            let newDiv = $('<div />').attr('id', $("#tomc-browse-genres--results--book-" + response[i]['id'])).html(response[i]['title']);
+                            this.resultsSection.append(newDiv);
+                        }
+                    }
+                    this.resultsSection.removeClass('hidden');
                 },
                 error: (response) => {
                     console.log(response);
