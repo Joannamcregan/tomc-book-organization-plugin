@@ -243,6 +243,7 @@ class BookInfo {
     }
   }
   toggleGenreSelection(e) {
+    let labelName = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).text();
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--edit-genres-no-changes').addClass('hidden');
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-book-organization--option-selected')) {
       if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-level') == 1) {
@@ -255,6 +256,7 @@ class BookInfo {
           }
         }
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--option-selected');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', labelName + ' is not selected');
       } else if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-level') == 2) {
         for (let i = 0; i < this.chosenGenres2.length; i++) {
           if (this.chosenGenres2[i] == jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-id')) {
@@ -264,6 +266,7 @@ class BookInfo {
           }
         }
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--option-selected');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', labelName + ' is not selected');
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--genres2-error-section').addClass('hidden');
       } else if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-level') == 3) {
         for (let i = 0; i < this.chosenGenres3.length; i++) {
@@ -274,6 +277,7 @@ class BookInfo {
           }
         }
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--option-selected');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', labelName + ' is not selected');
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--genres3-error-section').addClass('hidden');
       }
     } else {
@@ -281,11 +285,13 @@ class BookInfo {
         if (this.chosenGenres1.length < 3) {
           this.chosenGenres1.push(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-id'));
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('tomc-book-organization--option-selected');
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', labelName + ' is selected');
         }
       } else if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-level') == 2) {
         if (this.chosenGenres2.length < 2) {
           this.chosenGenres2.push(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-id'));
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('tomc-book-organization--option-selected');
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', labelName + ' is selected');
         } else {
           jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--genres2-error-section').removeClass('hidden');
         }
@@ -293,6 +299,7 @@ class BookInfo {
         if (this.chosenGenres3.length < 10) {
           this.chosenGenres3.push(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-id'));
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('tomc-book-organization--option-selected');
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', labelName + ' is selected');
         } else {
           jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--genres3-error-section').removeClass('hidden');
         }
@@ -300,8 +307,10 @@ class BookInfo {
     }
   }
   toggleIdentitySelection(e) {
+    let labelName = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).text();
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-book-organization--option-selected')) {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--option-selected');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', labelName + ' is not selected');
       for (let i = 0; i < this.chosenIdentities.length; i++) {
         if (this.chosenIdentities[i] == jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('identity-id')) {
           this.chosenIdentities.splice(i, 1);
@@ -313,14 +322,17 @@ class BookInfo {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--add-no-identities-selected").addClass("hidden");
         this.chosenIdentities.push(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('identity-id'));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('tomc-book-organization--option-selected');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', labelName + ' is selected');
       } else {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--identities-error-section').removeClass('hidden');
       }
     }
   }
   toggleWarningSelection(e) {
+    let labelName = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).text();
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-book-organization--option-selected')) {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--option-selected');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', labelName + ' is not selected');
       for (let i = 0; i < this.chosenWarnings.length; i++) {
         if (this.chosenWarnings[i] == jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('warning-id')) {
           this.chosenWarnings.splice(i, 1);
@@ -331,6 +343,7 @@ class BookInfo {
       if (this.chosenWarnings.length < 10) {
         this.chosenWarnings.push(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('warning-id'));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('tomc-book-organization--option-selected');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', labelName + ' is selected');
       } else {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--warnings-error-section').removeClass('hidden');
       }
@@ -423,14 +436,18 @@ class BookInfo {
               if (this.chosenGenres2.length < 2) {
                 this.chosenGenres2.push(response);
                 this.newSpan.addClass('tomc-book-organization--option-selected');
+                this.newSpan.attr('aria-label', labelName + ' is selected');
               } else {
+                this.newSpan.attr('aria-label', labelName + ' is not selected');
                 jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--genres2-error-section').removeClass('hidden');
               }
             } else if (this.addedGenreLevel == 3) {
               if (this.chosenGenres3.length < 10) {
                 this.chosenGenres3.push(response);
                 this.newSpan.addClass('tomc-book-organization--option-selected');
+                this.newSpan.attr('aria-label', labelName + ' is selected');
               } else {
+                this.newSpan.attr('aria-label', labelName + ' is not selected');
                 jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--genres3-error-section').removeClass('hidden');
               }
             }
@@ -469,7 +486,9 @@ class BookInfo {
             if (this.chosenIdentities.length < 5) {
               this.chosenIdentities.push(response);
               this.newSpan.addClass('tomc-book-organization--option-selected');
+              this.newSpan.attr('aria-label', labelName + ' is selected');
             } else {
+              this.newSpan.attr('aria-label', labelName + ' is not selected');
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--identities-error-section').removeClass('hidden');
             }
           }
@@ -507,7 +526,9 @@ class BookInfo {
             if (this.chosenLanguages.length < 3) {
               this.chosenLanguages.push(response);
               this.newSpan.addClass('tomc-book-organization--option-selected');
+              this.newSpan.attr('aria-label', labelName + ' is selected');
             } else {
+              this.newSpan.attr('aria-label', labelName + ' is not selected');
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--languages-error-section').removeClass('hidden');
             }
           }
@@ -544,8 +565,10 @@ class BookInfo {
             if (this.chosenWarnings.length < 10) {
               this.chosenWarnings.push(response);
               this.newSpan.addClass('tomc-book-organization--option-selected');
+              this.newSpan.attr('aria-label', labelName + ' is selected');
               this.saveWarningsButton.text('save and continue');
             } else {
+              this.newSpan.attr('aria-label', labelName + ' is not selected');
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--warnings-error-section').removeClass('hidden');
             }
           }
@@ -579,7 +602,7 @@ class BookInfo {
           console.log(response);
           var newOption = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<option />');
           newOption.attr('value', response.id);
-          newOption.attr('selected', true);
+          newOption.attr('aria-selected', true);
           newOption.html(response.title.rendered);
           this.selectPenName.prepend(newOption);
           jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--add-pen-name-errors").addClass("hidden");

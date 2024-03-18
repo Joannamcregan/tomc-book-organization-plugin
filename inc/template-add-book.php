@@ -85,7 +85,7 @@ get_header();
                         <div class="tomc-book-organization--options-container" id="tomc-book-organization--genres-1">
                             <?php if ($genres1) {
                                 foreach($genres1 as $genre1) {
-                                    ?><span id="tomc-book-organization-genre1-<?php echo $genre1->id; ?>" data-genre-level="1" data-genre-id="<?php echo $genre1->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre1 ->genre_name;  ?></span>
+                                    ?><span aria-label="<?php echo $genre1 ->genre_name . ' is not selected'; ?>" id="tomc-book-organization-genre1-<?php echo $genre1->id; ?>" data-genre-level="1" data-genre-id="<?php echo $genre1->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre1 ->genre_name;  ?></span>
                                 <?php }
                             }
                             ?>
@@ -101,7 +101,7 @@ get_header();
                         <div class="tomc-book-organization--options-container" id="tomc-book-organization--genres-2">
                             <?php if ($genres2) {
                                 foreach($genres2 as $genre2) {
-                                    ?><span id="tomc-book-organization-genre2-<?php echo $genre2->id; ?>" data-genre-level="2" data-genre-id="<?php echo $genre2->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span" aria-selected="false"><?php echo $genre2 ->genre_name;  ?></span>
+                                    ?><span aria-label="<?php echo $genre2 ->genre_name . ' is not selected'; ?>" id="tomc-book-organization-genre2-<?php echo $genre2->id; ?>" data-genre-level="2" data-genre-id="<?php echo $genre2->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre2 ->genre_name;  ?></span>
                                 <?php }
                                 ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="2" data-user-id="<?php echo $userid; ?>">add a new genre</span>
                             <?php }
@@ -117,7 +117,7 @@ get_header();
                         <div class="tomc-book-organization--options-container" id="tomc-book-organization--genres-3">
                             <?php if ($genres3) {
                                 foreach($genres3 as $genre3) {
-                                    ?><span id="tomc-book-organization-genre3-<?php echo $genre3->id; ?>" data-genre-level="3" data-genre-id="<?php echo $genre3->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre3 ->genre_name;  ?></span>
+                                    ?><span aria-label="<?php echo $genre3 ->genre_name . ' is not selected'; ?>" id="tomc-book-organization-genre3-<?php echo $genre3->id; ?>" data-genre-level="3" data-genre-id="<?php echo $genre3->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre3 ->genre_name;  ?></span>
                                 <?php }
                                 ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="3" data-user-id="<?php echo $userid; ?>">add a new subgenre</span>
                             <?php }
@@ -140,7 +140,7 @@ get_header();
                     <div class="tomc-book-organization--options-container" id="tomc-book-organization--identities">
                         <?php if ($identities) {
                             foreach($identities as $identity) {
-                                ?><span data-identity-id="<?php echo $identity->id; ?>" class="tomc-book-organization--option-alt-0 tomc-book-organization--option-span"><?php echo $identity ->identity_name;  ?></span>
+                                ?><span aria-label="<?php echo $identity ->identity_name . ' is not selected'; ?>" data-identity-id="<?php echo $identity->id; ?>" class="tomc-book-organization--option-alt-0 tomc-book-organization--option-span"><?php echo $identity ->identity_name;  ?></span>
                             <?php }
                         }
                         ?><span class="tomc-book-organization--add-identity tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new identity</span>
@@ -189,7 +189,7 @@ get_header();
                     <div class="tomc-book-organization--options-container" id="tomc-book-organization--warnings">
                         <?php if ($warnings) {
                             foreach($warnings as $warning) {
-                                ?><span data-warning-id="<?php echo $warning->id; ?>" class="tomc-book-organization--option-alt tomc-book-organization--option-span"><?php echo $warning ->warning_name;  ?></span>
+                                ?><span aria-label="<?php echo $warning ->warning_name . ' is not selected'; ?>" data-warning-id="<?php echo $warning->id; ?>" class="tomc-book-organization--option-alt tomc-book-organization--option-span"><?php echo $warning ->warning_name;  ?></span>
                             <?php }
                         }
                         ?><span class="tomc-book-organization--add-warning tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new warning</span>
@@ -205,7 +205,7 @@ get_header();
                     <h3>Which name will you be publishing this book under?</h3>
                     <?php $pen_names = $wpdb->get_results("SELECT * from $posts_table WHERE post_type = 'author-profile' and post_author = $userid ORDER BY post_title;");
                     if ($pen_names) {
-                        ?><select name="tomc-book-organization--book-pen-name" id="tomc-book-organization--book-pen-name-select">
+                        ?><select aria-label="your author names" name="tomc-book-organization--book-pen-name" id="tomc-book-organization--book-pen-name-select">
                         <?php foreach($pen_names as $name) {
                             ?><option value="<?php echo $name->ID; ?>"><?php echo $name->post_title; ?></option>
                         <?php }
@@ -224,7 +224,7 @@ get_header();
                             <div class="tomc-book-organization--product-option">
                                 <input class="tomc-book-organization--product-checkbox" type="checkbox" id="<?php echo 'tomc-book-organization--book-product-id-' . $product->ID; ?>" value="<?php echo $product->ID; ?>">
                                 <label class="tomc-book-organization--large-label" for="<?php echo 'tomc-book-organization--book-product-id-' . $product->ID; ?>"><?php echo $product->post_title; ?></label></br>
-                                <img src="<?php echo get_the_post_thumbnail_url($product->ID); ?>" /><br><br>
+                                <img alt="<?php echo 'the cover for ' . $product->post_title; ?>" src="<?php echo get_the_post_thumbnail_url($product->ID); ?>" /><br><br>
                                 <label class="tomc-book-organization--select-label" for="<?php echo 'tomc-book-organization--select-for-' . $product->ID; ?>">Which format is this product?</label>
                                 <select class="tomc-book-organization--product-format" id="<?php echo 'tomc-book-organization--select-for-' . $product->ID; ?>">
                                     <?php foreach($product_types as $type) {
