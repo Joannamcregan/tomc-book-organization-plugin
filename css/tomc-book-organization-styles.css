@@ -97,35 +97,41 @@
 .tomc-book-organization--browse-option-1{
     margin: 3px;
     border-radius: 15px;
-    border: solid #3c7f72 5px;
+    border: solid #b63e32 5px;
     padding: 10px;
     background: none;
     cursor: pointer;
 }
 .tomc-book-organization--browse-option-1-selected{
-    background: #c5dcd7;
+    background: #b63e32;
+    color: white;
+    text-shadow: 0px 0px 2px black;
 }
 .tomc-book-organization--browse-option-2{
     margin: 3px;
     border-radius: 15px;
-    border: solid #3c727f 5px;
+    border: solid #e44e2d 5px;
     padding: 10px;
     background: none;
     cursor: pointer;
 }
 .tomc-book-organization--browse-option-2-selected{
-    background: #c2d3dc;
+    background: #e44e2d;
+    color: white;
+    text-shadow: 0px 0px 2px black;
 }
 .tomc-book-organization--browse-option-3{
     margin: 3px;
     border-radius: 15px;
-    border: solid #570096 5px;
+    border: solid #0c6980 5px;
     padding: 10px;
     background: none;
     cursor: pointer;
 }
 .tomc-book-organization--browse-option-3-selected{
-    background: #cfc7ea;
+    background: #0c6980;
+    color: white;
+    text-shadow: 0px 0px 2px black;
 }
 .tomc-book-organization--option-span{
     margin: 3px;
@@ -136,7 +142,9 @@
     cursor: pointer;
 }
 .tomc-book-organization--option-selected{
-    background: #feb3a2;
+    background: #e44e2d;
+    color: white;
+    text-shadow: 0px 0px 1px #602f32, 0px 0px 1px #602f32, 0px 0px 1px #602f32;
 }
 .tomc-book-organization__overlay{
     overflow-y: auto;
@@ -267,7 +275,7 @@
     padding: 10px;
 }
 #tomc-book-organization--lets-roll-genres{
-    background-color: #790372;
+    background-color: #4c0548;
     color: white;
     font-size: 16;
     border-radius: 45px;
@@ -278,6 +286,23 @@
 }
 #tomc-browse--search-results-container{
     width: 95%;
-    border-radius: 25% 0;
+    border-radius: 25px 0;
     background: #f6ece1;
+    margin: 10px auto;
+    padding: 10px;
+}
+.tomc-browse--search-result{
+    margin: 10px auto;
+    border: solid #e44e2d 5px;
+    background: rgb(248, 247, 247);
+    border-radius: 25px 0;
+}
+.tomc-browse--search-result-top-section{
+    border-radius: 25px 0px 0px 0px;
+    padding: 10px 20px;
+}
+.tomc-browse--search-result-bottom-section{
+    background: rgba(211, 74, 36, 0.2);
+    /* border-radius: 0px 0px 25px 0px; */
+    padding: 10px 20px;
 }

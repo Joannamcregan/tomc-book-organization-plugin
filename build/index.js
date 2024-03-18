@@ -217,8 +217,10 @@ class BookInfo {
   toggleLanguageSelection(e) {
     console.log('before toggling the chosen language length is ' + this.chosenLanguages.length);
     console.log(this.chosenLanguages);
+    let labelName = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).text();
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-book-organization--option-selected')) {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--option-selected');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', labelName + ' is not selected');
       for (let i = 0; i < this.chosenLanguages.length; i++) {
         if (this.chosenLanguages[i] == jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('language-id')) {
           this.chosenLanguages.splice(i, 1);
@@ -232,6 +234,7 @@ class BookInfo {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(".tomc-book-organization--add-no-languages-selected").addClass("hidden");
         this.chosenLanguages.push(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('language-id'));
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('tomc-book-organization--option-selected');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', labelName + ' is selected');
         console.log('after toggling the chosen languages length is ' + this.chosenLanguages.length);
         console.log(this.chosenLanguages);
       } else {
@@ -414,7 +417,7 @@ class BookInfo {
         },
         success: response => {
           if (response != 0 && response != 'fail') {
-            this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-genre-id', response).attr('aria-checked', true).html(this.genreName).on('click', this.toggleGenreSelection.bind(this));
+            this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-genre-id', response).attr('aria-label', this.genreName + ' is selected').html(this.genreName).on('click', this.toggleGenreSelection.bind(this));
             jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--genres-' + this.addedGenreLevel).prepend(this.newSpan);
             if (this.addedGenreLevel == 2) {
               if (this.chosenGenres2.length < 2) {
@@ -460,7 +463,7 @@ class BookInfo {
         },
         success: response => {
           if (response != 0 && response != 'fail') {
-            this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-identity-id', response).attr('aria-checked', true).html(this.identityName).on('click', this.toggleIdentitySelection.bind(this));
+            this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-identity-id', response).attr('aria-label', this.identityName + ' is selected').html(this.identityName).on('click', this.toggleIdentitySelection.bind(this));
             jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--identities').prepend(this.newSpan);
             jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--add-no-identities-selected").addClass("hidden");
             if (this.chosenIdentities.length < 5) {
@@ -498,7 +501,7 @@ class BookInfo {
         },
         success: response => {
           if (response != 0 && response != 'fail') {
-            this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-language-id', response).attr('aria-checked', true).html(this.languageName).on('click', this.toggleLanguageSelection.bind(this));
+            this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-language-id', response).attr('aria-label', this.languageName + ' is selected').html(this.languageName).on('click', this.toggleLanguageSelection.bind(this));
             jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--languages').prepend(this.newSpan);
             jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--add-no-identities-selected").addClass("hidden");
             if (this.chosenLanguages.length < 3) {
@@ -536,7 +539,7 @@ class BookInfo {
         },
         success: response => {
           if (response != 0 && response != 'fail') {
-            this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-warning-id', response).attr('aria-checked', true).html(this.warningName).on('click', this.toggleWarningSelection.bind(this));
+            this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-warning-id', response).attr('aria-label', this.warningName + ' is selected').html(this.warningName).on('click', this.toggleWarningSelection.bind(this));
             jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--warnings').prepend(this.newSpan);
             if (this.chosenWarnings.length < 10) {
               this.chosenWarnings.push(response);
@@ -773,7 +776,7 @@ class BookInfo {
           'title': this.bookTitle.val().substring(0, 200),
           'subtitle': this.bookSubtitle.val().substring(0, 200),
           'edition': parseInt(this.bookEdition.val().substring(0, 10), 10),
-          'description': this.bookDescription.val().substring(0, 1000),
+          'description': this.bookDescription.val().substring(0, 3000),
           'excerpt': this.bookExcerpt.val().substring(0, 10000),
           'user': jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('user')
         },
@@ -840,6 +843,9 @@ class BookInfo {
             location.reload(true);
           } else {
             jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--complete').removeClass('hidden');
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
+              scrollTop: 0
+            }, 'fast');
           }
         },
         error: response => {
@@ -950,7 +956,7 @@ class BookInfo {
           this.genresOverlayIsOpen = true;
           for (let i = 0; i < response.length; i++) {
             if (response[i]['genreid']) {
-              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span tomc-book-organization--option-selected').attr('data-genre-id', response[i]['id']).attr('data-genre-level', Number(response[i]['genre_level'])).attr('aria-checked', true).html(response[i]['genre_name']).on('click', this.toggleGenreSelection.bind(this));
+              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span tomc-book-organization--option-selected').attr('data-genre-id', response[i]['id']).attr('data-genre-level', Number(response[i]['genre_level'])).attr('aria-label', response[i]['genre_name'] + ' is selected').html(response[i]['genre_name']).on('click', this.toggleGenreSelection.bind(this));
               if (Number(response[i]['genre_level']) === 1) {
                 this.chosenGenres1.push(Number(response[i]['genreid']));
                 this.oldGenres1.push(Number(response[i]['genreid']));
@@ -965,7 +971,7 @@ class BookInfo {
                 jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-genres-container--3').append(this.newSpan);
               }
             } else {
-              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-genre-id', response[i]['id']).attr('data-genre-level', Number(response[i]['genre_level'])).attr('aria-checked', false).html(response[i]['genre_name']).on('click', this.toggleGenreSelection.bind(this));
+              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-genre-id', response[i]['id']).attr('data-genre-level', Number(response[i]['genre_level'])).attr('aria-label', response[i]['genre_name'] + ' is not selected').html(response[i]['genre_name']).on('click', this.toggleGenreSelection.bind(this));
               if (Number(response[i]['genre_level']) === 1) {
                 jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-genres-container--1').append(this.newSpan);
               } else if (Number(response[i]['genre_level']) === 2) {
@@ -1000,12 +1006,12 @@ class BookInfo {
           this.identitiesOverlayIsOpen = true;
           for (let i = 0; i < response.length; i++) {
             if (response[i]['identityid']) {
-              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span tomc-book-organization--option-selected').attr('data-identity-id', response[i]['id']).attr('aria-checked', true).html(response[i]['identity_name']).on('click', this.toggleIdentitySelection.bind(this));
+              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span tomc-book-organization--option-selected').attr('data-identity-id', response[i]['id']).attr('aria-label', response[i]['identity_name'] + ' is selected').html(response[i]['identity_name']).on('click', this.toggleIdentitySelection.bind(this));
               this.chosenIdentities.push(Number(response[i]['identityid']));
               this.oldIdentities.push(Number(response[i]['identityid']));
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-identities-container').append(this.newSpan);
             } else {
-              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-identity-id', response[i]['id']).attr('aria-checked', false).html(response[i]['identity_name']).on('click', this.toggleIdentitySelection.bind(this));
+              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-identity-id', response[i]['id']).attr('aria-label', response[i]['identity_name'] + ' is not selected').html(response[i]['identity_name']).on('click', this.toggleIdentitySelection.bind(this));
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-identities-container').append(this.newSpan);
             }
             this.identitiesOverlay.addClass("tomc-book-organization__box--active");
@@ -1034,12 +1040,12 @@ class BookInfo {
           this.languageOverlayIsOpen = true;
           for (let i = 0; i < response.length; i++) {
             if (response[i]['languageid']) {
-              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span tomc-book-organization--option-selected').attr('data-language-id', response[i]['id']).attr('aria-checked', true).html(response[i]['language_name']).on('click', this.toggleLanguageSelection.bind(this));
+              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span tomc-book-organization--option-selected').attr('data-language-id', response[i]['id']).attr('aria-label', response[i]['language_name'] + ' is selected').html(response[i]['language_name']).on('click', this.toggleLanguageSelection.bind(this));
               this.chosenLanguages.push(Number(response[i]['languageid']));
               this.oldLanguages.push(Number(response[i]['languageid']));
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-languages-container').append(this.newSpan);
             } else {
-              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-language-id', response[i]['id']).attr('aria-checked', false).html(response[i]['language_name']).on('click', this.toggleLanguageSelection.bind(this));
+              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-language-id', response[i]['id']).attr('aria-label', response[i]['language_name'] + ' is not selected').html(response[i]['language_name']).on('click', this.toggleLanguageSelection.bind(this));
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-languages-container').append(this.newSpan);
             }
             this.languagesOverlay.addClass("tomc-book-organization__box--active");
@@ -1067,12 +1073,12 @@ class BookInfo {
           this.warningsOverlayIsOpen = true;
           for (let i = 0; i < response.length; i++) {
             if (response[i]['warningid']) {
-              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span tomc-book-organization--option-selected').attr('data-warning-id', response[i]['id']).attr('aria-checked', true).html(response[i]['warning_name']).on('click', this.toggleWarningSelection.bind(this));
+              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span tomc-book-organization--option-selected').attr('data-warning-id', response[i]['id']).attr('aria-label', response[i]['warning_name'] + ' is selected').html(response[i]['warning_name']).on('click', this.toggleWarningSelection.bind(this));
               this.chosenWarnings.push(Number(response[i]['warningid']));
               this.oldWarnings.push(Number(response[i]['warningid']));
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-content-warnings-container').append(this.newSpan);
             } else {
-              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-warning-id', response[i]['id']).attr('aria-checked', false).html(response[i]['warning_name']).on('click', this.toggleWarningSelection.bind(this));
+              this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-warning-id', response[i]['id']).attr('aria-label', response[i]['warning_name'] + ' is not selected').html(response[i]['warning_name']).on('click', this.toggleWarningSelection.bind(this));
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-content-warnings-container').append(this.newSpan);
             }
             this.contentWarningsOverlay.addClass("tomc-book-organization__box--active");
@@ -1385,7 +1391,7 @@ class BookInfo {
   }
   saveBasicInfoEdits(e) {
     let newTitle = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.overlay-main-container').children('.tomc-book-organization__edit-basic-info-container').children('.tomc-book-organization--edit-overlay-new-form').children('.tomc-book-organization--form-div-title').children('.tomc-book-organization-input--edit').val();
-    let newDescription = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.overlay-main-container').children('.tomc-book-organization__edit-basic-info-container').children('.tomc-book-organization--edit-overlay-new-form').children('.tomc-book-organization--form-div-description').children('.tomc-book-organization-textarea--edit').val().substring(0, 1000);
+    let newDescription = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.overlay-main-container').children('.tomc-book-organization__edit-basic-info-container').children('.tomc-book-organization--edit-overlay-new-form').children('.tomc-book-organization--form-div-description').children('.tomc-book-organization-textarea--edit').val().substring(0, 3000);
     let newExcerpt = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.overlay-main-container').children('.tomc-book-organization__edit-basic-info-container').children('.tomc-book-organization--edit-overlay-new-form').children('.tomc-book-organization--form-div-excerpt').children('.tomc-book-organization-textarea--edit').val().substring(0, 10000);
     if (this.title != newTitle || this.subTitle && this.subTitle != jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.overlay-main-container').children('.tomc-book-organization__edit-basic-info-container').children('.tomc-book-organization--edit-overlay-new-form').children('.tomc-book-organization--form-div-subtitle').children('.tomc-book-organization-input--edit').val() || !this.subTitle && jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.overlay-main-container').children('.tomc-book-organization__edit-basic-info-container').children('.tomc-book-organization--edit-overlay-new-form').children('.tomc-book-organization--form-div-subtitle').children('.tomc-book-organization-input--edit').val() || this.edition && this.edition != jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.overlay-main-container').children('.tomc-book-organization__edit-basic-info-container').children('.tomc-book-organization--edit-overlay-new-form').children('.tomc-book-organization--form-div-edition').children('.tomc-book-organization-input--edit').val() || !this.edition && jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.overlay-main-container').children('.tomc-book-organization__edit-basic-info-container').children('.tomc-book-organization--edit-overlay-new-form').children('.tomc-book-organization--form-div-edition').children('.tomc-book-organization-input--edit').val() || this.description != newDescription || this.excerpt != newExcerpt) {
       if (newTitle.length === 0 || newDescription.length === 0) {
@@ -1591,6 +1597,7 @@ class BrowseStuff {
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-book-organization--browse-option-2-selected')) {
       this.anyLevel2 = false;
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--browse-option-2-selected');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).html() + ' is not selected');
       if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-id') === 0) {
         this.selectedGenres2 = [];
       } else {
@@ -1606,11 +1613,13 @@ class BrowseStuff {
     } else {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--browse-genres-2-error').addClass('hidden');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('tomc-book-organization--browse-option-2-selected');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).html() + ' is selected');
       if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-id') === 0) {
         this.anyLevel2 = true;
         this.selectedGenres2 = [];
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--browse-normal-2').each(function () {
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).removeClass('tomc-book-organization--browse-option-2-selected');
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('aria-label', jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).html() + ' is not selected');
         });
       } else {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--browse-genre-any-2').removeClass('tomc-book-organization--browse-option-2-selected');
@@ -1628,6 +1637,7 @@ class BrowseStuff {
     console.log('at the beginning, selected genre 1s are ' + this.selectedGenres1 + ' and anyLevel1 is ' + this.anyLevel1);
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-book-organization--browse-option-1-selected')) {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--browse-option-1-selected');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).html() + ' is not selected');
       for (let i = 0; i < this.selectedGenres1.length; i++) {
         if (this.selectedGenres1[i] == jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-id')) {
           this.selectedGenres1.splice(i, 1);
@@ -1639,6 +1649,7 @@ class BrowseStuff {
       this.anyLevel1 = false;
     } else {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('tomc-book-organization--browse-option-1-selected');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).html() + ' is selected');
       this.selectedGenres1.push(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-id'));
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--browse-genres-1-error').addClass('hidden');
       if (this.selectedGenres1.length === 3) {
@@ -1650,10 +1661,10 @@ class BrowseStuff {
     console.log('at the end, selected genre 1s are ' + this.selectedGenres1 + ' and anyLevel1 is ' + this.anyLevel1);
   }
   toggleSelected3(e) {
-    console.log('in the beginning the selected genre 3s are ' + this.selectedGenres3 + ' and AnyGenre3 is ' + this.anyLevel3);
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-book-organization--browse-option-3-selected')) {
       this.anyLevel3 = false;
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--browse-option-3-selected');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).html() + ' is not selected');
       if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-id') === 0) {
         this.selectedGenres3 = [];
       } else {
@@ -1669,11 +1680,13 @@ class BrowseStuff {
     } else {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--browse-genres-3-error').addClass('hidden');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('tomc-book-organization--browse-option-3-selected');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).html() + ' is selected');
       if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-id') === 0) {
         this.anyLevel3 = true;
         this.selectedGenres3 = [];
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--browse-normal-3').each(function () {
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).removeClass('tomc-book-organization--browse-option-3-selected');
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).attr('aria-label', jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).html() + ' is not selected');
         });
       } else {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--browse-genre-any-3').removeClass('tomc-book-organization--browse-option-3-selected');
@@ -1705,12 +1718,35 @@ class BrowseStuff {
         },
         success: response => {
           console.log(response);
+          let alreadyAddedIds = [];
+          this.resultsSection.html('');
           for (let i = 0; i < response.length; i++) {
-            if (jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-browse-genres--results--book-" + response[i]['id']).length) {
-              jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-browse-genres--results--book-" + response[i]['id']).append('<p>test</p>');
+            if (jquery__WEBPACK_IMPORTED_MODULE_0___default().inArray(response[i]['id'], alreadyAddedIds) > -1) {
+              let newLink = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<a />').addClass('centered-text').attr('href', response[i]['product_url']);
+              let newFormat = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').html(response[i]['type_name']);
+              newLink.append(newFormat);
+              jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-browse-genres--results--book-' + response[i]['id']).children('.tomc-browse--search-result-bottom-section').append(newLink);
             } else {
-              let newDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').attr('id', jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-browse-genres--results--book-" + response[i]['id'])).html(response[i]['title']);
+              let newDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-browse--search-result').attr('id', 'tomc-browse-genres--results--book-' + response[i]['id']);
+              let newTopSection = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-browse--search-result-top-section');
+              let newTitle = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<h3 />').html(response[i]['title']);
+              newTopSection.append(newTitle);
+              let newAuthor = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').html(response[i]['pen_name'].length > 0 ? 'by ' + response[i]['pen_name'] : 'by unknown or anonymous author');
+              newTopSection.append(newAuthor);
+              let newImage = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<img />').addClass('book-cover--small').attr('src', response[i]['product_image_id']);
+              newTopSection.append(newImage);
+              newDiv.append(newTopSection);
+              let newBottomSection = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-browse--search-result-bottom-section');
+              let newDescription = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').html(response[i]['book_description'].substring(0, 500) + '...');
+              newBottomSection.append(newDescription);
+              newBottomSection.append('<h4 class="centered-text">available in</h4>');
+              let newLink = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<a />').addClass('centered-text').attr('href', response[i]['product_url']);
+              let newFormat = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').html(response[i]['type_name']);
+              newLink.append(newFormat);
+              newBottomSection.append(newLink);
+              newDiv.append(newBottomSection);
               this.resultsSection.append(newDiv);
+              alreadyAddedIds.push(response[i]['id']);
             }
           }
           this.resultsSection.removeClass('hidden');

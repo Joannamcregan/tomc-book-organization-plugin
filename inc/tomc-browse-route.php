@@ -25,7 +25,7 @@ function getBooksByGenre($data){
     $product_types_table = $wpdb->prefix . "tomc_product_types";
     $pen_names_table = $wpdb->prefix . "tomc_pen_names_books";
     if ($anyLevel1 > 0 && $anyLevel2 > 0 && $anyLevel3 > 0){
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, d.type_name, g.guid as product_url
+        $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, d.type_name, g.id as product_url
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
@@ -35,6 +35,10 @@ function getBooksByGenre($data){
         order by b.createdate desc
         limit 200';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table), ARRAY_A);
+        for($index = 0; $index < count($results); $index++){
+            $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
+            $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
+        }
         return $results;
     } else if ($anyLevel1 > 0 && $anyLevel2 > 0){
         $level3clause = '';
@@ -43,7 +47,7 @@ function getBooksByGenre($data){
             $level3clause .= ', ';
         }
         $level3clause = rtrim($level3clause, ', ');
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, d.type_name, g.guid as product_url
+        $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, d.type_name, g.id as product_url
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
@@ -53,6 +57,10 @@ function getBooksByGenre($data){
         where b.id in (select bookid from %i where genreid in (' . $level3clause . '))
         order by b.createdate desc';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $book_genres_table), ARRAY_A);
+        for($index = 0; $index < count($results); $index++){
+            $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
+            $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
+        }
         return $results;
     } else if ($anyLevel1 > 0 && $anyLevel3 > 0){
         $level2clause = '';
@@ -61,7 +69,7 @@ function getBooksByGenre($data){
             $level2clause .= ', ';
         }
         $level2clause = rtrim($level2clause, ', ');
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, d.type_name, g.guid as product_url
+        $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, d.type_name, g.id as product_url
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
@@ -79,7 +87,7 @@ function getBooksByGenre($data){
             $level1clause .= ', ';
         }
         $level1clause = rtrim($level1clause, ', ');
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, d.type_name, g.guid as product_url
+        $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, d.type_name, g.id as product_url
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
@@ -89,6 +97,10 @@ function getBooksByGenre($data){
         where b.id in (select bookid from %i where genreid in (' . $level1clause . '))
         order by b.createdate desc';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $book_genres_table), ARRAY_A);
+        for($index = 0; $index < count($results); $index++){
+            $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
+            $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
+        }
         return $results;
     } else if ($anyLevel1){
         $level2clause = '';
@@ -103,7 +115,7 @@ function getBooksByGenre($data){
         }
         $level2clause = rtrim($level2clause, ', ');
         $level3clause = rtrim($level3clause, ', ');
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, d.type_name, g.guid as product_url
+        $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, d.type_name, g.id as product_url
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
@@ -114,6 +126,10 @@ function getBooksByGenre($data){
         and b.id in (select bookid from %i where genreid in (' . $level3clause . '))
         order by b.createdate desc';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $book_genres_table, $book_genres_table), ARRAY_A);
+        for($index = 0; $index < count($results); $index++){
+            $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
+            $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
+        }
         return $results;
     } else if ($anyLevel2){
         $level1clause = '';
@@ -128,7 +144,7 @@ function getBooksByGenre($data){
         }
         $level1clause = rtrim($level1clause, ', ');
         $level3clause = rtrim($level3clause, ', ');
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, d.type_name, g.guid as product_url
+        $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, d.type_name, g.id as product_url
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
@@ -139,6 +155,10 @@ function getBooksByGenre($data){
         and b.id in (select bookid from %i where genreid in (' . $level3clause . '))
         order by b.createdate desc';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $book_genres_table, $book_genres_table), ARRAY_A);
+        for($index = 0; $index < count($results); $index++){
+            $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
+            $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
+        }
         return $results;
     } else if ($anyLevel3){
         $level1clause = '';
@@ -153,7 +173,7 @@ function getBooksByGenre($data){
         }
         $level1clause = rtrim($level1clause, ', ');
         $level2clause = rtrim($level2clause, ', ');
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, d.type_name, g.guid as product_url
+        $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, d.type_name, g.id as product_url
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
@@ -164,6 +184,10 @@ function getBooksByGenre($data){
         and b.id in (select bookid from %i where genreid in (' . $level2clause . '))
         order by b.createdate desc';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $book_genres_table, $book_genres_table), ARRAY_A);
+        for($index = 0; $index < count($results); $index++){
+            $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
+            $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
+        }
         return $results;
     } else {
         $level1clause = '';
@@ -184,7 +208,7 @@ function getBooksByGenre($data){
         $level1clause = rtrim($level1clause, ', ');
         $level2clause = rtrim($level2clause, ', ');
         $level3clause = rtrim($level3clause, ', ');
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, d.type_name, g.guid as product_url
+        $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, d.type_name, g.id as product_url
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
@@ -196,6 +220,10 @@ function getBooksByGenre($data){
         and b.id in (select bookid from %i where genreid in (' . $level3clause . '))
         order by b.createdate desc';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $book_genres_table, $book_genres_table, $book_genres_table), ARRAY_A);
+        for($index = 0; $index < count($results); $index++){
+            $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
+            $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
+        }
         return $results;
     }
 }

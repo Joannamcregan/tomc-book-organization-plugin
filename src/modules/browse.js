@@ -26,6 +26,7 @@ class BrowseStuff{
         if ($(e.target).hasClass('tomc-book-organization--browse-option-2-selected')){            
             this.anyLevel2 = false;
             $(e.target).removeClass('tomc-book-organization--browse-option-2-selected');
+            $(e.target).attr('aria-label', $(e.target).html() + ' is not selected');
             if ($(e.target).data('genre-id') === 0){
                 this.selectedGenres2 = [];
             } else {
@@ -41,11 +42,13 @@ class BrowseStuff{
         } else {
             $('#tomc-book-organization--browse-genres-2-error').addClass('hidden');
             $(e.target).addClass('tomc-book-organization--browse-option-2-selected');
+            $(e.target).attr('aria-label', $(e.target).html() + ' is selected');
             if ($(e.target).data('genre-id') === 0){
                 this.anyLevel2 = true;
                 this.selectedGenres2 = [];
                 $('.tomc-book-organization--browse-normal-2').each(function(){
                     $(this).removeClass('tomc-book-organization--browse-option-2-selected');
+                    $(this).attr('aria-label', $(this).html() + ' is not selected');
                 })
             } else {
                 $('#tomc-book-organization--browse-genre-any-2').removeClass('tomc-book-organization--browse-option-2-selected');
@@ -62,7 +65,8 @@ class BrowseStuff{
     toggleSelected1(e){
         console.log('at the beginning, selected genre 1s are ' + this.selectedGenres1 + ' and anyLevel1 is ' + this.anyLevel1);
         if ($(e.target).hasClass('tomc-book-organization--browse-option-1-selected')){
-            $(e.target).removeClass('tomc-book-organization--browse-option-1-selected');
+            $(e.target).removeClass('tomc-book-organization--browse-option-1-selected');            
+            $(e.target).attr('aria-label', $(e.target).html() + ' is not selected');
             for (let i = 0; i < this.selectedGenres1.length; i++){
                 if (this.selectedGenres1[i] == $(e.target).data('genre-id')){
                     this.selectedGenres1.splice(i, 1);
@@ -73,7 +77,8 @@ class BrowseStuff{
             }
             this.anyLevel1 = false;
         } else {
-            $(e.target).addClass('tomc-book-organization--browse-option-1-selected');
+            $(e.target).addClass('tomc-book-organization--browse-option-1-selected');            
+            $(e.target).attr('aria-label', $(e.target).html() + ' is selected');
             this.selectedGenres1.push($(e.target).data('genre-id'));
             $('#tomc-book-organization--browse-genres-1-error').addClass('hidden');
             if (this.selectedGenres1.length === 3){
@@ -85,10 +90,10 @@ class BrowseStuff{
         console.log('at the end, selected genre 1s are ' + this.selectedGenres1 + ' and anyLevel1 is ' + this.anyLevel1);
     }
     toggleSelected3(e){
-        console.log('in the beginning the selected genre 3s are ' + this.selectedGenres3 + ' and AnyGenre3 is ' + this.anyLevel3);
         if ($(e.target).hasClass('tomc-book-organization--browse-option-3-selected')){            
             this.anyLevel3 = false;
             $(e.target).removeClass('tomc-book-organization--browse-option-3-selected');
+            $(e.target).attr('aria-label', $(e.target).html() + ' is not selected');
             if ($(e.target).data('genre-id') === 0){
                 this.selectedGenres3 = [];
             } else {
@@ -104,11 +109,13 @@ class BrowseStuff{
         } else {
             $('#tomc-book-organization--browse-genres-3-error').addClass('hidden');
             $(e.target).addClass('tomc-book-organization--browse-option-3-selected');
+            $(e.target).attr('aria-label', $(e.target).html() + ' is selected');
             if ($(e.target).data('genre-id') === 0){
                 this.anyLevel3 = true;
                 this.selectedGenres3 = [];
                 $('.tomc-book-organization--browse-normal-3').each(function(){
                     $(this).removeClass('tomc-book-organization--browse-option-3-selected');
+                    $(this).attr('aria-label', $(this).html() + ' is not selected');
                 })
             } else {
                 $('#tomc-book-organization--browse-genre-any-3').removeClass('tomc-book-organization--browse-option-3-selected');
@@ -140,12 +147,35 @@ class BrowseStuff{
                 },
                 success: (response) => {
                     console.log(response);
+                    let alreadyAddedIds = [];
+                    this.resultsSection.html('');
                     for(let i = 0; i < response.length; i++){
-                        if ($("#tomc-browse-genres--results--book-" + response[i]['id']).length){
-                            $("#tomc-browse-genres--results--book-" + response[i]['id']).append('<p>test</p>');
+                        if ($.inArray(response[i]['id'], alreadyAddedIds) > -1){
+                            let newLink = $('<a />').addClass('centered-text').attr('href', response[i]['product_url']);
+                            let newFormat = $('<p />').html(response[i]['type_name']);
+                            newLink.append(newFormat);
+                            $('#tomc-browse-genres--results--book-' + response[i]['id']).children('.tomc-browse--search-result-bottom-section').append(newLink);
                         } else {
-                            let newDiv = $('<div />').attr('id', $("#tomc-browse-genres--results--book-" + response[i]['id'])).html(response[i]['title']);
+                            let newDiv = $('<div />').addClass('tomc-browse--search-result').attr('id', 'tomc-browse-genres--results--book-' + response[i]['id']);
+                            let newTopSection = $('<div />').addClass('tomc-browse--search-result-top-section');
+                            let newTitle = $('<h3 />').html(response[i]['title']);
+                            newTopSection.append(newTitle);
+                            let newAuthor = $('<p />').html(response[i]['pen_name'].length > 0 ? 'by ' + response[i]['pen_name'] : 'by unknown or anonymous author');
+                            newTopSection.append(newAuthor);
+                            let newImage = $('<img />').addClass('book-cover--small').attr('src', response[i]['product_image_id']);
+                            newTopSection.append(newImage);
+                            newDiv.append(newTopSection);
+                            let newBottomSection = $('<div />').addClass('tomc-browse--search-result-bottom-section');
+                            let newDescription = $('<p />').html(response[i]['book_description'].substring(0, 500) + '...');
+                            newBottomSection.append(newDescription);
+                            newBottomSection.append('<h4 class="centered-text">available in</h4>');
+                            let newLink = $('<a />').addClass('centered-text').attr('href', response[i]['product_url']);
+                            let newFormat = $('<p />').html(response[i]['type_name']);
+                            newLink.append(newFormat);
+                            newBottomSection.append(newLink);
+                            newDiv.append(newBottomSection);
                             this.resultsSection.append(newDiv);
+                            alreadyAddedIds.push(response[i]['id']);
                         }
                     }
                     this.resultsSection.removeClass('hidden');

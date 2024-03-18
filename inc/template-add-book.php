@@ -41,7 +41,7 @@ get_header();
                         <input type="text" class="tomc-book-organization--new-book centered-text" name="tomc-book-organization--edition" id="tomc-book-organization--edition">
                     </div>
                     <div class="tomc-book-organization--form-div background-stripe-5">
-                        <label for="tomc-book-organization--description">Enter your book's description (up to 1000 characters). </label><br>
+                        <label for="tomc-book-organization--description">Enter your book's description (up to 3000 characters). </label><br>
                         <textarea class="tomc-book-organization--new-book centered-text" name="tomc-book-organization--description" id="tomc-book-organization--description" required></textarea>
                     </div>
                     <div class="tomc-book-organization--form-div background-stripe-0">
@@ -63,7 +63,7 @@ get_header();
                     <div class="tomc-book-organization--options-container" id="tomc-book-organization--languages">
                         <?php if ($languages) {
                             foreach($languages as $language) {
-                                ?><span data-language-id="<?php echo $language->id; ?>" class="tomc-book-organization--option-languages tomc-book-organization--option-span"><?php echo $language ->language_name;  ?></span>
+                                ?><span aria-label="<?php echo $language ->language_name . ' is not selected'; ?>" data-language-id="<?php echo $language->id; ?>" class="tomc-book-organization--option-languages tomc-book-organization--option-span"><?php echo $language ->language_name;  ?></span>
                             <?php }
                         }
                         ?><span class="tomc-book-organization--add-language tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new language</span>
@@ -101,7 +101,7 @@ get_header();
                         <div class="tomc-book-organization--options-container" id="tomc-book-organization--genres-2">
                             <?php if ($genres2) {
                                 foreach($genres2 as $genre2) {
-                                    ?><span id="tomc-book-organization-genre2-<?php echo $genre2->id; ?>" data-genre-level="2" data-genre-id="<?php echo $genre2->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span" aria-checked="false"><?php echo $genre2 ->genre_name;  ?></span>
+                                    ?><span id="tomc-book-organization-genre2-<?php echo $genre2->id; ?>" data-genre-level="2" data-genre-id="<?php echo $genre2->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span" aria-selected="false"><?php echo $genre2 ->genre_name;  ?></span>
                                 <?php }
                                 ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="2" data-user-id="<?php echo $userid; ?>">add a new genre</span>
                             <?php }
