@@ -274,16 +274,6 @@
     text-align: left;
     padding: 10px;
 }
-#tomc-book-organization--lets-roll-genres{
-    background-color: #4c0548;
-    color: white;
-    font-size: 16;
-    border-radius: 45px;
-    padding: 15px 30px;
-    cursor: pointer;
-    display: block;
-    margin: 40px auto;
-}
 #tomc-browse--search-results-container{
     width: 95%;
     border-radius: 25px 0;

@@ -17,7 +17,6 @@ class TOMCBookOrganizationPlugin {
         $this->books_table = $wpdb->prefix .  "tomc_books";
         $this->product_types_table = $wpdb->prefix . "tomc_product_types";
         $this->book_products_table = $wpdb->prefix . "tomc_book_products";
-        // $this->pennames_table = $wpdb->prefix . "tomc_pennames";
         $this->user_pen_names_table = $wpdb->prefix . "tomc_user_pen_names";
         $this->pen_names_books_table = $wpdb->prefix . "tomc_pen_names_books";
         $this->book_readalikes_table = $wpdb->prefix . "tomc_book_readalikes";
@@ -31,6 +30,8 @@ class TOMCBookOrganizationPlugin {
         $this->book_identities_table = $wpdb->prefix . "tomc_book_identities";
         $this->users_table = $wpdb->prefix . "users";
         $this->posts_table = $wpdb->prefix . "posts";
+        $this->reader_triggers_table = $wpdb->prefix . "tomc_reader_triggers";
+        $this->reader_languages_table = $wpdb->prefix . "tomc_reader_languages";
 
         wp_localize_script('tomc-bookorg-js', 'tomcBookorgData', array(
             'root_url' => get_site_url()
@@ -95,8 +96,8 @@ class TOMCBookOrganizationPlugin {
             title varchar(200) NOT NULL,
             subtitle varchar(200),
             publication_edition int,
-            book_description varchar(2000) NOT NULL,
-            book_excerpt varchar(500),
+            book_description varchar(3000) NOT NULL,
+            book_excerpt varchar(10000),
             product_image_id bigint(20) unsigned,
             createdate datetime NOT NULL,
             createdby bigint(20) unsigned NOT NULL,
@@ -241,6 +242,26 @@ class TOMCBookOrganizationPlugin {
             FOREIGN KEY  (bookid) REFERENCES $this->books_table(id),
             FOREIGN KEY  (languageid) REFERENCES $this->publication_languages_table(id)
         ) $this->charset;");
+
+dbDelta("CREATE TABLE IF NOT EXISTS $this->reader_triggers_table (
+    id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    readerid bigint(20) unsigned NOT NULL,
+    triggerid bigint(20) unsigned NOT NULL,
+    createdate datetime NOT NULL,
+    PRIMARY KEY  (id),
+    FOREIGN KEY  (readerid) REFERENCES $this->users_table(id),
+    FOREIGN KEY  (triggerid) REFERENCES $this->content_warnings_table(id)
+) $this->charset;");
+
+dbDelta("CREATE TABLE IF NOT EXISTS $this->reader_languages_table (
+    id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    readerid bigint(20) unsigned NOT NULL,
+    languageid bigint(20) unsigned NOT NULL,
+    createdate datetime NOT NULL,
+    PRIMARY KEY  (id),
+    FOREIGN KEY  (readerid) REFERENCES $this->users_table(id),
+    FOREIGN KEY  (languageid) REFERENCES $this->publication_languages_table(id)
+) $this->charset;");
 
         if (post_exists('My Books', '', '', 'page', 'publish') == 0){
             $this->addMyBooksPage();
