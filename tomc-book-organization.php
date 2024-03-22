@@ -32,6 +32,8 @@ class TOMCBookOrganizationPlugin {
         $this->posts_table = $wpdb->prefix . "posts";
         $this->reader_triggers_table = $wpdb->prefix . "tomc_reader_triggers";
         $this->reader_languages_table = $wpdb->prefix . "tomc_reader_languages";
+        $this->suggestion_types_table = $wpdb->prefix . "tomc_suggestion_types";
+        $this->suggestions_table = $wpdb->prefix . "tomc_suggestions";
 
         wp_localize_script('tomc-bookorg-js', 'tomcBookorgData', array(
             'root_url' => get_site_url()
@@ -53,6 +55,17 @@ class TOMCBookOrganizationPlugin {
         wp_localize_script('tomc-bookorg-js', 'tomcBookorgData', array(
             'root_url' => get_site_url()
         ));
+    }
+
+    function addSuggestionsPage() {
+        $suggestions_page = array(
+            'post_title' => 'Suggestions',
+            'post_content' => '',
+            'post_status' => 'publish',
+            'post_author' => 0,
+            'post_type' => 'page'
+        );
+        wp_insert_post($suggestions_page);
     }
 
     function addMyBooksPage() {
@@ -243,25 +256,48 @@ class TOMCBookOrganizationPlugin {
             FOREIGN KEY  (languageid) REFERENCES $this->publication_languages_table(id)
         ) $this->charset;");
 
-dbDelta("CREATE TABLE IF NOT EXISTS $this->reader_triggers_table (
-    id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    readerid bigint(20) unsigned NOT NULL,
-    triggerid bigint(20) unsigned NOT NULL,
-    createdate datetime NOT NULL,
-    PRIMARY KEY  (id),
-    FOREIGN KEY  (readerid) REFERENCES $this->users_table(id),
-    FOREIGN KEY  (triggerid) REFERENCES $this->content_warnings_table(id)
-) $this->charset;");
+        dbDelta("CREATE TABLE IF NOT EXISTS $this->reader_triggers_table (
+            id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            readerid bigint(20) unsigned NOT NULL,
+            triggerid bigint(20) unsigned NOT NULL,
+            createdate datetime NOT NULL,
+            PRIMARY KEY  (id),
+            FOREIGN KEY  (readerid) REFERENCES $this->users_table(id),
+            FOREIGN KEY  (triggerid) REFERENCES $this->content_warnings_table(id)
+        ) $this->charset;");
 
-dbDelta("CREATE TABLE IF NOT EXISTS $this->reader_languages_table (
-    id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    readerid bigint(20) unsigned NOT NULL,
-    languageid bigint(20) unsigned NOT NULL,
-    createdate datetime NOT NULL,
-    PRIMARY KEY  (id),
-    FOREIGN KEY  (readerid) REFERENCES $this->users_table(id),
-    FOREIGN KEY  (languageid) REFERENCES $this->publication_languages_table(id)
-) $this->charset;");
+        dbDelta("CREATE TABLE IF NOT EXISTS $this->reader_languages_table (
+            id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            readerid bigint(20) unsigned NOT NULL,
+            languageid bigint(20) unsigned NOT NULL,
+            createdate datetime NOT NULL,
+            PRIMARY KEY  (id),
+            FOREIGN KEY  (readerid) REFERENCES $this->users_table(id),
+            FOREIGN KEY  (languageid) REFERENCES $this->publication_languages_table(id)
+        ) $this->charset;");
+
+        dbDelta("CREATE TABLE IF NOT EXISTS $this->suggestion_types_table (
+            id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            type_name varchar(200) NOT NULL,
+            createdate datetime NOT NULL,
+            instruction_text varchar(300) NULL,
+            PRIMARY KEY  (id)
+        ) $this->charset;");
+
+        dbDelta("CREATE TABLE IF NOT EXISTS $this->suggestions_table (
+            id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+            suggestion_name varchar(200) NOT NULL,
+            typeid bigint(20) unsigned NOT NULL,
+            createdby bigint(20) unsigned NOT NULL,
+            createdate datetime NOT NULL,
+            PRIMARY KEY  (id),
+            FOREIGN KEY  (createdby) REFERENCES $this->users_table(id),
+            FOREIGN KEY  (typeid) REFERENCES $this->suggestion_types_table(id)
+        ) $this->charset;");
+
+        if (post_exists('Suggestions', '', '', 'page', 'publish') == 0){
+            $this->addSuggestionsPage();
+        }
 
         if (post_exists('My Books', '', '', 'page', 'publish') == 0){
             $this->addMyBooksPage();
@@ -283,6 +319,8 @@ dbDelta("CREATE TABLE IF NOT EXISTS $this->reader_languages_table (
             return plugin_dir_path(__FILE__) . 'inc/template-add-book.php';
         } elseif (is_page('browse-by-genre')){
             return plugin_dir_path(__FILE__) . 'inc/template-browse-by-genre.php';
+        } elseif (is_page('suggestions')){
+            return plugin_dir_path(__FILE__) . 'inc/template-suggestions.php';
         } else
         return $template;
     }

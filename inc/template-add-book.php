@@ -226,7 +226,7 @@ get_header();
                                 <label class="tomc-book-organization--large-label" for="<?php echo 'tomc-book-organization--book-product-id-' . $product->ID; ?>"><?php echo $product->post_title; ?></label></br>
                                 <img alt="<?php echo 'the cover for ' . $product->post_title; ?>" src="<?php echo get_the_post_thumbnail_url($product->ID); ?>" /><br><br>
                                 <label class="tomc-book-organization--select-label" for="<?php echo 'tomc-book-organization--select-for-' . $product->ID; ?>">Which format is this product?</label>
-                                <select class="tomc-book-organization--product-format" id="<?php echo 'tomc-book-organization--select-for-' . $product->ID; ?>">
+                                <select class="tomc-book-organization--centered-select" id="<?php echo 'tomc-book-organization--select-for-' . $product->ID; ?>">
                                     <?php foreach($product_types as $type) {
                                         ?><option value="<?php echo $type->id; ?>"><?php echo $type->type_name; ?></option>
                                     <?php }

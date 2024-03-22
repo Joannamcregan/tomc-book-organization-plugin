@@ -296,3 +296,17 @@
     /* border-radius: 0px 0px 25px 0px; */
     padding: 10px 20px;
 }
+#tomc-book-organization--suggestion-types-select{
+    display: block;
+    margin: 10px auto;
+    min-width: 200px;
+}
+#tomc-book-organization--enter-suggestion-section textarea{
+    border-radius: 10px;
+    width: 90%;
+    height: 200px;
+    display: block;
+    margin: 10px auto;
+    text-align: left;
+    padding: 10px;
+}
