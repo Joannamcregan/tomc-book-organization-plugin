@@ -1785,6 +1785,46 @@ class BrowseStuff {
 
 /***/ }),
 
+/***/ "./src/modules/new-books.js":
+/*!**********************************!*\
+  !*** ./src/modules/new-books.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+class NewBooks {
+  constructor() {
+    this.moreEbooks = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--newly-add-more-ebooks');
+    this.moreAudiobooks = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--newly-add-more-audiobooks');
+    this.ebooksContinued = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--newly-added-continued-ebooks');
+    this.audiobooksContinued = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--newly-added-continued-audiobooks');
+    this.events();
+  }
+  events() {
+    this.moreEbooks.on('click', this.showMoreEbooks.bind(this));
+    this.moreAudiobooks.on('click', this.showMoreAudiobooks.bind(this));
+  }
+  showMoreEbooks(e) {
+    this.ebooksContinued.removeClass('hidden');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('padded-arrow-accent');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('hidden');
+  }
+  showMoreAudiobooks(e) {
+    this.audiobooksContinued.removeClass('hidden');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('padded-arrow-accent');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('hidden');
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (NewBooks);
+
+/***/ }),
+
 /***/ "./src/modules/suggestions.js":
 /*!************************************!*\
   !*** ./src/modules/suggestions.js ***!
@@ -1935,12 +1975,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_book_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/book-form */ "./src/modules/book-form.js");
 /* harmony import */ var _modules_browse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/browse */ "./src/modules/browse.js");
 /* harmony import */ var _modules_suggestions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/suggestions */ "./src/modules/suggestions.js");
+/* harmony import */ var _modules_new_books__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/new-books */ "./src/modules/new-books.js");
+
 
 
 
 const tomcBookForm = new _modules_book_form__WEBPACK_IMPORTED_MODULE_0__["default"]();
 const tomcBrowseStuff = new _modules_browse__WEBPACK_IMPORTED_MODULE_1__["default"]();
 const tomcSuggestions = new _modules_suggestions__WEBPACK_IMPORTED_MODULE_2__["default"]();
+const tomcNewBooks = new _modules_new_books__WEBPACK_IMPORTED_MODULE_3__["default"]();
 })();
 
 /******/ })()
