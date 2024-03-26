@@ -69,6 +69,17 @@ class TOMCBookOrganizationPlugin {
         wp_insert_post($suggestions_page);
     }
 
+    function addNewBooksPage() {
+        $new_books_page = array(
+            'post_title' => 'Newly Added Books',
+            'post_content' => '',
+            'post_status' => 'publish',
+            'post_author' => 0,
+            'post_type' => 'page'
+        );
+        wp_insert_post($new_books_page);
+    }
+
     function addMyBooksPage() {
         $my_books_page = array(
             'post_title' => 'My Books',
@@ -300,6 +311,10 @@ class TOMCBookOrganizationPlugin {
             $this->addSuggestionsPage();
         }
 
+        if (post_exists('New Books', '', '', 'page', 'publish') == 0){
+            $this->addNewBooksPage();
+        }
+
         if (post_exists('My Books', '', '', 'page', 'publish') == 0){
             $this->addMyBooksPage();
         }
@@ -322,6 +337,8 @@ class TOMCBookOrganizationPlugin {
             return plugin_dir_path(__FILE__) . 'inc/template-browse-by-genre.php';
         } elseif (is_page('suggestions')){
             return plugin_dir_path(__FILE__) . 'inc/template-suggestions.php';
+        } elseif (is_page('newly-added-books')){
+            return plugin_dir_path(__FILE__) . 'inc/template-newly-added-books.php';
         } else
         return $template;
     }

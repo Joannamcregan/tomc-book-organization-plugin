@@ -314,3 +314,34 @@
     width: 90%;
     margin: 10px auto;
 }
+.tomc-book-organization--new-book-3{
+    margin: 10px auto;
+    width: 70%;
+    border: solid #893e43 5px;
+    background: rgb(248, 247, 247);
+    border-radius: 25px 0;
+}
+.tomc-book-organization--new-book-2{
+    margin: 10px auto;
+    width: 70%;
+    border: solid #0c698e 5px;
+    background: rgb(248, 247, 247);
+    border-radius: 25px 0;
+}
+.tomc-book-organization--new-book-1{
+    margin: 10px auto;
+    width: 70%;
+    border: solid #4c0548 5px;
+    background: rgb(248, 247, 247);
+    border-radius: 25px 0;
+}
+@media screen and (max-width: 960px) {
+    .tomc-book-organization--new-book-1, .tomc-book-organization--new-book-2, .tomc-book-organization--new-book-3{
+        width: 90%;
+    }
+}
+.tomc-browse--new-book-bottom-section{
+    background: rgba(211, 74, 36, 0.2);
+    /* border-radius: 0px 0px 25px 0px; */
+    padding: 10px 20px;
+}
