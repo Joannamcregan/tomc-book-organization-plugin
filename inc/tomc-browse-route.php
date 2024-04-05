@@ -32,6 +32,7 @@ function getBooksByGenre($data){
         join %i e on b.id = e.bookid
         join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
+        where b.islive = 1
         order by b.createdate desc
         limit 200';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table), ARRAY_A);
@@ -55,6 +56,7 @@ function getBooksByGenre($data){
         join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where b.id in (select bookid from %i where genreid in (' . $level3clause . '))
+        and b.islive = 1
         order by b.createdate desc';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $book_genres_table), ARRAY_A);
         for($index = 0; $index < count($results); $index++){
@@ -77,6 +79,7 @@ function getBooksByGenre($data){
         join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where b.id in (select bookid from %i where genreid in (' . $level2clause . '))
+        and b.islive = 1
         order by b.createdate desc';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $book_genres_table), ARRAY_A);
         return $results;
@@ -95,6 +98,7 @@ function getBooksByGenre($data){
         join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where b.id in (select bookid from %i where genreid in (' . $level1clause . '))
+        and b.islive = 1
         order by b.createdate desc';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $book_genres_table), ARRAY_A);
         for($index = 0; $index < count($results); $index++){
@@ -124,6 +128,7 @@ function getBooksByGenre($data){
         join %i g on c.productid = g.id
         where b.id in (select bookid from %i where genreid in (' . $level2clause . '))
         and b.id in (select bookid from %i where genreid in (' . $level3clause . '))
+        and b.islive = 1
         order by b.createdate desc';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $book_genres_table, $book_genres_table), ARRAY_A);
         for($index = 0; $index < count($results); $index++){
@@ -153,6 +158,7 @@ function getBooksByGenre($data){
         join %i g on c.productid = g.id
         where b.id in (select bookid from %i where genreid in (' . $level1clause . '))
         and b.id in (select bookid from %i where genreid in (' . $level3clause . '))
+        and b.islive = 1
         order by b.createdate desc';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $book_genres_table, $book_genres_table), ARRAY_A);
         for($index = 0; $index < count($results); $index++){
@@ -182,6 +188,7 @@ function getBooksByGenre($data){
         join %i g on c.productid = g.id
         where b.id in (select bookid from %i where genreid in (' . $level1clause . '))
         and b.id in (select bookid from %i where genreid in (' . $level2clause . '))
+        and b.islive = 1
         order by b.createdate desc';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $book_genres_table, $book_genres_table), ARRAY_A);
         for($index = 0; $index < count($results); $index++){
@@ -218,6 +225,7 @@ function getBooksByGenre($data){
         where b.id in (select bookid from %i where genreid in (' . $level1clause . '))
         and b.id in (select bookid from %i where genreid in (' . $level2clause . '))
         and b.id in (select bookid from %i where genreid in (' . $level3clause . '))
+        and b.islive = 1
         order by b.createdate desc';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $book_genres_table, $book_genres_table, $book_genres_table), ARRAY_A);
         for($index = 0; $index < count($results); $index++){

@@ -413,12 +413,13 @@ class BookInfo{
 
     addGenre(){
         this.genreName =  this.genreInput.val().substring(0, 200);
-        if (toLowerCase(this.genreName) == 'any genre'){
+        if (this.genreName == 'any genre'){
             this.genreName = 'the any-genre genre'
-        } else if (toLowerCase(this.genreName) == 'anything'){
+        } else if (this.genreName == 'anything'){
             this.genreName = 'books about ' + this.genreName;
         }
         if (this.genreInput != ''){
+            console.log('going to add a genre');
             $.ajax({
                 beforeSend: (xhr) => {
                     xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -431,6 +432,7 @@ class BookInfo{
                     'user' : this.currentUserId
                 },
                 success: (response) => {
+                    console.log('getting there with the new genre');
                     if (response != 0 && response != 'fail') {
                         this.newSpan = $('<span />').addClass('tomc-book-organization--option-span').attr('data-genre-id', response).attr('aria-label', this.genreName + ' is selected').html(this.genreName).on('click', this.toggleGenreSelection.bind(this));
                         $('#tomc-book-organization--genres-' + this.addedGenreLevel).prepend(this.newSpan);
@@ -487,9 +489,9 @@ class BookInfo{
                         if (this.chosenIdentities.length < 5) {
                             this.chosenIdentities.push(response);
                             this.newSpan.addClass('tomc-book-organization--option-selected');
-                            this.newSpan.attr('aria-label', labelName + ' is selected');
+                            this.newSpan.attr('aria-label', identityName + ' is selected');
                         } else {
-                            this.newSpan.attr('aria-label', labelName + ' is not selected');
+                            this.newSpan.attr('aria-label', identityName + ' is not selected');
                             $('.tomc-book-organization--identities-error-section').removeClass('hidden');
                         }
                     }                    
