@@ -1754,12 +1754,18 @@ class BrowseStuff {
             } else {
               let newDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-browse--search-result').attr('id', 'tomc-browse-genres--results--book-' + response[i]['id']);
               let newTopSection = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-browse--search-result-top-section');
+              let newBorder0 = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-result-top-border-0');
+              let newBorder1 = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-result-top-border-1');
+              newBorder1.append(newBorder0);
+              let newBorder2 = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-result-top-border-2');
+              newBorder2.append(newBorder1);
+              newTopSection.append(newBorder2);
               let newTitle = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<h3 />').html(response[i]['title']);
-              newTopSection.append(newTitle);
+              newBorder0.append(newTitle);
               let newAuthor = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').html(response[i]['pen_name'].length > 0 ? 'by ' + response[i]['pen_name'] : 'by unknown or anonymous author');
-              newTopSection.append(newAuthor);
-              let newImage = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<img />').addClass('book-cover--small').attr('src', response[i]['product_image_id']);
-              newTopSection.append(newImage);
+              newBorder0.append(newAuthor);
+              let newImage = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<img />').attr('src', response[i]['product_image_id']);
+              newBorder0.append(newImage);
               newDiv.append(newTopSection);
               let newBottomSection = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-browse--search-result-bottom-section');
               let newDescription = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').html(response[i]['book_description'].substring(0, 500) + '...');

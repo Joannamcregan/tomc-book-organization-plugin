@@ -157,13 +157,19 @@ class BrowseStuff{
                             $('#tomc-browse-genres--results--book-' + response[i]['id']).children('.tomc-browse--search-result-bottom-section').append(newLink);
                         } else {
                             let newDiv = $('<div />').addClass('tomc-browse--search-result').attr('id', 'tomc-browse-genres--results--book-' + response[i]['id']);
-                            let newTopSection = $('<div />').addClass('tomc-browse--search-result-top-section');
+                            let newTopSection = $('<div />'); //.addClass('tomc-browse--search-result-top-section');
+                            let newBorder0 = $('<div />').addClass('tomc-result-top-border-0');
+                            let newBorder1 = $('<div />').addClass('tomc-result-top-border-1');
+                            newBorder1.append(newBorder0);
+                            let newBorder2 = $('<div />').addClass('tomc-result-top-border-2');
+                            newBorder2.append(newBorder1);
+                            newTopSection.append(newBorder2);
                             let newTitle = $('<h3 />').html(response[i]['title']);
-                            newTopSection.append(newTitle);
+                            newBorder0.append(newTitle);
                             let newAuthor = $('<p />').html(response[i]['pen_name'].length > 0 ? 'by ' + response[i]['pen_name'] : 'by unknown or anonymous author');
-                            newTopSection.append(newAuthor);
-                            let newImage = $('<img />').addClass('book-cover--small').attr('src', response[i]['product_image_id']);
-                            newTopSection.append(newImage);
+                            newBorder0.append(newAuthor);
+                            let newImage = $('<img />').attr('src', response[i]['product_image_id']);
+                            newBorder0.append(newImage);
                             newDiv.append(newTopSection);
                             let newBottomSection = $('<div />').addClass('tomc-browse--search-result-bottom-section');
                             let newDescription = $('<p />').html(response[i]['book_description'].substring(0, 500) + '...');
