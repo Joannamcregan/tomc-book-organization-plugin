@@ -69,6 +69,17 @@ class TOMCBookOrganizationPlugin {
         wp_insert_post($suggestions_page);
     }
 
+    function addPennamesPage() {
+        $pennames_page = array(
+            'post_title' => 'My Pen Names',
+            'post_content' => '',
+            'post_status' => 'publish',
+            'post_author' => 0,
+            'post_type' => 'page'
+        );
+        wp_insert_post($pennames_page);
+    }
+
     function addNewBooksPage() {
         $new_books_page = array(
             'post_title' => 'Newly Added Books',
@@ -311,6 +322,10 @@ class TOMCBookOrganizationPlugin {
             $this->addSuggestionsPage();
         }
 
+        if (post_exists('My Pen Names', '', '', 'page', 'publish') == 0){
+            $this->addPennamesPage();
+        }
+
         if (post_exists('New Books', '', '', 'page', 'publish') == 0){
             $this->addNewBooksPage();
         }
@@ -333,6 +348,8 @@ class TOMCBookOrganizationPlugin {
             return plugin_dir_path(__FILE__) . 'inc/template-my-books.php';
         } elseif (is_page('add-a-book')){
             return plugin_dir_path(__FILE__) . 'inc/template-add-book.php';
+        } elseif (is_page('my-pen-names')){
+            return plugin_dir_path(__FILE__) . 'inc/template-pen-names.php';
         } elseif (is_page('browse-by-genre')){
             return plugin_dir_path(__FILE__) . 'inc/template-browse-by-genre.php';
         } elseif (is_page('suggestions')){
