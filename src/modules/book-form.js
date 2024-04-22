@@ -72,6 +72,7 @@ class BookInfo{
         this.addNewWarningButton = $("#tomc-book-organization--new-warning");
         this.penNameOverlay = $("#tomc-book-organization__pen-name-overlay");
         this.penNameInput = $("#tomc-book-organization__new-pen-name");
+        this.penNameBioInput = $("#tomc-book-organization__new-name-bio");
         this.addNewPenNameButton = $("#tomc-book-organization--new-pen-name");
         this.penNameOverlayCloseButton = $("#tomc-book-organization__pen-name-overlay-close");
         // toggle select buttons
@@ -402,6 +403,7 @@ class BookInfo{
     closePenNameOverlay(){
         this.penNameOverlay.removeClass("tomc-book-organization__box--active");
         this.penNameInput.val('');
+        this.penNameBioInput.val('');
         $("body").removeClass("body-no-scroll");
     }
 
@@ -588,6 +590,7 @@ class BookInfo{
     addPenName(){
         this.newPenNameData = {
             'title':  this.penNameInput.val().substring(0, 200),
+            'content': this.penNameBioInput.val().substring(0, 1000),
             'status': 'publish'
         }
         if (this.penName != ''){

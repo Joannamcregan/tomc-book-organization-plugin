@@ -289,6 +289,7 @@ get_header();
                     <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__pen-name-overlay-close">X</span> -->
                     <div class="overlay-input-container">
                         <input type="text" placeholder="New Name" id="tomc-book-organization__new-pen-name">
+                        <textarea class="tomc-book-organization-textarea--edit" id="tomc-book-organization__new-name-bio">Author bio (up to 1000 characters)</textarea>
                         <p class="hidden centered-text" id="tomc-book-organization--pen-name-overlay-error">Cannot be blank.</p>
                         <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-pen-name">save</button>
                     </div>
