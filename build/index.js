@@ -1753,7 +1753,7 @@ class BrowseStuff {
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-browse-genres--results--book-' + response[i]['id']).children('.tomc-browse--search-result-bottom-section').append(newLink);
             } else {
               let newDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-browse--search-result').attr('id', 'tomc-browse-genres--results--book-' + response[i]['id']);
-              let newTopSection = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-browse--search-result-top-section');
+              let newTopSection = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />'); //.addClass('tomc-browse--search-result-top-section');
               let newBorder0 = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-result-top-border-0');
               let newBorder1 = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-result-top-border-1');
               newBorder1.append(newBorder0);
@@ -1830,6 +1830,118 @@ class NewBooks {
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (NewBooks);
+
+/***/ }),
+
+/***/ "./src/modules/pen-names.js":
+/*!**********************************!*\
+  !*** ./src/modules/pen-names.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+class PenNames {
+  constructor() {
+    this.displaySections = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--display-penname-section');
+    this.editButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--edit-penname-bio');
+    this.editSections = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--edit-penname-section');
+    this.saveEditButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--save-penname-edit');
+    this.cancelEditButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--cancel-penname-edit');
+    this.newName = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization-new-penname');
+    this.newNameBio = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--ew-name-bio');
+    this.saveNewName = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--save-new-penname');
+    this.cancelNewName = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--cancel-new-penname');
+    this.events();
+  }
+  events() {
+    this.editButtons.on('click', this.editPenName.bind(this));
+    this.cancelEditButtons.on('click', this.cancelEdit.bind(this));
+    this.saveEditButtons.on('click', this.submitEdit.bind(this));
+    this.saveNewName.on('click', this.submitNewName.bind(this));
+    this.cancelNewName.on('click', this.clearNewName.bind(this));
+  }
+  editPenName(e) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--display-penname-section').parent('.tomc-book-organization--book-to-edit').children('.tomc-book-organization--edit-penname-section').toggleClass('hidden');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--display-penname-section').toggleClass('hidden');
+  }
+  cancelEdit(e) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent().parent().children('.tomc-blank-bio-message').addClass('hidden');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent().parent('.tomc-book-organization--edit-penname-section').parent('.tomc-book-organization--book-to-edit').children('.tomc-book-organization--display-penname-section').toggleClass('hidden');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent().parent('.tomc-book-organization--edit-penname-section').toggleClass('hidden');
+  }
+  clearNewName(e) {
+    this.newName.val('');
+    this.newNameBio.val('');
+  }
+  submitEdit(e) {
+    let $content = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent().parent('.tomc-book-organization--edit-penname-section').children('.tomc-book-organization-textarea--edit').val().substring(0, 1000);
+    let $id = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent().parent('.tomc-book-organization--edit-penname-section').parent('.tomc-book-organization--book-to-edit').data('pen-name');
+    if ($content) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent().parent().children('.tomc-blank-bio-message').addClass('hidden');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+        beforeSend: xhr => {
+          xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+        },
+        url: tomcBookorgData.root_url + '/wp-json/tomcPennames/v1/submitEdit',
+        type: 'POST',
+        data: {
+          'content': $content,
+          'postId': $id
+        },
+        success: response => {
+          console.log(response);
+          location.reload(true);
+        },
+        error: response => {
+          console.log(response);
+        }
+      });
+    } else {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent().parent().children('.tomc-blank-bio-message').removeClass('hidden');
+    }
+  }
+  submitNewName(e) {
+    let $name = this.newName.val().substring(0, 100);
+    let $content = this.newNameBio.val().substring(0, 1000);
+    if ($name) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-blank-new-name-message').addClass('hidden');
+      if ($content) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-blank-new-bio-message').addClass('hidden');
+        this.newPenNameData = {
+          'title': $name,
+          'content': $content,
+          'status': 'publish'
+        };
+        jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+          beforeSend: xhr => {
+            xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+          },
+          url: tomcBookorgData.root_url + '/wp-json/wp/v2/author-profile',
+          type: 'POST',
+          data: this.newPenNameData,
+          success: response => {
+            console.log(response);
+            location.reload(true);
+          },
+          error: response => {
+            console.log(response);
+          }
+        });
+      } else {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-blank-new-bio-message').removeClass('hidden');
+      }
+    } else {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-blank-new-name-message').removeClass('hidden');
+    }
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PenNames);
 
 /***/ }),
 
@@ -1984,6 +2096,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_browse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/browse */ "./src/modules/browse.js");
 /* harmony import */ var _modules_suggestions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/suggestions */ "./src/modules/suggestions.js");
 /* harmony import */ var _modules_new_books__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/new-books */ "./src/modules/new-books.js");
+/* harmony import */ var _modules_pen_names__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/pen-names */ "./src/modules/pen-names.js");
+
 
 
 
@@ -1992,6 +2106,7 @@ const tomcBookForm = new _modules_book_form__WEBPACK_IMPORTED_MODULE_0__["defaul
 const tomcBrowseStuff = new _modules_browse__WEBPACK_IMPORTED_MODULE_1__["default"]();
 const tomcSuggestions = new _modules_suggestions__WEBPACK_IMPORTED_MODULE_2__["default"]();
 const tomcNewBooks = new _modules_new_books__WEBPACK_IMPORTED_MODULE_3__["default"]();
+const tomcPenNames = new _modules_pen_names__WEBPACK_IMPORTED_MODULE_4__["default"]();
 })();
 
 /******/ })()

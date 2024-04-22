@@ -10,6 +10,7 @@ if( ! defined('ABSPATH') ) exit;
 require_once plugin_dir_path(__FILE__) . 'inc/tomc-bookorg-route.php';
 require_once plugin_dir_path(__FILE__) . 'inc/tomc-browse-route.php';
 require_once plugin_dir_path(__FILE__) . 'inc/tomc-suggestions-route.php';
+require_once plugin_dir_path(__FILE__) . 'inc/tomc-authornames-route.php';
 
 class TOMCBookOrganizationPlugin {
     function __construct() {
