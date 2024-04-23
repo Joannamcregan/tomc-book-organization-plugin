@@ -45,6 +45,26 @@ class TOMCBookOrganizationPlugin {
         add_action('init', array($this, 'registerScripts'));
         add_action('wp_enqueue_scripts', array($this, 'pluginFiles'));
         add_filter('template_include', array($this, 'loadTemplate'), 99);
+        add_action('init', array($this, 'author_profile_custom_post_types'));
+    }
+
+    function author_profile_custom_post_types() {
+        register_post_type('author-profile', array(
+            'map_meta_cap' => true,
+            'show_in_rest' => true,
+            'supports' => array('title', 'editor', 'thumbnail'),
+            'rewrite' => array('slug' => 'pen-name'),
+            'has_archive' => false,
+            'public' => true,
+            'labels' => array(
+                'name' => 'Author-Profiles',
+                'add_new' => 'Add New Pen Name',
+                'edit_item' => 'Edit Pen Name',
+                'all_items' => 'All Pen Names',
+                'singular_name' => 'Pen Name'
+            ),
+            'menu_icon' => 'dashicons-edit'
+        ));
     }
 
     function registerScripts(){
