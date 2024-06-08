@@ -42,7 +42,8 @@ class TOMCBookOrganizationPlugin {
         ));
 
         // add_action('activate_tomc-book-organization/tomc-book-organization.php', array($this, 'onActivate'));
-        register_activation_hook( __FILE__, array($this, 'onActivate'));
+        // register_activation_hook( __FILE__, array($this, 'onActivate'));
+        add_action('init', array($this, 'onActivate'));
         add_action('init', array($this, 'registerScripts'));
         add_action('wp_enqueue_scripts', array($this, 'pluginFiles'));
         add_filter('template_include', array($this, 'loadTemplate'), 99);
