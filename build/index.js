@@ -360,6 +360,7 @@ class BookInfo {
     this.bookProductsAddInstructions.hasClass("hidden") ? this.bookProductsAddInstructions.removeClass("hidden") : this.bookProductsAddInstructions.addClass("hidden");
   }
   closeLanguageOverlay() {
+    console.log('close language overlay called!!');
     this.languageOverlay.removeClass("tomc-book-organization__box--active");
     this.languageInput.val('');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").removeClass("body-no-scroll");

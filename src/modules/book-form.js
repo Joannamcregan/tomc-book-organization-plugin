@@ -352,6 +352,7 @@ class BookInfo{
     }
 
     closeLanguageOverlay(){
+        console.log('close language overlay called!!');
         this.languageOverlay.removeClass("tomc-book-organization__box--active");
         this.languageInput.val('');
         $("body").removeClass("body-no-scroll");
