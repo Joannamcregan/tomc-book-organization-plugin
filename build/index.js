@@ -250,11 +250,11 @@ class BookInfo {
       console.log('updating readalike button function called');
       if (this.readalikeBook0.val() != '') {
         console.log('readalike condition met');
-        this.saveReadalikesButton.text = 'save and continue';
+        this.saveReadalikesButton.text('save and continue');
       } else {
-        this.saveReadalikesButton.text = 'continue';
+        this.saveReadalikesButton.text('continue');
       }
-    }, 2000);
+    }, 3000);
   }
   toggleGenreSelection(e) {
     let labelName = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).text();
