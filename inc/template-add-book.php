@@ -63,7 +63,7 @@ get_header();
                     <div class="tomc-book-organization--options-container" id="tomc-book-organization--languages">
                         <?php if ($languages) {
                             foreach($languages as $language) {
-                                ?><span aria-label="<?php echo $language ->language_name . ' is not selected'; ?>" data-language-id="<?php echo $language->id; ?>" class="tomc-book-organization--option-languages tomc-book-organization--option-span"><?php echo $language ->language_name;  ?></span>
+                                ?><span tabindex="0" aria-label="<?php echo $language ->language_name . ' is not selected'; ?>" data-language-id="<?php echo $language->id; ?>" class="tomc-book-organization--option-languages tomc-book-organization--option-span"><?php echo $language ->language_name;  ?></span>
                             <?php }
                         }
                         ?><span class="tomc-book-organization--add-language tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new language</span>

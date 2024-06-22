@@ -180,7 +180,7 @@ class BookInfo{
         this.selectWarningButtons.on("click", this.toggleWarningSelection.bind(this));
         this.selectIdentityButtons.on("click", this.toggleIdentitySelection.bind(this));
         //readalikes
-        this.readalikeBook0.on('click', setTimeout(this.updateReadalikeContinueButton.bind(this), 1000));
+        this.readalikeBook0.on('click', this.updateReadalikeContinueButton.bind(this));
         //edit book events
         this.bookOptionTitles.on('click', this.expandTitleEditingOptions.bind(this));
         // overlays
@@ -234,11 +234,13 @@ class BookInfo{
     }
 
     updateReadalikeContinueButton(e){
-        if (this.readalikeBook0.val() != ''){
-            this.saveReadalikesButton.text = 'save and continue';
-        } else {
-            this.saveReadalikesButton.text = 'continue';
-        }
+        setTimeout(() => {
+            if (this.readalikeBook0.val() != ''){
+                this.saveReadalikesButton.text = 'save and continue';
+            } else {
+                this.saveReadalikesButton.text = 'continue';
+            }
+        }, 500)
     }
 
     toggleGenreSelection(e){
