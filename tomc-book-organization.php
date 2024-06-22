@@ -349,7 +349,7 @@ class TOMCBookOrganizationPlugin {
             $this->addPennamesPage();
         }
 
-        if (post_exists('New Books', '', '', 'page', 'publish') == 0){
+        if (post_exists('Newly Added Books', '', '', 'page', 'publish') == 0){
             $this->addNewBooksPage();
         }
 
