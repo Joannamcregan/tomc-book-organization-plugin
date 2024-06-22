@@ -194,7 +194,7 @@ class BookInfo {
     this.selectWarningButtons.on("click", this.toggleWarningSelection.bind(this));
     this.selectIdentityButtons.on("click", this.toggleIdentitySelection.bind(this));
     //readalikes
-    this.readalikeBook0.on('change', this.updateReadalikeContinueButton.bind(this));
+    this.readalikeBook0.on('click', setTimeout(this.updateReadalikeContinueButton.bind(this), 1000));
     //edit book events
     this.bookOptionTitles.on('click', this.expandTitleEditingOptions.bind(this));
     // overlays
