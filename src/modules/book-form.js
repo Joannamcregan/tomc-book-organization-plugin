@@ -242,7 +242,7 @@ class BookInfo{
             } else {
                 this.saveReadalikesButton.text = 'continue';
             }
-        }, 500)
+        }, 2000)
     }
 
     toggleGenreSelection(e){

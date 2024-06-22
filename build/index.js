@@ -254,7 +254,7 @@ class BookInfo {
       } else {
         this.saveReadalikesButton.text = 'continue';
       }
-    }, 500);
+    }, 2000);
   }
   toggleGenreSelection(e) {
     let labelName = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).text();
