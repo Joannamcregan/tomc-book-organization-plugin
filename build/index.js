@@ -441,18 +441,18 @@ class BookInfo {
               if (this.chosenGenres2.length < 2) {
                 this.chosenGenres2.push(response);
                 this.newSpan.addClass('tomc-book-organization--option-selected');
-                this.newSpan.attr('aria-label', labelName + ' is selected');
+                this.newSpan.attr('aria-label', this.genreName + ' is selected');
               } else {
-                this.newSpan.attr('aria-label', labelName + ' is not selected');
+                this.newSpan.attr('aria-label', this.genreName + ' is not selected');
                 jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--genres2-error-section').removeClass('hidden');
               }
             } else if (this.addedGenreLevel == 3) {
               if (this.chosenGenres3.length < 10) {
                 this.chosenGenres3.push(response);
                 this.newSpan.addClass('tomc-book-organization--option-selected');
-                this.newSpan.attr('aria-label', labelName + ' is selected');
+                this.newSpan.attr('aria-label', this.genreName + ' is selected');
               } else {
-                this.newSpan.attr('aria-label', labelName + ' is not selected');
+                this.newSpan.attr('aria-label', this.genreName + ' is not selected');
                 jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--genres3-error-section').removeClass('hidden');
               }
             }
@@ -531,9 +531,9 @@ class BookInfo {
             if (this.chosenLanguages.length < 3) {
               this.chosenLanguages.push(response);
               this.newSpan.addClass('tomc-book-organization--option-selected');
-              this.newSpan.attr('aria-label', labelName + ' is selected');
+              this.newSpan.attr('aria-label', this.languageName + ' is selected');
             } else {
-              this.newSpan.attr('aria-label', labelName + ' is not selected');
+              this.newSpan.attr('aria-label', this.languageName + ' is not selected');
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--languages-error-section').removeClass('hidden');
             }
           }
@@ -570,10 +570,10 @@ class BookInfo {
             if (this.chosenWarnings.length < 10) {
               this.chosenWarnings.push(response);
               this.newSpan.addClass('tomc-book-organization--option-selected');
-              this.newSpan.attr('aria-label', labelName + ' is selected');
+              this.newSpan.attr('aria-label', this.warningName + ' is selected');
               this.saveWarningsButton.text('save and continue');
             } else {
-              this.newSpan.attr('aria-label', labelName + ' is not selected');
+              this.newSpan.attr('aria-label', this.warningName + ' is not selected');
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--warnings-error-section').removeClass('hidden');
             }
           }
