@@ -524,6 +524,7 @@ class BookInfo {
           'user': this.currentUserId
         },
         success: response => {
+          console.log('new version adding language.');
           if (response != 0 && response != 'fail') {
             this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-language-id', response).attr('aria-label', this.languageName + ' is selected').html(this.languageName).on('click', this.toggleLanguageSelection.bind(this));
             jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--languages').prepend(this.newSpan);
