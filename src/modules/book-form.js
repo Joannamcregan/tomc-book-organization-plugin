@@ -235,7 +235,9 @@ class BookInfo{
 
     updateReadalikeContinueButton(e){
         setTimeout(() => {
+            console.log('updating readalike button function called');
             if (this.readalikeBook0.val() != ''){
+                console.log('readalike condition met');
                 this.saveReadalikesButton.text = 'save and continue';
             } else {
                 this.saveReadalikesButton.text = 'continue';
