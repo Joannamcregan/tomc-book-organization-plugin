@@ -103,9 +103,9 @@ get_header();
                                 foreach($genres2 as $genre2) {
                                     ?><span aria-label="<?php echo $genre2 ->genre_name . ' is not selected'; ?>" id="tomc-book-organization-genre2-<?php echo $genre2->id; ?>" data-genre-level="2" data-genre-id="<?php echo $genre2->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre2 ->genre_name;  ?></span>
                                 <?php }
-                                ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="2" data-user-id="<?php echo $userid; ?>">add a new genre</span>
-                            <?php }
-                            ?><div class="hidden tomc-book-organization--red-text tomc-book-organization--genres2-error-section">
+                            }
+                            ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="2" data-user-id="<?php echo $userid; ?>">add a new genre</span>
+                            <div class="hidden tomc-book-organization--red-text tomc-book-organization--genres2-error-section">
                                 <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
                                 <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
                             </div>
@@ -119,9 +119,9 @@ get_header();
                                 foreach($genres3 as $genre3) {
                                     ?><span aria-label="<?php echo $genre3 ->genre_name . ' is not selected'; ?>" id="tomc-book-organization-genre3-<?php echo $genre3->id; ?>" data-genre-level="3" data-genre-id="<?php echo $genre3->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre3 ->genre_name;  ?></span>
                                 <?php }
-                                ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="3" data-user-id="<?php echo $userid; ?>">add a new subgenre</span>
-                            <?php }
-                            ?><div class="hidden tomc-book-organization--red-text tomc-book-organization--genres3-error-section">
+                            }
+                            ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="3" data-user-id="<?php echo $userid; ?>">add a new subgenre</span>
+                            <div class="hidden tomc-book-organization--red-text tomc-book-organization--genres3-error-section">
                                 <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
                                 <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
                             </div>
