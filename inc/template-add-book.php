@@ -166,11 +166,8 @@ get_header();
                         <input type="text" placeholder = "book title" id = "tomc-book-organization__readalike-book-1">
                         <span>by</span>
                         <input type="text" placeholder = "author" id = "tomc-book-organization__readalike-author-1">
-                    </div>     
-                    <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text" id="tomc-book-organization--add-readalike-errors">
-                        <p>Choose at least one similar title to help readers find your book.</p>
-                    </div>
-                    <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book-readalikes">save and continue</button>
+                    </div>   
+                    <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book-readalikes">continue</button>
                 </div>
 
                 <div class="tomc-book-organization--form hidden" id="tomc-book-organization--complete">
@@ -204,14 +201,12 @@ get_header();
                 <div class="tomc-book-organization--form hidden" id="tomc-book-organization--book-pen-name" >
                     <h3>Which name will you be publishing this book under?</h3>
                     <?php $pen_names = $wpdb->get_results("SELECT * from $posts_table WHERE post_type = 'author-profile' and post_author = $userid ORDER BY post_title;");
-                    if ($pen_names) {
-                        ?><select aria-label="your author names" name="tomc-book-organization--book-pen-name" id="tomc-book-organization--book-pen-name-select">
-                        <?php foreach($pen_names as $name) {
-                            ?><option value="<?php echo $name->ID; ?>"><?php echo $name->post_title; ?></option>
-                        <?php }
-                    ?></select><br>
-                    <?php }                    
-                    ?><span class="tomc-book-organization--add-pen-name tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new author name</span>
+                    ?><select aria-label="your author names" name="tomc-book-organization--book-pen-name" id="tomc-book-organization--book-pen-name-select">
+                    <?php foreach($pen_names as $name) {
+                        ?><option value="<?php echo $name->ID; ?>"><?php echo $name->post_title; ?></option>
+                    <?php }
+                    ?></select><br>         
+                    <span class="tomc-book-organization--add-pen-name tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new author name</span>
                     <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-book-pen-name">save and continue</button>
                 </div>
 
@@ -289,7 +284,7 @@ get_header();
                     <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__pen-name-overlay-close">X</span> -->
                     <div class="overlay-input-container">
                         <input type="text" placeholder="New Name" id="tomc-book-organization__new-pen-name">
-                        <textarea class="tomc-book-organization-textarea--edit" id="tomc-book-organization__new-name-bio">Author bio (up to 1000 characters)</textarea>
+                        <textarea class="tomc-book-organization-textarea--edit" id="tomc-book-organization__new-name-bio" placeholder="Author bio (up to 1000 characters)"></textarea>
                         <p class="hidden centered-text" id="tomc-book-organization--pen-name-overlay-error">Cannot be blank.</p>
                         <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-pen-name">save</button>
                     </div>

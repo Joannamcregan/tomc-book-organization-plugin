@@ -193,6 +193,8 @@ class BookInfo {
     this.selectGenreButtons.on("click", this.toggleGenreSelection.bind(this));
     this.selectWarningButtons.on("click", this.toggleWarningSelection.bind(this));
     this.selectIdentityButtons.on("click", this.toggleIdentitySelection.bind(this));
+    //readalikes
+    this.readalikeBook0.on('change', this.updateReadalikeContinueButton.bind(this));
     //edit book events
     this.bookOptionTitles.on('click', this.expandTitleEditingOptions.bind(this));
     // overlays
@@ -241,6 +243,13 @@ class BookInfo {
       } else {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--languages-error-section').removeClass('hidden');
       }
+    }
+  }
+  updateReadalikeContinueButton(e) {
+    if (this.readalikeBook0.val() != '') {
+      this.saveReadalikesButton.text = 'save and continue';
+    } else {
+      this.saveReadalikesButton.text = 'continue';
     }
   }
   toggleGenreSelection(e) {
