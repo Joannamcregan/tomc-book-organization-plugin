@@ -472,6 +472,7 @@ class BookInfo {
   }
   addIdentity() {
     this.identityName = this.identityInput.val().substring(0, 200);
+    console.log('identity name is ' + this.identityName);
     if (this.identityName != '') {
       jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
         beforeSend: xhr => {
@@ -491,9 +492,9 @@ class BookInfo {
             if (this.chosenIdentities.length < 5) {
               this.chosenIdentities.push(response);
               this.newSpan.addClass('tomc-book-organization--option-selected');
-              this.newSpan.attr('aria-label', identityName + ' is selected');
+              this.newSpan.attr('aria-label', this.identityName + ' is selected');
             } else {
-              this.newSpan.attr('aria-label', identityName + ' is not selected');
+              this.newSpan.attr('aria-label', this.identityName + ' is not selected');
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--identities-error-section').removeClass('hidden');
             }
           }
