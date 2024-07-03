@@ -52,12 +52,12 @@ class TOMCBookOrganizationPlugin {
 
     function author_profile_custom_post_types() {
         register_post_type('author-profile', array(
-            'map_meta_cap' => true,
             'show_in_rest' => true,
             'supports' => array('title', 'editor', 'thumbnail'),
             'rewrite' => array('slug' => 'pen-name'),
             'has_archive' => false,
             'public' => true,
+            'menu_position' => 1,
             'labels' => array(
                 'name' => 'Author-Profiles',
                 'add_new' => 'Add New Pen Name',
@@ -65,7 +65,23 @@ class TOMCBookOrganizationPlugin {
                 'all_items' => 'All Pen Names',
                 'singular_name' => 'Pen Name'
             ),
-            'menu_icon' => 'dashicons-edit'
+            'menu_icon' => 'dashicons-edit',
+            'map_meta_cap' => true,
+            'capability_type' => 'author-profile',
+            'capabilities' => [
+                'create_posts' => 'create_author-profiles',
+                'delete_others_posts' => 'delete_others_author-profiles',
+                'delete_posts' => 'delete_author-profiles',
+                'delete_private_posts' => 'delete_private_author-profiles',
+                'delete_published_posts' => 'delete_published_author-profiles',
+                'edit_posts' => 'edit_author-profiles',
+                'edit_others_posts' => 'edit_others_author-profiles',
+                'edit_private_posts' => 'edit_private_author-profiles',
+                'edit_published_posts' => 'edit_published_author-profiles',
+                'publish_posts' => 'publish_author-profiles',
+                'read_private_posts' => 'read_private_author-profiles',
+                'read' => 'read',
+            ]
         ));
     }
 

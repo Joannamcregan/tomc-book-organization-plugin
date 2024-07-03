@@ -1526,7 +1526,7 @@ class BookInfo{
                                     checkbox.prop("checked", true);
                                 }
                                 productOption.append(checkbox);
-                                let checkboxLabel = $('<label />').addClass('tomc-book-organization--large-label').attr('for', 'tomc-book-organization--book-product-id-' + response[i]['id']).html(response[i]['post_title']);
+                                let checkboxLabel = $('<label />').addClass('tomc-book-organization--large-label').attr('for', 'tomc-book-organization--book-product-id-' + response[i]['id']).html(response[i]['post_title'] + ' (' + response[i]['name'] + ')');
                                 productOption.append(checkboxLabel);
                                 let thumbnail = $('<img />').attr('src', response[i]['guid']);
                                 productOption.append(thumbnail);

@@ -693,13 +693,21 @@ function getBookProducts($data){
     $meta_table = $wpdb->prefix . "postmeta";
     $book_products_table = $wpdb->prefix . "tomc_book_products";
     $books_table = $wpdb->prefix .  "tomc_books";
+    $terms_table = $wpdb->prefix . "terms";
+    $term_relationships_table = $wpdb->prefix . "term_relationships";
+    $term_taxonomy_table = $wpdb->prefix . "term_taxonomy";
     $query = 'WITH cte AS 
         (SELECT b.*, a.product_image_id
         FROM %i a 
         JOIN %i b ON a.id = b.bookid 
         WHERE a.id = %d)
-    SELECT a.id, a.post_title, p.guid, b.productid, b.typeid, p.guid, b.product_image_id
+    SELECT a.id, a.post_title, terms.name, p.guid, b.productid, b.typeid, p.guid, b.product_image_id
     FROM %i a
+    JOIN %i tr on a.id = tr.object_id
+    JOIN %i terms on tr.term_taxonomy_id = terms.term_id
+    AND terms.name in ("E-Books", "Audiobooks")
+    JOIN %i tt on terms.term_id = tt.term_id
+    AND tt.taxonomy = "product_cat"
     JOIN %i m ON a.id = m.post_id
     AND m.meta_key = %s
     JOIN %i p ON m.meta_value =  p.id
@@ -707,7 +715,7 @@ function getBookProducts($data){
     WHERE a.post_type = %s and a.post_status = %s and a.post_author = %d 
     ORDER BY a.post_title;';
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
-        $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $book, $posts_table, $meta_table, '_thumbnail_id', $posts_table, 'product', 'publish', $userId), ARRAY_A);
+        $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $book, $posts_table, $term_relationships_table, $terms_table, $term_taxonomy_table, $meta_table, '_thumbnail_id', $posts_table, 'product', 'publish', $userId), ARRAY_A);
         return $results;
         // return $wpdb->prepare($query, $books_table, $book_products_table, $book, $posts_table, $meta_table, '_thumbnail_id', $posts_table, 'product', 'publish', $userId);
     } else {
