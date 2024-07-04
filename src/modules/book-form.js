@@ -619,7 +619,6 @@ class BookInfo{
                 type: 'POST',
                 data: this.newPenNameData,
                 success: (response) => {
-                    console.log(response);
                     var newOption = $('<option />');
                     newOption.attr('value', response.id);
                     newOption.attr('aria-selected', true);
@@ -680,7 +679,6 @@ class BookInfo{
                     'languages' : JSON.stringify(this.chosenLanguages)
                 },
                 success: (response) => {
-                    console.log(response);
                     this.bookLanguagesForm.addClass("hidden");
                     this.bookGenresForm.removeClass("hidden");
                     $('html, body').animate({ scrollTop: 0 }, 'fast');
@@ -815,7 +813,6 @@ class BookInfo{
                     'user' : $(e.target).data('user')
                 },
                 success: (response) => {
-                    console.log(response);
                     this.createdBookId = response;
                     this.addBookForm.addClass("hidden");
                     // this.bookGenresForm.removeClass("hidden");                    
@@ -1014,7 +1011,6 @@ class BookInfo{
                         }
                     }
                     this.genresOverlay.addClass("tomc-book-organization__box--active");
-                    console.log(response);
                 }
             },
             failure: (response) => {
@@ -1235,7 +1231,6 @@ class BookInfo{
                 'book' : this.bookId
             },
             success: (response) => {
-                console.log(response);
                 if (this.readalikesOverlayIsOpen != true){
                     this.readalikesOverlayIsOpen = true;
                     this.newFormDiv = $('<div />').addClass('tomc-book-organization--edit-overlay-new-form');
@@ -1427,7 +1422,6 @@ class BookInfo{
                 'status' : newStatus,
             },
             success: (response) => {
-                console.log(response);
                 location.reload(true);
             },
             error: (response) => {
@@ -1516,6 +1510,7 @@ class BookInfo{
                         'book' : this.bookId
                     },
                     success: (response) => {
+                        console.log(response);
                         if (this.productsOverlayIsOpen != true){
                             this.productsOverlayIsOpen = true;
                             for(let i = 0; i < response.length; i++){
@@ -1538,6 +1533,11 @@ class BookInfo{
                                     let selectOption = $('<option />').attr('value', formatOptions[j]['id']).text(formatOptions[j]['type_name']);
                                     if (formatOptions[j]['id'] == response[i]['typeid']){
                                         selectOption.attr('selected', 'selected');
+                                    } else if (formatOptions[j]['type_name'] == response[i]['name']){
+                                        selectOption.attr('selected', 'selected');
+                                    } else {
+                                        console.log('type name is ' + formatOptions[j]['type_name']);
+                                        console.log('name is ' + response[i]['name']);
                                     }
                                     typeSelect.append(selectOption);
                                 }
@@ -1556,7 +1556,6 @@ class BookInfo{
                             }
                             this.productsOverlay.addClass("tomc-book-organization__box--active");
                         }
-                        console.log(response);
                     },
                     failure: (response) => {
                         console.log(response);

@@ -705,7 +705,7 @@ function getBookProducts($data){
     FROM %i a
     JOIN %i tr on a.id = tr.object_id
     JOIN %i terms on tr.term_taxonomy_id = terms.term_id
-    AND terms.name in ("E-Books", "Audiobooks")
+    AND terms.name in ("E-Books", "Audiobooks", "Paperback Books", "Hardcover Books")
     JOIN %i tt on terms.term_id = tt.term_id
     AND tt.taxonomy = "product_cat"
     JOIN %i m ON a.id = m.post_id

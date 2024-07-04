@@ -620,7 +620,6 @@ class BookInfo {
         type: 'POST',
         data: this.newPenNameData,
         success: response => {
-          console.log(response);
           var newOption = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<option />');
           newOption.attr('value', response.id);
           newOption.attr('aria-selected', true);
@@ -683,7 +682,6 @@ class BookInfo {
           'languages': JSON.stringify(this.chosenLanguages)
         },
         success: response => {
-          console.log(response);
           this.bookLanguagesForm.addClass("hidden");
           this.bookGenresForm.removeClass("hidden");
           jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
@@ -825,7 +823,6 @@ class BookInfo {
           'user': jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('user')
         },
         success: response => {
-          console.log(response);
           this.createdBookId = response;
           this.addBookForm.addClass("hidden");
           // this.bookGenresForm.removeClass("hidden");                    
@@ -1026,7 +1023,6 @@ class BookInfo {
             }
           }
           this.genresOverlay.addClass("tomc-book-organization__box--active");
-          console.log(response);
         }
       },
       failure: response => {
@@ -1237,7 +1233,6 @@ class BookInfo {
         'book': this.bookId
       },
       success: response => {
-        console.log(response);
         if (this.readalikesOverlayIsOpen != true) {
           this.readalikesOverlayIsOpen = true;
           this.newFormDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-book-organization--edit-overlay-new-form');
@@ -1424,7 +1419,6 @@ class BookInfo {
         'status': newStatus
       },
       success: response => {
-        console.log(response);
         location.reload(true);
       },
       error: response => {
@@ -1504,6 +1498,7 @@ class BookInfo {
             'book': this.bookId
           },
           success: response => {
+            console.log(response);
             if (this.productsOverlayIsOpen != true) {
               this.productsOverlayIsOpen = true;
               for (let i = 0; i < response.length; i++) {
@@ -1514,7 +1509,7 @@ class BookInfo {
                   checkbox.prop("checked", true);
                 }
                 productOption.append(checkbox);
-                let checkboxLabel = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<label />').addClass('tomc-book-organization--large-label').attr('for', 'tomc-book-organization--book-product-id-' + response[i]['id']).html(response[i]['post_title']);
+                let checkboxLabel = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<label />').addClass('tomc-book-organization--large-label').attr('for', 'tomc-book-organization--book-product-id-' + response[i]['id']).html(response[i]['post_title'] + ' (' + response[i]['name'] + ')');
                 productOption.append(checkboxLabel);
                 let thumbnail = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<img />').attr('src', response[i]['guid']);
                 productOption.append(thumbnail);
@@ -1526,6 +1521,11 @@ class BookInfo {
                   let selectOption = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<option />').attr('value', formatOptions[j]['id']).text(formatOptions[j]['type_name']);
                   if (formatOptions[j]['id'] == response[i]['typeid']) {
                     selectOption.attr('selected', 'selected');
+                  } else if (formatOptions[j]['type_name'] == response[i]['name']) {
+                    selectOption.attr('selected', 'selected');
+                  } else {
+                    console.log('type name is ' + formatOptions[j]['type_name']);
+                    console.log('name is ' + response[i]['name']);
                   }
                   typeSelect.append(selectOption);
                 }
@@ -1543,7 +1543,6 @@ class BookInfo {
               }
               this.productsOverlay.addClass("tomc-book-organization__box--active");
             }
-            console.log(response);
           },
           failure: response => {
             console.log(response);
