@@ -423,7 +423,13 @@ class TOMCBookOrganizationPlugin {
                     and l.product_id = %d';
                 $existingBookPurchase = $wpdb->get_results($wpdb->prepare($query, $this->lookup_table, $this->posts_table, $this->term_relationships_table, $this->terms_table, $this->term_taxonomy_table, $userId, $cart_item['product_id']), ARRAY_A);
                 if (($existingBookPurchase) && count($existingBookPurchase) > 0){
-                    wc_print_notice( 'Our records indicate you have already purchased ' . $existingBookPurchase[0]['post_title'] . ' in ' . $existingBookPurchase[0]['name'] . ' format.', 'notice' );
+                    $format = $existingBookPurchase[0]['name'];
+                    $product = $existingBookPurchase[0]['post_title'];
+                    if ($format == 'event tickets'){
+                        wc_print_notice('Our records indicate you have already purchased ' . $product, 'notice');
+                    } else {
+                        wc_print_notice('Our records indicate you have already purchased ' . $product . ' in ' . substr_replace($format, "",-1) . ' format.', 'notice');
+                    }
                 }
              }
         }
