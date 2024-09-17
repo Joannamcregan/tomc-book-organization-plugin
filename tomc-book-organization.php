@@ -32,10 +32,14 @@ class TOMCBookOrganizationPlugin {
         $this->book_identities_table = $wpdb->prefix . "tomc_book_identities";
         $this->users_table = $wpdb->prefix . "users";
         $this->posts_table = $wpdb->prefix . "posts";
+        $this->lookup_table = $wpdb->prefix . "wc_order_product_lookup";
         $this->reader_triggers_table = $wpdb->prefix . "tomc_reader_triggers";
         $this->reader_languages_table = $wpdb->prefix . "tomc_reader_languages";
         $this->suggestion_types_table = $wpdb->prefix . "tomc_suggestion_types";
         $this->suggestions_table = $wpdb->prefix . "tomc_suggestions";
+        $this->terms_table = $wpdb->prefix . "terms";
+        $this->term_relationships_table = $wpdb->prefix . "term_relationships";
+        $this->term_taxonomy_table = $wpdb->prefix . "term_taxonomy";
 
         wp_localize_script('tomc-bookorg-js', 'tomcBookorgData', array(
             'root_url' => get_site_url()
@@ -48,6 +52,7 @@ class TOMCBookOrganizationPlugin {
         add_action('wp_enqueue_scripts', array($this, 'pluginFiles'));
         add_filter('template_include', array($this, 'loadTemplate'), 99);
         add_action('init', array($this, 'author_profile_custom_post_types'));
+        add_action( 'woocommerce_after_order_notes', array($this, 'checkBookProducts'));
     }
 
     function author_profile_custom_post_types() {
@@ -397,6 +402,52 @@ class TOMCBookOrganizationPlugin {
             return plugin_dir_path(__FILE__) . 'inc/template-newly-added-books.php';
         } else
         return $template;
+    }
+
+    function checkBookProducts(){
+        global $wpdb;               
+        $user = wp_get_current_user();
+        $userId = $user->ID;
+        //this is what we're working on, need to get user id and product id into the query
+        //also need to add check and warning if they're trying to buy multiple copies of an e-book or audiobook
+        foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ){
+            if ( has_term( 'audiobooks', 'product_cat', $cart_item['product_id'] ) || has_term( 'ebooks', 'product_cat', $cart_item['product_id'] ) || has_term( 'event-tickets', 'product_cat', $cart_item['product_id'] )) {
+                $query = 'select p.post_title, terms.name
+                    from %i l
+                    join %i p on l.product_id = p.id
+                    join %i tr on p.id = tr.object_id
+                    join %i terms on tr.term_taxonomy_id = terms.term_id
+                    join %i tt on tr.term_taxonomy_id = tt.term_taxonomy_id
+                    and tt.taxonomy = "product_cat"
+                    where l.customer_id = %d
+                    and l.product_id = %d';
+                $existingBookPurchase = $wpdb->get_results($wpdb->prepare($query, $this->lookup_table, $this->posts_table, $this->term_relationships_table, $this->terms_table, $this->term_taxonomy_table, $userId, $cart_item['product_id']), ARRAY_A);
+                if (($existingBookPurchase) && count($existingBookPurchase) > 0){
+                    wc_print_notice( 'Our records indicate you have already purchased ' . $existingBookPurchase[0]['post_title'] . ' in ' . $existingBookPurchase[0]['name'] . ' format.', 'notice' );
+                }
+             }
+        }
+
+        // if ($cart_contains_ISBN == true){
+        //     if (($_POST['tomc_isbn_product']) && $_POST['tomc_isbn_product'] > 0){
+        //         $query = 'select isbn from %i where assignedproductid = %d';
+        //         $existingIsbn = $wpdb->get_results($wpdb->prepare($query, $this->isbn_numbers_table, $_POST['tomc_isbn_product']), ARRAY_A);
+        //         if (($existingIsbn) && count($existingIsbn) > 0){
+        //             wc_add_notice(__('Our records indicate you have already obtained an ISBN for this product. ') , 'error');
+        //         }
+        //     }
+        //     if (!$_POST['tomc_isbn_title']) wc_add_notice(__('You must enter a book title if you are purchasing an ISBN registration service. ') , 'error');
+        //     if (!$_POST['tomc_isbn_description']) wc_add_notice(__('You must enter a book description if you are purchasing an ISBN registration service. ') , 'error');
+        //     if (!$_POST['tomc_isbn_format']) wc_add_notice(__('You must select a book format if you are purchasing an ISBN registration service. ') , 'error');
+        //     if (!$_POST['tomc_isbn_first_genre']) wc_add_notice(__("You must select one of Bowker's genres if you are purchasing an ISBN registration service. ") , 'error');
+        //     if (!$_POST['tomc_isbn_contributor1']) wc_add_notice(__('You must enter the name you published your book under if you are purchasing an ISBN registration service. ') , 'error');
+        //     if (!$_POST['tomc_isbn_biography1']) wc_add_notice(__('You must enter a biography if you are purchasing an ISBN registration service. ') , 'error');
+        //     if (!$_POST['tomc_isbn_function1']) wc_add_notice(__('You must select your relationship to the work if you are purchasing an ISBN registration service. ') , 'error');
+        //     if (!$_POST['tomc_isbn_publication_date']) wc_add_notice(__("You must enter your book's publication date if you are purchasing an ISBN registration service. ") , 'error');
+        //     if (!$_POST['tomc_isbn_status']) wc_add_notice(__("You must enter your book's publication status if you are purchasing an ISBN registration service. ") , 'error');
+        //     if (!$_POST['tomc_isbn_target_audience']) wc_add_notice(__("You must enter your book's target audience if you are purchasing an ISBN registration service. ") , 'error');
+        //     if (!$_POST['tomc_isbn_book_price']) wc_add_notice(__("You must enter your book's current price if you are purchasing an ISBN registration service. ") , 'error');
+        // }
     }
 }
 
