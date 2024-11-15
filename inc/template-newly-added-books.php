@@ -20,7 +20,7 @@ $query = 'select distinct b.id, b.title,f.post_title as pen_name, b.book_descrip
 $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'ebook'), ARRAY_A);
 
 ?><main class="half-screen">
-    <div class="banner"><h1 class="centered-text">Newly Added Books</h1></div>
+    <div class="banner"><h1 class="centered-text banner-heading-46">Newly Added Books</h1></div>
     <div class="sub-banner--slim">
         <h2 class="centered-text large-heading yellow-shadow-text georgia-text">ebooks</h2>
     </div>

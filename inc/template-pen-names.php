@@ -8,7 +8,7 @@ get_header();
 ?><main class="half-screen">    
     <?php if (is_user_logged_in()){
         if (in_array( 'dc_vendor', (array) $user->roles ) ){
-            ?><div class="banner"><h1 class="centered-text">Manage Your Author Names</h1></div>
+            ?><div class="banner"><h1 class="centered-text banner-heading-46">Manage Your Author Names</h1></div>
             <p class="centered-text"><strong>Add any name you publish books under, whether it's your legal name or a pen name.</strong></p>
             <p class="centered-text">Author bios must be 1000 characters or less.</p>
             <div class="tomc-book-organization--book-to-edit page-accent-alt-thin">

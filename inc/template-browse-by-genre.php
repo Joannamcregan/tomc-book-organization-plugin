@@ -11,7 +11,7 @@ $genres3 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 3
 get_header();
 
 ?><main class="half-screen">
-    <div class="banner"><h1 class="centered-text">Books by Genre</h1></div>
+    <div class="banner"><h1 class="centered-text banner-heading-46">Books by Genre</h1></div>
     <div class="sub-banner--slim">
         <h2 class="centered-text large-heading yellow-shadow-text georgia-text">show me...</h2>
     </div>
