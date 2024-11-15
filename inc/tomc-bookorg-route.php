@@ -391,7 +391,9 @@ function getGenres($data){
     $query = 'WITH cte AS (SELECT genreid FROM %i WHERE bookid = %d)
     SELECT a.id, a.genre_name, a.genre_level, b.genreid
     FROM %i a
-    LEFT JOIN cte b ON a.id = b.genreid';
+    LEFT JOIN cte b ON a.id = b.genreid
+    WHERE a.genre_name is not null
+    and a.genre_name <> ""';
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
         $results = $wpdb->get_results($wpdb->prepare($query, $book_genres_table, $book, $genres_table), ARRAY_A);
         return $results;

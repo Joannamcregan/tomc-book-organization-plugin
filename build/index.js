@@ -637,6 +637,8 @@ class BookInfo {
       this.addBookGenresNoneAddedError.removeClass("hidden");
     } else {
       this.addBookGenresNoneAddedError.addClass("hidden");
+      this.saveGenresButton.addClass('contracting');
+      this.saveGenresButton.html('saving...');
       jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
         beforeSend: xhr => {
           xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -651,10 +653,15 @@ class BookInfo {
         },
         success: response => {
           this.bookGenresForm.addClass("opacity-30");
+          this.bookGenresForm.attr('aria-disabled', 'true');
+          this.saveGenresButton.removeClass('tomc-book-organization--save-button');
+          this.saveGenresButton.removeClass('contracting');
+          this.saveGenresButton.addClass('hidden');
           this.bookIdentitiesForm.removeClass("opacity-30");
-          jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
-            scrollTop: 0
-          }, 'fast');
+          this.bookIdentitiesForm.attr('aria-disabled', 'false');
+          this.saveIdentitiesButton.removeClass('hidden');
+          this.saveIdentitiesButton.addClass('tomc-book-organization--save-button');
+          // $('html, body').animate({ scrollTop: 0 }, 'fast');
         },
         error: response => {
           console.log(response);
@@ -698,6 +705,8 @@ class BookInfo {
   }
   addBookIdentities(e) {
     if (this.chosenIdentities.length > 0) {
+      this.saveIdentitiesButton.addClass('contracting');
+      this.saveIdentitiesButton.html('saving...');
       jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
         beforeSend: xhr => {
           xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -710,10 +719,15 @@ class BookInfo {
         },
         success: response => {
           this.bookIdentitiesForm.addClass("opacity-30");
+          this.bookLanguagesForm.attr('aria-disabled', 'true');
+          this.saveIdentitiesButton.removeClass('tomc-book-organization--save-button');
+          this.saveIdentitiesButton.removeClass('contracting');
+          this.saveIdentitiesButton.addClass('hidden');
           this.bookWarningsForm.removeClass("opacity-30");
-          jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
-            scrollTop: 0
-          }, 'fast');
+          this.bookWarningsForm.attr('aria-disabled', 'false');
+          this.saveWarningsButton.removeClass('hidden');
+          this.saveWarningsButton.addClass('tomc-book-organization--save-button');
+          // $('html, body').animate({ scrollTop: 0 }, 'fast');
         },
         error: response => {
           console.log(response);
@@ -725,6 +739,8 @@ class BookInfo {
   }
   addBookWarnings(e) {
     if (this.chosenWarnings.length > 0) {
+      this.saveWarningsButton.addClass('contracting');
+      this.saveWarningsButton.html('saving...');
       jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
         beforeSend: xhr => {
           xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -737,25 +753,40 @@ class BookInfo {
         },
         success: response => {
           this.bookWarningsForm.addClass("opacity-30");
+          this.bookWarningsForm.attr('aria-disabled', 'true');
+          this.saveWarningsButton.removeClass('tomc-book-organization--save-button');
+          this.saveWarningsButton.removeClass('contracting');
+          this.saveWarningsButton.addClass('hidden');
           this.bookReadalikesForm.removeClass("opacity-30");
-          jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
-            scrollTop: 0
-          }, 'fast');
+          this.bookReadalikesForm.attr('aria-disabled', 'false');
+          this.saveReadalikesButton.removeClass('hidden');
+          this.saveReadalikesButton.addClass('tomc-book-organization--save-button');
+          // $('html, body').animate({ scrollTop: 0 }, 'fast');
         },
         error: response => {
           console.log(response);
         }
       });
     } else {
-      this.bookWarningsForm.addClass("opacity-30");
-      this.bookReadalikesForm.removeClass("opacity-30");
-      jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
-        scrollTop: 0
-      }, 'fast');
+      this.saveWarningsButton.addClass('contracting');
+      this.saveWarningsButton.html('continuing...');
+      setTimeout(() => {
+        this.bookWarningsForm.addClass("opacity-30");
+        this.bookWarningsForm.attr('aria-disabled', 'true');
+        this.saveWarningsButton.removeClass('tomc-book-organization--save-button');
+        this.saveWarningsButton.removeClass('contracting');
+        this.saveWarningsButton.addClass('hidden');
+        this.bookReadalikesForm.removeClass("opacity-30");
+        this.bookReadalikesForm.attr('aria-disabled', 'false');
+        this.saveReadalikesButton.removeClass('hidden');
+        this.saveReadalikesButton.addClass('tomc-book-organization--save-button');
+      }, 500);
+      // $('html, body').animate({ scrollTop: 0 }, 'fast');
     }
   }
   addBookPenName(e) {
-    console.log(this.selectPenName.val());
+    this.savePenNameButton.addClass('contracting');
+    this.savePenNameButton.html('saving...');
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
       beforeSend: xhr => {
         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -768,10 +799,15 @@ class BookInfo {
       },
       success: response => {
         this.bookPenNameForm.addClass("opacity-30");
+        this.bookPenNameForm.attr('aria-disabled', 'true');
+        this.savePenNameButton.removeClass('tomc-book-organization--save-button');
+        this.savePenNameButton.removeClass('contracting');
+        this.savePenNameButton.addClass('hidden');
         this.bookProductsForm.removeClass("opacity-30");
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
-          scrollTop: 0
-        }, 'fast');
+        this.bookProductsForm.attr('aria-disabled', 'false');
+        this.saveGenresButton.removeClass('hidden');
+        this.saveGenresButton.addClass('tomc-book-organization--save-button');
+        // $('html, body').animate({ scrollTop: 0 }, 'fast');
       },
       error: response => {
         console.log(response);
@@ -779,6 +815,8 @@ class BookInfo {
     });
   }
   addBookReadalikes(e) {
+    this.saveReadalikesButton.addClass('contracting');
+    this.saveReadalikesButton.html('saving...');
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
       beforeSend: xhr => {
         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -794,10 +832,15 @@ class BookInfo {
       },
       success: response => {
         this.bookReadalikesForm.addClass("opacity-30");
+        this.bookReadalikesForm.attr('aria-disabled', 'true');
+        this.saveReadalikesButton.removeClass('tomc-book-organization--save-button');
+        this.saveReadalikesButton.removeClass('contracting');
+        this.saveReadalikesButton.addClass('hidden');
         this.bookPenNameForm.removeClass("opacity-30");
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
-          scrollTop: 0
-        }, 'fast');
+        this.bookPenNameForm.attr('aria-disabled', 'false');
+        this.savePenNameButton.removeClass('hidden');
+        this.savePenNameButton.addClass('tomc-book-organization--save-button');
+        // $('html, body').animate({ scrollTop: 0 }, 'fast');
       },
       error: response => {
         console.log(response);
