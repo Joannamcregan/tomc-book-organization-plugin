@@ -805,8 +805,10 @@ class BookInfo {
         this.savePenNameButton.addClass('hidden');
         this.bookProductsForm.removeClass("opacity-30");
         this.bookProductsForm.attr('aria-disabled', 'false');
-        this.saveGenresButton.removeClass('hidden');
-        this.saveGenresButton.addClass('tomc-book-organization--save-button');
+        this.bookProductsSavePublishButton.removeClass('hidden');
+        this.bookProductsSavePublishButton.addClass('tomc-book-organization--save-button');
+        this.bookProductsSaveButton.removeClass('hidden');
+        this.bookProductsSaveButton.addClass('tomc-book-organization--save-button');
         // $('html, body').animate({ scrollTop: 0 }, 'fast');
       },
       error: response => {

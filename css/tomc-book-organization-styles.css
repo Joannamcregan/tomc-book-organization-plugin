@@ -417,6 +417,9 @@
     padding-left: 10px;
     padding-top: 0px;
 }
+#tomc-add-author-name-button{
+    margin-bottom: 20px;
+}
 @media screen and (max-width: 960px) {
     .tomc-book-organization--new-book-1, .tomc-book-organization--new-book-2, .tomc-book-organization--new-book-3{
         width: 70%;

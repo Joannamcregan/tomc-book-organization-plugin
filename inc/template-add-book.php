@@ -198,7 +198,7 @@ get_header();
                         ?><option value="<?php echo $name->ID; ?>"><?php echo $name->post_title; ?></option>
                     <?php }
                     ?></select><br>         
-                    <span class="tomc-book-organization--add-pen-name tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new author name</span>
+                    <span id="tomc-add-author-name-button" class="tomc-book-organization--add-pen-name tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new author name</span>
                     <button class="hidden" id="tomc-book-organization--save-book-pen-name">save and continue</button>
                 </div>
 
