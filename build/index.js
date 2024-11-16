@@ -932,10 +932,8 @@ class BookInfo {
           if (routePath == 'updateBookProducts') {
             location.reload(true);
           } else {
-            jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--complete').removeClass('opacity-30');
-            jquery__WEBPACK_IMPORTED_MODULE_0___default()('html, body').animate({
-              scrollTop: 0
-            }, 'fast');
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--complete').removeClass('hidden');
+            // $('html, body').animate({ scrollTop: 0 }, 'fast');
           }
         },
         error: response => {

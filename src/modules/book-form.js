@@ -943,8 +943,8 @@ class BookInfo{
                     if (routePath == 'updateBookProducts'){
                         location.reload(true);
                     } else {
-                        $('#tomc-book-organization--complete').removeClass('opacity-30');
-                        $('html, body').animate({ scrollTop: 0 }, 'fast');
+                        $('#tomc-book-organization--complete').removeClass('hidden');
+                        // $('html, body').animate({ scrollTop: 0 }, 'fast');
                     }
                 },
                 error: (response) => {

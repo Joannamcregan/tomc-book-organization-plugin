@@ -237,7 +237,7 @@ get_header();
                     <button class="hidden" id="tomc-book-organization--save-book-products-publish">save and publish</button>
                 </div>
 
-                <div class="tomc-book-organization--form opacity-30" aria-disabled="true" id="tomc-book-organization--complete">
+                <div class="tomc-book-organization--form hidden" aria-disabled="true" id="tomc-book-organization--complete">
                     <h3>Thank you!</h3>
                     <br><br>
                     <p><a href="<?php echo esc_url(site_url('/add-a-book'));?>">add info for another book</a></p>
