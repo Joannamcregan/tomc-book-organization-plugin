@@ -614,7 +614,7 @@ class BookInfo{
         }
     }
 
-    addPenName(){
+    addPenName(e){
         this.newPenNameData = {
             'title':  this.penNameInput.val().substring(0, 200),
             'content': this.penNameBioInput.val().substring(0, 1000),
@@ -641,7 +641,7 @@ class BookInfo{
                     this.selectPenName.prepend(newOption);                        
                     $("#tomc-book-organization--add-pen-name-errors").addClass("hidden");                   
                     this.closePenNameOverlay();
-                    $('html, body').animate({ scrollTop: 0 }, 'fast');
+                    // $('html, body').animate({ scrollTop: 0 }, 'fast');
                 },
                 error: (response) => {
                     console.log(response);
@@ -679,7 +679,7 @@ class BookInfo{
                     this.saveGenresButton.addClass('hidden');
 
                     this.addGenreButtons.addClass('hidden');
-                    this.addIdentityButton.removeClass('hidden');
+                    this.addIdentityOverlayButton.removeClass('hidden');
 
                     this.bookIdentitiesForm.removeClass("opacity-30");
                     this.bookIdentitiesForm.attr('aria-disabled', 'false');
@@ -753,6 +753,10 @@ class BookInfo{
                     this.saveIdentitiesButton.removeClass('tomc-book-organization--save-button');
                     this.saveIdentitiesButton.removeClass('contracting');
                     this.saveIdentitiesButton.addClass('hidden');
+
+                    this.addIdentityOverlayButton.addClass('hidden');
+                    this.addWarningButton.removeClass('hidden');
+
                     this.bookWarningsForm.removeClass("opacity-30");
                     this.bookWarningsForm.attr('aria-disabled', 'false');
                     this.saveWarningsButton.removeClass('hidden');
@@ -789,6 +793,8 @@ class BookInfo{
                     this.saveWarningsButton.removeClass('contracting');
                     this.saveWarningsButton.addClass('hidden');
 
+                    this.addWarningButton.addClass('hidden');
+
                     this.bookReadalikesForm.removeClass("opacity-30");
                     this.bookReadalikesForm.attr('aria-disabled', 'false');
                     this.saveReadalikesButton.removeClass('hidden');
@@ -808,6 +814,8 @@ class BookInfo{
                 this.saveWarningsButton.removeClass('tomc-book-organization--save-button');
                 this.saveWarningsButton.removeClass('contracting');
                 this.saveWarningsButton.addClass('hidden');
+
+                this.addWarningButton.addClass('hidden');
 
                 this.bookReadalikesForm.removeClass("opacity-30");
                 this.bookReadalikesForm.attr('aria-disabled', 'false');
@@ -837,6 +845,9 @@ class BookInfo{
                 this.savePenNameButton.removeClass('tomc-book-organization--save-button');
                 this.savePenNameButton.removeClass('contracting');
                 this.savePenNameButton.addClass('hidden');
+
+                this.addPenNameOverlayButton.addClass('hidden');
+                this.bookProductsAddProductButton.removeClass('hidden');
 
                 this.bookProductsForm.removeClass("opacity-30");
                 this.bookProductsForm.attr('aria-disabled', 'false');
@@ -876,6 +887,8 @@ class BookInfo{
                 this.saveReadalikesButton.removeClass('tomc-book-organization--save-button');
                 this.saveReadalikesButton.removeClass('contracting');
                 this.saveReadalikesButton.addClass('hidden');
+
+                this.addPenNameOverlayButton.removeClass('hidden');
 
                 this.bookPenNameForm.removeClass("opacity-30");
                 this.bookPenNameForm.attr('aria-disabled', 'false');
@@ -973,6 +986,7 @@ class BookInfo{
                 },
                 success: (response) => {
                     this.bookProductsForm.addClass('opacity-30');
+                    this.bookProductsAddProductButton.addClass('hidden');
                     if (routePath == 'updateBookProducts'){
                         location.reload(true);
                     } else {

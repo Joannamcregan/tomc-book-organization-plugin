@@ -104,7 +104,7 @@ get_header();
                                     ?><span aria-label="<?php echo $genre2 ->genre_name . ' is not selected'; ?>" id="tomc-book-organization-genre2-<?php echo $genre2->id; ?>" data-genre-level="2" data-genre-id="<?php echo $genre2->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre2 ->genre_name;  ?></span>
                                 <?php }
                             }
-                            ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="2" data-user-id="<?php echo $userid; ?>" id="add-genre-2-button">add a new genre</span>
+                            ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option hidden" data-genre-level="2" data-user-id="<?php echo $userid; ?>" id="add-genre-2-button">add a new genre</span>
                             <div class="hidden tomc-book-organization--red-text tomc-book-organization--genres2-error-section">
                                 <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
                                 <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
@@ -120,7 +120,7 @@ get_header();
                                     ?><span aria-label="<?php echo $genre3 ->genre_name . ' is not selected'; ?>" id="tomc-book-organization-genre3-<?php echo $genre3->id; ?>" data-genre-level="3" data-genre-id="<?php echo $genre3->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre3 ->genre_name;  ?></span>
                                 <?php }
                             }
-                            ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="3" data-user-id="<?php echo $userid; ?>" id="add-genre-3-button">add a new subgenre</span>
+                            ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option hidden" data-genre-level="3" data-user-id="<?php echo $userid; ?>" id="add-genre-3-button">add a new subgenre</span>
                             <div class="hidden tomc-book-organization--red-text tomc-book-organization--genres3-error-section">
                                 <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
                                 <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
@@ -143,7 +143,7 @@ get_header();
                                 ?><span aria-label="<?php echo $identity ->identity_name . ' is not selected'; ?>" data-identity-id="<?php echo $identity->id; ?>" class="tomc-book-organization--option-alt-0 tomc-book-organization--option-span"><?php echo $identity ->identity_name;  ?></span>
                             <?php }
                         }
-                        ?><span class="tomc-book-organization--add-identity tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new identity</span>
+                        ?><span class="tomc-book-organization--add-identity tomc-book-organization--add-option hidden" data-user-id="<?php echo $userid; ?>">add a new identity</span>
                     </div>
                     <div class="hidden tomc-book-organization--red-text tomc-book-organization--identities-error-section">
                         <p class="tomc-book-organization--genres-error-section-mobile">To add another identity, first deselect one of the identities you've already chosen by tapping it again.</p>
@@ -166,7 +166,7 @@ get_header();
                                 ?><span aria-label="<?php echo $warning ->warning_name . ' is not selected'; ?>" data-warning-id="<?php echo $warning->id; ?>" class="tomc-book-organization--option-alt tomc-book-organization--option-span"><?php echo $warning ->warning_name;  ?></span>
                             <?php }
                         }
-                        ?><span class="tomc-book-organization--add-warning tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new warning</span>
+                        ?><span class="tomc-book-organization--add-warning tomc-book-organization--add-option hidden" data-user-id="<?php echo $userid; ?>">add a new warning</span>
                     </div>
                     <div class="hidden tomc-book-organization--red-text tomc-book-organization--warnings-error-section">
                         <p class="tomc-book-organization--genres-error-section-mobile">To add another warning, first deselect one of the triggers you've already chosen by tapping it again.</p>
@@ -198,7 +198,7 @@ get_header();
                         ?><option value="<?php echo $name->ID; ?>"><?php echo $name->post_title; ?></option>
                     <?php }
                     ?></select><br>         
-                    <span class="tomc-book-organization--add-pen-name tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new author name</span>
+                    <span class="tomc-book-organization--add-pen-name tomc-book-organization--add-option hidden" data-user-id="<?php echo $userid; ?>">add a new author name</span>
                     <br>
                     <button class="hidden" id="tomc-book-organization--save-book-pen-name">save and continue</button>
                 </div>
@@ -224,11 +224,11 @@ get_header();
                             </div>                        
                         </div>
                     <?php }
-                    ?><div class="tomc-book-organization--add-product tomc-book-organization--add-option">
+                    ?><div class="tomc-book-organization--add-product tomc-book-organization--add-option hidden">
                         <span>add a new product</span>
                     </div>
                     <div id="tomc-book-organization--products-instruction-section" class="hidden">
-                        <p class="centered-text">Add your new product through your <a href="<?php echo esc_url(site_url('/dashboard'));?>">Vendor Dashboard</a>, then visit your Books By Me page to link your product to this book. We've saved everything you've entered so far.</p>
+                        <p class="centered-text">Add your new product through your <a href="<?php echo esc_url(site_url('/dashboard'));?>">Creator Dashboard</a>, then visit your Books By Me page to link your product to this book. We've saved everything you've entered so far.</p>
                     </div>
                     <div id="tomc-book-organization--product-image-error" class="hidden">
                         <p class="centered-text">Please select the product whose image you want to use as the main image for this book.</p>
