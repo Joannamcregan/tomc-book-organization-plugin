@@ -66,7 +66,7 @@ get_header();
                                 ?><span tabindex="0" aria-label="<?php echo $language ->language_name . ' is not selected'; ?>" data-language-id="<?php echo $language->id; ?>" class="tomc-book-organization--option-languages tomc-book-organization--option-span"><?php echo $language ->language_name;  ?></span>
                             <?php }
                         }
-                        ?><span class="tomc-book-organization--add-language tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new language</span>
+                        ?><span class="tomc-book-organization--add-language tomc-book-organization--add-option hidden" data-user-id="<?php echo $userid; ?>">add a new language</span>
                     </div>
                     <div class="hidden tomc-book-organization--red-text tomc-book-organization--languages-error-section">
                         <p class="tomc-book-organization--genres-error-section-mobile">To add another language, first deselect one of the identities you've already chosen by tapping it again.</p>
@@ -104,7 +104,7 @@ get_header();
                                     ?><span aria-label="<?php echo $genre2 ->genre_name . ' is not selected'; ?>" id="tomc-book-organization-genre2-<?php echo $genre2->id; ?>" data-genre-level="2" data-genre-id="<?php echo $genre2->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre2 ->genre_name;  ?></span>
                                 <?php }
                             }
-                            ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="2" data-user-id="<?php echo $userid; ?>">add a new genre</span>
+                            ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="2" data-user-id="<?php echo $userid; ?>" id="add-genre-2-button">add a new genre</span>
                             <div class="hidden tomc-book-organization--red-text tomc-book-organization--genres2-error-section">
                                 <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
                                 <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
@@ -120,7 +120,7 @@ get_header();
                                     ?><span aria-label="<?php echo $genre3 ->genre_name . ' is not selected'; ?>" id="tomc-book-organization-genre3-<?php echo $genre3->id; ?>" data-genre-level="3" data-genre-id="<?php echo $genre3->id; ?>" class="tomc-book-organization--option tomc-book-organization--option-span"><?php echo $genre3 ->genre_name;  ?></span>
                                 <?php }
                             }
-                            ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="3" data-user-id="<?php echo $userid; ?>">add a new subgenre</span>
+                            ?><span class="tomc-book-organization--add-genre tomc-book-organization--add-option" data-genre-level="3" data-user-id="<?php echo $userid; ?>" id="add-genre-3-button">add a new subgenre</span>
                             <div class="hidden tomc-book-organization--red-text tomc-book-organization--genres3-error-section">
                                 <p class="tomc-book-organization--genres-error-section-mobile">To add another category, first deselect one of the genres you've already chosen by tapping it again.</p>
                                 <p class="tomc-book-organization--genres-error-section-desktop">To add another category, first deselect one of the genres you've already chosen by clicking it again.</p>
@@ -155,21 +155,6 @@ get_header();
                     <button class="hidden" id="tomc-book-organization--save-book-identities">save and continue</button>
                 </div>
 
-                <div class="tomc-book-organization--form opacity-30" aria-disabled="true" id="tomc-book-organization--readalikes" >
-                    <h3>Add one or two books you feel are similar to yours. (This is optional, but can help readers find your book.)</h3>
-                    <div class="tomc-book-organization--form-div">
-                        <input type="text" placeholder = "book title" id = "tomc-book-organization__readalike-book-0">
-                        <span>by</span>
-                        <input type="text" placeholder = "author" id = "tomc-book-organization__readalike-author-0">
-                    </div>
-                    <div class="tomc-book-organization--form-div">
-                        <input type="text" placeholder = "book title" id = "tomc-book-organization__readalike-book-1">
-                        <span>by</span>
-                        <input type="text" placeholder = "author" id = "tomc-book-organization__readalike-author-1">
-                    </div>   
-                    <button class="hidden" id="tomc-book-organization--save-book-readalikes">continue</button>
-                </div>
-
                 <div class="tomc-book-organization--form opacity-30" aria-disabled="true" id="tomc-book-organization--book-warnings-form" >
                     <h3>Does your book need any content warnings?</h3>
                     <p>Please choose up to ten.</p>
@@ -188,6 +173,21 @@ get_header();
                         <p class="tomc-book-organization--genres-error-section-desktop">To add another warning, first deselect one of the triggers you've already chosen by clicking it again.</p>
                     </div>
                     <button class="hidden" id="tomc-book-organization--save-book-warnings">continue</button>
+                </div>
+
+                <div class="tomc-book-organization--form opacity-30" aria-disabled="true" id="tomc-book-organization--readalikes" >
+                    <h3>Add one or two books you feel are similar to yours. (This is optional, but can help readers find your book.)</h3>
+                    <div class="tomc-book-organization--form-div">
+                        <input type="text" placeholder = "book title" id = "tomc-book-organization__readalike-book-0">
+                        <span>by</span>
+                        <input type="text" placeholder = "author" id = "tomc-book-organization__readalike-author-0">
+                    </div>
+                    <div class="tomc-book-organization--form-div">
+                        <input type="text" placeholder = "book title" id = "tomc-book-organization__readalike-book-1">
+                        <span>by</span>
+                        <input type="text" placeholder = "author" id = "tomc-book-organization__readalike-author-1">
+                    </div>   
+                    <button class="hidden" id="tomc-book-organization--save-book-readalikes">continue</button>
                 </div>
 
                 <div class="tomc-book-organization--form opacity-30" aria-disabled="true" id="tomc-book-organization--book-pen-name" >
