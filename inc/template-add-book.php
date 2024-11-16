@@ -199,6 +199,7 @@ get_header();
                     <?php }
                     ?></select><br>         
                     <span id="tomc-add-author-name-button" class="tomc-book-organization--add-pen-name tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new author name</span>
+                    <br>
                     <button class="hidden" id="tomc-book-organization--save-book-pen-name">save and continue</button>
                 </div>
 

@@ -1052,6 +1052,7 @@ class BookInfo{
                 // 'level' : 1
             },
             success: (response) => {
+                console.log(response);
                 if (this.genresOverlayIsOpen != true){
                     this.genresOverlayIsOpen = true;
                     for(let i = 0; i < response.length; i++){
