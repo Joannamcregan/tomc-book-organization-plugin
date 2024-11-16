@@ -81,7 +81,7 @@ get_header();
                 <div class="tomc-book-organization--form opacity-30" aria-disabled="true" id="tomc-book-organization--book-genre-form" >
                     <div>
                         <h3>Which genre(s) does your book fit?</h3>
-                        <?php $genres1 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 1 ORDER BY genre_name;"); ?>
+                        <?php $genres1 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 1 and genre_name is not null and genre_name <> '' ORDER BY genre_name;"); ?>
                         <div class="tomc-book-organization--options-container" id="tomc-book-organization--genres-1">
                             <?php if ($genres1) {
                                 foreach($genres1 as $genre1) {
@@ -233,8 +233,8 @@ get_header();
                     <div id="tomc-book-organization--product-image-error" class="hidden">
                         <p class="centered-text">Please select the product whose image you want to use as the main image for this book.</p>
                     </div>
-                    <button class="tomc-book-organization--save-button hidden" id="tomc-book-organization--save-book-products">save</button>
-                    <button class="tomc-book-organization--save-button-alt hidden" id="tomc-book-organization--save-book-products-publish">save and publish</button>
+                    <button class="hidden" id="tomc-book-organization--save-book-products">save</button>
+                    <button class="hidden" id="tomc-book-organization--save-book-products-publish">save and publish</button>
                 </div>
 
                 <div class="tomc-book-organization--form opacity-30" aria-disabled="true" id="tomc-book-organization--complete">

@@ -806,7 +806,7 @@ class BookInfo {
         this.bookProductsForm.removeClass("opacity-30");
         this.bookProductsForm.attr('aria-disabled', 'false');
         this.bookProductsSavePublishButton.removeClass('hidden');
-        this.bookProductsSavePublishButton.addClass('tomc-book-organization--save-button');
+        this.bookProductsSavePublishButton.addClass('tomc-book-organization--save-button-alt');
         this.bookProductsSaveButton.removeClass('hidden');
         this.bookProductsSaveButton.addClass('tomc-book-organization--save-button');
         // $('html, body').animate({ scrollTop: 0 }, 'fast');
@@ -1042,7 +1042,6 @@ class BookInfo {
         // 'level' : 1
       },
       success: response => {
-        console.log(response);
         if (this.genresOverlayIsOpen != true) {
           this.genresOverlayIsOpen = true;
           for (let i = 0; i < response.length; i++) {
