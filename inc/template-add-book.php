@@ -97,7 +97,7 @@ get_header();
                     </div>
                     <div>
                         <h3>Which subgenres does your book fit? (Please select up to two options.)</h3>
-                        <?php $genres2 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 2 ORDER BY genre_name;"); ?>
+                        <?php $genres2 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 2 and genre_name is not null and genre_name <> '' ORDER BY genre_name;"); ?>
                         <div class="tomc-book-organization--options-container" id="tomc-book-organization--genres-2">
                             <?php if ($genres2) {
                                 foreach($genres2 as $genre2) {
@@ -113,7 +113,7 @@ get_header();
                     </div>
                     <div>
                         <h3>Which topics does your book include? (Please select up to ten options.)</h3>
-                        <?php $genres3 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 3 ORDER BY genre_name;"); ?>
+                        <?php $genres3 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 3 and genre_name is not null and genre_name <> '' ORDER BY genre_name;"); ?>
                         <div class="tomc-book-organization--options-container" id="tomc-book-organization--genres-3">
                             <?php if ($genres3) {
                                 foreach($genres3 as $genre3) {
@@ -198,7 +198,7 @@ get_header();
                         ?><option value="<?php echo $name->ID; ?>"><?php echo $name->post_title; ?></option>
                     <?php }
                     ?></select><br>         
-                    <span id="tomc-add-author-name-button" class="tomc-book-organization--add-pen-name tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new author name</span>
+                    <span class="tomc-book-organization--add-pen-name tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new author name</span>
                     <br>
                     <button class="hidden" id="tomc-book-organization--save-book-pen-name">save and continue</button>
                 </div>
