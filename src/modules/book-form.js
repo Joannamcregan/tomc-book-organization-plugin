@@ -205,7 +205,6 @@ class BookInfo{
     }
 
     toggleLanguageSelection(e){
-        console.log('before toggling the chosen language length is ' + this.chosenLanguages.length);
         console.log(this.chosenLanguages);
         let labelName = $(e.target).text();
         if ($(e.target).hasClass('tomc-book-organization--option-selected')){
@@ -968,9 +967,7 @@ class BookInfo{
             typesToAdd.push(parseInt($(this).parent('.tomc-book-organization--product-option').children('select.tomc-book-organization--product-format').val()));
         });
         var imageProduct = $("input[name='tomc-book-organization--main-image-product']:checked").val();
-        // console.log('image product is ' + imageProduct);
         if(imageProduct){
-            // console.log('moving on');
             $("#tomc-book-organization--product-image-error").addClass("hidden");
             $.ajax({
                 beforeSend: (xhr) => {
@@ -985,6 +982,7 @@ class BookInfo{
                     'image' : imageProduct
                 },
                 success: (response) => {
+                    console.log(response);
                     this.bookProductsForm.addClass('opacity-30');
                     this.bookProductsAddProductButton.addClass('hidden');
                     if (routePath == 'updateBookProducts'){

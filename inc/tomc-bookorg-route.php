@@ -800,7 +800,8 @@ function publishNewBook($data) {
                 'id' => $book
             )
         );
-        return 'success';
+        // return 'success';
+        return $wpdb->prepare($bookProductsQuery);
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';

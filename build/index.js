@@ -218,7 +218,6 @@ class BookInfo {
     this.unpublishButtons.on('click', this.togglePublish.bind(this));
   }
   toggleLanguageSelection(e) {
-    console.log('before toggling the chosen language length is ' + this.chosenLanguages.length);
     console.log(this.chosenLanguages);
     let labelName = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).text();
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-book-organization--option-selected')) {
@@ -934,9 +933,7 @@ class BookInfo {
       typesToAdd.push(parseInt(jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).parent('.tomc-book-organization--product-option').children('select.tomc-book-organization--product-format').val()));
     });
     var imageProduct = jquery__WEBPACK_IMPORTED_MODULE_0___default()("input[name='tomc-book-organization--main-image-product']:checked").val();
-    // console.log('image product is ' + imageProduct);
     if (imageProduct) {
-      // console.log('moving on');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--product-image-error").addClass("hidden");
       jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
         beforeSend: xhr => {
@@ -951,6 +948,7 @@ class BookInfo {
           'image': imageProduct
         },
         success: response => {
+          console.log(response);
           this.bookProductsForm.addClass('opacity-30');
           this.bookProductsAddProductButton.addClass('hidden');
           if (routePath == 'updateBookProducts') {
