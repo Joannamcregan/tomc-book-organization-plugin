@@ -689,7 +689,7 @@ function getBookProducts($data){
     $book = sanitize_text_field($data['book']);
     $now = date('Y-m-d H:i:s');
     $user = wp_get_current_user();
-    $userId = get_current_user_id();
+    $userId = $user->ID;
     global $wpdb;
     $posts_table = $wpdb->prefix . "posts";
     $meta_table = $wpdb->prefix . "postmeta";
@@ -707,7 +707,8 @@ function getBookProducts($data){
     FROM %i a
     JOIN %i tr on a.id = tr.object_id
     JOIN %i terms on tr.term_taxonomy_id = terms.term_id
-    AND terms.name in ("E-Books", "Audiobooks", "Paperback Books", "Hardcover Books")
+    -- AND terms.name in ("E-Books", "Audiobooks", "Paperback Books", "Hardcover Books")
+    AND terms.name <> "services"
     JOIN %i tt on terms.term_id = tt.term_id
     AND tt.taxonomy = "product_cat"
     JOIN %i m ON a.id = m.post_id
@@ -719,11 +720,11 @@ function getBookProducts($data){
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $book, $posts_table, $term_relationships_table, $terms_table, $term_taxonomy_table, $meta_table, '_thumbnail_id', $posts_table, 'product', 'publish', $userId), ARRAY_A);
         return $results;
-        // return $wpdb->prepare($query, $books_table, $book_products_table, $book, $posts_table, $meta_table, '_thumbnail_id', $posts_table, 'product', 'publish', $userId);
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';
     }
+    // return $wpdb->prepare($query, $books_table, $book_products_table, $book, $posts_table, $term_relationships_table, $terms_table, $term_taxonomy_table, $meta_table, '_thumbnail_id', $posts_table, 'product', 'publish', $userId);
 }
 
 function addNewBookProducts($data) {

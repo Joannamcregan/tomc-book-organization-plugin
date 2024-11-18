@@ -1,7 +1,7 @@
 <?php global $wpdb;
 $posts_table = $wpdb->prefix . "posts";
-$userid = get_current_user_id();
 $user = wp_get_current_user();
+$userid = $user->ID;
 
 get_header();
 

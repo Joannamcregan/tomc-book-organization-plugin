@@ -1,7 +1,7 @@
 <?php global $wpdb;
 $suggestion_types_table = $wpdb->prefix .  "tomc_suggestion_types";
-$userid = get_current_user_id();
 $user = wp_get_current_user();
+$userId = $user->ID;
 
 get_header();
 

@@ -12,7 +12,7 @@ function tomcSuggestionsRegisterRoute() {
 function simpleTriggerSuggestion($data){
     $suggestion = sanitize_text_field($data['suggestion']);
     $user = wp_get_current_user();
-    $userid = get_current_user_id();
+    $userid = $user->ID;
     $now = date('Y-m-d H:i:s');
     global $wpdb;
     $suggestions_table = $wpdb->prefix . "tomc_suggestions";

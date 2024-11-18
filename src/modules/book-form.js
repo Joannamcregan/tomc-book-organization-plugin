@@ -1615,7 +1615,6 @@ class BookInfo{
                 for(let i = 0; i < response.length; i++){
                     formatOptions.push(response[i]);
                 }
-                console.log(formatOptions);
                 $.ajax({
                     beforeSend: (xhr) => {
                         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);

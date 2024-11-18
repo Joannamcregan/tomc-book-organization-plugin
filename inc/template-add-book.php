@@ -15,8 +15,8 @@ $identities_table = $wpdb->prefix . "tomc_character_identities";
 $product_types_table = $wpdb->prefix . "tomc_product_types";
 $publication_languages_table = $wpdb->prefix . "tomc_publication_languages";
 $book_languages_table = $wpdb->prefix . "tomc_book_languages";
-$userid = get_current_user_id();
 $user = wp_get_current_user();
+$userid = $user->ID;
 
 get_header();
 

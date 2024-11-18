@@ -1556,7 +1556,6 @@ class BookInfo {
         for (let i = 0; i < response.length; i++) {
           formatOptions.push(response[i]);
         }
-        console.log(formatOptions);
         jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
           beforeSend: xhr => {
             xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
