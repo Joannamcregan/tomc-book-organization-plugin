@@ -47,6 +47,10 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'addNewBookPenName'
     ));
+    register_rest_route('tomcBookorg/v1', 'getAllPenNamesByCreator', array(
+        'methods' => 'POST',
+        'callback' => 'getAllPenNamesByCreator'
+    ));
     register_rest_route('tomcBookorg/v1', 'addBookProducts', array(
         'methods' => 'POST',
         'callback' => 'addNewBookProducts'
@@ -190,15 +194,31 @@ function getReadalikes($data){
     }
 }
 
+function getAllPenNamesByCreator(){
+    $user = wp_get_current_user();
+    $userId = $user->ID;
+    global $wpdb;
+    $pennames_table = $wpdb->prefix . "posts";
+    $query = 'SELECT * FROM %i WHERE post_type = "author-profile" and post_status = "publish" and post_author = %d;';
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $results = $wpdb->get_results($wpdb->prepare($query, $pennames_table, $userId), ARRAY_A);
+        return $results;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
 function getPenNameInfo($data){
     $user = wp_get_current_user();
+    $userId = $user->ID;
     global $wpdb;
     $pennames_books_table = $wpdb->prefix .  "tomc_pen_names_books";
     $pennames_table = $wpdb->prefix . "posts";
     $book = sanitize_text_field($data['book']);
-    $query = 'SELECT * FROM %i pb JOIN %i p ON pb.pennameid = p.id WHERE pb.bookid = %d;';
+    $query = 'SELECT p.id, p.post_title FROM %i pb JOIN %i p ON pb.pennameid = p.id WHERE pb.bookid = %d AND p.post_type = "author-profile" and p.post_status = "publish" and p.post_author = %d;';
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
-        $results = $wpdb->get_results($wpdb->prepare($query, $pennames_books_table, $pennames_table, $book), ARRAY_A);
+        $results = $wpdb->get_results($wpdb->prepare($query, $pennames_books_table, $pennames_table, $book, $userId), ARRAY_A);
         return $results;
     } else {
         wp_safe_redirect(site_url('/my-account'));

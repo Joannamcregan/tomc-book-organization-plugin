@@ -1248,13 +1248,26 @@ class BookInfo{
             beforeSend: (xhr) => {
                 xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
             },
-            url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getPenNameInfo',
+            url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getAllPenNamesByCreator',
             type: 'POST',
-            data: {
-                'book' : this.bookId
-            },
             success: (response) => {
                 console.log(response);
+                $.ajax({
+                    beforeSend: (xhr) => {
+                        xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+                    },
+                    url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getPenNameInfo',
+                    type: 'POST',
+                    data: {
+                        'book' : this.bookId
+                    },
+                    success: (response) => {
+                        console.log(response);
+                    },
+                    error: (response) => {
+                        console.log(response);
+                    }
+                })
             },
             error: (response) => {
                 console.log(response);
