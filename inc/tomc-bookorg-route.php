@@ -199,7 +199,7 @@ function getAllPenNamesByCreator(){
     $userId = $user->ID;
     global $wpdb;
     $pennames_table = $wpdb->prefix . "posts";
-    $query = 'SELECT * FROM %i WHERE post_type = "author-profile" and post_status = "publish" and post_author = %d;';
+    $query = 'SELECT id, post_title FROM %i WHERE post_type = "author-profile" and post_status = "publish" and post_author = %d;';
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
         $results = $wpdb->get_results($wpdb->prepare($query, $pennames_table, $userId), ARRAY_A);
         return $results;

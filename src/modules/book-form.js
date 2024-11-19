@@ -1244,6 +1244,7 @@ class BookInfo{
 
     openEditPenNameOverlay(e){
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+        let allNames = [];
         $.ajax({
             beforeSend: (xhr) => {
                 xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1251,6 +1252,9 @@ class BookInfo{
             url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getAllPenNamesByCreator',
             type: 'POST',
             success: (response) => {
+                for(let i = 0; i < response.length; i++){
+                    allNames.push(response[i]);
+                }
                 $.ajax({
                     beforeSend: (xhr) => {
                         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1262,7 +1266,21 @@ class BookInfo{
                     },
                     success: (response) => {
                         if (this.penNameOverlayIsOpen != true){
-                            this.penNameOverlayIsOpen = true;
+                            this.penNameOverlayIsOpen = true;                            
+                            let dropdown = $('<select />').addClass('tomc-book-organization--product-format');
+                            let selectedId = 0;
+                            if (response.length > 0){
+                                selectedId = response[0]['id'];
+                                let selectedOption = $('<option />').attr('value', response[0]['id']).text(response[0]['post_title']);
+                                dropdown.append(selectedOption);
+                            }
+                            for (let i = 0; i < allNames.length; i++){
+                                if (allNames[i]['id'] != selectedId){
+                                    let dropdownOption = $('<option />').attr('value', allNames[i]['id']).text(allNames[i]['post_title']);
+                                    dropdown.append(dropdownOption);
+                                }
+                            }
+                            $('.tomc-book-organization__edit-pen-name-container').append(dropdown);
                             this.penNameOverlay.addClass('tomc-book-organization__box--active');
                         }
                     },
@@ -1452,10 +1470,6 @@ class BookInfo{
             if (JSON.stringify(this.chosenGenres1) === JSON.stringify(this.oldGenres1) && JSON.stringify(this.chosenGenres2) === JSON.stringify(this.oldGenres2) && JSON.stringify(this.chosenGenres3) === JSON.stringify(this.oldGenres3)){
                 $('#tomc-book-organization--edit-genres-no-changes').removeClass('hidden');
             } else {
-                console.log(this.bookId);
-                console.log(JSON.stringify(this.chosenGenres1));
-                console.log(JSON.stringify(this.chosenGenres2));
-                console.log(JSON.stringify(this.chosenGenres3));
                 $.ajax({
                     beforeSend: (xhr) => {
                         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1723,7 +1737,6 @@ class BookInfo{
     }
 
     closeEditOverlay(e){
-        console.log('called');
         this.bookId = 0;
         $(e.target).parent('.overlay-main-container').find('.tomc-book-org-html').html('');
         this.basicInfoOverlayIsOpen = false;

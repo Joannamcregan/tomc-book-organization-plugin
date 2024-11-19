@@ -66,6 +66,7 @@ get_header();
                         <div class="overlay-main-container">
                             <br>
                             <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-label="close overlay" id="tomc-book-organization__edit-pen-name-overlay-close"></i>
+                            <h3>Which name will you be publishing this book under?</h3>
                             <div class="tomc-book-organization__edit-pen-name-container tomc-book-organization__container tomc-book-org-html"></div>
                             <p class="hidden centered-text" id="tomc-book-organization--edit-pen-name-overlay-error">Cannot be blank.</p>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-pen-name-edits">save</button>
