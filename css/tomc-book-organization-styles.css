@@ -442,6 +442,13 @@
         width: 90%;
     }
 }
+#edit-book-pen-name-dropdown{
+    margin: auto;
+    display: block;
+    max-width: 280;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
 /* .driving-at-dusk{
     background-image: linear-gradient(#441e42, #6e3f42, #883f2e);
     background-repeat: no-repeat;

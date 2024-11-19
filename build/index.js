@@ -124,6 +124,7 @@ class BookInfo {
     this.saveWarningEditsButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--save-content-warnings-edits');
     this.saveReadalikesEditsButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--save-readalikes-edits');
     this.saveProductsEditsButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--save-products-edits');
+    this.savePenNameEditsButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--save-pen-name-edits');
     // update publication status
     this.unpublishButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--unpublish');
     this.publishButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--publish');
@@ -218,6 +219,7 @@ class BookInfo {
     this.saveWarningEditsButton.on('click', this.saveWarningEdits.bind(this));
     this.saveReadalikesEditsButton.on('click', this.saveReadalikesEdits.bind(this));
     this.saveProductsEditsButton.on('click', this.saveBookProducts.bind(this, 'updateBookProducts'));
+    this.savePenNameEditsButton.on('click', this.savePenNameEdits.bind(this));
     this.publishButtons.on('click', this.togglePublish.bind(this));
     this.unpublishButtons.on('click', this.togglePublish.bind(this));
   }
@@ -1228,11 +1230,11 @@ class BookInfo {
           success: response => {
             if (this.penNameOverlayIsOpen != true) {
               this.penNameOverlayIsOpen = true;
-              let dropdown = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<select />').addClass('tomc-book-organization--product-format');
+              let dropdown = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<select />').attr('id', 'edit-book-pen-name-dropdown');
               let selectedId = 0;
               if (response.length > 0) {
                 selectedId = response[0]['id'];
-                let selectedOption = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<option />').attr('value', response[0]['id']).text(response[0]['post_title']);
+                let selectedOption = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<option />').attr('value', response[0]['id']).attr('atria-label', 'your author names').text(response[0]['post_title']);
                 dropdown.append(selectedOption);
               }
               for (let i = 0; i < allNames.length; i++) {
@@ -1475,8 +1477,11 @@ class BookInfo {
       });
     }
   }
+  savePenNameEdits(e) {
+    let selectedPenName = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#edit-book-pen-name-dropdown').val();
+    console.log(selectedPenName);
+  }
   saveWarningEdits(e) {
-    console.log('the chosen warnings are ' + this.chosenWarnings);
     if (JSON.stringify(this.chosenWarnings) === JSON.stringify(this.oldWarnings)) {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--edit-warnings-no-changes').removeClass('hidden');
     } else {
