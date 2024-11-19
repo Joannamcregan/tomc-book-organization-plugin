@@ -99,6 +99,10 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'getReadalikes'
     ));
+    register_rest_route('tomcBookorg/v1', 'getPenNameInfo', array(
+        'methods' => 'POST',
+        'callback' => 'getPenNameInfo'
+    ));
     register_rest_route('tomcBookorg/v1', 'updateReadalikes', array(
         'methods' => 'POST',
         'callback' => 'editReadalikes'
@@ -180,6 +184,22 @@ function getReadalikes($data){
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
         $result = $wpdb->get_results($query, ARRAY_A);
         return $result;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function getPenNameInfo($data){
+    $user = wp_get_current_user();
+    global $wpdb;
+    $pennames_books_table = $wpdb->prefix .  "tomc_pen_names_books";
+    $pennames_table = $wpdb->prefix . "posts";
+    $book = sanitize_text_field($data['book']);
+    $query = 'SELECT * FROM %i pb JOIN %i p ON pb.pennameid = p.id WHERE pb.bookid = %d;';
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $results = $wpdb->get_results($wpdb->prepare($query, $pennames_books_table, $pennames_table, $book), ARRAY_A);
+        return $results;
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';

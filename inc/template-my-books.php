@@ -33,7 +33,8 @@ get_header();
                                 <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-character-identities">character identities</p>
                                 <p class="transparent-stripe-1 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-readalikes">read-alikes</p>
                                 <p class="transparent-stripe-2 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-content-warnings">content warnings</p>
-                                <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-linked-products">linked products</p>
+                                <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-author-name">author name</p>
+                                <p class="transparent-stripe-1 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-linked-products">linked products</p>
                                 <?php if ($book->islive == 1){
                                     ?><button data-toggle=0 class="tomc-book-organization--save-button tomc-book-organization--unpublish">unpublish</button>
                                     <p class="centered-text"><em>Unpublishing your book will remove it from search results and browsing areas.</em></p>
@@ -58,6 +59,16 @@ get_header();
                                 <p class="hidden" id="tomc-book-organization--edit-basic-info-no-changes">No changes appear to have been made.</p>
                             </div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-basic-info-edits">save</button>
+                        </div>
+                    </div>
+
+                    <div class="tomc-book-organization__overlay" id="tomc-book-organization__edit-pen-name-overlay">
+                        <div class="overlay-main-container">
+                            <br>
+                            <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-label="close overlay" id="tomc-book-organization__edit-pen-name-overlay-close"></i>
+                            <div class="tomc-book-organization__edit-pen-name-container tomc-book-organization__container tomc-book-org-html"></div>
+                            <p class="hidden centered-text" id="tomc-book-organization--edit-pen-name-overlay-error">Cannot be blank.</p>
+                            <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-pen-name-edits">save</button>
                         </div>
                     </div>
 

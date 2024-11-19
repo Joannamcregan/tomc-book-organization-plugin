@@ -85,6 +85,7 @@ class BookInfo{
         // edit book overlays
         this.closeOverlayButtons = $('.tomc-book-organization--close-overlay');
         this.basicInfoOverlay = $('#tomc-book-organization__edit-basic-info-overlay');
+        this.penNameOverlay = $('#tomc-book-organization__edit-pen-name-overlay');
         this.languagesOverlay = $('#tomc-book-organization__edit-languages-overlay');
         this.genresOverlay = $('#tomc-book-organization__edit-genres-overlay');
         this.identitiesOverlay = $('#tomc-book-organization__edit-identities-overlay');
@@ -98,6 +99,7 @@ class BookInfo{
         this.editIdentitiesOption = $('.tomc-book-organization--edit-character-identities');
         this.editReadalikesOption = $('.tomc-book-organization--edit-readalikes');
         this.editWarningsOption = $('.tomc-book-organization--edit-content-warnings');
+        this.editPenNameOption = $('.tomc-book-organization--edit-author-name');
         this.editProductsOption = $('.tomc-book-organization--edit-linked-products');
         // save edits
         this.saveBasicInfoEditsButton = $('#tomc-book-organization--save-basic-info-edits');
@@ -129,6 +131,7 @@ class BookInfo{
         this.warningsOverlayIsOpen = false;
         this.readalikesOverlayIsOpen = false;
         this.productsOverlayIsOpen = false;
+        this.penNameOverlayIsOpen = false;
         //hold values
         this.title = '';
         this.subTitle = '';
@@ -191,6 +194,7 @@ class BookInfo{
         this.editIdentitiesOption.on('click', this.openIdentitiesOverlay.bind(this));
         this.editReadalikesOption.on('click', this.openReadalikesOverlay.bind(this));
         this.editWarningsOption.on('click', this.openContentWarningsOverlay.bind(this));
+        this.editPenNameOption.on('click', this.openEditPenNameOverlay.bind(this));
         this.editProductsOption.on('click', this.openProductsOverlay.bind(this));
         // save edits
         this.saveBasicInfoEditsButton.on('click', this.saveBasicInfoEdits.bind(this));
@@ -1233,6 +1237,26 @@ class BookInfo{
                 }
             },
             failure: (response) => {
+                console.log(response);
+            }
+        })
+    }
+
+    openEditPenNameOverlay(e){
+        this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+        $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+            },
+            url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getPenNameInfo',
+            type: 'POST',
+            data: {
+                'book' : this.bookId
+            },
+            success: (response) => {
+                console.log(response);
+            },
+            error: (response) => {
                 console.log(response);
             }
         })
