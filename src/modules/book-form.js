@@ -1528,7 +1528,23 @@ class BookInfo{
 
     savePenNameEdits(e){
         let selectedPenName = $('#edit-book-pen-name-dropdown').val();
-        console.log(selectedPenName);
+        $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+            },
+            url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/editBookPenName',
+            type: 'POST',
+            data: {
+                'book' : this.bookId,
+                'pennameid' : selectedPenName
+            },
+            success: (response) => {
+                location.reload(true);
+            },
+            error: (response) => {
+                console.log(response);
+            }
+        })
     }
 
     saveWarningEdits(e){

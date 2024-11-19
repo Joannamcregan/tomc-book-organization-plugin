@@ -119,6 +119,10 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'getBookProducts'
     ));
+    register_rest_route('tomcBookorg/v1', 'editBookPenName', array(
+        'methods' => 'POST',
+        'callback' => 'editBookPenName'
+    ));
     register_rest_route('tomcBookorg/v1', 'updateBookProducts', array(
         'methods' => 'POST',
         'callback' => 'editBookProducts'
@@ -379,6 +383,29 @@ function getIdentities($data){
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
         $results = $wpdb->get_results($wpdb->prepare($query, $book_identities_table, $book, $identities_table), ARRAY_A);
         return $results;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function editBookPenName($data){
+    $book = sanitize_text_field($data['book']);
+    $pennameid = sanitize_text_field($data['pennameid']);
+    $user = wp_get_current_user();
+    global $wpdb;
+    $pennames_books_table = $wpdb->prefix . "tomc_pen_names_books";
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $wpdb->update(
+            $pennames_books_table,
+            array(
+                'pennameid' => $pennameid
+            ),
+            array(
+                'bookid' => $book
+            )
+        );
+            return 'success';
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';

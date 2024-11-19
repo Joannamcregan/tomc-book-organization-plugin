@@ -1479,7 +1479,23 @@ class BookInfo {
   }
   savePenNameEdits(e) {
     let selectedPenName = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#edit-book-pen-name-dropdown').val();
-    console.log(selectedPenName);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      beforeSend: xhr => {
+        xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+      },
+      url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/editBookPenName',
+      type: 'POST',
+      data: {
+        'book': this.bookId,
+        'pennameid': selectedPenName
+      },
+      success: response => {
+        location.reload(true);
+      },
+      error: response => {
+        console.log(response);
+      }
+    });
   }
   saveWarningEdits(e) {
     if (JSON.stringify(this.chosenWarnings) === JSON.stringify(this.oldWarnings)) {
