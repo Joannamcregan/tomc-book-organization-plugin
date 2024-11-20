@@ -417,12 +417,16 @@
 #tomc-book-organization--book-pen-name{
     padding-bottom: 20px !important;
 }
-#tomc-shop-books-sort-by-section{
+.tomc-shop-books-sort-by-section{
     width: fit-content;
     border-radius: 0px 20px 20px 20px;
     margin: 20px;
     padding: 20px;
     background: #faefe3;
+}
+.tomc-shop-books-sort-by-section input{
+    margin-right: 0px;
+    margin-left: 10px;
 }
 @media screen and (max-width: 960px) {
     .tomc-book-organization--new-book-1, .tomc-book-organization--new-book-2, .tomc-book-organization--new-book-3{
