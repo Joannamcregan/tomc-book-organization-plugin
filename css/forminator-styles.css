@@ -1,0 +1,17 @@
+.forminator-label{
+    color: black !important;
+    font-size: 14 !important;
+}
+.forminator-input{    
+    border-radius: 25px !important;
+}
+.forminator-button{
+    background: #0c698e !important;
+    border-radius: 25px !important;
+    display: block !important;
+    margin: 20px auto !important;
+}
+.forminator-description{
+    color: black !important;
+    font-size: 14px !important;
+}

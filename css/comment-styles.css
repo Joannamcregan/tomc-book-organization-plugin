@@ -1,0 +1,30 @@
+.comments-section{
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.comment-form label{
+    /* vertical-align: top; */
+    display: block;
+    margin: 40px auto 5px auto;
+}
+
+/* .logged-in-as{
+    margin-bottom: 40px;
+} */
+
+.required-field-message{
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.comment-reply-title{
+    text-align: center;
+}
+
+.form-submit input{
+    display: block;
+    margin: 0 auto;
+    padding: 5px 10px;
+}
