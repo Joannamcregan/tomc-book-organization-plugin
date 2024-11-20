@@ -85,7 +85,7 @@ class BookInfo{
         // edit book overlays
         this.closeOverlayButtons = $('.tomc-book-organization--close-overlay');
         this.basicInfoOverlay = $('#tomc-book-organization__edit-basic-info-overlay');
-        this.penNameOverlay = $('#tomc-book-organization__edit-pen-name-overlay');
+        this.editPenNameOverlay = $('#tomc-book-organization__edit-pen-name-overlay');
         this.languagesOverlay = $('#tomc-book-organization__edit-languages-overlay');
         this.genresOverlay = $('#tomc-book-organization__edit-genres-overlay');
         this.identitiesOverlay = $('#tomc-book-organization__edit-identities-overlay');
@@ -423,6 +423,7 @@ class BookInfo{
     }
 
     openPenNameOverlay(e){
+        console.log('called open pen name overlay');
         this.currentUserId = $(e.target).data('user-id');
         this.penNameOverlay.addClass("tomc-book-organization__box--active");
         $("body").addClass("body-no-scroll");
@@ -1283,7 +1284,7 @@ class BookInfo{
                                 }
                             }
                             $('.tomc-book-organization__edit-pen-name-container').append(dropdown);
-                            this.penNameOverlay.addClass('tomc-book-organization__box--active');
+                            this.editPenNameOverlay.addClass('tomc-book-organization__box--active');
                         }
                     },
                     error: (response) => {

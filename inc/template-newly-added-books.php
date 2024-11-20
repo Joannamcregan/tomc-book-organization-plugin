@@ -22,9 +22,9 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
 ?><main class="half-screen">
     <div class="banner"><h1 class="centered-text banner-heading-46">Books By Our Authors</h1></div>
     <div id="tomc-shop-books-sort-by-section">
-        <p>sort by</p>
-        <input type="radio" id="tomc-shop-books-sort-by-oldest" name="tomc-shop-books-sort-by" value="asc">
-        <label for="tomc-shop-books-sort-by-oldest">oldest</label><br>
+        <span>sort by</span>
+        <input type="radio" id="tomc-shop-books-sort-by-oldest" name="tomc-shop-books-sort-by" value="asc" checked>
+        <label for="tomc-shop-books-sort-by-oldest">oldest</label>
         <input type="radio" id="tomc-shop-books-sort-by-newest" name="tomc-shop-books-sort-by" value="desc">
         <label for="tomc-shop-books-sort-by-newest">newest</label><br>
     </div>

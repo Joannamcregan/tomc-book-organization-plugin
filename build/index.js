@@ -100,7 +100,7 @@ class BookInfo {
     // edit book overlays
     this.closeOverlayButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--close-overlay');
     this.basicInfoOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__edit-basic-info-overlay');
-    this.penNameOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__edit-pen-name-overlay');
+    this.editPenNameOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__edit-pen-name-overlay');
     this.languagesOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__edit-languages-overlay');
     this.genresOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__edit-genres-overlay');
     this.identitiesOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__edit-identities-overlay');
@@ -421,6 +421,7 @@ class BookInfo {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").removeClass("body-no-scroll");
   }
   openPenNameOverlay(e) {
+    console.log('called open pen name overlay');
     this.currentUserId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('user-id');
     this.penNameOverlay.addClass("tomc-book-organization__box--active");
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
@@ -1244,7 +1245,7 @@ class BookInfo {
                 }
               }
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-pen-name-container').append(dropdown);
-              this.penNameOverlay.addClass('tomc-book-organization__box--active');
+              this.editPenNameOverlay.addClass('tomc-book-organization__box--active');
             }
           },
           error: response => {
