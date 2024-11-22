@@ -3,9 +3,9 @@ $books_table = $wpdb->prefix .  "tomc_books";
 $genres_table = $wpdb->prefix . "tomc_genres";
 $book_genres_table = $wpdb->prefix . "tomc_book_genres";
 
-$genres1 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 1 ORDER BY genre_name;");
-$genres2 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 2 ORDER BY genre_name;");
-$genres3 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 3 ORDER BY genre_name;");
+$genres1 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 1 and genre_name is not null and genre_name <> '' ORDER BY genre_name;");
+$genres2 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 2 and genre_name is not null and genre_name <> '' ORDER BY genre_name;");
+$genres3 = $wpdb->get_results("SELECT * from $genres_table WHERE genre_level = 3 and genre_name is not null and genre_name <> '' ORDER BY genre_name;");
 
 
 get_header();
