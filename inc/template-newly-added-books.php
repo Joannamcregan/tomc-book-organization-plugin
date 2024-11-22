@@ -21,19 +21,19 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
 
 ?><main class="half-screen">
     <div class="banner"><h1 class="centered-text banner-heading-46">Books By Our Authors</h1></div>
-    <div id="tomc-shop-books-sort-by-section">
-        <span>sort by</span>
-        <input type="radio" id="tomc-shop-books-sort-by-oldest" name="tomc-shop-books-sort-by" value="asc" checked>
-        <label for="tomc-shop-books-sort-by-oldest">oldest</label>
-        <input type="radio" id="tomc-shop-books-sort-by-newest" name="tomc-shop-books-sort-by" value="desc">
-        <label for="tomc-shop-books-sort-by-newest">newest</label><br>
-    </div>
     <div class="sub-banner--slim">
         <h2 class="centered-text large-heading yellow-shadow-text georgia-text">ebooks</h2>
     </div>
     <div>
         <?php if ($results) {
-            for($index = 0; $index < count($results); $index++){
+            ?><div class="tomc-shop-books-sort-by-section">
+                <span>sort by</span>
+                <input type="radio" id="tomc-shop-ebooks-sort-by-oldest" name="tomc-shop-ebooks-sort-by" value="asc" checked>
+                <label for="tomc-shop-ebooks-sort-by-oldest">oldest</label>
+                <input type="radio" id="tomc-shop-ebooks-sort-by-newest" name="tomc-shop-ebooks-sort-by" value="desc">
+                <label for="tomc-shop-ebooks-sort-by-newest">newest</label><br>
+            </div>
+            <?php for($index = 0; $index < count($results); $index++){
                 if ($index == 2){
                     ?><div class="tomc-book-organization--new-book-2">
                         <div class="tomc-browse--search-result-top-section">
@@ -112,7 +112,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
                 <?php }
             }
         } else {
-            ?><p class="centered-text">No books have been added yet. Check back soon!</p>
+            ?><p class="centered-text padded-paragraph-20-x">No ebooks have been added yet. Check back soon!</p>
         <?php } ?>
         <!-- </div>  tomc-book-organization--newly-added-continued-ebooks -->
     </div>
@@ -134,7 +134,14 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
     </div>
     <div>
         <?php if ($results) {
-            for($index = 0; $index < count($results); $index++){
+            ?><div class="tomc-shop-books-sort-by-section">
+                <span>sort by</span>
+                <input type="radio" id="tomc-shop-audiobooks-sort-by-oldest" name="tomc-shop-audiobooks-sort-by" value="asc" checked>
+                <label for="tomc-shop-audiobooks-sort-by-oldest">oldest</label>
+                <input type="radio" id="tomc-shop-audiobooks-sort-by-newest" name="tomc-shop-audiobooks-sort-by" value="desc">
+                <label for="tomc-shop-audiobooks-sort-by-newest">newest</label><br>
+            </div>
+            <?php for($index = 0; $index < count($results); $index++){
                 if ($index == 2){
                     ?><div class="tomc-book-organization--new-book-2">
                         <div class="tomc-browse--search-result-top-section">
@@ -213,7 +220,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
                 <?php }
             } ?>
         <?php } else {
-            ?><p class="centered-text">No books have been added yet. Check back soon!</p>
+            ?><p class="centered-text">No audiobooks have been added yet. Check back soon!</p>
         <?php } ?>
         <!-- </div>  tomc-book-organization--newly-added-continued-audiobooks -->
     </div>
@@ -235,7 +242,14 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
     </div>
     <div>
         <?php if ($results) {
-            for($index = 0; $index < count($results); $index++){
+            ?><div class="tomc-shop-books-sort-by-section">
+                <span>sort by</span>
+                <input type="radio" id="tomc-shop-paperbacks-sort-by-oldest" name="tomc-shop-paperbacks-sort-by" value="asc" checked>
+                <label for="tomc-shop-paperbacks-sort-by-oldest">oldest</label>
+                <input type="radio" id="tomc-shop-paperbacks-sort-by-newest" name="tomc-shop-paperbacks-sort-by" value="desc">
+                <label for="tomc-shop-paperbacks-sort-by-newest">newest</label><br>
+            </div>
+            <?php for($index = 0; $index < count($results); $index++){
                 if ($index == 2){
                     ?><div class="tomc-book-organization--new-book-2">
                         <div class="tomc-browse--search-result-top-section">
@@ -314,7 +328,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
                 <?php }
             }
         } else {
-            ?><p class="centered-text">No books have been added yet. Check back soon!</p>
+            ?><p class="centered-text">No paperback books have been added yet. Check back soon!</p>
         <?php } ?>
         <!-- </div>  tomc-book-organization--newly-added-continued-ebooks -->
     </div>
@@ -336,7 +350,14 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
     </div>
     <div>
         <?php if ($results) {
-            for($index = 0; $index < count($results); $index++){
+            ?><div class="tomc-shop-books-sort-by-section">
+                <span>sort by</span>
+                <input type="radio" id="tomc-shop-hardcovers-sort-by-oldest" name="tomc-shop-hardcovers-sort-by" value="asc" checked>
+                <label for="tomc-shop-hardcovers-sort-by-oldest">oldest</label>
+                <input type="radio" id="tomc-shop-hardcovers-sort-by-newest" name="tomc-shop-hardcovers-sort-by" value="desc">
+                <label for="tomc-shop-hardcovers-sort-by-newest">newest</label><br>
+            </div>
+            <?php for($index = 0; $index < count($results); $index++){
                 if ($index == 2){
                     ?><div class="tomc-book-organization--new-book-2">
                         <div class="tomc-browse--search-result-top-section">
@@ -415,7 +436,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
                 <?php }
             }
         } else {
-            ?><p class="centered-text">No books have been added yet. Check back soon!</p>
+            ?><p class="centered-text">No hardcover books have been added yet. Check back soon!</p>
         <?php } ?>
         <!-- </div>  tomc-book-organization--newly-added-continued-ebooks -->
     </div>

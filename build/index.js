@@ -224,7 +224,6 @@ class BookInfo {
     this.unpublishButtons.on('click', this.togglePublish.bind(this));
   }
   toggleLanguageSelection(e) {
-    console.log(this.chosenLanguages);
     let labelName = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).text();
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-book-organization--option-selected')) {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--option-selected');
@@ -249,7 +248,6 @@ class BookInfo {
   updateReadalikeContinueButton(e) {
     setTimeout(() => {
       if (this.readalikeBook0.val() != '') {
-        console.log('readalike condition met');
         this.saveReadalikesButton.text('save and continue');
       } else {
         this.saveReadalikesButton.text('continue');
@@ -261,12 +259,9 @@ class BookInfo {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--edit-genres-no-changes').addClass('hidden');
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-book-organization--option-selected')) {
       if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-level') == 1) {
-        console.log('toggling off a level 1');
         for (let i = 0; i < this.chosenGenres1.length; i++) {
           if (this.chosenGenres1[i] == jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-id')) {
-            console.log('chosen genres 1 before splice is ' + this.chosenGenres1);
             this.chosenGenres1.splice(i, 1);
-            console.log('chosen genres 1 after splice is ' + this.chosenGenres1);
           }
         }
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--option-selected');
@@ -274,9 +269,7 @@ class BookInfo {
       } else if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-level') == 2) {
         for (let i = 0; i < this.chosenGenres2.length; i++) {
           if (this.chosenGenres2[i] == jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-id')) {
-            console.log('chosen genres 2 before splice is ' + this.chosenGenres2);
             this.chosenGenres2.splice(i, 1);
-            console.log('chosen genres 2 after splice is ' + this.chosenGenres2);
           }
         }
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--option-selected');
@@ -285,9 +278,7 @@ class BookInfo {
       } else if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-level') == 3) {
         for (let i = 0; i < this.chosenGenres3.length; i++) {
           if (this.chosenGenres3[i] == jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('genre-id')) {
-            console.log('chosen genres 3 before splice is ' + this.chosenGenres3);
             this.chosenGenres3.splice(i, 1);
-            console.log('chosen genres 3 after splice is ' + this.chosenGenres3);
           }
         }
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--option-selected');
@@ -369,11 +360,9 @@ class BookInfo {
     }
   }
   showAddProductsInstructions() {
-    console.log('book products add button called');
     this.bookProductsAddInstructions.hasClass("hidden") ? this.bookProductsAddInstructions.removeClass("hidden") : this.bookProductsAddInstructions.addClass("hidden");
   }
   closeLanguageOverlay() {
-    console.log('close language overlay called!!');
     this.languageOverlay.removeClass("tomc-book-organization__box--active");
     this.languageInput.val('');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").removeClass("body-no-scroll");
@@ -421,7 +410,6 @@ class BookInfo {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").removeClass("body-no-scroll");
   }
   openPenNameOverlay(e) {
-    console.log('called open pen name overlay');
     this.currentUserId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('user-id');
     this.penNameOverlay.addClass("tomc-book-organization__box--active");
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
@@ -486,7 +474,6 @@ class BookInfo {
   }
   addIdentity(e) {
     this.identityName = this.identityInput.val().substring(0, 200);
-    console.log('identity name is ' + this.identityName);
     if (this.identityName != '') {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('contracting');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).html('saving...');
@@ -629,7 +616,6 @@ class BookInfo {
         type: 'POST',
         data: this.newPenNameData,
         success: response => {
-          console.log(response);
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('contracting');
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).html('save');
           var newOption = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<option />');
@@ -955,7 +941,6 @@ class BookInfo {
           'image': imageProduct
         },
         success: response => {
-          console.log(response);
           this.bookProductsForm.addClass('opacity-30');
           this.bookProductsAddProductButton.addClass('hidden');
           if (routePath == 'updateBookProducts') {
@@ -1141,7 +1126,6 @@ class BookInfo {
   }
   openLanguagesOverlay(e) {
     this.bookId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
-    console.log('the book id is ' + this.bookId);
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
       beforeSend: xhr => {
         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1337,11 +1321,9 @@ class BookInfo {
           'author1': newReadalikeAuthor1
         },
         success: response => {
-          console.log('a success occurred');
           location.reload(true);
         },
         error: response => {
-          console.log('error occurred.');
           console.log(response);
         }
       });
@@ -1458,7 +1440,6 @@ class BookInfo {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--edit-no-languages-selected').removeClass('hidden');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--edit-languages-no-changes').addClass('hidden');
     } else {
-      console.log();
       jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
         beforeSend: xhr => {
           xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1522,7 +1503,6 @@ class BookInfo {
     }
   }
   saveIdentityEdits(e) {
-    console.log('the chosen identities are ' + this.chosenIdentities);
     if (JSON.stringify(this.chosenIdentities) === JSON.stringify(this.oldIdentities)) {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--edit-identities-no-changes').removeClass('hidden');
     } else if (this.chosenIdentities.length === 0) {
@@ -1550,7 +1530,6 @@ class BookInfo {
   togglePublish(e) {
     let bookToUpdate = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
     let newStatus = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('toggle');
-    console.log('the new book status is ' + newStatus);
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
       beforeSend: xhr => {
         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1565,7 +1544,6 @@ class BookInfo {
         location.reload(true);
       },
       error: response => {
-        console.log('error occurred.');
         console.log(response);
       }
     });
@@ -1603,11 +1581,9 @@ class BookInfo {
             'excerpt': newExcerpt
           },
           success: response => {
-            console.log('success occurred');
             location.reload(true);
           },
           error: response => {
-            console.log('error occurred.');
             console.log(response);
           }
         });
@@ -1640,7 +1616,6 @@ class BookInfo {
             'book': this.bookId
           },
           success: response => {
-            console.log(response);
             if (this.productsOverlayIsOpen != true) {
               this.productsOverlayIsOpen = true;
               for (let i = 0; i < response.length; i++) {
@@ -1668,8 +1643,12 @@ class BookInfo {
                   } else {
                     console.log('type name is ' + formatOptions[j]['type_name']);
                     console.log('name is ' + response[i]['name']);
+                    console.log('typeid is ' + response[i]['typeid']);
                   }
                   typeSelect.append(selectOption);
+                  console.log('type name is ' + formatOptions[j]['type_name']);
+                  console.log('name is ' + response[i]['name']);
+                  console.log('typeid is ' + response[i]['typeid']);
                 }
                 productOption.append(typeSelect);
                 productOption.append('<br>');

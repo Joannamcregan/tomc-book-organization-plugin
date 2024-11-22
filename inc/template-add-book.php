@@ -15,6 +15,9 @@ $identities_table = $wpdb->prefix . "tomc_character_identities";
 $product_types_table = $wpdb->prefix . "tomc_product_types";
 $publication_languages_table = $wpdb->prefix . "tomc_publication_languages";
 $book_languages_table = $wpdb->prefix . "tomc_book_languages";
+$term_relationships_table = $wpdb->prefix . "term_relationships";
+$term_taxonomy_table = $wpdb->prefix . "term_taxonomy";
+$terms_table = $wpdb->prefix . "terms";
 $user = wp_get_current_user();
 $userid = $user->ID;
 
@@ -206,7 +209,7 @@ get_header();
                 <div class="tomc-book-organization--form opacity-30" aria-disabled="true" id="tomc-book-organization--book-products" >
                     <h3 class="centered-text">Please select all products associated with this book.</h3>
                     <?php $product_types = $wpdb->get_results("SELECT * from $product_types_table ORDER BY type_name;"); 
-                    $author_products = $wpdb->get_results("SELECT * from $posts_table WHERE post_type = 'product' and post_status = 'publish' and post_author = $userid ORDER BY post_title;");
+                    $author_products = $wpdb->get_results("SELECT p.post_title, p.id, terms.name as type_name from $posts_table p JOIN $term_relationships_table tr on p.id = tr.object_id JOIN $terms_table terms on tr.term_taxonomy_id = terms.term_id AND terms.name <> 'services' JOIN $term_taxonomy_table tt on terms.term_id = tt.term_id AND tt.taxonomy = 'product_cat'  WHERE p.post_type = 'product' and p.post_status = 'publish' and p.post_author = $userid ORDER BY p.post_title;");
                     foreach($author_products as $product) {
                         ?><div class="tomc-book-organization--book-products-div">
                             <div class="tomc-book-organization--product-option">
@@ -216,8 +219,12 @@ get_header();
                                 <label class="tomc-book-organization--select-label" for="<?php echo 'tomc-book-organization--select-for-' . $product->ID; ?>">Which format is this product?</label>
                                 <select class="tomc-book-organization--centered-select tomc-book-organization--product-format" id="<?php echo 'tomc-book-organization--select-for-' . $product->ID; ?>">
                                     <?php foreach($product_types as $type) {
-                                        ?><option value="<?php echo $type->id; ?>"><?php echo $type->type_name; ?></option>
-                                    <?php }
+                                        if ($type->type_name == $product->type_name){
+                                            ?><option value="<?php echo $type->id; ?>" selected="selected"><?php echo $type->type_name; ?></option>
+                                        <?php } else {
+                                            ?><option value="<?php echo $type->id; ?>"><?php echo $type->type_name; ?></option>
+                                        <?php }
+                                    }
                                 ?></select><br>
                                 <input type="radio" name="tomc-book-organization--main-image-product" value="<?php echo $product->ID; ?>" id="<?php echo 'tomc-book-organization--book-product-image-' . $product->ID; ?>">
                                 <label for="<?php echo 'tomc-book-organization--book-product-image-' . $product->ID; ?>">use this product's image as the main image for this book.</labal>
