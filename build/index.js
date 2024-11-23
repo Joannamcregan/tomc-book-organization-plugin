@@ -1927,6 +1927,8 @@ class BrowseStuff {
           console.log(response);
         }
       });
+    } else {
+      console.log('else');
     }
   }
 }
