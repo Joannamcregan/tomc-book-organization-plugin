@@ -13,11 +13,13 @@ class NewBooks{
         this.moreAudiobooks.on('click', this.showMoreAudiobooks.bind(this));
     }
     showMoreEbooks(e){
+        console.log('showing more ebooks');
         this.ebooksContinued.removeClass('hidden');
         $(e.target).removeClass('padded-arrow-accent');
         $(e.target).addClass('hidden');
     }
     showMoreAudiobooks(e){
+        console.log('showing more audiobooks');
         this.audiobooksContinued.removeClass('hidden');
         $(e.target).removeClass('padded-arrow-accent');
         $(e.target).addClass('hidden');

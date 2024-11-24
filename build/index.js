@@ -1962,11 +1962,13 @@ class NewBooks {
     this.moreAudiobooks.on('click', this.showMoreAudiobooks.bind(this));
   }
   showMoreEbooks(e) {
+    console.log('showing more ebooks');
     this.ebooksContinued.removeClass('hidden');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('padded-arrow-accent');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('hidden');
   }
   showMoreAudiobooks(e) {
+    console.log('showing more audiobooks');
     this.audiobooksContinued.removeClass('hidden');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('padded-arrow-accent');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('hidden');
