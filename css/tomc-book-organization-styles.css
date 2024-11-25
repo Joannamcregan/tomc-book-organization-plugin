@@ -452,6 +452,11 @@
         border-right: 5px solid #f7c340;
     }
 }
+@media screen and (max-width: 873px){
+    .tomc-bookorg--all-columns{
+        width: 290px;
+    }
+}
 
 .tomc-book-organization--new-book-3{
     border: solid #893e43 5px;
