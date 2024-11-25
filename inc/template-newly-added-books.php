@@ -16,7 +16,7 @@ $query = 'select distinct b.id, b.title,f.post_title as pen_name, b.book_descrip
         join %i g on c.productid = g.id
         where d.type_name = %s
         order by b.createdate asc
-        limit 100';
+        limit 12';
 $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'e-books'), ARRAY_A);
 
 ?><main class="half-screen">
@@ -33,48 +33,37 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
                 <input type="radio" id="tomc-shop-ebooks-sort-by-newest" name="tomc-shop-ebooks-sort-by" value="desc">
                 <label for="tomc-shop-ebooks-sort-by-newest">newest</label><br>
             </div>
+            <div class="tomc-book-org--columns-container">
             <?php for($index = 0; $index < count($results); $index++){
-                ?><div class="
-                    <?php if ($index % 2 == 0){
-                        echo 'tomc-book-org--two-column--even';
-                    } else {
-                        echo 'tomc-book-org--two-column--odd';
-                    }
-                    if ($index % 3 == 0){
-                        echo 'tomc-book-org--three-column--three';
+                ?><div class="tomc-bookorg--all-columns
+                    <?php if ($index % 3 == 0){
+                        echo ' tomc-book-org--three-of-three';
                     } else if ($index % 2 == 0){
-                        echo 'tomc-book-org--three-column--two';
+                        echo ' tomc-book-org--two-of-three';
                     } else {
-                        echo 'tomc-book-org--three-column--one';
+                        echo ' tomc-book-org--one-of-three';
                     }
                     if ($index % 4 == 0){
-                        echo 'tomc-book-org--four-column--four';
+                        echo ' tomc-book-org--four-of-four';
                     } else if ($index % 3 == 0){
-                        echo 'tomc-book-org--four-column--three';
+                        echo ' tomc-book-org--three-of-four';
                     } else if ($index % 2 == 0){
-                        echo 'tomc-book-org--four-column--two';
+                        echo ' tomc-book-org--two-of-four';
                     } else {
-                        echo 'tomc-book-org--four-column--one';
+                        echo ' tomc-book-org--one-of-four';
                     }
-                ?>">
-                    <div class="tomc-browse--search-result-top-section">
-                        <div class="tomc-result-top-border-2">
-                            <div class="tomc-result-top-border-1">
-                                <div class="tomc-result-top-border-0">
-                                    <a href="<?php echo get_permalink($results[$index]['product_url']); ?>">
-                                        <h3><?php echo $results[$index]['title']; ?></h3>
-                                    </a>
-                                    <h4><?php echo $results[$index]['pen_name'] ? 'by ' . $results[$index]['pen_name'] : 'by unknown or anonymous author'; ?></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    ?>">
+                    <a class="centered-text" href="<?php echo get_permalink($results[$index]['product_url']); ?>">
+                        <h3><?php echo $results[$index]['title']; ?></h3>
+                    </a>
+                    <p class="centered-text"><strong><?php echo $results[$index]['pen_name'] ? 'by ' . $results[$index]['pen_name'] : 'by unknown or anonymous author'; ?></strong></p>
                     <div class="tomc-browse--search-result-bottom-section">
                         <p><?php echo $results[$index]['book_description'].substr(0, 500) . '...'; ?></p>
                     </div>
                 </div>
             <?php }
-        } else {
+            ?></div>
+        <?php } else {
             ?><p class="centered-text padded-paragraph-20-x">No ebooks have been added yet. Check back soon!</p>
         <?php } ?>
         <!-- </div>  tomc-book-organization--newly-added-continued-ebooks -->
@@ -89,7 +78,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
         join %i g on c.productid = g.id
         where d.type_name = %s
         order by b.createdate asc
-        limit 100';
+        limit 12';
     $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'audiobooks'), ARRAY_A);
 
     ?><div class="sub-banner--slim">
@@ -104,48 +93,37 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
                 <input type="radio" id="tomc-shop-audiobooks-sort-by-newest" name="tomc-shop-audiobooks-sort-by" value="desc">
                 <label for="tomc-shop-audiobooks-sort-by-newest">newest</label><br>
             </div>
+            <div class="tomc-book-org--columns-container">
             <?php for($index = 0; $index < count($results); $index++){
-                ?><div class="
-                    <?php if ($index % 2 == 0){
-                        echo 'tomc-book-org--two-column--even';
-                    } else {
-                        echo 'tomc-book-org--two-column--odd';
-                    }
-                    if ($index % 3 == 0){
-                        echo 'tomc-book-org--three-column--three';
+                ?><div class="tomc-bookorg--all-columns
+                    <?php if ($index % 3 == 0){
+                        echo ' tomc-book-org--three-of-three';
                     } else if ($index % 2 == 0){
-                        echo 'tomc-book-org--three-column--two';
+                        echo ' tomc-book-org--two-of-three';
                     } else {
-                        echo 'tomc-book-org--three-column--one';
+                        echo ' tomc-book-org--one-of-three';
                     }
                     if ($index % 4 == 0){
-                        echo 'tomc-book-org--four-column--four';
+                        echo ' tomc-book-org--four-of-four';
                     } else if ($index % 3 == 0){
-                        echo 'tomc-book-org--four-column--three';
+                        echo ' tomc-book-org--three-of-four';
                     } else if ($index % 2 == 0){
-                        echo 'tomc-book-org--four-column--two';
+                        echo ' tomc-book-org--two-of-four';
                     } else {
-                        echo 'tomc-book-org--four-column--one';
+                        echo ' tomc-book-org--one-of-four';
                     }
                 ?>">
-                    <div class="tomc-browse--search-result-top-section">
-                        <div class="tomc-result-top-border-2">
-                            <div class="tomc-result-top-border-1">
-                                <div class="tomc-result-top-border-0">
-                                    <a href="<?php echo get_permalink($results[$index]['product_url']); ?>">
-                                        <h3><?php echo $results[$index]['title']; ?></h3>
-                                    </a>
-                                    <h4><?php echo $results[$index]['pen_name'] ? 'by ' . $results[$index]['pen_name'] : 'by unknown or anonymous author'; ?></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <a href="<?php echo get_permalink($results[$index]['product_url']); ?>">
+                        <h3><?php echo $results[$index]['title']; ?></h3>
+                    </a>
+                    <p><strong><?php echo $results[$index]['pen_name'] ? 'by ' . $results[$index]['pen_name'] : 'by unknown or anonymous author'; ?></strong></p>
                     <div class="tomc-browse--search-result-bottom-section">
                         <p><?php echo $results[$index]['book_description'].substr(0, 500) . '...'; ?></p>
                     </div>
                 </div>
             <?php }
-        } else {
+            ?></div>
+        <?php } else {
             ?><p class="centered-text">No audiobooks have been added yet. Check back soon!</p>
         <?php } ?>
         <!-- </div>  tomc-book-organization--newly-added-continued-audiobooks -->
@@ -160,7 +138,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
         join %i g on c.productid = g.id
         where d.type_name in (%s, %s)
         order by b.createdate asc
-        limit 100';
+        limit 12';
     $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'paperbacks', 'hardcovers'), ARRAY_A);
 
     ?><div class="sub-banner--slim">
@@ -175,48 +153,36 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
                 <input type="radio" id="tomc-shop-physical-books-sort-by-newest" name="tomc-shop-physical-books-sort-by" value="desc">
                 <label for="tomc-shop-physical-books-sort-by-newest">newest</label><br>
             </div>
+            <div class="tomc-book-org--columns-container">
             <?php for($index = 0; $index < count($results); $index++){
-                ?><div class="
-                    <?php if ($index % 2 == 0){
-                        echo 'tomc-book-org--two-column--even';
-                    } else {
-                        echo 'tomc-book-org--two-column--odd';
-                    }
-                    if ($index % 3 == 0){
-                        echo 'tomc-book-org--three-column--three';
+                ?><div class="tomc-bookorg--all-columns
+                    <?php if ($index % 3 == 0){
+                        echo ' tomc-book-org--three-of-three';
                     } else if ($index % 2 == 0){
-                        echo 'tomc-book-org--three-column--two';
+                        echo ' tomc-book-org--two-of-three';
                     } else {
-                        echo 'tomc-book-org--three-column--one';
+                        echo ' tomc-book-org--one-of-three';
                     }
                     if ($index % 4 == 0){
-                        echo 'tomc-book-org--four-column--four';
+                        echo ' tomc-book-org--four-of-four';
                     } else if ($index % 3 == 0){
-                        echo 'tomc-book-org--four-column--three';
+                        echo ' tomc-book-org--three-of-four';
                     } else if ($index % 2 == 0){
-                        echo 'tomc-book-org--four-column--two';
+                        echo ' tomc-book-org--two-of-four';
                     } else {
-                        echo 'tomc-book-org--four-column--one';
+                        echo ' tomc-book-org--one-of-four';
                     }
                 ?>">
-                    <div class="tomc-browse--search-result-top-section">
-                        <div class="tomc-result-top-border-2">
-                            <div class="tomc-result-top-border-1">
-                                <div class="tomc-result-top-border-0">
-                                    <a href="<?php echo get_permalink($results[$index]['product_url']); ?>">
-                                        <h3><?php echo $results[$index]['title']; ?></h3>
-                                    </a>
-                                    <h4><?php echo $results[$index]['pen_name'] ? 'by ' . $results[$index]['pen_name'] : 'by unknown or anonymous author'; ?></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <a class="centered-text"href="<?php echo get_permalink($results[$index]['product_url']); ?>">
+                        <h3><?php echo $results[$index]['title']; ?></h3>
+                    </a>
+                    <p class="centered-text"><strong><?php echo $results[$index]['pen_name'] ? 'by ' . $results[$index]['pen_name'] : 'by unknown or anonymous author'; ?></strong></p>
                     <div class="tomc-browse--search-result-bottom-section">
                         <p><?php echo $results[$index]['book_description'].substr(0, 500) . '...'; ?></p>
                     </div>
-                </div>
             <?php }
-        } else {
+            ?></div>
+        <?php } else {
             ?><p class="centered-text">No physical books have been added yet. Check back soon!</p>
         <?php } ?>
         <!-- </div>  tomc-book-organization--newly-added-continued-ebooks -->
