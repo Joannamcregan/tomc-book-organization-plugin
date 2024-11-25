@@ -28,10 +28,9 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
         <?php if ($results) {
             ?><div class="tomc-shop-books-sort-by-section">
                 <span>sort by</span>
-                <input type="radio" id="tomc-shop-ebooks-sort-by-oldest" name="tomc-shop-ebooks-sort-by" value="asc" checked>
-                <label for="tomc-shop-ebooks-sort-by-oldest">oldest</label>
-                <input type="radio" id="tomc-shop-ebooks-sort-by-newest" name="tomc-shop-ebooks-sort-by" value="desc">
-                <label for="tomc-shop-ebooks-sort-by-newest">newest</label><br>
+                <span aria-label="The 'oldest' option is selected" class="tomc-shop-books-sort-options tomc-shop-books-sort-options-selected" id="tomc-shop-books-sort-ebook-oldest">oldest</span>
+                <span aria-label="The 'newest' option is not selected" class="tomc-shop-books-sort-options" id="tomc-shop-books-sort-ebook-newest">newest</span>
+                <span aria-label="The 'random' option is not selected" class="tomc-shop-books-sort-options" id="tomc-shop-books-sort-ebook-random">random</span>
             </div>
             <div class="tomc-book-org--columns-container">
             <?php for($index = 0; $index < count($results); $index++){
@@ -88,10 +87,9 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
         <?php if ($results) {
             ?><div class="tomc-shop-books-sort-by-section">
                 <span>sort by</span>
-                <input type="radio" id="tomc-shop-audiobooks-sort-by-oldest" name="tomc-shop-audiobooks-sort-by" value="asc" checked>
-                <label for="tomc-shop-audiobooks-sort-by-oldest">oldest</label>
-                <input type="radio" id="tomc-shop-audiobooks-sort-by-newest" name="tomc-shop-audiobooks-sort-by" value="desc">
-                <label for="tomc-shop-audiobooks-sort-by-newest">newest</label><br>
+                <span aria-label="The 'oldest' option is selected" class="tomc-shop-books-sort-options tomc-shop-books-sort-options-selected" id="tomc-shop-books-sort-audiobooks-oldest">oldest</span>
+                <span aria-label="The 'newest' option is not selected" class="tomc-shop-books-sort-options" id="tomc-shop-books-sort-audiobooks-newest">newest</span>
+                <span aria-label="The 'random' option is not selected" class="tomc-shop-books-sort-options" id="tomc-shop-books-sort-audiobooks-random">random</span>
             </div>
             <div class="tomc-book-org--columns-container">
             <?php for($index = 0; $index < count($results); $index++){
@@ -148,10 +146,9 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
         <?php if ($results) {
             ?><div class="tomc-shop-books-sort-by-section">
                 <span>sort by</span>
-                <input type="radio" id="tomc-shop-physical-books-sort-by-oldest" name="tomc-shop-physical-books-sort-by" value="asc" checked>
-                <label for="tomc-shop-physical-books-sort-by-oldest">oldest</label>
-                <input type="radio" id="tomc-shop-physical-books-sort-by-newest" name="tomc-shop-physical-books-sort-by" value="desc">
-                <label for="tomc-shop-physical-books-sort-by-newest">newest</label><br>
+                <span aria-label="The 'oldest' option is selected" class="tomc-shop-books-sort-options tomc-shop-books-sort-options-selected" id="tomc-shop-books-sort-physical-oldest">oldest</span>
+                <span aria-label="The 'newest' option is not selected" class="tomc-shop-books-sort-options" id="tomc-shop-books-sort-physical-newest">newest</span>
+                <span aria-label="The 'random' option is not selected" class="tomc-shop-books-sort-options" id="tomc-shop-books-sort-physical-random">random</span>
             </div>
             <div class="tomc-book-org--columns-container">
             <?php for($index = 0; $index < count($results); $index++){

@@ -458,59 +458,27 @@
     }
 }
 
-.tomc-book-organization--new-book-3{
-    border: solid #893e43 5px;
-    background: rgb(248, 247, 247);
-    border-radius: 25px 0;
-    width: 70%;
-    margin: 20px auto 30px auto;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-top: 0px;
-}
-.tomc-book-organization--new-book-2{
-    border: solid #0c698e 5px;
-    background: rgb(248, 247, 247);
-    border-radius: 25px 0;
-    width: 70%;
-    margin: 20px auto 30px auto;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-top: 0px;
-}
-.tomc-book-organization--new-book-1{
-    border: solid #4c0548 5px;
-    background: rgb(248, 247, 247);
-    border-radius: 25px 0;
-    width: 70%;
-    margin: 20px auto 30px auto;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-top: 0px;
-}
 #tomc-book-organization--book-pen-name{
     padding-bottom: 20px !important;
 }
 .tomc-shop-books-sort-by-section{
     width: fit-content;
-    border-radius: 0px 20px 20px 20px;
+    border-radius: 0px 25px 25px 20px;
     margin: 20px;
     padding: 20px;
     background: #faefe3;
 }
-.tomc-shop-books-sort-by-section input{
-    margin-right: 0px;
-    margin-left: 10px;
+.tomc-shop-books-sort-options{
+    margin: 3px;
+    border-radius: 15px;
+    border: solid #602f32 5px;
+    padding: 10px;
+    background: none;
+    cursor: pointer;
 }
-@media screen and (max-width: 960px) {
-    .tomc-book-organization--new-book-1, .tomc-book-organization--new-book-2, .tomc-book-organization--new-book-3{
-        width: 70%;
-    }
-}
-@media screen and (max-width: 500px) {
-    .tomc-book-organization--new-book-1, .tomc-book-organization--new-book-2, .tomc-book-organization--new-book-3{
-        width: 85%;
-    }
+.tomc-shop-books-sort-options-selected{
+    background: #602f32;
+    color: white;
 }
 @media screen and (max-width: 1600px) {
     #tomc-browse--search-results-container{
