@@ -57,7 +57,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
                     </a>
                     <p class="centered-text"><strong><?php echo $results[$index]['pen_name'] ? 'by ' . $results[$index]['pen_name'] : 'by unknown or anonymous author'; ?></strong></p>
                     <div class="tomc-browse--search-result-bottom-section">
-                        <p><?php echo $results[$index]['book_description'].substr(0, 500) . '...'; ?></p>
+                        <p style="white-space: pre-line"><?php echo $results[$index]['book_description'].substr(0, 500) . '...'; ?></p>
                     </div>
                 </div>
             <?php }

@@ -866,6 +866,7 @@ class BookInfo {
   addNewBook(e) {
     this.addBookSaveButton.addClass('contracting');
     this.addBookSaveButton.html('saving...');
+    console.log(this.bookDescription.val());
     if (this.bookTitle.val() != '' && this.bookDescription.val() != '' && this.bookExcerpt.val() != '') {
       jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
         beforeSend: xhr => {

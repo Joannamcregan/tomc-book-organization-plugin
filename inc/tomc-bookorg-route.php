@@ -137,8 +137,8 @@ function addNewBook($data){
     $title = sanitize_text_field($data['title']);
     $subtitle = sanitize_text_field($data['subtitle']);
     $edition = sanitize_text_field($data['edition']);
-    $description = sanitize_text_field($data['description']);
-    $excerpt = sanitize_text_field($data['excerpt']);
+    $description = sanitize_textarea_field($data['description']);
+    $excerpt = sanitize_textarea_field($data['excerpt']);
     $userId = $data['user'];
     $user = wp_get_current_user();
     global $wpdb;
@@ -253,8 +253,8 @@ function updateBasicInfo($data){
     $title = sanitize_text_field($data['title']);
     $subtitle = sanitize_text_field($data['subtitle']);
     $edition = sanitize_text_field($data['edition']);
-    $description = sanitize_text_field($data['description']);
-    $excerpt = sanitize_text_field($data['excerpt']);
+    $description = sanitize_textarea_field($data['description']);
+    $excerpt = sanitize_textarea_field($data['excerpt']);
     $query = 'SELECT * FROM ' . $books_table . ' WHERE ID = ' . $book;
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
         $wpdb->update(
