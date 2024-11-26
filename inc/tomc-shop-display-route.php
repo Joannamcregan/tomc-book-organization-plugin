@@ -48,5 +48,8 @@ function getBooksByDateAndFormat($data) {
         ' limit 12';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $format), ARRAY_A);
     }
+    for($index = 0; $index < count($results); $index++){
+        $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
+    }
     return $results;
 }
