@@ -27,13 +27,13 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
         </div>
         <div>
             <?php if ($results) {
-                ?><div class="tomc-shop-books-sort-by-section" data-format="ebooks">
+                ?><div class="tomc-shop-books-sort-by-section" data-format="e-books">
                     <span>sort by</span>
-                    <span aria-label="The 'oldest' option is selected" class="tomc-shop-books-sort-options tomc-shop-books-sort-options-selected tomc-shop-books-oldest">oldest</span>
-                    <span aria-label="The 'newest' option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-newest">newest</span>
+                    <span aria-label="The 'oldest' option is selected" class="tomc-shop-books-sort-options tomc-shop-books-sort-options-selected tomc-shop-books-oldest" data-order='asc'>oldest</span>
+                    <span aria-label="The 'newest' option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-newest" data-order="desc">newest</span>
                     <span aria-label="The 'random' option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-random">random</span>
                 </div>
-                <div class="tomc-book-org--columns-container" id="tomc-book-org--container-audiobooks">
+                <div class="tomc-book-org--columns-container">
                 <?php for($index = 0; $index < count($results); $index++){
                     ?><div class="tomc-bookorg--all-columns
                         <?php if ($index % 3 == 0){
@@ -90,11 +90,11 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
             <?php if ($results) {
                 ?><div class="tomc-shop-books-sort-by-section" data-format="audiobooks">
                     <span>sort by</span>
-                    <span aria-label="The 'oldest' option is selected" class="tomc-shop-books-sort-options tomc-shop-books-sort-options-selected tomc-shop-books-oldest">oldest</span>
-                    <span aria-label="The 'newest' option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-newest">newest</span>
+                    <span aria-label="The 'oldest' option is selected" class="tomc-shop-books-sort-options tomc-shop-books-sort-options-selected tomc-shop-books-oldest" data-order='asc'>oldest</span>
+                    <span aria-label="The 'newest' option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-newest" data-order="desc">newest</span>
                     <span aria-label="The 'random' option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-random">random</span>
                 </div>
-                <div class="tomc-book-org--columns-container" id="tomc-book-org--container-ebooks">
+                <div class="tomc-book-org--columns-container">
                 <?php for($index = 0; $index < count($results); $index++){
                     ?><div class="tomc-bookorg--all-columns
                         <?php if ($index % 3 == 0){
@@ -151,11 +151,11 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
             <?php if ($results) {
                 ?><div class="tomc-shop-books-sort-by-section" data-format="physical">
                     <span>sort by</span>
-                    <span aria-label="The 'oldest' option is selected" class="tomc-shop-books-sort-options tomc-shop-books-sort-options-selected tomc-shop-books-oldest">oldest</span>
-                    <span aria-label="The 'newest' option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-newest">newest</span>
+                    <span aria-label="The 'oldest' option is selected" class="tomc-shop-books-sort-options tomc-shop-books-sort-options-selected tomc-shop-books-oldest" data-order='asc'>oldest</span>
+                    <span aria-label="The 'newest' option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-newest" data-order="desc">newest</span>
                     <span aria-label="The 'random' option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-random">random</span>
                 </div>
-                <div class="tomc-book-org--columns-container" id="tomc-book-org--container-physical">
+                <div class="tomc-book-org--columns-container">
                 <?php for($index = 0; $index < count($results); $index++){
                     ?><div class="tomc-bookorg--all-columns
                         <?php if ($index % 3 == 0){

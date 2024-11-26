@@ -11,8 +11,8 @@ class ShopDisplays{
         this.events();
     }
     events(){
-        this.oldestButtons.on('click', this.getOldest.bind(this));
-        this.newestButtons.on('click', this.getNewest.bind(this));
+        this.oldestButtons.on('click', this.getByDate.bind(this));
+        this.newestButtons.on('click', this.getByDate.bind(this));
         this.randomButtons.on('click', this.getRandom.bind(this));
     }
     toggleHTML(e){
@@ -21,9 +21,10 @@ class ShopDisplays{
         $(e.target).closest('.tomc-shop-books--format-section').children('.sub-banner--slim').children('h2').addClass('contracting');
         $(e.target).closest('.tomc-shop-books--format-section').find('.tomc-book-org--columns-container').html('');
     }
-    getOldest(e){
+    getByDate(e){
         if (!$(e.target).hasClass('tomc-shop-books-sort-options-selected')){
             let format = $(e.target).parent('.tomc-shop-books-sort-by-section').data('format');
+            let orderBy = $(e.target).data('order');
            this.toggleHTML(e);
            $.ajax({
                 beforeSend: (xhr) => {
@@ -33,7 +34,7 @@ class ShopDisplays{
                 type: 'GET',
                 data: {
                     'format' : format,
-                    'order': 'asc'
+                    'order': orderBy
                 },
                 success: (response) => {
                     console.log(response);
@@ -43,12 +44,6 @@ class ShopDisplays{
                     console.log(response);
                 }
             })
-        }
-    }
-    getNewest(e){
-        if (!$(e.target).hasClass('tomc-shop-books-sort-options-selected')){
-            let format = $(e.target).parent('.tomc-shop-books-sort-by-section').data('format');
-           this.toggleHTML(e);
         }
     }
     getRandom(e){

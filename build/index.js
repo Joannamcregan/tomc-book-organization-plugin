@@ -2073,8 +2073,8 @@ class ShopDisplays {
     this.events();
   }
   events() {
-    this.oldestButtons.on('click', this.getOldest.bind(this));
-    this.newestButtons.on('click', this.getNewest.bind(this));
+    this.oldestButtons.on('click', this.getByDate.bind(this));
+    this.newestButtons.on('click', this.getByDate.bind(this));
     this.randomButtons.on('click', this.getRandom.bind(this));
   }
   toggleHTML(e) {
@@ -2083,9 +2083,10 @@ class ShopDisplays {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.tomc-shop-books--format-section').children('.sub-banner--slim').children('h2').addClass('contracting');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.tomc-shop-books--format-section').find('.tomc-book-org--columns-container').html('');
   }
-  getOldest(e) {
+  getByDate(e) {
     if (!jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-shop-books-sort-options-selected')) {
       let format = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-shop-books-sort-by-section').data('format');
+      let orderBy = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).data('order');
       this.toggleHTML(e);
       jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
         beforeSend: xhr => {
@@ -2095,7 +2096,7 @@ class ShopDisplays {
         type: 'GET',
         data: {
           'format': format,
-          'order': 'asc'
+          'order': orderBy
         },
         success: response => {
           console.log(response);
@@ -2105,12 +2106,6 @@ class ShopDisplays {
           console.log(response);
         }
       });
-    }
-  }
-  getNewest(e) {
-    if (!jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-shop-books-sort-options-selected')) {
-      let format = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-shop-books-sort-by-section').data('format');
-      this.toggleHTML(e);
     }
   }
   getRandom(e) {
