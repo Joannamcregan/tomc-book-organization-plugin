@@ -1937,48 +1937,6 @@ class BrowseStuff {
 
 /***/ }),
 
-/***/ "./src/modules/new-books.js":
-/*!**********************************!*\
-  !*** ./src/modules/new-books.js ***!
-  \**********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
-
-class NewBooks {
-  constructor() {
-    this.moreEbooks = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--newly-add-more-ebooks');
-    this.moreAudiobooks = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--newly-add-more-audiobooks');
-    this.ebooksContinued = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--newly-added-continued-ebooks');
-    this.audiobooksContinued = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--newly-added-continued-audiobooks');
-    this.events();
-  }
-  events() {
-    this.moreEbooks.on('click', this.showMoreEbooks.bind(this));
-    this.moreAudiobooks.on('click', this.showMoreAudiobooks.bind(this));
-  }
-  showMoreEbooks(e) {
-    console.log('showing more ebooks');
-    this.ebooksContinued.removeClass('hidden');
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('padded-arrow-accent');
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('hidden');
-  }
-  showMoreAudiobooks(e) {
-    console.log('showing more audiobooks');
-    this.audiobooksContinued.removeClass('hidden');
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('padded-arrow-accent');
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('hidden');
-  }
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (NewBooks);
-
-/***/ }),
-
 /***/ "./src/modules/pen-names.js":
 /*!**********************************!*\
   !*** ./src/modules/pen-names.js ***!
@@ -2088,6 +2046,81 @@ class PenNames {
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PenNames);
+
+/***/ }),
+
+/***/ "./src/modules/shop-displays.js":
+/*!**************************************!*\
+  !*** ./src/modules/shop-displays.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+class ShopDisplays {
+  constructor() {
+    this.oldestButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-oldest');
+    this.newestButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-newest');
+    this.randomButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-random');
+    this.audiobooksContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-org--container-audiobooks');
+    this.ebooksContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-org--container-ebooks');
+    this.physicalContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-org--container-physical');
+    this.events();
+  }
+  events() {
+    this.oldestButtons.on('click', this.getOldest.bind(this));
+    this.newestButtons.on('click', this.getNewest.bind(this));
+    this.randomButtons.on('click', this.getRandom.bind(this));
+  }
+  toggleHTML(e) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-shop-books-sort-by-section').children('.tomc-shop-books-sort-options-selected').removeClass('tomc-shop-books-sort-options-selected');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('tomc-shop-books-sort-options-selected');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.tomc-shop-books--format-section').children('.sub-banner--slim').children('h2').addClass('contracting');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.tomc-shop-books--format-section').find('.tomc-book-org--columns-container').html('');
+  }
+  getOldest(e) {
+    if (!jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-shop-books-sort-options-selected')) {
+      let format = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-shop-books-sort-by-section').data('format');
+      this.toggleHTML(e);
+      jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+        beforeSend: xhr => {
+          xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+        },
+        url: tomcBookorgData.root_url + '/wp-json/tomcShopDisplay/v1/byDateAndFormat',
+        type: 'GET',
+        data: {
+          'format': format,
+          'order': 'asc'
+        },
+        success: response => {
+          console.log(response);
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.tomc-shop-books--format-section').children('.sub-banner--slim').children('h2').removeClass('contracting');
+        },
+        error: response => {
+          console.log(response);
+        }
+      });
+    }
+  }
+  getNewest(e) {
+    if (!jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-shop-books-sort-options-selected')) {
+      let format = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-shop-books-sort-by-section').data('format');
+      this.toggleHTML(e);
+    }
+  }
+  getRandom(e) {
+    if (!jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-shop-books-sort-options-selected')) {
+      let format = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-shop-books-sort-by-section').data('format');
+      this.toggleHTML(e);
+    }
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ShopDisplays);
 
 /***/ }),
 
@@ -2241,7 +2274,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_book_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/book-form */ "./src/modules/book-form.js");
 /* harmony import */ var _modules_browse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/browse */ "./src/modules/browse.js");
 /* harmony import */ var _modules_suggestions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/suggestions */ "./src/modules/suggestions.js");
-/* harmony import */ var _modules_new_books__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/new-books */ "./src/modules/new-books.js");
+/* harmony import */ var _modules_shop_displays__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/shop-displays */ "./src/modules/shop-displays.js");
 /* harmony import */ var _modules_pen_names__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/pen-names */ "./src/modules/pen-names.js");
 
 
@@ -2251,7 +2284,7 @@ __webpack_require__.r(__webpack_exports__);
 const tomcBookForm = new _modules_book_form__WEBPACK_IMPORTED_MODULE_0__["default"]();
 const tomcBrowseStuff = new _modules_browse__WEBPACK_IMPORTED_MODULE_1__["default"]();
 const tomcSuggestions = new _modules_suggestions__WEBPACK_IMPORTED_MODULE_2__["default"]();
-const tomcNewBooks = new _modules_new_books__WEBPACK_IMPORTED_MODULE_3__["default"]();
+const tomcShopDisplays = new _modules_shop_displays__WEBPACK_IMPORTED_MODULE_3__["default"]();
 const tomcPenNames = new _modules_pen_names__WEBPACK_IMPORTED_MODULE_4__["default"]();
 })();
 
