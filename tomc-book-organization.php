@@ -11,6 +11,7 @@ require_once plugin_dir_path(__FILE__) . 'inc/tomc-bookorg-route.php';
 require_once plugin_dir_path(__FILE__) . 'inc/tomc-browse-route.php';
 require_once plugin_dir_path(__FILE__) . 'inc/tomc-suggestions-route.php';
 require_once plugin_dir_path(__FILE__) . 'inc/tomc-authornames-route.php';
+require_once plugin_dir_path(__FILE__) . 'inc/tomc-shop-display-route.php';
 
 class TOMCBookOrganizationPlugin {
     function __construct() {
@@ -124,15 +125,15 @@ class TOMCBookOrganizationPlugin {
         wp_insert_post($pennames_page);
     }
 
-    function addNewBooksPage() {
-        $new_books_page = array(
-            'post_title' => 'Newly Added Books',
+    function addShopBooksPage() {
+        $shop_books_page = array(
+            'post_title' => 'Coop Shop',
             'post_content' => '',
             'post_status' => 'publish',
             'post_author' => 0,
             'post_type' => 'page'
         );
-        wp_insert_post($new_books_page);
+        wp_insert_post($shop_books_page);
     }
 
     function addMyBooksPage() {
@@ -370,8 +371,8 @@ class TOMCBookOrganizationPlugin {
             $this->addPennamesPage();
         }
 
-        if (post_exists('Newly Added Books', '', '', 'page', 'publish') == 0){
-            $this->addNewBooksPage();
+        if (post_exists('Coop Shop', '', '', 'page', 'publish') == 0){
+            $this->addShopBooksPage();
         }
 
         if (post_exists('My Books', '', '', 'page', 'publish') == 0){
@@ -398,8 +399,8 @@ class TOMCBookOrganizationPlugin {
             return plugin_dir_path(__FILE__) . 'inc/template-browse-by-genre.php';
         } elseif (is_page('suggestions')){
             return plugin_dir_path(__FILE__) . 'inc/template-suggestions.php';
-        } elseif (is_page('newly-added-books')){
-            return plugin_dir_path(__FILE__) . 'inc/template-newly-added-books.php';
+        } elseif (is_page('coop-shop')){
+            return plugin_dir_path(__FILE__) . 'inc/template-coop-shop.php';
         } else
         return $template;
     }
