@@ -81,12 +81,6 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
         order by b.createdate asc
         limit 12';
     $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'audiobooks'), ARRAY_A);
-    $query = 'select count(b.id) as count
-        from %i b
-        join %i c on b.id = c.bookid
-        join %i d on c.typeid = d.id
-        where d.type_name = %s';
-    $count = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, 'audiobooks'), ARRAY_A);
 
     ?><div class="tomc-shop-books--format-section">
         <div class="sub-banner--slim">
@@ -98,7 +92,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
                     <span>sort by</span>
                     <span aria-label="The 'oldest' option is selected" class="tomc-shop-books-sort-options tomc-shop-books-sort-options-selected tomc-shop-books-oldest" data-order='asc'>oldest</span>
                     <span aria-label="The 'newest' option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-newest" data-order="desc">newest</span>
-                    <span aria-label="The 'random' option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-random" data-count=<?php echo $count[0]['count']; ?>>random</span>
+                    <span aria-label="The 'random' option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-random">random</span>
                 </div>
                 <div class="tomc-book-org--columns-container">
                 <?php for($index = 0; $index < count($results); $index++){
@@ -120,10 +114,10 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
                             echo ' tomc-book-org--one-of-four';
                         }
                     ?>">
-                        <a href="<?php echo get_permalink($results[$index]['product_url']); ?>">
+                        <a class="centered-text" href="<?php echo get_permalink($results[$index]['product_url']); ?>">
                             <h3><?php echo $results[$index]['title']; ?></h3>
                         </a>
-                        <p><strong><?php echo $results[$index]['pen_name'] ? 'by ' . $results[$index]['pen_name'] : 'by unknown or anonymous author'; ?></strong></p>
+                        <p class="centered-text"><strong><?php echo $results[$index]['pen_name'] ? 'by ' . $results[$index]['pen_name'] : 'by unknown or anonymous author'; ?></strong></p>
                         <div class="tomc-browse--search-result-bottom-section prewrap">
                             <p><?php echo $results[$index]['book_description'].substr(0, 500) . '...'; ?></p>
                         </div>
@@ -181,7 +175,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
                             echo ' tomc-book-org--one-of-four';
                         }
                     ?>">
-                        <a class="centered-text"href="<?php echo get_permalink($results[$index]['product_url']); ?>">
+                        <a class="centered-text" href="<?php echo get_permalink($results[$index]['product_url']); ?>">
                             <h3><?php echo $results[$index]['title']; ?></h3>
                         </a>
                         <p class="centered-text"><strong><?php echo $results[$index]['pen_name'] ? 'by ' . $results[$index]['pen_name'] : 'by unknown or anonymous author'; ?></strong></p>
