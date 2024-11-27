@@ -475,10 +475,19 @@
     padding: 10px;
     background: none;
     cursor: pointer;
+    text-align: center;
 }
 .tomc-shop-books-sort-options-selected{
     background: #602f32;
     color: white;
+}
+@media screen and (max-width: 400px) {
+    .tomc-shop-books-sort-options{
+        display: block;
+    }
+    .tomc-shop-books-sort-by-section{
+        margin: 20px auto;
+    }
 }
 @media screen and (max-width: 1600px) {
     #tomc-browse--search-results-container{
