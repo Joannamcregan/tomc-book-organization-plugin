@@ -17,7 +17,9 @@ class ShopDisplays{
     }
     toggleHTML(e){
         $(e.target).parent('.tomc-shop-books-sort-by-section').children('.tomc-shop-books-sort-options-selected').removeClass('tomc-shop-books-sort-options-selected');
+        $(e.target).parent('.tomc-shop-books-sort-by-section').children('.tomc-shop-books-sort-options-selected').attr('aria-label', 'this option is not selected');
         $(e.target).addClass('tomc-shop-books-sort-options-selected');
+        $(e.target).attr('aria-label', 'this option is selected');
         $(e.target).closest('.tomc-shop-books--format-section').children('.sub-banner--slim').children('h2').addClass('contracting');
         $(e.target).closest('.tomc-shop-books--format-section').find('.tomc-book-org--columns-container').html('');
     }

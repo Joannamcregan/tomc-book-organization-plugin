@@ -151,9 +151,9 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
             <?php if ($results) {
                 ?><div class="tomc-shop-books-sort-by-section" data-format="physical">
                     <span>sort by</span>
-                    <span aria-label="The 'oldest' option is selected" class="tomc-shop-books-sort-options tomc-shop-books-sort-options-selected tomc-shop-books-oldest" data-order='asc'>oldest</span>
-                    <span aria-label="The 'newest' option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-newest" data-order="desc">newest</span>
-                    <span aria-label="The 'random' option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-random">random</span>
+                    <span aria-label="This option is selected" class="tomc-shop-books-sort-options tomc-shop-books-sort-options-selected tomc-shop-books-oldest" data-order='asc'>oldest</span>
+                    <span aria-label="This option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-newest" data-order="desc">newest</span>
+                    <span aria-label="This option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-random">random</span>
                 </div>
                 <div class="tomc-book-org--columns-container">
                 <?php for($index = 0; $index < count($results); $index++){

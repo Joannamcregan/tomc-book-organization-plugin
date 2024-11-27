@@ -2079,7 +2079,9 @@ class ShopDisplays {
   }
   toggleHTML(e) {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-shop-books-sort-by-section').children('.tomc-shop-books-sort-options-selected').removeClass('tomc-shop-books-sort-options-selected');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-shop-books-sort-by-section').children('.tomc-shop-books-sort-options-selected').attr('aria-label', 'this option is not selected');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('tomc-shop-books-sort-options-selected');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', 'this option is selected');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.tomc-shop-books--format-section').children('.sub-banner--slim').children('h2').addClass('contracting');
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.tomc-shop-books--format-section').find('.tomc-book-org--columns-container').html('');
   }

@@ -467,6 +467,7 @@
     margin: 20px;
     padding: 20px;
     background: #faefe3;
+    display: inline-block;
 }
 .tomc-shop-books-sort-options{
     margin: 3px;
@@ -481,12 +482,33 @@
     background: #602f32;
     color: white;
 }
-@media screen and (max-width: 400px) {
-    .tomc-shop-books-sort-options{
+.tomc-shop-books-include-section{
+    width: fit-content;
+    border-radius: 25px;
+    margin: 20px;
+    padding: 20px;
+    background: #faefe3;
+    display: inline-block;
+}
+.tomc-shop-books-include-options{
+    margin: 3px;
+    border-radius: 15px;
+    border: solid #893e43 5px;
+    padding: 10px;
+    background: none;
+    cursor: pointer;
+    text-align: center;
+}
+.tomc-shop-books-include-options-selected{
+    background: #893e43;
+    color: white;
+}
+@media screen and (max-width: 410px) {
+    .tomc-shop-books-sort-options, .tomc-shop-books-include-options{
         display: block;
     }
-    .tomc-shop-books-sort-by-section{
-        margin: 20px auto;
+    .tomc-shop-books-sort-by-section, .tomc-shop-books-include-section{
+        margin: 20px 0px 10px 10px;
     }
 }
 @media screen and (max-width: 1600px) {
