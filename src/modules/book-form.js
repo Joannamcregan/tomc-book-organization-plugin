@@ -897,7 +897,6 @@ class BookInfo{
     addNewBook(e){
         this.addBookSaveButton.addClass('contracting');
         this.addBookSaveButton.html('saving...');
-        console.log(this.bookDescription.val());
         if (this.bookTitle.val() != '' && this.bookDescription.val() != '' && this.bookExcerpt.val() != ''){
             $.ajax({
                 beforeSend: (xhr) => {
@@ -927,6 +926,7 @@ class BookInfo{
                     this.bookLanguagesForm.attr('aria-disabled', 'false');
                     this.saveLanguagesButton.removeClass("hidden");
                     this.saveLanguagesButton.addClass("tomc-book-organization--save-button");
+                    this.populateProductsByAuthorAndTitle(this.bookTitle.val().substring(0, 200));
                     // $('html, body').animate({ scrollTop: 0 }, 'fast');
                 },
                 error: (response) => {
@@ -951,6 +951,29 @@ class BookInfo{
                 this.addBookExcerptError.addClass("hidden");
             }
         }        
+    }
+
+    populateProductsByAuthorAndTitle(bookTitle){
+        $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+            },
+            url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getProductsByAuthorAndTitle',
+            type: 'GET',
+            data: {
+                'title' : bookTitle
+            },
+            success: (response) => {
+                if (response != 0 && response != 'fail') {
+                    console.log(response);
+                } else {
+                    console.log("We couldn't find any products you've published with that title. See all your products or upload a new product then link it to this book.")
+                }
+            },
+            error: (response) => {
+                console.log(response);
+            }
+        })
     }
 
     saveBookProducts(routePath){

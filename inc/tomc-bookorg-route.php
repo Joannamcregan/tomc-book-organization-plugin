@@ -115,6 +115,14 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'getProductTypes'
     ));
+    register_rest_route('tomcBookorg/v1', 'getProductsByAuthor', array(
+        'methods' => 'GET',
+        'callback' => 'getProductsByAuthor'
+    ));
+    register_rest_route('tomcBookorg/v1', 'getProductsByAuthorAndTitle', array(
+        'methods' => 'GET',
+        'callback' => 'getProductsByAuthorAndTitle'
+    ));
     register_rest_route('tomcBookorg/v1', 'getBookProducts', array(
         'methods' => 'POST',
         'callback' => 'getBookProducts'
@@ -728,6 +736,43 @@ function getProductTypes(){
     $query = 'SELECT id, type_name FROM %i';
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
         $results = $wpdb->get_results($wpdb->prepare($query, $types_table), ARRAY_A);
+        return $results;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function getProductsByAuthor(){
+    $user = wp_get_current_user();
+    $userid = $user->ID;
+    global $wpdb;
+    $posts_table = $wpdb->prefix . "posts";
+    $term_relationships_table = $wpdb->prefix . "term_relationships";
+    $terms_table = $wpdb->prefix . "terms";
+    $term_taxonomy_table = $wpdb->prefix . "term_taxonomy";
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $query="SELECT p.post_title, p.id, terms.name as type_name from %i p JOIN %i tr on p.id = tr.object_id JOIN %i terms on tr.term_taxonomy_id = terms.term_id AND terms.name <> 'services' JOIN %i tt on terms.term_id = tt.term_id AND tt.taxonomy = 'product_cat'  WHERE p.post_type = 'product' and p.post_status = 'publish' and p.post_author = %d ORDER BY p.post_title;";
+        $results = $wpdb->get_results($wpdb->prepare($query, $posts_table, $term_relationships_table, $term_relationships_table, $term_relationships_table, $userid), ARRAY_A);
+        return $results;
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function getProductsByAuthorAndTitle($data){
+    $title = sanitize_text_field($data['title']);
+    $user = wp_get_current_user();
+    $userid = $user->ID;
+    global $wpdb;
+    $posts_table = $wpdb->prefix . "posts";
+    $term_relationships_table = $wpdb->prefix . "term_relationships";
+    $terms_table = $wpdb->prefix . "terms";
+    $term_taxonomy_table = $wpdb->prefix . "term_taxonomy";
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $query="SELECT p.post_title, p.id, terms.name as type_name from %i p JOIN %i tr on p.id = tr.object_id JOIN %i terms on tr.term_taxonomy_id = terms.term_id AND terms.name <> 'services' JOIN %i tt on terms.term_id = tt.term_id AND tt.taxonomy = 'product_cat'  WHERE p.post_type = 'product' and p.post_status = 'publish' and p.post_author = %d and p.post_title like %s ORDER BY p.post_title;";
+        $results = $wpdb->get_results($wpdb->prepare($query, $posts_table, $term_relationships_table, $terms_table, $term_taxonomy_table, $userid, '%' . $wpdb->esc_like($title) . '%'), ARRAY_A);
         return $results;
     } else {
         wp_safe_redirect(site_url('/my-account'));
