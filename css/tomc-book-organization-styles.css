@@ -215,7 +215,7 @@
 .tomc-book-organization--genres-error-section-desktop{
     visibility: visible;
 }
-.tomc-book-organization--product-option{
+/* .tomc-book-organization--product-option{
     margin: 10px auto 40px auto;
     min-width: 250px;
     max-width: 500px;
@@ -227,7 +227,7 @@
     border-left: solid #d38124 15px;
     border-radius: 15px;
     justify-content: center;
-}
+} */
 .tomc-book-organization--product-option img{
     max-width: 200px;
     margin: 10px auto;

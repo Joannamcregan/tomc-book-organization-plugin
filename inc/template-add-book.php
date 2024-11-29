@@ -208,8 +208,10 @@ get_header();
 
                 <div class="tomc-book-organization--form opacity-30" aria-disabled="true" id="tomc-book-organization--book-products" >
                     <h3 class="centered-text">Please select all products associated with this book.</h3>
-                    <?php $product_types = $wpdb->get_results("SELECT * from $product_types_table ORDER BY type_name;"); 
-                    $author_products = $wpdb->get_results("SELECT p.post_title, p.id, terms.name as type_name from $posts_table p JOIN $term_relationships_table tr on p.id = tr.object_id JOIN $terms_table terms on tr.term_taxonomy_id = terms.term_id AND terms.name <> 'services' JOIN $term_taxonomy_table tt on terms.term_id = tt.term_id AND tt.taxonomy = 'product_cat'  WHERE p.post_type = 'product' and p.post_status = 'publish' and p.post_author = $userid ORDER BY p.post_title;");
+                    <div id="tomc-bookorg--author-products-container" class="tomc-book-org--columns-container"></div>
+                    <?php $author_products = [];
+                    // $product_types = $wpdb->get_results("SELECT * from $product_types_table ORDER BY type_name;"); 
+                    // $author_products = $wpdb->get_results("SELECT p.post_title, p.id, terms.name as type_name from $posts_table p JOIN $term_relationships_table tr on p.id = tr.object_id JOIN $terms_table terms on tr.term_taxonomy_id = terms.term_id AND terms.name <> 'services' JOIN $term_taxonomy_table tt on terms.term_id = tt.term_id AND tt.taxonomy = 'product_cat'  WHERE p.post_type = 'product' and p.post_status = 'publish' and p.post_author = $userid ORDER BY p.post_title;");
                     foreach($author_products as $product) {
                         ?><div class="tomc-book-organization--book-products-div">
                             <div class="tomc-book-organization--product-option">
