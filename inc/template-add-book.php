@@ -233,11 +233,8 @@ get_header();
                             </div>                        
                         </div>
                     <?php }
-                    ?><div class="tomc-book-organization--add-product tomc-book-organization--add-option hidden">
-                        <span>add a new product</span>
-                    </div>
-                    <div id="tomc-book-organization--products-instruction-section" class="hidden">
-                        <p class="centered-text">Add your new product through your <a href="<?php echo esc_url(site_url('/dashboard'));?>">Creator Dashboard</a>, then visit your Books By Me page to link your product to this book. We've saved everything you've entered so far.</p>
+                    ?><div id="tomc-bookorg--no-matching-products" class="hidden padding-5">
+                        <p class="centered-text">We couldn't find any products you've published with that title. <span class="underlined-text" id="tomc-bookorg--no-matching-products--see-all">See all products you've published</span> or <a href="<?php echo esc_url(site_url('/dashboard/edit-product/'));?>">upload a new product</a> then <a href="<?php echo esc_url(site_url('/dashboard/edit-product/'));?>">edit book info</a> to link it to this book. We've saved everything you've entered so far.</p>
                     </div>
                     <div id="tomc-book-organization--product-image-error" class="hidden">
                         <p class="centered-text">Please select the product whose image you want to use as the main image for this book.</p>

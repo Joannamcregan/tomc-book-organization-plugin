@@ -68,7 +68,8 @@ class BookInfo {
     this.bookProductsSaveButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--save-book-products");
     this.bookProductsSavePublishButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--save-book-products-publish");
     this.bookProductsAddProductButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".tomc-book-organization--add-product");
-    this.bookProductsAddInstructions = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--products-instruction-section");
+    this.noMatchingProductsError = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-bookorg--no-matching-products");
+    this.noMatchingProductsSeeAll = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-bookorg--no-matching-products--see-all");
     //add book overlays
     this.languageOverlayCloseButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization__language-overlay-close");
     this.languageOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization__language-overlay");
@@ -168,7 +169,6 @@ class BookInfo {
   }
   events() {
     //add book events
-    this.bookProductsAddProductButton.on("click", this.showAddProductsInstructions.bind(this));
     this.addBookSaveButton.on("click", this.addNewBook.bind(this));
     this.addLanguageButton.on("click", this.openLanguageOverlay.bind(this));
     this.languageOverlayCloseButton.on("click", this.closeLanguageOverlay.bind(this));
@@ -223,6 +223,8 @@ class BookInfo {
     this.savePenNameEditsButton.on('click', this.savePenNameEdits.bind(this));
     this.publishButtons.on('click', this.togglePublish.bind(this));
     this.unpublishButtons.on('click', this.togglePublish.bind(this));
+    //products
+    this.noMatchingProductsSeeAll.on('click', this.populateProductsByAuthor.bind(this));
   }
   toggleLanguageSelection(e) {
     let labelName = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).text();
@@ -359,9 +361,6 @@ class BookInfo {
     } else {
       this.saveWarningsButton.text('continue');
     }
-  }
-  showAddProductsInstructions() {
-    this.bookProductsAddInstructions.hasClass("hidden") ? this.bookProductsAddInstructions.removeClass("hidden") : this.bookProductsAddInstructions.addClass("hidden");
   }
   closeLanguageOverlay() {
     this.languageOverlay.removeClass("tomc-book-organization__box--active");
@@ -920,6 +919,9 @@ class BookInfo {
       }
     }
   }
+  populateProductsByAuthor() {
+    console.log('called populate products by author');
+  }
   populateProductsByAuthorAndTitle(bookTitle) {
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
       beforeSend: xhr => {
@@ -939,6 +941,7 @@ class BookInfo {
             'title': bookTitle
           },
           success: response => {
+            this.noMatchingProductsError.addClass('hidden');
             if (response != 0 && response != 'fail') {
               for (let i = 0; i < response.length; i++) {
                 let productDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-bookorg--all-columns tomc-book-organization--product-option');
@@ -970,10 +973,12 @@ class BookInfo {
                 productDiv.append(radio);
                 let radioLabel = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<label />').attr('for', 'tomc-book-organization--book-product-image-' + response[i]['id']).html("use this product's image as the main image for this book.");
                 productDiv.append(radioLabel);
+                let showAll = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').addClass('centered-text underlined-text').html("show all products you've published").on('click', this.populateProductsByAuthor());
+                productDiv(showAll);
                 this.authorProductsContainer.append(productDiv);
               }
             } else {
-              console.log("We couldn't find any products you've published with that title. See all your products or upload a new product then link it to this book.");
+              this.noMatchingProductsError.removeClass('hidden');
             }
           },
           error: response => {
