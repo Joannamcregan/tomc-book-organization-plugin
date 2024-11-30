@@ -752,10 +752,12 @@ function getProductsByAuthor(){
     $terms_table = $wpdb->prefix . "terms";
     $term_taxonomy_table = $wpdb->prefix . "term_taxonomy";
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
-        $query="SELECT p.post_title, p.id, terms.name as type_name from %i p JOIN %i tr on p.id = tr.object_id JOIN %i terms on tr.term_taxonomy_id = terms.term_id AND terms.name <> 'services' JOIN %i tt on terms.term_id = tt.term_id AND tt.taxonomy = 'product_cat'  WHERE p.post_type = 'product' and p.post_status = 'publish' and p.post_author = %d ORDER BY p.post_title;";
+        $query="SELECT p.post_title, p.id, terms.name as type_name, '' as thumbnail from %i p JOIN %i tr on p.id = tr.object_id JOIN %i terms on tr.term_taxonomy_id = terms.term_id AND terms.name <> 'services' JOIN %i tt on terms.term_id = tt.term_id AND tt.taxonomy = 'product_cat'  WHERE p.post_type = 'product' and p.post_status = 'publish' and p.post_author = %d ORDER BY p.post_title;";
         $results = $wpdb->get_results($wpdb->prepare($query, $posts_table, $term_relationships_table, $terms_table, $term_taxonomy_table, $userid), ARRAY_A);
+        for($index = 0; $index < count($results); $index++){
+            $results[$index]['thumbnail'] = get_the_post_thumbnail_url($results[$index]['id']);
+        }
         return $results;
-        // return $wpdb->prepare($query, $posts_table, $term_relationships_table, $term_relationships_table, $term_relationships_table, $userid);
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';
