@@ -151,6 +151,7 @@ class BookInfo{
         this.existingReadalikeAuthor0 = '';
         this.existingReadalikeBook1 = '';
         this.existingReadalikeAuthor1 = '';
+        this.productTypes = [];
     }
 
     events(){
@@ -953,7 +954,58 @@ class BookInfo{
     }
 
     populateProductsByAuthor(){
-        console.log('called populate products by author');
+        console.log('calling populate products by author');
+        $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+            },
+            url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getProductsByAuthor',
+            type: 'GET',
+            success: (response) => {
+                console.log(response);
+                this.noMatchingProductsError.addClass('hidden');
+                this.authorProductsContainer.html('');
+                if (response != 0 && response != 'fail' && response.length > 0) {
+                    for(let i = 0; i < response.length; i++){
+                        let productDiv = $('<div />').addClass('tomc-bookorg--all-columns tomc-book-organization--product-option');
+                        let checkbox = $('<input />').addClass('tomc-book-organization--product-checkbox').attr('type', 'checkbox').attr('id', 'tomc-book-organization--book-product-id-' + response[i]['id']).attr('value', response[i]['id']);
+                        let checkboxLabel = $('<label />').addClass('tomc-book-organization--large-label').attr('for', 'tomc-book-organization--book-product-id-' + response[i]['id']).html(response[i]['post_title']);
+                        productDiv.append(checkbox);
+                        productDiv.append(checkboxLabel);
+                        let br = $('<br />');
+                        productDiv.append(br);
+                        let img = $('<img />').attr('alt', 'the cover for ' + response[i]['post_title']).attr('src', response[i]['thumbnail']);
+                        productDiv.append(img);
+                        productDiv.append(br);
+                        productDiv.append(br);
+                        let selectLabel = $('<label />').addClass('tomc-book-organization--select-label').attr('for', 'tomc-book-organization--select-for-' + response[i]['id']).html('Which format is this product?');
+                        productDiv.append(selectLabel);
+                        let dropdown = $('<select />').addClass('tomc-book-organization--centered-select tomc-book-organization--product-format').attr('id', 'tomc-book-organization--select-for-' + response[i]['id']);
+                        let option;
+                        for (let j = 0; j < this.productTypes.length; j++){
+                            if (this.productTypes[j]['type_name'] == response[i]['type_name']){
+                                option = $('<option />').val(this.productTypes[j]['id']).attr('selected', 'selected').html(this.productTypes[j]['type_name']);
+                            } else {
+                                option = $('<option />').val(this.productTypes[j]['id']).html(this.productTypes[j]['type_name']);
+                            }
+                            dropdown.append(option);
+                        }
+                        productDiv.append(dropdown);
+                        productDiv.append(br);
+                        let radio = $('<input />').attr('type', 'radio').attr('name', 'tomc-book-organization--main-image-product').val(response[i]['id']).attr('id', 'tomc-book-organization--book-product-image-' + response[i]['id']);
+                        productDiv.append(radio);
+                        let radioLabel = $('<label />').attr('for', 'tomc-book-organization--book-product-image-' + response[i]['id']).html("use this product's image as the main image for this book.");
+                        productDiv.append(radioLabel);
+                        this.authorProductsContainer.append(productDiv);
+                    }
+                } else {
+                    this.noMatchingProductsError.removeClass('hidden');
+                }
+            },
+            error: (response) => {
+                console.log(response);
+            }
+        })
     }
 
     populateProductsByAuthorAndTitle(bookTitle){
@@ -964,7 +1016,7 @@ class BookInfo{
             url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getProductTypes',
             type: 'GET',
             success: (response) => {
-                let productTypes = response;
+                this.productTypes = response;
                 $.ajax({
                     beforeSend: (xhr) => {
                         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -976,7 +1028,7 @@ class BookInfo{
                     },
                     success: (response) => {
                         this.noMatchingProductsError.addClass('hidden');
-                        if (response != 0 && response != 'fail') {
+                        if (response != 0 && response != 'fail' && response.length > 0) {
                             for(let i = 0; i < response.length; i++){
                                 let productDiv = $('<div />').addClass('tomc-bookorg--all-columns tomc-book-organization--product-option');
                                 let checkbox = $('<input />').addClass('tomc-book-organization--product-checkbox').attr('type', 'checkbox').attr('id', 'tomc-book-organization--book-product-id-' + response[i]['id']).attr('value', response[i]['id']);
@@ -993,11 +1045,11 @@ class BookInfo{
                                 productDiv.append(selectLabel);
                                 let dropdown = $('<select />').addClass('tomc-book-organization--centered-select tomc-book-organization--product-format').attr('id', 'tomc-book-organization--select-for-' + response[i]['id']);
                                 let option;
-                                for (let j = 0; j < productTypes.length; j++){
-                                    if (productTypes[j]['type_name'] == response[i]['type_name']){
-                                        option = $('<option />').val(productTypes[j]['id']).attr('selected', 'selected').html(productTypes[j]['type_name']);
+                                for (let j = 0; j < this.productTypes.length; j++){
+                                    if (this.productTypes[j]['type_name'] == response[i]['type_name']){
+                                        option = $('<option />').val(this.productTypes[j]['id']).attr('selected', 'selected').html(this.productTypes[j]['type_name']);
                                     } else {
-                                        option = $('<option />').val(productTypes[j]['id']).html(productTypes[j]['type_name']);
+                                        option = $('<option />').val(this.productTypes[j]['id']).html(this.productTypes[j]['type_name']);
                                     }
                                     dropdown.append(option);
                                 }
@@ -1009,11 +1061,11 @@ class BookInfo{
                                 productDiv.append(radioLabel);
                                 this.authorProductsContainer.append(productDiv);
                             }
+                            let showAll = $('<p />').addClass('centered-text underlined-text').html("show all products you've published").on('click', this.populateProductsByAuthor.bind(this));
+                            this.authorProductsContainer.append(showAll);
                         } else {
                             this.noMatchingProductsError.removeClass('hidden');
                         }
-                        let showAll = $('<p />').addClass('centered-text underlined-text').html("show all products you've published").on('click', this.populateProductsByAuthor());
-                        this.authorProductsContainer.append(showAll);
                     },
                     error: (response) => {
                         console.log(response);
