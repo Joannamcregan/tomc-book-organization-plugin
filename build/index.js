@@ -973,13 +973,13 @@ class BookInfo {
                 productDiv.append(radio);
                 let radioLabel = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<label />').attr('for', 'tomc-book-organization--book-product-image-' + response[i]['id']).html("use this product's image as the main image for this book.");
                 productDiv.append(radioLabel);
-                let showAll = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').addClass('centered-text underlined-text').html("show all products you've published").on('click', this.populateProductsByAuthor());
-                productDiv(showAll);
                 this.authorProductsContainer.append(productDiv);
               }
             } else {
               this.noMatchingProductsError.removeClass('hidden');
             }
+            let showAll = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').addClass('centered-text underlined-text').html("show all products you've published").on('click', this.populateProductsByAuthor());
+            this.authorProductsContainer.append(showAll);
           },
           error: response => {
             console.log(response);
