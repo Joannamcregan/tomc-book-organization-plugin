@@ -1201,7 +1201,8 @@ class BookInfo{
         }        
     }
 
-    openGenresOverlay(e){        
+    openGenresOverlay(e){      
+        $(e.target).addClass('contracting');  
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
         $.ajax({
             beforeSend: (xhr) => {
@@ -1215,6 +1216,7 @@ class BookInfo{
                 // 'level' : 1
             },
             success: (response) => {
+                $(e.target).removeClass('contracting');
                 if (this.genresOverlayIsOpen != true){
                     this.genresOverlayIsOpen = true;
                     for(let i = 0; i < response.length; i++){
@@ -1254,6 +1256,7 @@ class BookInfo{
     }
 
     openIdentitiesOverlay(e){
+        $(e.target).addClass('contracting');
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
         $.ajax({
             beforeSend: (xhr) => {
@@ -1265,6 +1268,7 @@ class BookInfo{
                 'book' : this.bookId
             },
             success: (response) => {
+                $(e.target).removeClass('contracting');
                 if (this.identitiesOverlayIsOpen != true){
                     this.identitiesOverlayIsOpen = true;
                     for(let i = 0; i < response.length; i++){
@@ -1288,6 +1292,7 @@ class BookInfo{
     }
     
     openLanguagesOverlay(e){
+        $(e.target).addClass('contracting');
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
         $.ajax({
             beforeSend: (xhr) => {
@@ -1299,6 +1304,7 @@ class BookInfo{
                 'book' : this.bookId
             },
             success: (response) => {
+                $(e.target).removeClass('contracting');
                 if (this.languageOverlayIsOpen != true){
                     this.languageOverlayIsOpen = true;
                     for(let i = 0; i < response.length; i++){
@@ -1322,6 +1328,7 @@ class BookInfo{
     }
 
     openContentWarningsOverlay(e){
+        $(e.target).addClass('contracting');
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
         $.ajax({
             beforeSend: (xhr) => {
@@ -1333,6 +1340,7 @@ class BookInfo{
                 'book' : this.bookId
             },
             success: (response) => {
+                $(e.target).removeClass('contracting');
                 if (this.warningsOverlayIsOpen != true){
                     this.warningsOverlayIsOpen = true;
                     for(let i = 0; i < response.length; i++){
@@ -1356,6 +1364,7 @@ class BookInfo{
     }
 
     openEditPenNameOverlay(e){
+        $(e.target).addClass('contracting');
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
         let allNames = [];
         $.ajax({
@@ -1365,6 +1374,7 @@ class BookInfo{
             url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getAllPenNamesByCreator',
             type: 'POST',
             success: (response) => {
+                $(e.target).removeClass('contracting');
                 for(let i = 0; i < response.length; i++){
                     allNames.push(response[i]);
                 }
@@ -1409,6 +1419,7 @@ class BookInfo{
     }
 
     openBasicInfoOverlay(e){
+        $(e.target).addClass('contracting');
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
         $.ajax({
             beforeSend: (xhr) => {
@@ -1420,6 +1431,7 @@ class BookInfo{
                 'book' : this.bookId
             },
             success: (response) => {
+                $(e.target).removeClass('contracting');
                 if (this.basicInfoOverlayIsOpen != true){
                     this.basicInfoOverlayIsOpen = true;
                     this.newFormDiv = $('<div />').addClass('tomc-book-organization--edit-overlay-new-form');
@@ -1504,6 +1516,7 @@ class BookInfo{
     }
 
     openReadalikesOverlay(e){
+        $(e.target).addClass('contracting');
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
         $.ajax({
             beforeSend: (xhr) => {
@@ -1515,6 +1528,7 @@ class BookInfo{
                 'book' : this.bookId
             },
             success: (response) => {
+                $(e.target).removeClass('contracting');
                 if (this.readalikesOverlayIsOpen != true){
                     this.readalikesOverlayIsOpen = true;
                     this.newFormDiv = $('<div />').addClass('tomc-book-organization--edit-overlay-new-form');
@@ -1781,6 +1795,7 @@ class BookInfo{
     }
 
     openProductsOverlay(e){
+        $(e.target).addClass('contracting');
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
         let formatOptions = [];
         $.ajax({
@@ -1790,6 +1805,7 @@ class BookInfo{
             url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getProductTypes',
             type: 'POST',
             success: (response) => {
+                $(e.target).removeClass('contracting');
                 for(let i = 0; i < response.length; i++){
                     formatOptions.push(response[i]);
                 }

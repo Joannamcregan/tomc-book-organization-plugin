@@ -25,7 +25,7 @@ get_header();
                     <h2 class="centered-text">Choose a Book to Edit</h2>
                     <?php foreach($books as $book){
                         ?><div class="tomc-book-organization--book-to-edit page-accent-alt-thin">
-                            <p class="centered-text"><strong class="tomc-book-organization--book-to-edit-title tomc-book-options--cursor-pointer"><?php echo $book->title; ?></strong></p>
+                            <p class="centered-text"><strong class="tomc-book-organization--book-to-edit-title tomc-book-options--cursor-pointer underlined-text"><?php echo $book->title; ?></strong></p>
                             <div class="tomc-book-organization--edit-book-options hidden" data-book="<?php echo $book->id; ?>">
                                 <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-basic-info">basic info</p>
                                 <p class="transparent-stripe-1 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-languages">languages</p>
@@ -67,7 +67,7 @@ get_header();
                             <br>
                             <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-label="close overlay" id="tomc-book-organization__edit-pen-name-overlay-close"></i>
                             <br>
-                            <h3>Which name are you publishing this book under?</h3>
+                            <h3 class="centered-text">Which name are you publishing this book under?</h3>
                             <div class="tomc-book-organization__edit-pen-name-container tomc-book-organization__container tomc-book-org-html"></div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-pen-name-edits">save</button>
                         </div>
