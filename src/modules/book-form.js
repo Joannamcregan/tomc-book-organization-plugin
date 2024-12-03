@@ -1803,7 +1803,7 @@ class BookInfo{
                 xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
             },
             url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getProductTypes',
-            type: 'POST',
+            type: 'GET',
             success: (response) => {
                 $(e.target).removeClass('contracting');
                 for(let i = 0; i < response.length; i++){
@@ -1821,9 +1821,10 @@ class BookInfo{
                     success: (response) => {
                         if (this.productsOverlayIsOpen != true){
                             this.productsOverlayIsOpen = true;
+                            let container = $('<div />').addClass('tomc-book-org--columns-container');
                             for(let i = 0; i < response.length; i++){
                                 let productDiv = $('<div />').addClass('tomc-book-organization--book-products-div');
-                                let productOption = $('<div />').addClass('tomc-book-organization--product-option');
+                                let productOption = $('<div />').addClass('tomc-book-organization--product-option tomc-bookorg--all-columns');
                                 let checkbox = $('<input />').addClass('tomc-book-organization--product-checkbox').attr('type', 'checkbox').attr('id', 'tomc-book-organization--book-product-id-' + response[i]['id']).val(response[i]['id']);
                                 if (response[i]['productid']){
                                     checkbox.prop("checked", true);
@@ -1864,8 +1865,9 @@ class BookInfo{
                                 productOption.append(radioLabel);
         
                                 productDiv.append(productOption);
-                                $('.tomc-book-organization__edit-products-container').append(productDiv);
+                                container.append(productDiv);
                             }
+                            $('.tomc-book-organization__edit-products-container').append(container);
                             this.productsOverlay.addClass("tomc-book-organization__box--active");
                         }
                     },

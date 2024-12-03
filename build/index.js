@@ -1741,7 +1741,7 @@ class BookInfo {
         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
       },
       url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getProductTypes',
-      type: 'POST',
+      type: 'GET',
       success: response => {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('contracting');
         for (let i = 0; i < response.length; i++) {
@@ -1759,9 +1759,10 @@ class BookInfo {
           success: response => {
             if (this.productsOverlayIsOpen != true) {
               this.productsOverlayIsOpen = true;
+              let container = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-book-org--columns-container');
               for (let i = 0; i < response.length; i++) {
                 let productDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-book-organization--book-products-div');
-                let productOption = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-book-organization--product-option');
+                let productOption = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-book-organization--product-option tomc-bookorg--all-columns');
                 let checkbox = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<input />').addClass('tomc-book-organization--product-checkbox').attr('type', 'checkbox').attr('id', 'tomc-book-organization--book-product-id-' + response[i]['id']).val(response[i]['id']);
                 if (response[i]['productid']) {
                   checkbox.prop("checked", true);
@@ -1801,8 +1802,9 @@ class BookInfo {
                 let radioLabel = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<label />').attr('for', 'tomc-book-organization--book-product-image-' + response[i]['id']).text("use this product's image as the main image for this book.");
                 productOption.append(radioLabel);
                 productDiv.append(productOption);
-                jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-products-container').append(productDiv);
+                container.append(productDiv);
               }
+              jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-products-container').append(container);
               this.productsOverlay.addClass("tomc-book-organization__box--active");
             }
           },
