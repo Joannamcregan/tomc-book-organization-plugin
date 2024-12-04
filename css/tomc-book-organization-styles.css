@@ -303,14 +303,12 @@
     text-align: left;
     padding: 10px;
 }
-#tomc-browse--search-results-container{
+/* #tomc-browse--search-results-container{
     width: 70%;
     border-radius: 35px 0;
-    /* border: solid #893e43 15px; */
-    /* background: #f6ece1; */
     margin: 10px auto;
     padding: 10px;
-}
+} */
 .tomc-browse--search-result{
     margin: 0px auto 50px auto;
     background: #f6ece1;
@@ -323,30 +321,6 @@
 /* .tomc-browse--search-result-top-section{
     border-radius: 25px 0px 0px 0px;
     background: #f6ece1;
-} */
-/* .tomc-result-top-border-0{
-    border-bottom: solid #f7c340 5px;
-    border-right: solid #f7c340 5px;
-    border-top: solid #f7c340 5px;
-    border-left: solid #f7c340 8px;
-    border-radius: 0 0 75px 0;
-    padding-bottom: 5px;
-    padding-right: 10px;
-    padding-left: 40px;
-}
-.tomc-result-top-border-1{
-    border-bottom: solid #e44e2d 5px;
-    border-right: solid #e44e2d 5px;
-    border-radius: 0 0 85px 0;
-    padding-bottom: 5px;
-    padding-right: 10px;
-}
-.tomc-result-top-border-2{
-    border-bottom: solid #0c6980 5px;
-    border-right: solid #0c6980 5px;
-    border-radius: 0 0 95px 0;
-    padding-bottom: 5px;
-    padding-right: 10px;
 } */
 /* .tomc-browse--search-result-top-section h3{
     padding: 20px 10px 0px 0px;
@@ -365,6 +339,14 @@
 .tomc-browse--search-result img{
     display: block;
     margin: 10px 0px;
+    width: auto;
+    height: 200px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px 0px #444;
+}
+.tomc-bookorg--all-columns img{
+    display: block;
+    margin: 10px auto;
     width: auto;
     height: 200px;
     border-radius: 15px;
@@ -509,26 +491,6 @@
     }
     .tomc-shop-books-sort-by-section, .tomc-shop-books-include-section{
         margin: 20px 0px 10px 10px;
-    }
-}
-@media screen and (max-width: 1600px) {
-    #tomc-browse--search-results-container{
-        width: 60%;
-    }
-}
-@media screen and (max-width: 1200px) {
-    #tomc-browse--search-results-container{
-        width: 70%;
-    }
-}
-@media screen and (max-width: 800px) {
-    #tomc-browse--search-results-container{
-        width: 80%;
-    }
-}
-@media screen and (max-width: 600px) {
-    #tomc-browse--search-results-container{
-        width: 90%;
     }
 }
 #edit-book-pen-name-dropdown{

@@ -2009,8 +2009,9 @@ class BrowseStuff {
     }
     console.log('at the end the selected genre 3s are ' + this.selectedGenres3 + ' and AnyGenre3 is ' + this.anyLevel3);
   }
-  rollResults() {
+  rollResults(e) {
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--browse-genres-1-error').hasClass('hidden') && jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--browse-genres-2-error').hasClass('hidden') && jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--browse-genres-3-error').hasClass('hidden')) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('contracting');
       jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
         beforeSend: xhr => {
           xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -2026,7 +2027,7 @@ class BrowseStuff {
           'selectedGenres3': JSON.stringify(this.selectedGenres3)
         },
         success: response => {
-          console.log(response);
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('contracting');
           let alreadyAddedIds = [];
           this.resultsSection.html('');
           for (let i = 0; i < response.length; i++) {
@@ -2036,21 +2037,13 @@ class BrowseStuff {
               newLink.append(newFormat);
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-browse-genres--results--book-' + response[i]['id']).children('.tomc-browse--search-result-bottom-section').append(newLink);
             } else {
-              let newDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-browse--search-result').attr('id', 'tomc-browse-genres--results--book-' + response[i]['id']);
-              let newTopSection = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />'); //.addClass('tomc-browse--search-result-top-section');
-              let newBorder0 = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-result-top-border-0');
-              let newBorder1 = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-result-top-border-1');
-              newBorder1.append(newBorder0);
-              let newBorder2 = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-result-top-border-2');
-              newBorder2.append(newBorder1);
-              newTopSection.append(newBorder2);
+              let newDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-bookorg--all-columns').attr('id', 'tomc-browse-genres--results--book-' + response[i]['id']);
               let newTitle = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<h3 />').html(response[i]['title']);
-              newBorder0.append(newTitle);
+              newDiv.append(newTitle);
               let newAuthor = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').html(response[i]['pen_name'].length > 0 ? 'by ' + response[i]['pen_name'] : 'by unknown or anonymous author');
-              newBorder0.append(newAuthor);
+              newDiv.append(newAuthor);
               let newImage = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<img />').attr('src', response[i]['product_image_id']);
-              newBorder0.append(newImage);
-              newDiv.append(newTopSection);
+              newDiv.append(newImage);
               let newBottomSection = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-browse--search-result-bottom-section');
               let newDescription = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').html(response[i]['book_description'].substring(0, 500) + '...');
               newBottomSection.append(newDescription);

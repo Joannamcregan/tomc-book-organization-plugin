@@ -12,7 +12,7 @@ class BrowseStuff{
         this.genreOptions2 = $('.tomc-book-organization--browse-option-2');
         this.genreOptions3 = $('.tomc-book-organization--browse-option-3');
         this.rollButton = $('#tomc-book-organization--lets-roll-genres');
-        this.resultsSection = $('#tomc-browse--search-results-container');
+        this.resultsSection = $('#tomc-browse--search-results-container'); 
         this.events();
     }
     events(){
@@ -129,8 +129,9 @@ class BrowseStuff{
         }
         console.log('at the end the selected genre 3s are ' + this.selectedGenres3 + ' and AnyGenre3 is ' + this.anyLevel3);
     }
-    rollResults(){
+    rollResults(e){
         if ($('#tomc-book-organization--browse-genres-1-error').hasClass('hidden') && $('#tomc-book-organization--browse-genres-2-error').hasClass('hidden') && $('#tomc-book-organization--browse-genres-3-error').hasClass('hidden')){
+            $(e.target).addClass('contracting');
             $.ajax({
                 beforeSend: (xhr) => {
                     xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -146,7 +147,7 @@ class BrowseStuff{
                     'selectedGenres3' : JSON.stringify(this.selectedGenres3)
                 },
                 success: (response) => {
-                    console.log(response);
+                    $(e.target).removeClass('contracting');
                     let alreadyAddedIds = [];
                     this.resultsSection.html('');
                     for(let i = 0; i < response.length; i++){
@@ -156,21 +157,13 @@ class BrowseStuff{
                             newLink.append(newFormat);
                             $('#tomc-browse-genres--results--book-' + response[i]['id']).children('.tomc-browse--search-result-bottom-section').append(newLink);
                         } else {
-                            let newDiv = $('<div />').addClass('tomc-browse--search-result').attr('id', 'tomc-browse-genres--results--book-' + response[i]['id']);
-                            let newTopSection = $('<div />'); //.addClass('tomc-browse--search-result-top-section');
-                            let newBorder0 = $('<div />').addClass('tomc-result-top-border-0');
-                            let newBorder1 = $('<div />').addClass('tomc-result-top-border-1');
-                            newBorder1.append(newBorder0);
-                            let newBorder2 = $('<div />').addClass('tomc-result-top-border-2');
-                            newBorder2.append(newBorder1);
-                            newTopSection.append(newBorder2);
+                            let newDiv = $('<div />').addClass('tomc-bookorg--all-columns').attr('id', 'tomc-browse-genres--results--book-' + response[i]['id']);
                             let newTitle = $('<h3 />').html(response[i]['title']);
-                            newBorder0.append(newTitle);
+                            newDiv.append(newTitle);
                             let newAuthor = $('<p />').html(response[i]['pen_name'].length > 0 ? 'by ' + response[i]['pen_name'] : 'by unknown or anonymous author');
-                            newBorder0.append(newAuthor);
+                            newDiv.append(newAuthor);
                             let newImage = $('<img />').attr('src', response[i]['product_image_id']);
-                            newBorder0.append(newImage);
-                            newDiv.append(newTopSection);
+                            newDiv.append(newImage);
                             let newBottomSection = $('<div />').addClass('tomc-browse--search-result-bottom-section');
                             let newDescription = $('<p />').html(response[i]['book_description'].substring(0, 500) + '...');
                             newBottomSection.append(newDescription);

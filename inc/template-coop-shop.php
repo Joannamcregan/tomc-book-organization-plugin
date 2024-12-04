@@ -63,6 +63,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
                     </div>
                 <?php }
                 ?></div>
+                <p class="centered-text"><a href="<?php echo esc_url(site_url('/ebooks'));?>">shop all ebooks</a></p>
             <?php } else {
                 ?><p class="centered-text padded-paragraph-20-x">No ebooks have been added yet. Check back soon!</p>
             <?php } ?>
@@ -124,6 +125,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
                     </div>
                 <?php }
                 ?></div>
+                <p class="centered-text"><a href="<?php echo esc_url(site_url('/audiobooks'));?>">shop all audiobooks</a></p>
             <?php } else {
                 ?><p class="centered-text">No audiobooks have been added yet. Check back soon!</p>
             <?php } ?>
@@ -184,10 +186,10 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
                         </div>
                 <?php }
                 ?></div>
+                <p class="centered-text"><a href="<?php echo esc_url(site_url('/physical-books'));?>">shop all physical books</a></p>
             <?php } else {
                 ?><p class="centered-text">No physical books have been added yet. Check back soon!</p>
             <?php } ?>
-            <!-- </div>  tomc-book-organization--newly-added-continued-ebooks -->
         </div>
     </div>
 </main>

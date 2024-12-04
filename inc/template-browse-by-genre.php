@@ -51,7 +51,7 @@ get_header();
         <p class="centered-text">Choose at least one of the above options.</p>
     </div>
 <button id="tomc-book-organization--lets-roll-genres" class="purple-button">let's roll!</button>
-<div id="tomc-browse--search-results-container" class="hidden">
+<div id="tomc-browse--search-results-container" class="tomc-book-org--columns-container hidden">
 
 </div>
 </main>
