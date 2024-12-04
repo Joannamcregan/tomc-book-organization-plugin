@@ -167,6 +167,8 @@ class BrowseStuff{
                             let newBottomSection = $('<div />').addClass('tomc-browse--search-result-bottom-section');
                             let newDescription = $('<p />').html(response[i]['book_description'].substring(0, 500) + '...');
                             newBottomSection.append(newDescription);
+                            let orangeLine = $('<div />').addClass('orange-yellow-line-straight');
+                            newBottomSection.append(orangeLine);
                             newBottomSection.append('<h4 class="centered-text">available in</h4>');
                             let newLink = $('<a />').addClass('centered-text').attr('href', response[i]['product_url']);
                             let newFormat = $('<p />').html(response[i]['type_name']);
