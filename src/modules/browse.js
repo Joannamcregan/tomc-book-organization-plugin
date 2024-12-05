@@ -153,7 +153,7 @@ class BrowseStuff{
                     for(let i = 0; i < response.length; i++){
                         if ($.inArray(response[i]['id'], alreadyAddedIds) > -1){
                             let newLink = $('<a />').addClass('centered-text').attr('href', response[i]['product_url']);
-                            let newFormat = $('<p />').html(response[i]['type_name']);
+                            let newFormat = $('<p />').html(response[i]['type_name'].slice(0, -1));
                             newLink.append(newFormat);
                             $('#tomc-browse-genres--results--book-' + response[i]['id']).children('.tomc-browse--search-result-bottom-section').append(newLink);
                         } else {
@@ -171,7 +171,7 @@ class BrowseStuff{
                             newBottomSection.append(orangeLine);
                             newBottomSection.append('<h4 class="centered-text">available in</h4>');
                             let newLink = $('<a />').addClass('centered-text').attr('href', response[i]['product_url']);
-                            let newFormat = $('<p />').html(response[i]['type_name']);
+                            let newFormat = $('<p />').html(response[i]['type_name'].slice(0, -1));
                             newLink.append(newFormat);
                             newBottomSection.append(newLink);
                             newDiv.append(newBottomSection);
