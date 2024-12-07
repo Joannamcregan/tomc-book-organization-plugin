@@ -6,27 +6,32 @@ $book_products_table = $wpdb->prefix . "tomc_book_products";
 $posts_table = $wpdb->prefix . "posts";
 $product_types_table = $wpdb->prefix . "tomc_product_types";
 $pen_names_table = $wpdb->prefix . "tomc_pen_names_books";
+$book_genres_table = $wpdb->prefix .  "tomc_book_genres";
+$genres_table = $wpdb->prefix . "tomc_genres";
 
-$query = 'select distinct b.id, b.title,f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
+$query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
         from %i b
+        join %i bookgenres on b.id = bookgenres.bookid
+        join %i genres on bookgenres.genreid = genres.id
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
         join %i e on b.id = e.bookid
         join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where d.type_name = %s
+        and genres.genre_name in ("fiction", "nonfiction", "poetry")
         order by b.createdate asc
-        limit 30'; //48
-$results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'e-books'), ARRAY_A);
+        limit 3'; //48
+$results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_table, $genres_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'e-books'), ARRAY_A);
 
-?><main class="half-screen">
+?><main class="full-screen">
     <div class="banner"><h1 class="centered-text banner-heading-46">Ebooks By Our Authors</h1></div>
     <div>
         <?php if ($results) {
             ?><div class="tomc-shop-books-sort-by-section">
                 <span>sort by</span>
-                <span aria-label="This option is selected" class="tomc-shop-books-sort-options tomc-shop-books-sort-options-selected tomc-shop-books-oldest" data-order='asc'>oldest</span>
-                <span aria-label="This option is not selected" class="tomc-shop-books-sort-options tomc-shop-books-newest" data-order="desc">newest</span>
+                <span aria-label="This option is selected" class="tomc-shop-books-sort-options tomc-shop-books-sort-options-selected tomc-shop-format-order" data-order='asc'>oldest</span>
+                <span aria-label="This option is not selected" class="tomc-shop-books-sort-options tomc-shop-format-order" data-order="desc">newest</span>
             </div>
             <div class="tomc-shop-books-include-section">
                 <span>include</span>
@@ -35,7 +40,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
                 <span aria-label="This option is selected" class="tomc-shop-books-include-options tomc-shop-books-include-options-selected tomc-shop-books-poetry">poetry</span>
             </div>
             <span id="tomc-bookorg--shop-by-format--update">update</span>
-            <div class="tomc-book-org--columns-container" data-format="e-books">
+            <div class="tomc-book-org--columns-container tomc-shop-format--results-container" data-format="e-books">
                 <?php for($index = 0; $index < count($results); $index++){
                     ?><div class="tomc-bookorg--all-columns
                         <?php if ($index % 3 == 0){

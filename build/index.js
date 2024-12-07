@@ -2356,30 +2356,40 @@ __webpack_require__.r(__webpack_exports__);
 class SingleFormat {
   constructor() {
     this.seeMoreButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-bookorg--see-more-format');
-    this.oldestButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-oldest');
-    this.newestButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-newest');
-    this.fictionButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-fiction');
-    this.nonfictionButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-nonfiction');
-    this.poetryButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-poetry');
+    this.orderButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-format-order');
+    this.genreButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-include-options');
     this.updateButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-bookorg--shop-by-format--update');
+    this.columnsContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-format--results-container');
     this.events();
     this.batchCount = 0;
   }
   events() {
     // this.seeMoreButton.on('click', this.getMore.bind(this));
     this.updateButton.on('click', this.updateFormatDisplay.bind(this));
+    this.orderButtons.on('click', this.updateOrder.bind(this));
+  }
+  updateOrder(e) {
+    if (!jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-shop-books-sort-options-selected')) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-sort-options-selected').attr('aria-label', 'This option is not selected');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-sort-options-selected').removeClass('tomc-shop-books-sort-options-selected');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('tomc-shop-books-sort-options-selected');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', 'This option is selected');
+      setTimeout(this.clearResults, 1000);
+      setTimeout(this.updateFormatDisplay(e), 2000);
+    }
   }
   getMore(e) {
     //getMoreByFormatAndBatch
   }
+  clearResults() {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-org--columns-container').fadeOut();
+  }
   updateFormatDisplay(e) {
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('contracting');
-    let columnsContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent().children('.tomc-book-org--columns-container');
-    console.log(columnsContainer.data('format'));
     let genres = [];
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()(".tomc-shop-books-include-options-selected").each(function () {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-include-options-selected').each(function () {
       genres.push(jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).html());
     });
+    let order = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-sort-options-selected').data('order');
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
       beforeSend: xhr => {
         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -2387,10 +2397,9 @@ class SingleFormat {
       url: tomcBookorgData.root_url + '/wp-json/tomcShopDisplay/v1/updateFormatDisplay',
       type: 'GET',
       data: {
-        'format': columnsContainer.data('format'),
-        'batchCount': this.batchCount,
+        'format': this.columnsContainer.data('format'),
         'genres': JSON.stringify(genres),
-        'orderBy': 'desc'
+        'orderBy': order
       },
       success: response => {
         console.log(response);

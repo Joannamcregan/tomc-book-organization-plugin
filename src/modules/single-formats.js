@@ -3,30 +3,40 @@ import $ from 'jquery';
 class SingleFormat{
     constructor(){
         this.seeMoreButton = $('.tomc-bookorg--see-more-format');
-        this.oldestButton = $('.tomc-shop-books-oldest');
-        this.newestButton = $('.tomc-shop-books-newest');
-        this.fictionButton = $('.tomc-shop-books-fiction');
-        this.nonfictionButton = $('.tomc-shop-books-nonfiction');
-        this.poetryButton = $('.tomc-shop-books-poetry');
+        this.orderButtons = $('.tomc-shop-format-order');
+        this.genreButtons = $('.tomc-shop-books-include-options');
         this.updateButton = $('#tomc-bookorg--shop-by-format--update');
+        this.columnsContainer = $('.tomc-shop-format--results-container');
         this.events();
         this.batchCount = 0;
     }
     events(){
         // this.seeMoreButton.on('click', this.getMore.bind(this));
         this.updateButton.on('click', this.updateFormatDisplay.bind(this));
+        this.orderButtons.on('click', this.updateOrder.bind(this));
+    }
+    updateOrder(e){
+        if (!($(e.target).hasClass('tomc-shop-books-sort-options-selected'))){
+            $('.tomc-shop-books-sort-options-selected').attr('aria-label', 'This option is not selected');
+            $('.tomc-shop-books-sort-options-selected').removeClass('tomc-shop-books-sort-options-selected');
+            $(e.target).addClass('tomc-shop-books-sort-options-selected');
+            $(e.target).attr('aria-label', 'This option is selected');
+            setTimeout(this.clearResults, 1000);
+            setTimeout(this.updateFormatDisplay(e), 2000);
+        }
     }
     getMore(e){
         //getMoreByFormatAndBatch
     }
+    clearResults(){
+        $('.tomc-book-org--columns-container').fadeOut();
+    }
     updateFormatDisplay(e){
-        $(e.target).addClass('contracting');
-        let columnsContainer = $(e.target).parent().children('.tomc-book-org--columns-container');
-        console.log(columnsContainer.data('format'));
         let genres = [];
-        $(".tomc-shop-books-include-options-selected").each(function(){
+        $('.tomc-shop-books-include-options-selected').each(function(){
             genres.push($(this).html());
         });
+        let order = $('.tomc-shop-books-sort-options-selected').data('order');
         $.ajax({
             beforeSend: (xhr) => {
                 xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -34,10 +44,9 @@ class SingleFormat{
             url: tomcBookorgData.root_url + '/wp-json/tomcShopDisplay/v1/updateFormatDisplay',
             type: 'GET',
             data: {
-                'format' : columnsContainer.data('format'),
-                'batchCount' : this.batchCount,
+                'format' : this.columnsContainer.data('format'),
                 'genres' : JSON.stringify(genres),
-                'orderBy' : 'desc'
+                'orderBy' : order
             },
             success: (response) => {
                 console.log(response);
