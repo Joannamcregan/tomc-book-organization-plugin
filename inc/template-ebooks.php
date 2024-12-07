@@ -69,10 +69,8 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_
                     </div>
                 <?php }
             ?></div>
-            <?php if (count($results) >= 3){
-                ?><span class="purple-width-fit-button tomc-bookorg--see-more-format">see more</span>
-            <?php }
-        } else {
+            <span class="tomc-bookorg--see-more-format <?php echo count($results) >= 2 /*change to 48 later*/ ? 'purple-width-fit-button' : 'hidden' ?>">see more</span>
+        <?php } else {
             ?><p class="centered-text padded-paragraph-20-x">No ebooks have been added yet. Check back soon!</p>
         <?php } ?>
     </div>

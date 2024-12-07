@@ -2360,7 +2360,7 @@ class SingleFormat {
     this.genreButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-include-options');
     this.columnsContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-format--results-container');
     this.events();
-    this.batchCount = 0;
+    this.displayedBooks = [];
   }
   events() {
     // this.seeMoreButton.on('click', this.getMore.bind(this));
@@ -2388,12 +2388,6 @@ class SingleFormat {
     // setTimeout(this.clearResults, 1500);
     setTimeout(this.updateFormatDisplay(e), 3000);
   }
-  getMore(e) {
-    //getMoreByFormatAndBatch
-  }
-  clearResults() {
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-format--results-container').fadeOut();
-  }
   updateFormatDisplay(e) {
     this.columnsContainer.fadeOut();
     let genres = [];
@@ -2414,6 +2408,75 @@ class SingleFormat {
       },
       success: response => {
         this.columnsContainer.html('');
+        this.seeMoreButton.removeClass('purple-width-fit-button');
+        this.seeMoreButton.addClass('hidden');
+        this.displayedBooks = [];
+        if (response.length > 0) {
+          for (let $index = 0; $index < response.length; $index++) {
+            let bookDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-bookorg--all-columns');
+            if ($index % 3 == 0) {
+              bookDiv.addClass('tomc-book-org--three-of-three');
+            } else if ($index % 2 == 0) {
+              bookDiv.addClass('tomc-book-org--two-of-three');
+            } else {
+              bookDiv.addClass('tomc-book-org--one-of-three');
+            }
+            if ($index % 4 == 0) {
+              bookDiv.addClass('tomc-book-org--four-of-four');
+            } else if ($index % 3 == 0) {
+              bookDiv.addClass('tomc-book-org--three-of-four');
+            } else if ($index % 2 == 0) {
+              bookDiv.addClass('tomc-book-org--two-of-four');
+            } else {
+              bookDiv.addClass('tomc-book-org--one-of-four');
+            }
+            let bookLink = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<a />').addClass('centered-text').attr('href', response[$index]['product_url']);
+            let h3 = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<h3 />').html(response[$index]['title']);
+            bookLink.append(h3);
+            bookDiv.append(bookLink);
+            let p = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').addClass('centered-text');
+            let strong = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<strong />').html(response[$index]['pen_name'] ? 'by ' + response[$index]['pen_name'] : 'by unknown or anonymous author');
+            p.append(strong);
+            bookDiv.append(p);
+            let bottomSection = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-browse--search-result-bottom-section prewrap');
+            p = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').html(response[$index]['book_description'].substr(0, 500) + '...');
+            bottomSection.append(p);
+            bookDiv.append(bottomSection);
+            this.columnsContainer.append(bookDiv);
+            this.displayedBooks.push(response[$index]['id']);
+          }
+          this.columnsContainer.fadeIn();
+          this.seeMoreButton.removeClass('hidden');
+          this.seeMoreButton.addClass('purple-width-fit-button');
+        }
+      },
+      error: response => {
+        console.log(response);
+      }
+    }), 3000);
+  }
+  getMoreFormatDisplay(e) {
+    this.columnsContainer.fadeOut();
+    let genres = [];
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-include-options-selected').each(function () {
+      genres.push(jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).html());
+    });
+    let order = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-sort-options-selected').data('order');
+    setTimeout(jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      beforeSend: xhr => {
+        xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+      },
+      url: tomcBookorgData.root_url + '/wp-json/tomcShopDisplay/v1/getMoreFormatDisplay',
+      type: 'GET',
+      data: {
+        'format': this.columnsContainer.data('format'),
+        'genres': JSON.stringify(genres),
+        'orderBy': order,
+        'displayedBooks': JSON.stringify(this.displayedBooks)
+      },
+      success: response => {
+        this.columnsContainer.html('');
+        this.displayedBooks = [];
         for (let $index = 0; $index < response.length; $index++) {
           let bookDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-bookorg--all-columns');
           if ($index % 3 == 0) {
@@ -2445,8 +2508,9 @@ class SingleFormat {
           bottomSection.append(p);
           bookDiv.append(bottomSection);
           this.columnsContainer.append(bookDiv);
-          this.columnsContainer.fadeIn();
+          this.displayedBooks.push(response[$index]['id']);
         }
+        this.columnsContainer.fadeIn();
       },
       error: response => {
         console.log(response);
