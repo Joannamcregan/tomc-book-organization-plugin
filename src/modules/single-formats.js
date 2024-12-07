@@ -6,8 +6,10 @@ class SingleFormat{
         this.orderButtons = $('.tomc-shop-format-order');
         this.genreButtons = $('.tomc-shop-books-include-options');
         this.columnsContainer = $('.tomc-shop-format--results-container');
+        this.noGenresError = $('.tomc-shop-format--no-genres-error');
         this.events();
         this.displayedBooks = [];
+        this.selectedGenreCount = 3;
     }
     events(){
         // this.seeMoreButton.on('click', this.getMore.bind(this));
@@ -27,15 +29,23 @@ class SingleFormat{
     }
 
     updateGenres(e){
+        console.log(this.selectedGenreCount);
         if ($(e.target).hasClass('tomc-shop-books-include-options-selected')){
-            $(e.target).removeClass('tomc-shop-books-include-options-selected');
-            $(e.target).attr('aria-label', 'This option is not selected');
+            if (this.selectedGenreCount > 1){
+                $(e.target).removeClass('tomc-shop-books-include-options-selected');
+                $(e.target).attr('aria-label', 'This option is not selected');
+                this.selectedGenreCount--;
+                this.updateFormatDisplay(e);
+            } else {
+                this.noGenresError.removeClass('hidden');
+            }
         } else {
+            this.noGenresError.addClass('hidden');
             $(e.target).addClass('tomc-shop-books-include-options-selected');
             $(e.target).attr('aria-label', 'This option is selected');
+            this.selectedGenreCount++;
+            this.updateFormatDisplay(e);
         }
-        // setTimeout(this.clearResults, 1500);
-        setTimeout(this.updateFormatDisplay(e), 3000);
     }
 
     updateFormatDisplay(e){
@@ -45,7 +55,7 @@ class SingleFormat{
             genres.push($(this).html());
         });
         let order = $('.tomc-shop-books-sort-options-selected').data('order');
-        setTimeout(
+        setTimeout(()=>{
             $.ajax({
                 beforeSend: (xhr) => {
                     xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -104,8 +114,8 @@ class SingleFormat{
                 error: (response) => {
                     console.log(response);
                 }
-            }),
-         3000)
+            })
+        }, 2000)
     }
     
     getMoreFormatDisplay(e){
