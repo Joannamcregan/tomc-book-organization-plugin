@@ -16,7 +16,7 @@ $query = 'select distinct b.id, b.title,f.post_title as pen_name, b.book_descrip
         join %i g on c.productid = g.id
         where d.type_name = %s
         order by b.createdate asc
-        limit 3'; //48
+        limit 30'; //48
 $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'e-books'), ARRAY_A);
 
 ?><main class="half-screen">
@@ -30,11 +30,12 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
             </div>
             <div class="tomc-shop-books-include-section">
                 <span>include</span>
-                <span aria-label="This option is selected" class="tomc-shop-books-include-options tomc-shop-books-include-options-selected">fiction</span>
-                <span aria-label="This option is selected" class="tomc-shop-books-include-options tomc-shop-books-include-options-selected">nonfiction</span>
-                <span aria-label="This option is selected" class="tomc-shop-books-include-options tomc-shop-books-include-options-selected">poetry</span>
+                <span aria-label="This option is selected" class="tomc-shop-books-include-options tomc-shop-books-include-options-selected tomc-shop-books-fiction">fiction</span>
+                <span aria-label="This option is selected" class="tomc-shop-books-include-options tomc-shop-books-include-options-selected tomc-shop-books-nonfiction">nonfiction</span>
+                <span aria-label="This option is selected" class="tomc-shop-books-include-options tomc-shop-books-include-options-selected tomc-shop-books-poetry">poetry</span>
             </div>
-            <div class="tomc-book-org--columns-container" data-format="e-books" data-count=<?php echo count($results); ?>>
+            <span id="tomc-bookorg--shop-by-format--update">update</span>
+            <div class="tomc-book-org--columns-container" data-format="e-books">
                 <?php for($index = 0; $index < count($results); $index++){
                     ?><div class="tomc-bookorg--all-columns
                         <?php if ($index % 3 == 0){
