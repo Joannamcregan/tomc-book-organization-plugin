@@ -39,7 +39,6 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_
                 <span aria-label="This option is selected" class="tomc-shop-books-include-options tomc-shop-books-include-options-selected tomc-shop-books-nonfiction">nonfiction</span>
                 <span aria-label="This option is selected" class="tomc-shop-books-include-options tomc-shop-books-include-options-selected tomc-shop-books-poetry">poetry</span>
             </div>
-            <span id="tomc-bookorg--shop-by-format--update">update</span>
             <div class="tomc-book-org--columns-container tomc-shop-format--results-container" data-format="e-books">
                 <?php for($index = 0; $index < count($results); $index++){
                     ?><div class="tomc-bookorg--all-columns

@@ -496,23 +496,6 @@
     padding: 5px 10px;
     border-radius: 10px;
 }
-#tomc-bookorg--shop-by-format--update{
-    background-color: #e44e2d;
-    color: white;
-    font-size: 16;
-    border-radius: 45px;
-    padding: 15px 30px;
-    margin: 10px 20px;
-    display: inline-block;
-    cursor: pointer;
-    width: fit-content;
-}
-@media screen and (max-width: 876px){
-    #tomc-bookorg--shop-by-format--update{
-        margin: 10px auto;
-        display: block;
-    }
-}
 /* .driving-at-dusk{
     background-image: linear-gradient(#441e42, #6e3f42, #883f2e);
     background-repeat: no-repeat;
