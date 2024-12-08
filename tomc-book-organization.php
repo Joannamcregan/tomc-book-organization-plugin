@@ -169,6 +169,39 @@ class TOMCBookOrganizationPlugin {
         wp_insert_post($add_book_page);
     }
 
+    function ebooksDisplayPage() {
+        $add_book_page = array(
+            'post_title' => 'Ebooks',
+            'post_content' => '',
+            'post_status' => 'publish',
+            'post_author' => 0,
+            'post_type' => 'page'
+        );
+        wp_insert_post($add_book_page);
+    }
+
+    function audiobooksDisplayPage() {
+        $add_book_page = array(
+            'post_title' => 'Audiobooks',
+            'post_content' => '',
+            'post_status' => 'publish',
+            'post_author' => 0,
+            'post_type' => 'page'
+        );
+        wp_insert_post($add_book_page);
+    }
+
+    function physicalBooksDisplayPage() {
+        $add_book_page = array(
+            'post_title' => 'Physical Books',
+            'post_content' => '',
+            'post_status' => 'publish',
+            'post_author' => 0,
+            'post_type' => 'page'
+        );
+        wp_insert_post($add_book_page);
+    }
+
     function onActivate() {
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
@@ -386,6 +419,18 @@ class TOMCBookOrganizationPlugin {
         if(post_exists('Browse by Genre', '', '', 'page', 'publish') == 0){
             $this->browseByGenrePage();
         }
+
+        if(post_exists('Ebooks', '', '', 'page', 'publish') == 0){
+            $this->ebooksDisplayPage();
+        }
+
+        if(post_exists('Audiobooks', '', '', 'page', 'publish') == 0){
+            $this->audiobooksDisplayPage();
+        }
+
+        if(post_exists('Physical Books', '', '', 'page', 'publish') == 0){
+            $this->physicalBooksDisplayPage();
+        }
     }
 
     function loadTemplate($template){
@@ -401,6 +446,8 @@ class TOMCBookOrganizationPlugin {
             return plugin_dir_path(__FILE__) . 'inc/template-suggestions.php';
         } elseif (is_page('coop-shop')){
             return plugin_dir_path(__FILE__) . 'inc/template-coop-shop.php';
+        } elseif (is_page('ebooks')){
+            return plugin_dir_path(__FILE__) . 'inc/template-ebooks.php';
         } else
         return $template;
     }
