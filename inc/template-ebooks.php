@@ -42,24 +42,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_
             <p class="centered-text red-text hidden tomc-shop-format--no-genres-error">Please select at least one genre.</p>
             <div class="tomc-book-org--columns-container tomc-shop-format--results-container" data-format="e-books">
                 <?php for($index = 0; $index < count($results); $index++){
-                    ?><div class="tomc-bookorg--all-columns tomc-shop-format--books
-                        <?php if ($index % 3 == 0){
-                            echo ' tomc-book-org--three-of-three';
-                        } else if ($index % 2 == 0){
-                            echo ' tomc-book-org--two-of-three';
-                        } else {
-                            echo ' tomc-book-org--one-of-three';
-                        }
-                        if ($index % 4 == 0){
-                            echo ' tomc-book-org--four-of-four';
-                        } else if ($index % 3 == 0){
-                            echo ' tomc-book-org--three-of-four';
-                        } else if ($index % 2 == 0){
-                            echo ' tomc-book-org--two-of-four';
-                        } else {
-                            echo ' tomc-book-org--one-of-four';
-                        }
-                        ?>" data-bookid=<?php echo $results[$index]['id']; ?>>
+                    ?><div class="tomc-bookorg--all-columns tomc-shop-format--books" data-bookid=<?php echo $results[$index]['id']; ?>>
                         <a class="centered-text" href="<?php echo get_permalink($results[$index]['product_url']); ?>">
                             <h3><?php echo $results[$index]['title']; ?></h3>
                         </a>

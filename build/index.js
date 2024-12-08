@@ -2422,23 +2422,7 @@ class SingleFormat {
           this.displayedBooks = [];
           if (response.length > 0) {
             for (let $index = 0; $index < response.length; $index++) {
-              let bookDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-bookorg--all-columns');
-              if ($index % 3 == 0) {
-                bookDiv.addClass('tomc-book-org--three-of-three');
-              } else if ($index % 2 == 0) {
-                bookDiv.addClass('tomc-book-org--two-of-three');
-              } else {
-                bookDiv.addClass('tomc-book-org--one-of-three');
-              }
-              if ($index % 4 == 0) {
-                bookDiv.addClass('tomc-book-org--four-of-four');
-              } else if ($index % 3 == 0) {
-                bookDiv.addClass('tomc-book-org--three-of-four');
-              } else if ($index % 2 == 0) {
-                bookDiv.addClass('tomc-book-org--two-of-four');
-              } else {
-                bookDiv.addClass('tomc-book-org--one-of-four');
-              }
+              let bookDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-bookorg--all-columns tomc-shop-format--books').attr('data-bookid', response[$index]['id']);
               let bookLink = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<a />').addClass('centered-text').attr('href', response[$index]['product_url']);
               let h3 = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<h3 />').html(response[$index]['title']);
               bookLink.append(h3);
@@ -2495,23 +2479,7 @@ class SingleFormat {
         if (response.length > 0) {
           this.noMoreResults.addClass('hidden');
           for (let $index = 0; $index < response.length; $index++) {
-            let bookDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-bookorg--all-columns');
-            if ($index % 3 == 0) {
-              bookDiv.addClass('tomc-book-org--three-of-three');
-            } else if ($index % 2 == 0) {
-              bookDiv.addClass('tomc-book-org--two-of-three');
-            } else {
-              bookDiv.addClass('tomc-book-org--one-of-three');
-            }
-            if ($index % 4 == 0) {
-              bookDiv.addClass('tomc-book-org--four-of-four');
-            } else if ($index % 3 == 0) {
-              bookDiv.addClass('tomc-book-org--three-of-four');
-            } else if ($index % 2 == 0) {
-              bookDiv.addClass('tomc-book-org--two-of-four');
-            } else {
-              bookDiv.addClass('tomc-book-org--one-of-four');
-            }
+            let bookDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-bookorg--all-columns tomc-shop-format--books').attr('data-bookid', response[$index]['id']);
             let bookLink = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<a />').addClass('centered-text').attr('href', response[$index]['product_url']);
             let h3 = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<h3 />').html(response[$index]['title']);
             bookLink.append(h3);
