@@ -2361,13 +2361,12 @@ class SingleFormat {
     this.columnsContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-format--results-container');
     this.noGenresError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-format--no-genres-error');
     this.events();
-    this.displayedBooks = [];
     this.selectedGenreCount = 3;
   }
   events() {
-    // this.seeMoreButton.on('click', this.getMore.bind(this));
     this.orderButtons.on('click', this.updateOrder.bind(this));
     this.genreButtons.on('click', this.updateGenres.bind(this));
+    this.seeMoreButton.on('click', this.getMoreFormatDisplay.bind(this));
   }
   updateOrder(e) {
     if (!jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-shop-books-sort-options-selected')) {
@@ -2375,12 +2374,10 @@ class SingleFormat {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-sort-options-selected').removeClass('tomc-shop-books-sort-options-selected');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('tomc-shop-books-sort-options-selected');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', 'This option is selected');
-      // setTimeout(this.clearResults, 1500);
       setTimeout(this.updateFormatDisplay(e), 3000);
     }
   }
   updateGenres(e) {
-    console.log(this.selectedGenreCount);
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-shop-books-include-options-selected')) {
       if (this.selectedGenreCount > 1) {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-shop-books-include-options-selected');
@@ -2470,8 +2467,12 @@ class SingleFormat {
   getMoreFormatDisplay(e) {
     this.columnsContainer.fadeOut();
     let genres = [];
+    let displayedBooks = [];
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-include-options-selected').each(function () {
       genres.push(jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).html());
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-format--books').each(function () {
+      displayedBooks.push(jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('book'));
     });
     let order = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-sort-options-selected').data('order');
     setTimeout(jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
@@ -2484,7 +2485,7 @@ class SingleFormat {
         'format': this.columnsContainer.data('format'),
         'genres': JSON.stringify(genres),
         'orderBy': order,
-        'displayedBooks': JSON.stringify(this.displayedBooks)
+        'displayedBooks': JSON.stringify(displayedBooks)
       },
       success: response => {
         this.columnsContainer.html('');

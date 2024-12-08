@@ -21,7 +21,7 @@ $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_descri
         where d.type_name = %s
         and genres.genre_name in ("fiction", "nonfiction", "poetry")
         order by b.createdate asc
-        limit 3'; //48
+        limit 1'; //48
 $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_table, $genres_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'e-books'), ARRAY_A);
 
 ?><main class="full-screen">
@@ -42,7 +42,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_
             <p class="centered-text red-text hidden tomc-shop-format--no-genres-error">Please select at least one genre.</p>
             <div class="tomc-book-org--columns-container tomc-shop-format--results-container" data-format="e-books">
                 <?php for($index = 0; $index < count($results); $index++){
-                    ?><div class="tomc-bookorg--all-columns
+                    ?><div class="tomc-bookorg--all-columns tomc-shop-format--books
                         <?php if ($index % 3 == 0){
                             echo ' tomc-book-org--three-of-three';
                         } else if ($index % 2 == 0){
@@ -59,7 +59,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_
                         } else {
                             echo ' tomc-book-org--one-of-four';
                         }
-                        ?>">
+                        ?>" data-id=<?php echo $results[$index]['id']; ?>>
                         <a class="centered-text" href="<?php echo get_permalink($results[$index]['product_url']); ?>">
                             <h3><?php echo $results[$index]['title']; ?></h3>
                         </a>
@@ -70,7 +70,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_
                     </div>
                 <?php }
             ?></div>
-            <span class="tomc-bookorg--see-more-format <?php echo count($results) >= 2 /*change to 48 later*/ ? 'purple-width-fit-button' : 'hidden' ?>">see more</span>
+            <span class="tomc-bookorg--see-more-format <?php echo count($results) >= 1 /*change to 48 later*/ ? 'purple-width-fit-button' : 'hidden' ?>">see more</span>
         <?php } else {
             ?><p class="centered-text padded-paragraph-20-x">No ebooks have been added yet. Check back soon!</p>
         <?php } ?>

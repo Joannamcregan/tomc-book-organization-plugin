@@ -8,13 +8,12 @@ class SingleFormat{
         this.columnsContainer = $('.tomc-shop-format--results-container');
         this.noGenresError = $('.tomc-shop-format--no-genres-error');
         this.events();
-        this.displayedBooks = [];
         this.selectedGenreCount = 3;
     }
     events(){
-        // this.seeMoreButton.on('click', this.getMore.bind(this));
         this.orderButtons.on('click', this.updateOrder.bind(this));
         this.genreButtons.on('click', this.updateGenres.bind(this));
+        this.seeMoreButton.on('click', this.getMoreFormatDisplay.bind(this));
     }
 
     updateOrder(e){
@@ -23,13 +22,11 @@ class SingleFormat{
             $('.tomc-shop-books-sort-options-selected').removeClass('tomc-shop-books-sort-options-selected');
             $(e.target).addClass('tomc-shop-books-sort-options-selected');
             $(e.target).attr('aria-label', 'This option is selected');
-            // setTimeout(this.clearResults, 1500);
             setTimeout(this.updateFormatDisplay(e), 3000);
         }
     }
 
     updateGenres(e){
-        console.log(this.selectedGenreCount);
         if ($(e.target).hasClass('tomc-shop-books-include-options-selected')){
             if (this.selectedGenreCount > 1){
                 $(e.target).removeClass('tomc-shop-books-include-options-selected');
@@ -121,9 +118,13 @@ class SingleFormat{
     getMoreFormatDisplay(e){
         this.columnsContainer.fadeOut();
         let genres = [];
+        let displayedBooks = [];
         $('.tomc-shop-books-include-options-selected').each(function(){
             genres.push($(this).html());
         });
+        $('.tomc-shop-format--books').each(function(){
+            displayedBooks.push($(this).data('book'));
+        })
         let order = $('.tomc-shop-books-sort-options-selected').data('order');
         setTimeout(
             $.ajax({
@@ -136,7 +137,7 @@ class SingleFormat{
                     'format' : this.columnsContainer.data('format'),
                     'genres' : JSON.stringify(genres),
                     'orderBy' : order,
-                    'displayedBooks' : JSON.stringify(this.displayedBooks)
+                    'displayedBooks' : JSON.stringify(displayedBooks)
                 },
                 success: (response) => {
                     this.columnsContainer.html('');
