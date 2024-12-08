@@ -15,6 +15,10 @@ function tomcShopDisplayRegisterRoute() {
         'methods' => 'GET',
         'callback' => 'updateFormatDisplay'
     ));
+    register_rest_route('tomcShopDisplay/v1', 'getMoreFormatDisplay', array(
+        'methods' => 'GET',
+        'callback' => 'getMoreFormatDisplay'
+    ));
 }
 
 function updateFormatDisplay($data) {
@@ -89,7 +93,6 @@ function getMoreFormatDisplay($data) {
     $book_genres_table = $wpdb->prefix .  "tomc_book_genres";
     $genres_table = $wpdb->prefix . "tomc_genres";
 
-    $startingCount = sanitize_text_field($data['count']);
     $format = sanitize_text_field($data['format']);
     $orderBy = sanitize_text_field($data['orderBy']);
     $genres = explode(',', trim(sanitize_text_field($data['genres']), '[]'));

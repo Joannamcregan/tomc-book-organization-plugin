@@ -2360,6 +2360,7 @@ class SingleFormat {
     this.genreButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-include-options');
     this.columnsContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-format--results-container');
     this.noGenresError = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-format--no-genres-error');
+    this.noMoreResults = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-format--no-more-results');
     this.events();
     this.selectedGenreCount = 3;
   }
@@ -2374,7 +2375,7 @@ class SingleFormat {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-sort-options-selected').removeClass('tomc-shop-books-sort-options-selected');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('tomc-shop-books-sort-options-selected');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', 'This option is selected');
-      setTimeout(this.updateFormatDisplay(e), 3000);
+      this.updateFormatDisplay(e);
     }
   }
   updateGenres(e) {
@@ -2456,6 +2457,9 @@ class SingleFormat {
             this.columnsContainer.fadeIn();
             this.seeMoreButton.removeClass('hidden');
             this.seeMoreButton.addClass('purple-width-fit-button');
+            this.noMoreResults.addClass('hidden');
+          } else {
+            this.noMoreResults.removeClass('hidden');
           }
         },
         error: response => {
@@ -2465,17 +2469,16 @@ class SingleFormat {
     }, 2000);
   }
   getMoreFormatDisplay(e) {
-    this.columnsContainer.fadeOut();
     let genres = [];
     let displayedBooks = [];
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-include-options-selected').each(function () {
       genres.push(jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).html());
     });
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-format--books').each(function () {
-      displayedBooks.push(jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('book'));
+      displayedBooks.push(jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('bookid'));
     });
     let order = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-shop-books-sort-options-selected').data('order');
-    setTimeout(jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
       beforeSend: xhr => {
         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
       },
@@ -2488,47 +2491,52 @@ class SingleFormat {
         'displayedBooks': JSON.stringify(displayedBooks)
       },
       success: response => {
-        this.columnsContainer.html('');
-        this.displayedBooks = [];
-        for (let $index = 0; $index < response.length; $index++) {
-          let bookDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-bookorg--all-columns');
-          if ($index % 3 == 0) {
-            bookDiv.addClass('tomc-book-org--three-of-three');
-          } else if ($index % 2 == 0) {
-            bookDiv.addClass('tomc-book-org--two-of-three');
-          } else {
-            bookDiv.addClass('tomc-book-org--one-of-three');
+        console.log(response);
+        if (response.length > 0) {
+          this.noMoreResults.addClass('hidden');
+          for (let $index = 0; $index < response.length; $index++) {
+            let bookDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-bookorg--all-columns');
+            if ($index % 3 == 0) {
+              bookDiv.addClass('tomc-book-org--three-of-three');
+            } else if ($index % 2 == 0) {
+              bookDiv.addClass('tomc-book-org--two-of-three');
+            } else {
+              bookDiv.addClass('tomc-book-org--one-of-three');
+            }
+            if ($index % 4 == 0) {
+              bookDiv.addClass('tomc-book-org--four-of-four');
+            } else if ($index % 3 == 0) {
+              bookDiv.addClass('tomc-book-org--three-of-four');
+            } else if ($index % 2 == 0) {
+              bookDiv.addClass('tomc-book-org--two-of-four');
+            } else {
+              bookDiv.addClass('tomc-book-org--one-of-four');
+            }
+            let bookLink = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<a />').addClass('centered-text').attr('href', response[$index]['product_url']);
+            let h3 = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<h3 />').html(response[$index]['title']);
+            bookLink.append(h3);
+            bookDiv.append(bookLink);
+            let p = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').addClass('centered-text');
+            let strong = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<strong />').html(response[$index]['pen_name'] ? 'by ' + response[$index]['pen_name'] : 'by unknown or anonymous author');
+            p.append(strong);
+            bookDiv.append(p);
+            let bottomSection = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-browse--search-result-bottom-section prewrap');
+            p = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').html(response[$index]['book_description'].substr(0, 500) + '...');
+            bottomSection.append(p);
+            bookDiv.append(bottomSection);
+            this.columnsContainer.append(bookDiv);
           }
-          if ($index % 4 == 0) {
-            bookDiv.addClass('tomc-book-org--four-of-four');
-          } else if ($index % 3 == 0) {
-            bookDiv.addClass('tomc-book-org--three-of-four');
-          } else if ($index % 2 == 0) {
-            bookDiv.addClass('tomc-book-org--two-of-four');
-          } else {
-            bookDiv.addClass('tomc-book-org--one-of-four');
-          }
-          let bookLink = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<a />').addClass('centered-text').attr('href', response[$index]['product_url']);
-          let h3 = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<h3 />').html(response[$index]['title']);
-          bookLink.append(h3);
-          bookDiv.append(bookLink);
-          let p = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').addClass('centered-text');
-          let strong = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<strong />').html(response[$index]['pen_name'] ? 'by ' + response[$index]['pen_name'] : 'by unknown or anonymous author');
-          p.append(strong);
-          bookDiv.append(p);
-          let bottomSection = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-browse--search-result-bottom-section prewrap');
-          p = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<p />').html(response[$index]['book_description'].substr(0, 500) + '...');
-          bottomSection.append(p);
-          bookDiv.append(bottomSection);
-          this.columnsContainer.append(bookDiv);
-          this.displayedBooks.push(response[$index]['id']);
+        } else {
+          console.log('else');
+          this.noMoreResults.removeClass('hidden');
+          this.seeMoreButton.removeClass('purple-width-fit-button');
+          this.seeMoreButton.addClass('hidden');
         }
-        this.columnsContainer.fadeIn();
       },
       error: response => {
         console.log(response);
       }
-    }), 3000);
+    });
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SingleFormat);

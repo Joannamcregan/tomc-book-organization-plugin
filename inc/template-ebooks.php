@@ -59,7 +59,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_
                         } else {
                             echo ' tomc-book-org--one-of-four';
                         }
-                        ?>" data-id=<?php echo $results[$index]['id']; ?>>
+                        ?>" data-bookid=<?php echo $results[$index]['id']; ?>>
                         <a class="centered-text" href="<?php echo get_permalink($results[$index]['product_url']); ?>">
                             <h3><?php echo $results[$index]['title']; ?></h3>
                         </a>
@@ -70,6 +70,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_
                     </div>
                 <?php }
             ?></div>
+            <p class="centered-text hidden tomc-shop-format--no-more-results">That's all for now.</p>
             <span class="tomc-bookorg--see-more-format <?php echo count($results) >= 1 /*change to 48 later*/ ? 'purple-width-fit-button' : 'hidden' ?>">see more</span>
         <?php } else {
             ?><p class="centered-text padded-paragraph-20-x">No ebooks have been added yet. Check back soon!</p>

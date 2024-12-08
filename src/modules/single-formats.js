@@ -7,6 +7,7 @@ class SingleFormat{
         this.genreButtons = $('.tomc-shop-books-include-options');
         this.columnsContainer = $('.tomc-shop-format--results-container');
         this.noGenresError = $('.tomc-shop-format--no-genres-error');
+        this.noMoreResults = $('.tomc-shop-format--no-more-results');
         this.events();
         this.selectedGenreCount = 3;
     }
@@ -22,7 +23,7 @@ class SingleFormat{
             $('.tomc-shop-books-sort-options-selected').removeClass('tomc-shop-books-sort-options-selected');
             $(e.target).addClass('tomc-shop-books-sort-options-selected');
             $(e.target).attr('aria-label', 'This option is selected');
-            setTimeout(this.updateFormatDisplay(e), 3000);
+            this.updateFormatDisplay(e);
         }
     }
 
@@ -106,6 +107,9 @@ class SingleFormat{
                         this.columnsContainer.fadeIn();
                         this.seeMoreButton.removeClass('hidden');
                         this.seeMoreButton.addClass('purple-width-fit-button');
+                        this.noMoreResults.addClass('hidden');
+                    } else {
+                        this.noMoreResults.removeClass('hidden');
                     }
                 },
                 error: (response) => {
@@ -116,32 +120,31 @@ class SingleFormat{
     }
     
     getMoreFormatDisplay(e){
-        this.columnsContainer.fadeOut();
         let genres = [];
         let displayedBooks = [];
         $('.tomc-shop-books-include-options-selected').each(function(){
             genres.push($(this).html());
         });
         $('.tomc-shop-format--books').each(function(){
-            displayedBooks.push($(this).data('book'));
+            displayedBooks.push($(this).data('bookid'));
         })
         let order = $('.tomc-shop-books-sort-options-selected').data('order');
-        setTimeout(
-            $.ajax({
-                beforeSend: (xhr) => {
-                    xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
-                },
-                url: tomcBookorgData.root_url + '/wp-json/tomcShopDisplay/v1/getMoreFormatDisplay',
-                type: 'GET',
-                data: {
-                    'format' : this.columnsContainer.data('format'),
-                    'genres' : JSON.stringify(genres),
-                    'orderBy' : order,
-                    'displayedBooks' : JSON.stringify(displayedBooks)
-                },
-                success: (response) => {
-                    this.columnsContainer.html('');
-                    this.displayedBooks = [];
+        $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+            },
+            url: tomcBookorgData.root_url + '/wp-json/tomcShopDisplay/v1/getMoreFormatDisplay',
+            type: 'GET',
+            data: {
+                'format' : this.columnsContainer.data('format'),
+                'genres' : JSON.stringify(genres),
+                'orderBy' : order,
+                'displayedBooks' : JSON.stringify(displayedBooks)
+            },
+            success: (response) => {
+                console.log(response);
+                if (response.length > 0){
+                    this.noMoreResults.addClass('hidden');
                     for(let $index = 0; $index < response.length; $index++){
                         let bookDiv = $('<div />').addClass('tomc-bookorg--all-columns');
                         if ($index % 3 == 0){
@@ -173,15 +176,18 @@ class SingleFormat{
                         bottomSection.append(p);
                         bookDiv.append(bottomSection);
                         this.columnsContainer.append(bookDiv);
-                        this.displayedBooks.push(response[$index]['id']);
                     }
-                    this.columnsContainer.fadeIn();
-                },
-                error: (response) => {
-                    console.log(response);
+                } else {
+                    console.log('else');
+                    this.noMoreResults.removeClass('hidden');
+                    this.seeMoreButton.removeClass('purple-width-fit-button');
+                    this.seeMoreButton.addClass('hidden');
                 }
-            }),
-         3000)
+            },
+            error: (response) => {
+                console.log(response);
+            }
+        })
     }
 }
 
