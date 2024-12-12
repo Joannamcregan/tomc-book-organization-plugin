@@ -1229,6 +1229,9 @@ class BookInfo {
   openIdentitiesOverlay(e) {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('contracting');
     this.bookId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+    let headingTitle = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
+    let headingEdition = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('edition');
+    headingEdition = headingEdition > 0 ? ', edition ' + headingEdition : '';
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
       beforeSend: xhr => {
         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1252,6 +1255,7 @@ class BookInfo {
               this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-identity-id', response[i]['id']).attr('aria-label', response[i]['identity_name'] + ' is not selected').html(response[i]['identity_name']).on('click', this.toggleIdentitySelection.bind(this));
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-identities-container').append(this.newSpan);
             }
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__edit-identities-overlay--heading').html(headingTitle + headingEdition);
             this.identitiesOverlay.addClass("tomc-book-organization__box--active");
           }
         }
@@ -1303,6 +1307,9 @@ class BookInfo {
   openContentWarningsOverlay(e) {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('contracting');
     this.bookId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+    let headingTitle = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
+    let headingEdition = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('edition');
+    headingEdition = headingEdition > 0 ? ', edition ' + headingEdition : '';
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
       beforeSend: xhr => {
         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1326,6 +1333,7 @@ class BookInfo {
               this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-warning-id', response[i]['id']).attr('aria-label', response[i]['warning_name'] + ' is not selected').html(response[i]['warning_name']).on('click', this.toggleWarningSelection.bind(this));
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-content-warnings-container').append(this.newSpan);
             }
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__edit-content-warnings-overlay--heading').html(headingTitle + headingEdition);
             this.contentWarningsOverlay.addClass("tomc-book-organization__box--active");
           }
         }
@@ -1491,6 +1499,9 @@ class BookInfo {
   openReadalikesOverlay(e) {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('contracting');
     this.bookId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+    let headingTitle = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
+    let headingEdition = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('edition');
+    headingEdition = headingEdition > 0 ? ', edition ' + headingEdition : '';
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
       beforeSend: xhr => {
         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1551,6 +1562,7 @@ class BookInfo {
             this.newFormDiv.append(this.newDiv);
             jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-readalikes-container').append(this.newFormDiv);
           }
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__edit-readalikes-overlay--heading').html(headingTitle + headingEdition);
           this.readalikesOverlay.addClass("tomc-book-organization__box--active");
         }
       },
@@ -1755,6 +1767,9 @@ class BookInfo {
   openProductsOverlay(e) {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('contracting');
     this.bookId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+    let headingTitle = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
+    let headingEdition = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('edition');
+    headingEdition = headingEdition > 0 ? ', edition ' + headingEdition : '';
     let formatOptions = [];
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
       beforeSend: xhr => {
@@ -1825,6 +1840,7 @@ class BookInfo {
                 container.append(productDiv);
               }
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-products-container').append(container);
+              jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__edit-products-overlay--heading').html(headingTitle + headingEdition);
               this.productsOverlay.addClass("tomc-book-organization__box--active");
             }
           },

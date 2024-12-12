@@ -1266,6 +1266,9 @@ class BookInfo{
     openIdentitiesOverlay(e){
         $(e.target).addClass('contracting');
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+        let headingTitle = $(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
+        let headingEdition = $(e.target).parent('.tomc-book-organization--edit-book-options').data('edition');
+        headingEdition = headingEdition > 0 ? ', edition ' + headingEdition : '';
         $.ajax({
             beforeSend: (xhr) => {
                 xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1289,6 +1292,7 @@ class BookInfo{
                             this.newSpan = $('<span />').addClass('tomc-book-organization--option-span').attr('data-identity-id', response[i]['id']).attr('aria-label', response[i]['identity_name'] + ' is not selected').html(response[i]['identity_name']).on('click', this.toggleIdentitySelection.bind(this));
                             $('.tomc-book-organization__edit-identities-container').append(this.newSpan);
                         }
+                        $('#tomc-book-organization__edit-identities-overlay--heading').html(headingTitle + headingEdition);
                         this.identitiesOverlay.addClass("tomc-book-organization__box--active");
                     }
                 }
@@ -1342,6 +1346,9 @@ class BookInfo{
     openContentWarningsOverlay(e){
         $(e.target).addClass('contracting');
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+        let headingTitle = $(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
+        let headingEdition = $(e.target).parent('.tomc-book-organization--edit-book-options').data('edition');
+        headingEdition = headingEdition > 0 ? ', edition ' + headingEdition : '';
         $.ajax({
             beforeSend: (xhr) => {
                 xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1365,6 +1372,7 @@ class BookInfo{
                             this.newSpan = $('<span />').addClass('tomc-book-organization--option-span').attr('data-warning-id', response[i]['id']).attr('aria-label', response[i]['warning_name'] + ' is not selected').html(response[i]['warning_name']).on('click', this.toggleWarningSelection.bind(this));
                             $('.tomc-book-organization__edit-content-warnings-container').append(this.newSpan);
                         }
+                        $('#tomc-book-organization__edit-content-warnings-overlay--heading').html(headingTitle + headingEdition);
                         this.contentWarningsOverlay.addClass("tomc-book-organization__box--active");
                     }
                 }
@@ -1538,6 +1546,9 @@ class BookInfo{
     openReadalikesOverlay(e){
         $(e.target).addClass('contracting');
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+        let headingTitle = $(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
+        let headingEdition = $(e.target).parent('.tomc-book-organization--edit-book-options').data('edition');
+        headingEdition = headingEdition > 0 ? ', edition ' + headingEdition : '';
         $.ajax({
             beforeSend: (xhr) => {
                 xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1598,6 +1609,7 @@ class BookInfo{
                         this.newFormDiv.append(this.newDiv);
                         $('.tomc-book-organization__edit-readalikes-container').append(this.newFormDiv);
                     }
+                    $('#tomc-book-organization__edit-readalikes-overlay--heading').html(headingTitle + headingEdition);
                     this.readalikesOverlay.addClass("tomc-book-organization__box--active");
                 }
             },
@@ -1817,6 +1829,9 @@ class BookInfo{
     openProductsOverlay(e){
         $(e.target).addClass('contracting');
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+        let headingTitle = $(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
+        let headingEdition = $(e.target).parent('.tomc-book-organization--edit-book-options').data('edition');
+        headingEdition = headingEdition > 0 ? ', edition ' + headingEdition : '';
         let formatOptions = [];
         $.ajax({
             beforeSend: (xhr) => {
@@ -1888,6 +1903,7 @@ class BookInfo{
                                 container.append(productDiv);
                             }
                             $('.tomc-book-organization__edit-products-container').append(container);
+                            $('#tomc-book-organization__edit-products-overlay--heading').html(headingTitle + headingEdition);
                             this.productsOverlay.addClass("tomc-book-organization__box--active");
                         }
                     },
