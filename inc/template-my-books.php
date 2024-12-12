@@ -78,7 +78,7 @@ get_header();
                         <div class="overlay-main-container"> 
                             <br><br>
                             <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-label="close overlay"></i>
-                            <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-languages-overlay-close">X</span> -->
+                            <h2 class="centered-text" id="tomc-book-organization__edit-languages-overlay--heading"></h2>
                             <h3 class="centered-text">Languages</h3>
                             <div class="tomc-book-organization__edit-languages-container tomc-book-organization--options-container tomc-book-org-html"></div>
                             <div class="hidden tomc-book-organization--red-text tomc-book-organization--languages-error-section">
@@ -97,7 +97,7 @@ get_header();
                         <div class="overlay-main-container">
                             <br><br>
                             <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-label="close overlay"></i>
-                            <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-genres-overlay-close">X</span> -->
+                            <h2 class="centered-text" id="tomc-book-organization__edit-genres-overlay--heading"></h2>
                             <div class="tomc-book-organization__edit-genres-container">
                                 <h3 class="centered-text">Genres</h3>
                                 <div class="tomc-book-organization__edit-genres-container--1 tomc-book-organization--options-container tomc-book-org-html"></div>

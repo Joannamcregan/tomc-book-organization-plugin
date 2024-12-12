@@ -1221,6 +1221,9 @@ class BookInfo{
             },
             success: (response) => {
                 $(e.target).removeClass('contracting');
+                let headingTitle = $(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
+                let headingEdition = $(e.target).parent('.tomc-book-organization--edit-book-options').data('edition');
+                headingEdition = headingEdition > 0 ? ', edition ' + headingEdition : '';
                 if (this.genresOverlayIsOpen != true){
                     this.genresOverlayIsOpen = true;
                     for(let i = 0; i < response.length; i++){
@@ -1250,6 +1253,7 @@ class BookInfo{
                             }
                         }
                     }
+                    $('#tomc-book-organization__edit-genres-overlay--heading').html(headingTitle + headingEdition);
                     this.genresOverlay.addClass("tomc-book-organization__box--active");
                 }
             },
@@ -1298,6 +1302,9 @@ class BookInfo{
     openLanguagesOverlay(e){
         $(e.target).addClass('contracting');
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+        let headingTitle = $(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
+        let headingEdition = $(e.target).parent('.tomc-book-organization--edit-book-options').data('edition');
+        headingEdition = headingEdition > 0 ? ', edition ' + headingEdition : '';
         $.ajax({
             beforeSend: (xhr) => {
                 xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1321,6 +1328,7 @@ class BookInfo{
                             this.newSpan = $('<span />').addClass('tomc-book-organization--option-span').attr('data-language-id', response[i]['id']).attr('aria-label', response[i]['language_name'] + ' is not selected').html(response[i]['language_name']).on('click', this.toggleLanguageSelection.bind(this));
                             $('.tomc-book-organization__edit-languages-container').append(this.newSpan);
                         }
+                        $('#tomc-book-organization__edit-languages-overlay--heading').html(headingTitle + headingEdition);
                         this.languagesOverlay.addClass("tomc-book-organization__box--active");
                     }
                 }

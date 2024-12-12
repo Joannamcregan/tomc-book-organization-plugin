@@ -1185,6 +1185,9 @@ class BookInfo {
       },
       success: response => {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('contracting');
+        let headingTitle = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
+        let headingEdition = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('edition');
+        headingEdition = headingEdition > 0 ? ', edition ' + headingEdition : '';
         if (this.genresOverlayIsOpen != true) {
           this.genresOverlayIsOpen = true;
           for (let i = 0; i < response.length; i++) {
@@ -1214,6 +1217,7 @@ class BookInfo {
               }
             }
           }
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__edit-genres-overlay--heading').html(headingTitle + headingEdition);
           this.genresOverlay.addClass("tomc-book-organization__box--active");
         }
       },
@@ -1260,6 +1264,9 @@ class BookInfo {
   openLanguagesOverlay(e) {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('contracting');
     this.bookId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+    let headingTitle = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
+    let headingEdition = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('edition');
+    headingEdition = headingEdition > 0 ? ', edition ' + headingEdition : '';
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
       beforeSend: xhr => {
         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1283,6 +1290,7 @@ class BookInfo {
               this.newSpan = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<span />').addClass('tomc-book-organization--option-span').attr('data-language-id', response[i]['id']).attr('aria-label', response[i]['language_name'] + ' is not selected').html(response[i]['language_name']).on('click', this.toggleLanguageSelection.bind(this));
               jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization__edit-languages-container').append(this.newSpan);
             }
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__edit-languages-overlay--heading').html(headingTitle + headingEdition);
             this.languagesOverlay.addClass("tomc-book-organization__box--active");
           }
         }
