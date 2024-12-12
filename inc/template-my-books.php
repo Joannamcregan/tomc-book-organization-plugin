@@ -26,7 +26,7 @@ get_header();
                     <?php foreach($books as $book){
                         ?><div class="tomc-book-organization--book-to-edit page-accent-alt-thin">
                             <p class="centered-text"><strong class="tomc-book-organization--book-to-edit-title tomc-book-options--cursor-pointer underlined-text"><?php echo $book->title; ?></strong></p>
-                            <div class="tomc-book-organization--edit-book-options hidden" data-book="<?php echo $book->id; ?>">
+                            <div class="tomc-book-organization--edit-book-options hidden" data-book="<?php echo $book->id; ?>" data-title="<?php echo $book->title; ?>" data-edition="<?php echo $book->publication_edition; ?>">
                                 <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-basic-info">basic info</p>
                                 <p class="transparent-stripe-1 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-languages">languages</p>
                                 <p class="transparent-stripe-2 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-genres">genres</p>
@@ -50,7 +50,7 @@ get_header();
                         <div class="overlay-main-container">
                             <br>
                             <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-label="close overlay"></i>
-                            <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__edit-basic-info-overlay-close">X</span> -->
+                            <h2 class="centered-text" id="tomc-book-organization__edit-basic-info-overlay--heading"></h2>
                             <div class="tomc-book-organization__edit-basic-info-container tomc-book-organization__container tomc-book-org-html"></div>
                             <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text centered-text" id="tomc-book-organization--edit-basic-info-errors">
                                 <p class="hidden" id="tomc-book-organization--edit-basic-info-errors-title">Your book's title cannot be blank.</p>
@@ -67,6 +67,7 @@ get_header();
                             <br>
                             <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-label="close overlay" id="tomc-book-organization__edit-pen-name-overlay-close"></i>
                             <br>
+                            <h2 class="centered-text" id="tomc-book-organization__edit-pen-name-overlay--heading"></h2>
                             <h3 class="centered-text">Which name are you publishing this book under?</h3>
                             <div class="tomc-book-organization__edit-pen-name-container tomc-book-organization__container tomc-book-org-html"></div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-pen-name-edits">save</button>

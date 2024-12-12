@@ -54,6 +54,7 @@ class BookInfo{
         this.bookProductsSavePublishButton = $("#tomc-book-organization--save-book-products-publish");
         this.bookProductsAddProductButton = $(".tomc-book-organization--add-product");
         this.noMatchingProductsError = $("#tomc-bookorg--no-matching-products");
+        this.showAllProducts = $('#tomc-bookorg--see-all-products');
         this.noMatchingProductsSeeAll = $("#tomc-bookorg--no-matching-products--see-all");
         //add book overlays
         this.languageOverlayCloseButton = $("#tomc-book-organization__language-overlay-close");
@@ -1027,7 +1028,8 @@ class BookInfo{
                         'title' : bookTitle
                     },
                     success: (response) => {
-                        this.noMatchingProductsError.addClass('hidden');
+                        this.noMatchingProductsError.addClass('hidden');                        
+                        this.showAllProducts.addClass('hidden');
                         if (response != 0 && response != 'fail' && response.length > 0) {
                             for(let i = 0; i < response.length; i++){
                                 let productDiv = $('<div />').addClass('tomc-bookorg--all-columns tomc-book-organization--product-option');
@@ -1061,10 +1063,12 @@ class BookInfo{
                                 productDiv.append(radioLabel);
                                 this.authorProductsContainer.append(productDiv);
                             }
-                            let showAll = $('<p />').addClass('centered-text underlined-text').html("show all products you've published").on('click', this.populateProductsByAuthor.bind(this));
-                            this.authorProductsContainer.append(showAll);
+                            // let showAll = $('<p />').addClass('centered-text underlined-text').html("show all products you've published").on('click', this.populateProductsByAuthor.bind(this));
+                            // this.authorProductsContainer.append(showAll);                            
+                            this.showAllProducts.removeClass('hidden');
                         } else {
                             this.noMatchingProductsError.removeClass('hidden');
+                            this.showAllProducts.removeClass('hidden');
                         }
                     },
                     error: (response) => {
@@ -1367,6 +1371,9 @@ class BookInfo{
         $(e.target).addClass('contracting');
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
         let allNames = [];
+        let headingTitle = $(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
+        let headingEdition = $(e.target).parent('.tomc-book-organization--edit-book-options').data('edition');
+        headingEdition = headingEdition > 0 ? ', edition ' + headingEdition : '';
         $.ajax({
             beforeSend: (xhr) => {
                 xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1404,6 +1411,7 @@ class BookInfo{
                                 }
                             }
                             $('.tomc-book-organization__edit-pen-name-container').append(dropdown);
+                            $('#tomc-book-organization__edit-pen-name-overlay--heading').html(headingTitle + headingEdition);
                             this.editPenNameOverlay.addClass('tomc-book-organization__box--active');
                         }
                     },
@@ -1421,6 +1429,9 @@ class BookInfo{
     openBasicInfoOverlay(e){
         $(e.target).addClass('contracting');
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+        let headingTitle = $(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
+        let headingEdition = $(e.target).parent('.tomc-book-organization--edit-book-options').data('edition');
+        headingEdition = headingEdition > 0 ? ', edition ' + headingEdition : '';
         $.ajax({
             beforeSend: (xhr) => {
                 xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1467,6 +1478,7 @@ class BookInfo{
                     this.newFormDiv.append(this.newDiv);
                     $('.tomc-book-organization__edit-basic-info-container').append(this.newFormDiv);
                     this.basicInfoOverlay.addClass("tomc-book-organization__box--active");
+                    $('#tomc-book-organization__edit-basic-info-overlay--heading').html(headingTitle + headingEdition);
                     this.title = response['title'];
                     this.subTitle = response['subtitle'];
                     this.edition = response['publication_edition'];

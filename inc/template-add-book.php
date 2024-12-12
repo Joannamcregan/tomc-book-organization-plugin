@@ -236,6 +236,7 @@ get_header();
                     ?><div id="tomc-bookorg--no-matching-products" class="hidden padding-5">
                         <p class="centered-text">We couldn't find any products you've published with that title. <span class="underlined-text" id="tomc-bookorg--no-matching-products--see-all">See all products you've published</span> or <a href="<?php echo esc_url(site_url('/dashboard/edit-product/'));?>">upload a new product</a> then <a href="<?php echo esc_url(site_url('/dashboard/edit-product/'));?>">edit book info</a> to link it to this book. We've saved everything you've entered so far.</p>
                     </div>
+                    <p class="centered-text underlined-text hidden" id="tomc-bookorg--see-all-products">show all products you've published</p>
                     <div id="tomc-book-organization--product-image-error" class="hidden">
                         <p class="centered-text">Please select the product whose image you want to use as the main image for this book.</p>
                     </div>
