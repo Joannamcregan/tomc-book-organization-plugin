@@ -179,7 +179,8 @@
     right: 0;
     bottom: 0;
     /* background-color: rgba(255, 255, 255, 1); */
-    background: #fdfaf7;
+    /* background: #fdfaf7; */
+    background: #f6ece1;
     visibility: hidden;
     opacity: 0;
     transform: scale(1.09);
