@@ -15,6 +15,7 @@ $query = 'select distinct b.id, b.title,f.post_title as pen_name, b.book_descrip
         join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where d.type_name = %s
+        and b.islive = 1
         order by b.createdate asc
         limit 12';
 $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'e-books'), ARRAY_A);
@@ -79,6 +80,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
         join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where d.type_name = %s
+        and b.islive = 1
         order by b.createdate asc
         limit 12';
     $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'audiobooks'), ARRAY_A);
@@ -141,6 +143,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_product
         join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where d.type_name in (%s, %s)
+        and b.islive = 1
         order by b.createdate asc
         limit 12';
     $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'paperbacks', 'hardcovers'), ARRAY_A);
