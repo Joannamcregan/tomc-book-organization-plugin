@@ -152,9 +152,6 @@ get_header();
                         <p class="tomc-book-organization--genres-error-section-mobile">To add another identity, first deselect one of the identities you've already chosen by tapping it again.</p>
                         <p class="tomc-book-organization--genres-error-section-desktop">To add another identity, first deselect one of the identities you've already chosen by clicking it again.</p>
                     </div>
-                    <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text" id="tomc-book-organization--add-no-identities-selected">
-                        <p>Please choose as least one identity.</p>
-                    </div>
                     <button class="hidden" id="tomc-book-organization--save-book-identities">save and continue</button>
                 </div>
 

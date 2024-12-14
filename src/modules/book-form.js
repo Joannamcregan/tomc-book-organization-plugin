@@ -319,7 +319,6 @@ class BookInfo{
             $('.tomc-book-organization--identities-error-section').addClass('hidden');
         } else {
             if (this.chosenIdentities.length < 5) {
-                $("#tomc-book-organization--add-no-identities-selected").addClass("hidden");
                 this.chosenIdentities.push($(e.target).data('identity-id'));
                 $(e.target).addClass('tomc-book-organization--option-selected');
                 $(e.target).attr('aria-label', labelName + ' is selected');
@@ -498,8 +497,7 @@ class BookInfo{
                         $(e.target).removeClass('contracting');
                         $(e.target).html('save');
                         this.newSpan = $('<span />').addClass('tomc-book-organization--option-span').attr('data-identity-id', response).attr('aria-label', this.identityName + ' is selected').html(this.identityName).on('click', this.toggleIdentitySelection.bind(this));
-                        $('#tomc-book-organization--identities').prepend(this.newSpan);                        
-                        $("#tomc-book-organization--add-no-identities-selected").addClass("hidden");
+                        $('#tomc-book-organization--identities').prepend(this.newSpan);                 
                         if (this.chosenIdentities.length < 5) {
                             this.chosenIdentities.push(response);
                             this.newSpan.addClass('tomc-book-organization--option-selected');
@@ -542,8 +540,7 @@ class BookInfo{
                         this.addNewLanguageButton.removeClass('contracting');
                         this.addNewLanguageButton.html("save");
                         this.newSpan = $('<span />').addClass('tomc-book-organization--option-span').attr('data-language-id', response).attr('aria-label', this.languageName + ' is selected').html(this.languageName).on('click', this.toggleLanguageSelection.bind(this));
-                        $('#tomc-book-organization--languages').prepend(this.newSpan);                        
-                        $("#tomc-book-organization--add-no-identities-selected").addClass("hidden");
+                        $('#tomc-book-organization--languages').prepend(this.newSpan);                 
                         if (this.chosenLanguages.length < 3) {
                             this.chosenLanguages.push(response);
                             this.newSpan.addClass('tomc-book-organization--option-selected');
@@ -760,9 +757,25 @@ class BookInfo{
                     console.log(response);
                 }
             })
-        } else {
-            $("#tomc-book-organization--add-no-identities-selected").removeClass("hidden");
-        }        
+        }  else {
+            this.saveIdentitiesButton.addClass('contracting');
+            this.saveIdentitiesButton.html('continuing...');
+            setTimeout(()=> {
+                this.bookIdentitiesForm.addClass("opacity-30");
+                this.bookLanguagesForm.attr('aria-disabled', 'true');
+                this.saveIdentitiesButton.removeClass('tomc-book-organization--save-button');
+                this.saveIdentitiesButton.removeClass('contracting');
+                this.saveIdentitiesButton.addClass('hidden');
+
+                this.addIdentityOverlayButton.addClass('hidden');
+                this.addWarningButton.removeClass('hidden');
+
+                this.bookWarningsForm.removeClass("opacity-30");
+                this.bookWarningsForm.attr('aria-disabled', 'false');
+                this.saveWarningsButton.removeClass('hidden');
+                this.saveWarningsButton.addClass('tomc-book-organization--save-button');
+            }, 500);
+        }     
     }
 
     addBookWarnings(e){
@@ -815,7 +828,6 @@ class BookInfo{
                 this.saveReadalikesButton.removeClass('hidden');
                 this.saveReadalikesButton.addClass('tomc-book-organization--save-button');
             }, 500);
-            // $('html, body').animate({ scrollTop: 0 }, 'fast');
         }
     }
 
