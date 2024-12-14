@@ -620,6 +620,7 @@ class BookInfo {
           var newOption = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<option />');
           newOption.attr('value', response.id);
           newOption.attr('aria-selected', true);
+          newOption.attr('selected', 'selected');
           newOption.html(response.title.rendered);
           this.selectPenName.prepend(newOption);
           jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--add-pen-name-errors").addClass("hidden");
