@@ -9,7 +9,7 @@ $pen_names_table = $wpdb->prefix . "tomc_pen_names_books";
 $book_genres_table = $wpdb->prefix .  "tomc_book_genres";
 $genres_table = $wpdb->prefix . "tomc_genres";
 
-$query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
+$query = 'select distinct b.id, b.product_image_id, b.title, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
         from %i b
         join %i bookgenres on b.id = bookgenres.bookid
         join %i genres on bookgenres.genreid = genres.id
@@ -23,6 +23,10 @@ $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_descri
         order by b.createdate asc
         limit 1'; //48
 $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_table, $genres_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'e-books'), ARRAY_A);
+for($index = 0; $index < count($results); $index++){
+    $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
+    $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
+}
 
 ?><main class="full-screen">
     <div class="banner"><h1 class="centered-text banner-heading-46">Ebooks By Our Authors</h1></div>
@@ -43,6 +47,7 @@ $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_
             <div class="tomc-book-org--columns-container tomc-shop-format--results-container" data-format="e-books">
                 <?php for($index = 0; $index < count($results); $index++){
                     ?><div class="tomc-bookorg--all-columns tomc-shop-format--books" data-bookid=<?php echo $results[$index]['id']; ?>>
+                        <img src="<?php echo $results[$index]['product_image_id']; ?>" alt="<?php echo 'cover for ' . $results[$index]['title']; ?>" />
                         <a class="centered-text" href="<?php echo get_permalink($results[$index]['product_url']); ?>">
                             <h3><?php echo $results[$index]['title']; ?></h3>
                         </a>
