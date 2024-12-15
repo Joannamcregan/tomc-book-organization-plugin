@@ -45,7 +45,7 @@ function updateFormatDisplay($data) {
     $genresClause = rtrim($genresClause, ', ');
 
     if ($format == 'physical'){
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
+        $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
         from %i b
         join %i bookgenres on b.id = bookgenres.bookid
         join %i genres on bookgenres.genreid = genres.id
@@ -55,12 +55,13 @@ function updateFormatDisplay($data) {
         join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where d.type_name in (%s, %s)
+        and b.islive = 1
         and genres.genre_name in (' . $genresClause . ')
         order by b.createdate ' . $orderBy .
         ' limit 2'; //change to 48
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_table, $genres_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'paperback books', 'hardcover books'), ARRAY_A);
     } else {
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
+        $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
         from %i b
         join %i bookgenres on b.id = bookgenres.bookid
         join %i genres on bookgenres.genreid = genres.id
@@ -70,13 +71,15 @@ function updateFormatDisplay($data) {
         join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where d.type_name = %s
+        and b.islive = 1
         and genres.genre_name in (' . $genresClause . ')
         order by b.createdate ' . $orderBy . 
-        ' limit 2'; //change to 48
+        ' limit 48'; //change to 48
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_table, $genres_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $format), ARRAY_A);
     }
     for($index = 0; $index < count($results); $index++){
         $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
+        $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
     }
     return $results;
     // return $wpdb->prepare($query, $books_table, $book_genres_table, $genres_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $format);
@@ -113,7 +116,7 @@ function getMoreFormatDisplay($data) {
     $displayedClause = rtrim($displayedClause, ', ');
 
     if ($format == 'physical'){
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
+        $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
         from %i b
         join %i bookgenres on b.id = bookgenres.bookid
         join %i genres on bookgenres.genreid = genres.id
@@ -123,13 +126,14 @@ function getMoreFormatDisplay($data) {
         join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where d.type_name in (%s, %s)
+        and b.islive = 1
         and genres.genre_name in (' . $genresClause . ')
         and b.id not in (' . $displayedClause . ')
         order by b.createdate ' . $orderBy .
-        ' limit 2'; //change to 48
+        ' limit 48'; //change to 48
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_table, $genres_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'paperback books', 'hardcover books'), ARRAY_A);
     } else {
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
+        $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
         from %i b
         join %i bookgenres on b.id = bookgenres.bookid
         join %i genres on bookgenres.genreid = genres.id
@@ -139,14 +143,16 @@ function getMoreFormatDisplay($data) {
         join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where d.type_name = %s
+        and b.islive = 1
         and genres.genre_name in (' . $genresClause . ')
         and b.id not in (' . $displayedClause . ')
         order by b.createdate ' . $orderBy . 
-        ' limit 2'; //change to 48
+        ' limit 48'; //change to 48
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_table, $genres_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $format), ARRAY_A);
     }
     for($index = 0; $index < count($results); $index++){
         $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
+        $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
     }
     return $results;
     // return $wpdb->prepare($query, $books_table, $book_genres_table, $genres_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $format);
@@ -163,7 +169,7 @@ function getBooksByDateAndFormat($data) {
     $orderBy = sanitize_text_field($data['order']);
     $format = sanitize_text_field($data['format']);
     if ($format == 'physical'){
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
+        $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
@@ -171,11 +177,12 @@ function getBooksByDateAndFormat($data) {
         join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where d.type_name in (%s, %s)
+        and b.islive = 1
         order by b.createdate ' . $orderBy .
-        ' limit 12';
+        ' limit 48';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'paperbacks', 'hardcovers'), ARRAY_A);
     } else {
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
+        $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
@@ -183,12 +190,14 @@ function getBooksByDateAndFormat($data) {
         join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where d.type_name = %s
+        and b.islive = 1
         order by b.createdate ' . $orderBy . 
-        ' limit 12';
+        ' limit 48';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $format), ARRAY_A);
     }
     for($index = 0; $index < count($results); $index++){
         $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
+        $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
     }
     return $results;
 }
@@ -203,7 +212,7 @@ function getBooksByFormatRandom($data) {
     $pen_names_table = $wpdb->prefix . "tomc_pen_names_books";
     $format = sanitize_text_field($data['format']);
     if ($format == 'physical'){
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
+        $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
@@ -211,11 +220,12 @@ function getBooksByFormatRandom($data) {
         join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where d.type_name in (%s, %s)
+        and b.islive = 1
         order by rand()
-        limit 12';
+        limit 48';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'paperbacks', 'hardcovers'), ARRAY_A);
     } else {
-        $query = 'select distinct b.id, b.title, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
+        $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
@@ -223,12 +233,14 @@ function getBooksByFormatRandom($data) {
         join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where d.type_name = %s
+        and b.islive = 1
         order by rand()
-        limit 12';
+        limit 48';
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, $format), ARRAY_A);
     }
     for($index = 0; $index < count($results); $index++){
         $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
+        $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
     }
     return $results;
 }

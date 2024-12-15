@@ -20,8 +20,9 @@ $query = 'select distinct b.id, b.product_image_id, b.title, f.post_title as pen
         join %i g on c.productid = g.id
         where d.type_name = %s
         and genres.genre_name in ("fiction", "nonfiction", "poetry")
+        and b.isLive = 1
         order by b.createdate asc
-        limit 1'; //48
+        limit 48'; //48
 $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_genres_table, $genres_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'e-books'), ARRAY_A);
 for($index = 0; $index < count($results); $index++){
     $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);

@@ -48,6 +48,8 @@ class SingleFormat{
 
     updateFormatDisplay(e){
         this.columnsContainer.fadeOut();
+        this.seeMoreButton.removeClass('purple-width-fit-button');
+        this.seeMoreButton.addClass('hidden');
         let genres = [];
         $('.tomc-shop-books-include-options-selected').each(function(){
             genres.push($(this).html());
@@ -67,12 +69,12 @@ class SingleFormat{
                 },
                 success: (response) => {
                     this.columnsContainer.html('');
-                    this.seeMoreButton.removeClass('purple-width-fit-button');
-                    this.seeMoreButton.addClass('hidden');
                     this.displayedBooks = [];
                     if (response.length > 0){
                         for(let $index = 0; $index < response.length; $index++){
                             let bookDiv = $('<div />').addClass('tomc-bookorg--all-columns tomc-shop-format--books').attr('data-bookid', response[$index]['id']);
+                            let img = $('<img />').attr('src', response[$index]['product_image_id']).attr('alt', 'cover for ' + response[$index]['title']);
+                            bookDiv.append(img);
                             let bookLink = $('<a />').addClass('centered-text').attr('href', response[$index]['product_url']);
                             let h3 = $('<h3 />').html(response[$index]['title']);
                             bookLink.append(h3);
@@ -89,8 +91,10 @@ class SingleFormat{
                             this.displayedBooks.push(response[$index]['id']);
                         }
                         this.columnsContainer.fadeIn();
-                        this.seeMoreButton.removeClass('hidden');
-                        this.seeMoreButton.addClass('purple-width-fit-button');
+                        setTimeout(()=>{
+                            this.seeMoreButton.removeClass('hidden');
+                            this.seeMoreButton.addClass('purple-width-fit-button');
+                        }, 2000);                        
                         this.noMoreResults.addClass('hidden');
                     } else {
                         this.noMoreResults.removeClass('hidden');
@@ -131,6 +135,8 @@ class SingleFormat{
                     this.noMoreResults.addClass('hidden');
                     for(let $index = 0; $index < response.length; $index++){
                         let bookDiv = $('<div />').addClass('tomc-bookorg--all-columns tomc-shop-format--books').attr('data-bookid', response[$index]['id']);
+                        let img = $('<img />').attr('src', response[$index]['product_image_id']).attr('alt', 'cover for ' + response[$index]['title']);
+                        bookDiv.append(img);
                         let bookLink = $('<a />').addClass('centered-text').attr('href', response[$index]['product_url']);
                         let h3 = $('<h3 />').html(response[$index]['title']);
                         bookLink.append(h3);
