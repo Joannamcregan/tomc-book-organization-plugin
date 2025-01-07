@@ -819,7 +819,7 @@ function getBookProducts($data){
     $query = 'WITH cte AS 
         (SELECT b.*, a.product_image_id
         FROM %i a 
-        JOIN %i b ON a.id = b.bookid 
+        JOIN %i b ON a.id = b.bookid
         WHERE a.id = %d)
     SELECT a.id, a.post_title, terms.name, p.guid, b.productid, b.typeid, p.guid, b.product_image_id
     FROM %i a

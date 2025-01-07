@@ -1803,6 +1803,7 @@ class BookInfo {
             'book': this.bookId
           },
           success: response => {
+            console.log(response);
             if (this.productsOverlayIsOpen != true) {
               this.productsOverlayIsOpen = true;
               let container = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-book-org--columns-container');
@@ -1828,20 +1829,13 @@ class BookInfo {
                     selectOption.attr('selected', 'selected');
                   } else if (formatOptions[j]['type_name'] == response[i]['name']) {
                     selectOption.attr('selected', 'selected');
-                  } else {
-                    console.log('type name is ' + formatOptions[j]['type_name']);
-                    console.log('name is ' + response[i]['name']);
-                    console.log('typeid is ' + response[i]['typeid']);
                   }
                   typeSelect.append(selectOption);
-                  console.log('type name is ' + formatOptions[j]['type_name']);
-                  console.log('name is ' + response[i]['name']);
-                  console.log('typeid is ' + response[i]['typeid']);
                 }
                 productOption.append(typeSelect);
                 productOption.append('<br>');
                 let radio = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<input />').attr('type', 'radio').attr('name', 'tomc-book-organization--main-image-product').val(response[i]['id']).attr('id', 'tomc-book-organization--book-product-image-' + response[i]['id']);
-                if (response[i]['productid'] == response[i]['product_image_id']) {
+                if (response[i]['productid'] == response[i]['product_image_id'] && response[i]['productid'] != null) {
                   radio.prop('checked', true);
                 }
                 productOption.append(radio);
