@@ -1867,7 +1867,6 @@ class BookInfo{
                         'book' : this.bookId
                     },
                     success: (response) => {
-                        console.log(response);
                         if (this.productsOverlayIsOpen != true){
                             this.productsOverlayIsOpen = true;
                             let container = $('<div />').addClass('tomc-book-org--columns-container');

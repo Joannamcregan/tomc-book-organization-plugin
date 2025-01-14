@@ -148,6 +148,10 @@ class BrowseStuff{
                 },
                 success: (response) => {
                     $(e.target).removeClass('contracting');
+                    this.rollButton.addClass('invisible');
+                    setTimeout(()=>{
+                        this.rollButton.removeClass('invisible');
+                    }, 3000);   
                     let alreadyAddedIds = [];
                     this.resultsSection.html('');
                     for(let i = 0; i < response.length; i++){

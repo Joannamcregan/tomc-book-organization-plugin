@@ -1803,7 +1803,6 @@ class BookInfo {
             'book': this.bookId
           },
           success: response => {
-            console.log(response);
             if (this.productsOverlayIsOpen != true) {
               this.productsOverlayIsOpen = true;
               let container = jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div />').addClass('tomc-book-org--columns-container');
@@ -2069,6 +2068,10 @@ class BrowseStuff {
         },
         success: response => {
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('contracting');
+          this.rollButton.addClass('invisible');
+          setTimeout(() => {
+            this.rollButton.removeClass('invisible');
+          }, 3000);
           let alreadyAddedIds = [];
           this.resultsSection.html('');
           for (let i = 0; i < response.length; i++) {
