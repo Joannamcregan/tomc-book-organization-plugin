@@ -54,11 +54,11 @@ class PenNames{
                     'postId' : $id
                 },
                 success: (response) => {
-                    console.log(response);
+                    // console.log(response);
                     location.reload(true);
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         } else {
@@ -86,11 +86,11 @@ class PenNames{
                     type: 'POST',
                     data: this.newPenNameData,
                     success: (response) => {
-                        console.log(response);
+                        // console.log(response);
                         location.reload(true);
                     },
                     error: (response) => {
-                        console.log(response);
+                        // console.log(response);
                     }
                 })
             } else {

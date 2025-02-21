@@ -466,7 +466,7 @@ class BookInfo {
           // $('html, body').animate({ scrollTop: 0 }, 'fast');
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     } else {
@@ -507,7 +507,7 @@ class BookInfo {
           // $('html, body').animate({ scrollTop: 0 }, 'fast');
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     } else {
@@ -549,7 +549,7 @@ class BookInfo {
           // $('html, body').animate({ scrollTop: 0 }, 'fast');
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     } else {
@@ -591,7 +591,7 @@ class BookInfo {
           // $('html, body').animate({ scrollTop: 0 }, 'fast');
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     } else {
@@ -628,7 +628,7 @@ class BookInfo {
           // $('html, body').animate({ scrollTop: 0 }, 'fast');
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     } else {
@@ -669,7 +669,7 @@ class BookInfo {
           // $('html, body').animate({ scrollTop: 0 }, 'fast');
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     }
@@ -703,7 +703,7 @@ class BookInfo {
           // $('html, body').animate({ scrollTop: 0 }, 'fast');
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     } else {
@@ -739,7 +739,7 @@ class BookInfo {
           // $('html, body').animate({ scrollTop: 0 }, 'fast');
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     } else {
@@ -788,7 +788,7 @@ class BookInfo {
           // $('html, body').animate({ scrollTop: 0 }, 'fast');
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     } else {
@@ -838,7 +838,7 @@ class BookInfo {
         // $('html, body').animate({ scrollTop: 0 }, 'fast');
       },
       error: response => {
-        console.log(response);
+        // console.log(response);
       }
     });
   }
@@ -872,7 +872,7 @@ class BookInfo {
         // $('html, body').animate({ scrollTop: 0 }, 'fast');
       },
       error: response => {
-        console.log(response);
+        // console.log(response);
       }
     });
   }
@@ -910,7 +910,7 @@ class BookInfo {
           // $('html, body').animate({ scrollTop: 0 }, 'fast');
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     } else {
@@ -933,7 +933,6 @@ class BookInfo {
     }
   }
   populateProductsByAuthor() {
-    console.log('calling populate products by author');
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
       beforeSend: xhr => {
         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -941,7 +940,6 @@ class BookInfo {
       url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getProductsByAuthor',
       type: 'GET',
       success: response => {
-        console.log(response);
         this.noMatchingProductsError.addClass('hidden');
         this.authorProductsContainer.html('');
         if (response != 0 && response != 'fail' && response.length > 0) {
@@ -982,7 +980,7 @@ class BookInfo {
         }
       },
       error: response => {
-        console.log(response);
+        // console.log(response);
       }
     });
   }
@@ -1049,12 +1047,12 @@ class BookInfo {
             }
           },
           error: response => {
-            console.log(response);
+            // console.log(response);
           }
         });
       },
       error: response => {
-        console.log(response);
+        // console.log(response);
       }
     });
   }
@@ -1091,7 +1089,7 @@ class BookInfo {
           }
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     } else {
@@ -1233,7 +1231,7 @@ class BookInfo {
         }
       },
       failure: response => {
-        console.log(response);
+        // console.log(response);
       }
     });
   }
@@ -1272,7 +1270,7 @@ class BookInfo {
         }
       },
       failure: response => {
-        console.log(response);
+        // console.log(response);
       }
     });
   }
@@ -1311,7 +1309,7 @@ class BookInfo {
         }
       },
       failure: response => {
-        console.log(response);
+        // console.log(response);
       }
     });
   }
@@ -1350,7 +1348,7 @@ class BookInfo {
         }
       },
       failure: response => {
-        console.log(response);
+        // console.log(response);
       }
     });
   }
@@ -1403,12 +1401,12 @@ class BookInfo {
             }
           },
           error: response => {
-            console.log(response);
+            // console.log(response);
           }
         });
       },
       error: response => {
-        console.log(response);
+        // console.log(response);
       }
     });
   }
@@ -1473,7 +1471,7 @@ class BookInfo {
         }
       },
       error: response => {
-        console.log(response);
+        // console.log(response);
       }
     });
   }
@@ -1500,7 +1498,7 @@ class BookInfo {
           location.reload(true);
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     } else {
@@ -1578,7 +1576,7 @@ class BookInfo {
         }
       },
       error: response => {
-        console.log(response);
+        // console.log(response);
       }
     });
   }
@@ -1606,7 +1604,7 @@ class BookInfo {
             location.reload(true);
           },
           error: response => {
-            console.log(response);
+            // console.log(response);
           }
         });
       }
@@ -1636,7 +1634,7 @@ class BookInfo {
           location.reload(true);
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     }
@@ -1657,7 +1655,7 @@ class BookInfo {
         location.reload(true);
       },
       error: response => {
-        console.log(response);
+        // console.log(response);
       }
     });
   }
@@ -1679,7 +1677,7 @@ class BookInfo {
           location.reload(true);
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     }
@@ -1704,7 +1702,7 @@ class BookInfo {
           location.reload(true);
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     }
@@ -1726,7 +1724,7 @@ class BookInfo {
         location.reload(true);
       },
       error: response => {
-        console.log(response);
+        // console.log(response);
       }
     });
   }
@@ -1766,7 +1764,7 @@ class BookInfo {
             location.reload(true);
           },
           error: response => {
-            console.log(response);
+            // console.log(response);
           }
         });
       }
@@ -1849,12 +1847,12 @@ class BookInfo {
             }
           },
           failure: response => {
-            console.log(response);
+            // console.log(response);
           }
         });
       },
       failure: response => {
-        console.log(response);
+        // console.log(response);
       }
     });
   }
@@ -1942,7 +1940,6 @@ class BrowseStuff {
     this.rollButton.on('click', this.rollResults.bind(this));
   }
   toggleSelected2(e) {
-    console.log('in the beginning the selected genre 2s are ' + this.selectedGenres2 + ' and AnyGenre2 is ' + this.anyLevel2);
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-book-organization--browse-option-2-selected')) {
       this.anyLevel2 = false;
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--browse-option-2-selected');
@@ -1980,10 +1977,8 @@ class BrowseStuff {
         }
       }
     }
-    console.log('at the end the selected genre 2s are ' + this.selectedGenres2 + ' and AnyGenre2 is ' + this.anyLevel2);
   }
   toggleSelected1(e) {
-    console.log('at the beginning, selected genre 1s are ' + this.selectedGenres1 + ' and anyLevel1 is ' + this.anyLevel1);
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-book-organization--browse-option-1-selected')) {
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('tomc-book-organization--browse-option-1-selected');
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).attr('aria-label', jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).html() + ' is not selected');
@@ -2007,7 +2002,6 @@ class BrowseStuff {
         this.anyLevel1 = false;
       }
     }
-    console.log('at the end, selected genre 1s are ' + this.selectedGenres1 + ' and anyLevel1 is ' + this.anyLevel1);
   }
   toggleSelected3(e) {
     if (jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).hasClass('tomc-book-organization--browse-option-3-selected')) {
@@ -2047,7 +2041,6 @@ class BrowseStuff {
         }
       }
     }
-    console.log('at the end the selected genre 3s are ' + this.selectedGenres3 + ' and AnyGenre3 is ' + this.anyLevel3);
   }
   rollResults(e) {
     this.resultsSection.html('');
@@ -2112,11 +2105,11 @@ class BrowseStuff {
           }
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     } else {
-      console.log('else');
+      // console.log('else');
     }
   }
 }
@@ -2186,11 +2179,11 @@ class PenNames {
           'postId': $id
         },
         success: response => {
-          console.log(response);
+          // console.log(response);
           location.reload(true);
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     } else {
@@ -2217,11 +2210,11 @@ class PenNames {
           type: 'POST',
           data: this.newPenNameData,
           success: response => {
-            console.log(response);
+            // console.log(response);
             location.reload(true);
           },
           error: response => {
-            console.log(response);
+            // console.log(response);
           }
         });
       } else {
@@ -2310,7 +2303,7 @@ class ShopDisplays {
           }
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     }
@@ -2329,7 +2322,6 @@ class ShopDisplays {
           'format': format
         },
         success: response => {
-          console.log(response);
           jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.tomc-shop-books--format-section').children('.sub-banner--slim').children('h2').removeClass('contracting');
           let columnsContainer = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.tomc-shop-books--format-section').find('.tomc-book-org--columns-container');
           for (let $index = 0; $index < response.length; $index++) {
@@ -2352,7 +2344,7 @@ class ShopDisplays {
           }
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     }
@@ -2473,7 +2465,7 @@ class SingleFormat {
           }
         },
         error: response => {
-          console.log(response);
+          // console.log(response);
         }
       });
     }, 2000);
@@ -2501,7 +2493,6 @@ class SingleFormat {
         'displayedBooks': JSON.stringify(displayedBooks)
       },
       success: response => {
-        console.log(response);
         if (response.length > 0) {
           this.noMoreResults.addClass('hidden');
           for (let $index = 0; $index < response.length; $index++) {
@@ -2523,14 +2514,13 @@ class SingleFormat {
             this.columnsContainer.append(bookDiv);
           }
         } else {
-          console.log('else');
           this.noMoreResults.removeClass('hidden');
           this.seeMoreButton.removeClass('purple-width-fit-button');
           this.seeMoreButton.addClass('hidden');
         }
       },
       error: response => {
-        console.log(response);
+        // console.log(response);
       }
     });
   }
@@ -2592,7 +2582,7 @@ class Suggestions {
         this.gotItSection.removeClass('hidden');
       },
       error: response => {
-        console.log(response);
+        // console.log(response);
       }
     });
   }

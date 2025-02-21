@@ -61,7 +61,7 @@ class ShopDisplays{
                     }
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         }
@@ -80,7 +80,6 @@ class ShopDisplays{
                     'format' : format
                 },
                 success: (response) => {
-                    console.log(response);
                     $(e.target).closest('.tomc-shop-books--format-section').children('.sub-banner--slim').children('h2').removeClass('contracting');
                     let columnsContainer = $(e.target).closest('.tomc-shop-books--format-section').find('.tomc-book-org--columns-container');
                     for(let $index = 0; $index < response.length; $index++){
@@ -103,7 +102,7 @@ class ShopDisplays{
                     }
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         }

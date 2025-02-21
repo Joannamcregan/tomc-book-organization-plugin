@@ -40,7 +40,7 @@ class Suggestions{
                 this.gotItSection.removeClass('hidden');
             },
             error: (response) => {
-                console.log(response);
+                // console.log(response);
             }
         })
     }

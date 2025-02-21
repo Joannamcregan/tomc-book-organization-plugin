@@ -101,7 +101,7 @@ class SingleFormat{
                     }
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         }, 2000)
@@ -130,7 +130,6 @@ class SingleFormat{
                 'displayedBooks' : JSON.stringify(displayedBooks)
             },
             success: (response) => {
-                console.log(response);
                 if (response.length > 0){
                     this.noMoreResults.addClass('hidden');
                     for(let $index = 0; $index < response.length; $index++){
@@ -152,14 +151,13 @@ class SingleFormat{
                         this.columnsContainer.append(bookDiv);
                     }
                 } else {
-                    console.log('else');
                     this.noMoreResults.removeClass('hidden');
                     this.seeMoreButton.removeClass('purple-width-fit-button');
                     this.seeMoreButton.addClass('hidden');
                 }
             },
             error: (response) => {
-                console.log(response);
+                // console.log(response);
             }
         })
     }

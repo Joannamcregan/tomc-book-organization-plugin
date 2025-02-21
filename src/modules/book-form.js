@@ -469,7 +469,7 @@ class BookInfo{
                     // $('html, body').animate({ scrollTop: 0 }, 'fast');
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         } else {
@@ -511,7 +511,7 @@ class BookInfo{
                     // $('html, body').animate({ scrollTop: 0 }, 'fast');
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         } else {
@@ -554,7 +554,7 @@ class BookInfo{
                     // $('html, body').animate({ scrollTop: 0 }, 'fast');
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         } else {
@@ -597,7 +597,7 @@ class BookInfo{
                     // $('html, body').animate({ scrollTop: 0 }, 'fast');
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         } else {
@@ -635,7 +635,7 @@ class BookInfo{
                     // $('html, body').animate({ scrollTop: 0 }, 'fast');
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         } else {
@@ -679,7 +679,7 @@ class BookInfo{
                     // $('html, body').animate({ scrollTop: 0 }, 'fast');
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         }
@@ -716,7 +716,7 @@ class BookInfo{
                     // $('html, body').animate({ scrollTop: 0 }, 'fast');
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         } else {
@@ -755,7 +755,7 @@ class BookInfo{
                     // $('html, body').animate({ scrollTop: 0 }, 'fast');
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         }  else {
@@ -809,7 +809,7 @@ class BookInfo{
                     // $('html, body').animate({ scrollTop: 0 }, 'fast');
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         } else {
@@ -866,7 +866,7 @@ class BookInfo{
                 // $('html, body').animate({ scrollTop: 0 }, 'fast');
             },
             error: (response) => {
-                console.log(response);
+                // console.log(response);
             }
         })
     }
@@ -903,7 +903,7 @@ class BookInfo{
                 // $('html, body').animate({ scrollTop: 0 }, 'fast');
             },
             error: (response) => {
-                console.log(response);
+                // console.log(response);
             }
         })
     }
@@ -944,7 +944,7 @@ class BookInfo{
                     // $('html, body').animate({ scrollTop: 0 }, 'fast');
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         } else {
@@ -968,7 +968,6 @@ class BookInfo{
     }
 
     populateProductsByAuthor(){
-        console.log('calling populate products by author');
         $.ajax({
             beforeSend: (xhr) => {
                 xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -976,7 +975,6 @@ class BookInfo{
             url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getProductsByAuthor',
             type: 'GET',
             success: (response) => {
-                console.log(response);
                 this.noMatchingProductsError.addClass('hidden');
                 this.authorProductsContainer.html('');
                 if (response != 0 && response != 'fail' && response.length > 0) {
@@ -1017,7 +1015,7 @@ class BookInfo{
                 }
             },
             error: (response) => {
-                console.log(response);
+                // console.log(response);
             }
         })
     }
@@ -1085,12 +1083,12 @@ class BookInfo{
                         }
                     },
                     error: (response) => {
-                        console.log(response);
+                        // console.log(response);
                     }
                 })
             },
             error: (response) => {
-                console.log(response);
+                // console.log(response);
             }
         })
     }
@@ -1128,7 +1126,7 @@ class BookInfo{
                     }
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         }else{
@@ -1271,7 +1269,7 @@ class BookInfo{
                 }
             },
             failure: (response) => {
-                console.log(response);
+                // console.log(response);
             }
         })
     }
@@ -1311,7 +1309,7 @@ class BookInfo{
                 }
             },
             failure: (response) => {
-                console.log(response);
+                // console.log(response);
             }
         })
     }
@@ -1351,7 +1349,7 @@ class BookInfo{
                 }
             },
             failure: (response) => {
-                console.log(response);
+                // console.log(response);
             }
         })
     }
@@ -1391,7 +1389,7 @@ class BookInfo{
                 }
             },
             failure: (response) => {
-                console.log(response);
+                // console.log(response);
             }
         })
     }
@@ -1445,12 +1443,12 @@ class BookInfo{
                         }
                     },
                     error: (response) => {
-                        console.log(response);
+                        // console.log(response);
                     }
                 })
             },
             error: (response) => {
-                console.log(response);
+                // console.log(response);
             }
         })
     }
@@ -1516,7 +1514,7 @@ class BookInfo{
                 }
             },
             error: (response) => {
-                console.log(response);
+                // console.log(response);
             }
         })
     }
@@ -1548,7 +1546,7 @@ class BookInfo{
                     location.reload(true);
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         } else {
@@ -1627,7 +1625,7 @@ class BookInfo{
                 }
             },
             error: (response) => {
-                console.log(response);
+                // console.log(response);
             }
         })
     }
@@ -1656,7 +1654,7 @@ class BookInfo{
                         location.reload(true);
                     },
                     error: (response) => {
-                        console.log(response);
+                        // console.log(response);
                     }
                 })
             }
@@ -1687,7 +1685,7 @@ class BookInfo{
                     location.reload(true);
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         }
@@ -1709,7 +1707,7 @@ class BookInfo{
                 location.reload(true);
             },
             error: (response) => {
-                console.log(response);
+                // console.log(response);
             }
         })
     }
@@ -1732,7 +1730,7 @@ class BookInfo{
                     location.reload(true);
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         }
@@ -1758,7 +1756,7 @@ class BookInfo{
                     location.reload(true);
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         }
@@ -1781,7 +1779,7 @@ class BookInfo{
                 location.reload(true);
             },
             error: (response) => {
-                console.log(response);
+                // console.log(response);
             }
         })
     }
@@ -1829,7 +1827,7 @@ class BookInfo{
                         location.reload(true);
                     },
                     error: (response) => {
-                        console.log(response);
+                        // console.log(response);
                     }
                 })
             }
@@ -1914,12 +1912,12 @@ class BookInfo{
                         }
                     },
                     failure: (response) => {
-                        console.log(response);
+                        // console.log(response);
                     }
                 })
             },
             failure: (response) => {
-                console.log(response);
+                // console.log(response);
             }
         })
     }

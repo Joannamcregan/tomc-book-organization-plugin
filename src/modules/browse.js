@@ -22,7 +22,6 @@ class BrowseStuff{
         this.rollButton.on('click', this.rollResults.bind(this));
     }
     toggleSelected2(e){
-        console.log('in the beginning the selected genre 2s are ' + this.selectedGenres2 + ' and AnyGenre2 is ' + this.anyLevel2);
         if ($(e.target).hasClass('tomc-book-organization--browse-option-2-selected')){            
             this.anyLevel2 = false;
             $(e.target).removeClass('tomc-book-organization--browse-option-2-selected');
@@ -60,10 +59,8 @@ class BrowseStuff{
                 }
             }
         }
-        console.log('at the end the selected genre 2s are ' + this.selectedGenres2 + ' and AnyGenre2 is ' + this.anyLevel2);
     }
     toggleSelected1(e){
-        console.log('at the beginning, selected genre 1s are ' + this.selectedGenres1 + ' and anyLevel1 is ' + this.anyLevel1);
         if ($(e.target).hasClass('tomc-book-organization--browse-option-1-selected')){
             $(e.target).removeClass('tomc-book-organization--browse-option-1-selected');            
             $(e.target).attr('aria-label', $(e.target).html() + ' is not selected');
@@ -87,7 +84,6 @@ class BrowseStuff{
                 this.anyLevel1 = false;
             }
         }
-        console.log('at the end, selected genre 1s are ' + this.selectedGenres1 + ' and anyLevel1 is ' + this.anyLevel1);
     }
     toggleSelected3(e){
         if ($(e.target).hasClass('tomc-book-organization--browse-option-3-selected')){            
@@ -127,7 +123,6 @@ class BrowseStuff{
                 }
             }
         }
-        console.log('at the end the selected genre 3s are ' + this.selectedGenres3 + ' and AnyGenre3 is ' + this.anyLevel3);
     }
     rollResults(e){
         this.resultsSection.html('');
@@ -192,11 +187,11 @@ class BrowseStuff{
                     }
                 },
                 error: (response) => {
-                    console.log(response);
+                    // console.log(response);
                 }
             })
         } else {
-            console.log('else');
+            // console.log('else');
         }
     }
 }
