@@ -444,8 +444,6 @@ class TOMCBookOrganizationPlugin {
             return plugin_dir_path(__FILE__) . 'inc/template-browse-by-genre.php';
         } elseif (is_page('suggestions')){
             return plugin_dir_path(__FILE__) . 'inc/template-suggestions.php';
-        // } elseif (is_page('coop-shop')){
-        //     return plugin_dir_path(__FILE__) . 'inc/template-coop-shop.php';
         } elseif (is_page('ebooks')){
             return plugin_dir_path(__FILE__) . 'inc/template-ebooks.php';
         } else

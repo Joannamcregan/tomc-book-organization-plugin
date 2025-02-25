@@ -413,7 +413,20 @@ function editBookPenName($data){
                 'bookid' => $book
             )
         );
+        $wpdb->delete(
+        $pennames_books_table,
+        array('bookid' => $book));
+        
+        $newEntry = [];
+        $newEntry['bookid'] = $book;
+        $newEntry['createdate'] = date('Y-m-d H:i:s'); 
+        $wpdb->insert($pennames_books_table, $newEntry);
+        $newEntryId = $wpdb->insert_id;
+        if ($newEntryId > 0){
             return 'success';
+        } else {
+            return 'fail';
+        }
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';

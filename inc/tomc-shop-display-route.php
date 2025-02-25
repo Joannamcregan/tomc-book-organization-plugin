@@ -122,9 +122,9 @@ function getMoreFormatDisplay($data) {
         join %i genres on bookgenres.genreid = genres.id
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
-        join %i e on b.id = e.bookid
-        join %i f on e.pennameid = f.id
-        join %i g on c.productid = g.id
+        left join %i e on b.id = e.bookid
+        left join %i f on e.pennameid = f.id
+        left join %i g on c.productid = g.id
         where d.type_name in (%s, %s)
         and b.islive = 1
         and genres.genre_name in (' . $genresClause . ')
@@ -139,9 +139,9 @@ function getMoreFormatDisplay($data) {
         join %i genres on bookgenres.genreid = genres.id
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
-        join %i e on b.id = e.bookid
-        join %i f on e.pennameid = f.id
-        join %i g on c.productid = g.id
+        left join %i e on b.id = e.bookid
+        left join %i f on e.pennameid = f.id
+        left join %i g on c.productid = g.id
         where d.type_name = %s
         and b.islive = 1
         and genres.genre_name in (' . $genresClause . ')
@@ -173,22 +173,22 @@ function getBooksByDateAndFormat($data) {
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
-        join %i e on b.id = e.bookid
-        join %i f on e.pennameid = f.id
-        join %i g on c.productid = g.id
+        left join %i e on b.id = e.bookid
+        left join %i f on e.pennameid = f.id
+        left join %i g on c.productid = g.id
         where d.type_name in (%s, %s)
         and b.islive = 1
         order by b.createdate ' . $orderBy .
         ' limit 48';
-        $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'paperbacks', 'hardcovers'), ARRAY_A);
+        $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'paperback books', 'hardcover books'), ARRAY_A);
     } else {
         $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
-        join %i e on b.id = e.bookid
-        join %i f on e.pennameid = f.id
-        join %i g on c.productid = g.id
+        left join %i e on b.id = e.bookid
+        left join %i f on e.pennameid = f.id
+        left join %i g on c.productid = g.id
         where d.type_name = %s
         and b.islive = 1
         order by b.createdate ' . $orderBy . 
@@ -216,22 +216,22 @@ function getBooksByFormatRandom($data) {
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
-        join %i e on b.id = e.bookid
-        join %i f on e.pennameid = f.id
-        join %i g on c.productid = g.id
+        left join %i e on b.id = e.bookid
+        left join %i f on e.pennameid = f.id
+        left join %i g on c.productid = g.id
         where d.type_name in (%s, %s)
         and b.islive = 1
         order by rand()
         limit 48';
-        $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'paperbacks', 'hardcovers'), ARRAY_A);
+        $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $product_types_table, $pen_names_table, $posts_table, $posts_table, 'paperback books', 'hardcover books'), ARRAY_A);
     } else {
         $query = 'select distinct b.id, b.title, b.product_image_id, f.post_title as pen_name, b.book_description, b.createdate, g.id as product_url
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
-        join %i e on b.id = e.bookid
-        join %i f on e.pennameid = f.id
-        join %i g on c.productid = g.id
+        left join %i e on b.id = e.bookid
+        left join %i f on e.pennameid = f.id
+        left join %i g on c.productid = g.id
         where d.type_name = %s
         and b.islive = 1
         order by rand()
