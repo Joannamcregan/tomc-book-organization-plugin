@@ -419,6 +419,7 @@ function editBookPenName($data){
         
         $newEntry = [];
         $newEntry['bookid'] = $book;
+        $newEntry['pennameid'] = $pennameid;
         $newEntry['createdate'] = date('Y-m-d H:i:s'); 
         $wpdb->insert($pennames_books_table, $newEntry);
         $newEntryId = $wpdb->insert_id;
