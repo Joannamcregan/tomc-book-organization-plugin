@@ -29,8 +29,8 @@ function getBooksByGenre($data){
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
-        join %i e on b.id = e.bookid
-        join %i f on e.pennameid = f.id
+        left join %i e on b.id = e.bookid
+        left join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where b.islive = 1
         order by b.createdate desc
@@ -39,6 +39,9 @@ function getBooksByGenre($data){
         for($index = 0; $index < count($results); $index++){
             $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
             $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
+            if (is_null($results[$index]['pen_name'])){
+                $resultsArr[$index]['pen_name'] == 'Unknown or Anonymous Author';
+            }
         }
         return $results;
     } else if ($anyLevel1 > 0 && $anyLevel2 > 0){
@@ -52,8 +55,8 @@ function getBooksByGenre($data){
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
-        join %i e on b.id = e.bookid
-        join %i f on e.pennameid = f.id
+        left join %i e on b.id = e.bookid
+        left join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where b.id in (select bookid from %i where genreid in (' . $level3clause . '))
         and b.islive = 1
@@ -62,6 +65,9 @@ function getBooksByGenre($data){
         for($index = 0; $index < count($results); $index++){
             $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
             $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
+            if (is_null($results[$index]['pen_name'])){
+                $resultsArr[$index]['pen_name'] == 'Unknown or Anonymous Author';
+            }
         }
         return $results;
     } else if ($anyLevel1 > 0 && $anyLevel3 > 0){
@@ -75,8 +81,8 @@ function getBooksByGenre($data){
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
-        join %i e on b.id = e.bookid
-        join %i f on e.pennameid = f.id
+        left join %i e on b.id = e.bookid
+        left join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where b.id in (select bookid from %i where genreid in (' . $level2clause . '))
         and b.islive = 1
@@ -94,8 +100,8 @@ function getBooksByGenre($data){
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
-        join %i e on b.id = e.bookid
-        join %i f on e.pennameid = f.id
+        left join %i e on b.id = e.bookid
+        left join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where b.id in (select bookid from %i where genreid in (' . $level1clause . '))
         and b.islive = 1
@@ -104,6 +110,9 @@ function getBooksByGenre($data){
         for($index = 0; $index < count($results); $index++){
             $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
             $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
+            if (is_null($results[$index]['pen_name'])){
+                $resultsArr[$index]['pen_name'] == 'Unknown or Anonymous Author';
+            }
         }
         return $results;
     } else if ($anyLevel1){
@@ -123,8 +132,8 @@ function getBooksByGenre($data){
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
-        join %i e on b.id = e.bookid
-        join %i f on e.pennameid = f.id
+        left join %i e on b.id = e.bookid
+        left join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where b.id in (select bookid from %i where genreid in (' . $level2clause . '))
         and b.id in (select bookid from %i where genreid in (' . $level3clause . '))
@@ -134,6 +143,9 @@ function getBooksByGenre($data){
         for($index = 0; $index < count($results); $index++){
             $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
             $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
+            if (is_null($results[$index]['pen_name'])){
+                $resultsArr[$index]['pen_name'] == 'Unknown or Anonymous Author';
+            }
         }
         return $results;
     } else if ($anyLevel2){
@@ -153,8 +165,8 @@ function getBooksByGenre($data){
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
-        join %i e on b.id = e.bookid
-        join %i f on e.pennameid = f.id
+        left join %i e on b.id = e.bookid
+        left join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where b.id in (select bookid from %i where genreid in (' . $level1clause . '))
         and b.id in (select bookid from %i where genreid in (' . $level3clause . '))
@@ -164,6 +176,9 @@ function getBooksByGenre($data){
         for($index = 0; $index < count($results); $index++){
             $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
             $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
+            if (is_null($results[$index]['pen_name'])){
+                $resultsArr[$index]['pen_name'] == 'Unknown or Anonymous Author';
+            }
         }
         return $results;
     } else if ($anyLevel3){
@@ -183,8 +198,8 @@ function getBooksByGenre($data){
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
-        join %i e on b.id = e.bookid
-        join %i f on e.pennameid = f.id
+        left join %i e on b.id = e.bookid
+        left join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where b.id in (select bookid from %i where genreid in (' . $level1clause . '))
         and b.id in (select bookid from %i where genreid in (' . $level2clause . '))
@@ -194,6 +209,9 @@ function getBooksByGenre($data){
         for($index = 0; $index < count($results); $index++){
             $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
             $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
+            if (is_null($results[$index]['pen_name'])){
+                $resultsArr[$index]['pen_name'] == 'Unknown or Anonymous Author';
+            }
         }
         return $results;
     } else {
@@ -219,8 +237,8 @@ function getBooksByGenre($data){
         from %i b
         join %i c on b.id = c.bookid
         join %i d on c.typeid = d.id
-        join %i e on b.id = e.bookid
-        join %i f on e.pennameid = f.id
+        left join %i e on b.id = e.bookid
+        left join %i f on e.pennameid = f.id
         join %i g on c.productid = g.id
         where b.id in (select bookid from %i where genreid in (' . $level1clause . '))
         and b.id in (select bookid from %i where genreid in (' . $level2clause . '))
@@ -231,6 +249,9 @@ function getBooksByGenre($data){
         for($index = 0; $index < count($results); $index++){
             $results[$index]['product_url'] = get_permalink($results[$index]['product_url']);
             $results[$index]['product_image_id'] = get_the_post_thumbnail_url($results[$index]['product_image_id']);
+            if (is_null($results[$index]['pen_name'])){
+                $resultsArr[$index]['pen_name'] == 'Unknown or Anonymous Author';
+            }
         }
         return $results;
     }
