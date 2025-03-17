@@ -448,7 +448,7 @@ class TOMCBookOrganizationPlugin {
         } elseif (is_page('ebooks')){
             return plugin_dir_path(__FILE__) . 'inc/template-ebooks.php';
         } elseif (!(is_null($post))){
-            if (str_contains($post->post_name, 'general-discussion')){
+            if (str_contains($post->post_name, 'members-only-space')){
                 return plugin_dir_path(__FILE__) . 'inc/template-private-forum.php';
             } else {
                 return $template;
