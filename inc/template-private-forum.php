@@ -15,12 +15,12 @@
         <?php endwhile;
     } else {
         ?><div class="half-screen">
-            <p class="centered-text">This forum is for <a href="<?php echo esc_url(site_url('/own'));?>">co-op members</a> only.</p>
+            <p class="centered-text">This space is for <a href="<?php echo esc_url(site_url('/own'));?>">co-op members</a> only.</p>
         </div>
     <?php }
 } else {
     ?><div class="half-screen">
-        <p class="centered-text"><a href="<?php echo esc_url(site_url('/my-account'));?>">Login</a> to access this forum.</p>
+        <p class="centered-text"><a href="<?php echo esc_url(site_url('/my-account'));?>">Login</a> to access this space.</p>
     </div>
 <?php }
 ?></main>
