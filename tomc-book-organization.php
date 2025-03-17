@@ -450,6 +450,8 @@ class TOMCBookOrganizationPlugin {
         } elseif (!(is_null($post))){
             if (str_contains($post->post_name, 'general-discussion')){
                 return plugin_dir_path(__FILE__) . 'inc/template-private-forum.php';
+            } else {
+                return $template;
             }
         } else
         return $template;
