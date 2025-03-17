@@ -434,6 +434,7 @@ class TOMCBookOrganizationPlugin {
     }
 
     function loadTemplate($template){
+        global $post;
         if (is_page('my-books')){
             return plugin_dir_path(__FILE__) . 'inc/template-my-books.php';
         } elseif (is_page('add-a-book')){
@@ -446,6 +447,10 @@ class TOMCBookOrganizationPlugin {
             return plugin_dir_path(__FILE__) . 'inc/template-suggestions.php';
         } elseif (is_page('ebooks')){
             return plugin_dir_path(__FILE__) . 'inc/template-ebooks.php';
+        } elseif (!(is_null($post))){
+            if (str_contains($post->post_name, 'general-discussion')){
+                return plugin_dir_path(__FILE__) . 'inc/template-private-forum.php';
+            }
         } else
         return $template;
     }
