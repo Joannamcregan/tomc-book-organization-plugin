@@ -301,7 +301,7 @@ get_header();
                 <div class="overlay-main-container"> 
                     <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-label="close overlay" id="tomc-book-organization__pen-name-overlay-close"></i>
                     <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__language-overlay-close">X</span> -->
-                    <div class="overlay-input-container">
+                    <div>
                         <input type="text" placeholder="New Language" id="tomc-book-organization__new-language">
                         <p class="hidden centered-text" id="tomc-book-organization--pen-name-overlay-error">Cannot be blank.</p>
                         <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-language">save</button>

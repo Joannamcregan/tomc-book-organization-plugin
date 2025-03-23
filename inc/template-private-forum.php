@@ -3,7 +3,7 @@
 ?><main>
 <?php if (is_user_logged_in()){
     $user = wp_get_current_user();
-    if ((in_array( 'reader-member', (array) $user->roles )) || (in_array( 'creator-member', (array) $user->roles )) || (in_array( 'administrator', (array) $user->roles ))){
+    if ((in_array( 'reader-member', (array) $user->roles )) || (in_array( 'creator-member', (array) $user->roles )) || (in_array( 'seed-member', (array) $user->roles )) || (in_array( 'administrator', (array) $user->roles ))){
         while ( have_posts() ) :
         the_post();
             ?><div class="full-screen">
