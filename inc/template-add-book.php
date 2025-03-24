@@ -255,7 +255,6 @@ get_header();
             <div class="tomc-book-organization__overlay" id="tomc-book-organization__genre-overlay">
                 <div class="overlay-main-container"> 
                     <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-label="close overlay" id="tomc-book-organization__genre-overlay-close"></i>
-                    <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__genre-overlay-close">X</span> -->
                     <div class="overlay-input-container">
                         <input type="text" placeholder="What's your book about?" id="tomc-book-organization__new-genre">
                         <p class="hidden centered-text" id="tomc-book-organization--genre-overlay-error">Cannot be blank.</p>
@@ -266,7 +265,6 @@ get_header();
             <div class="tomc-book-organization__overlay" id="tomc-book-organization__warning-overlay">
                 <div class="overlay-main-container"> 
                     <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-label="close overlay" id="tomc-book-organization__warning-overlay-close"></i>
-                    <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__warning-overlay-close">X</span> -->
                     <div class="overlay-input-container">
                         <input type="text" placeholder="Content Warning" id="tomc-book-organization__new-warning">
                         <p class="hidden centered-text" id="tomc-book-organization--warning-overlay-error">Cannot be blank.</p>
@@ -277,7 +275,6 @@ get_header();
             <div class="tomc-book-organization__overlay" id="tomc-book-organization__identity-overlay">
                 <div class="overlay-main-container"> 
                     <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-label="close overlay" id="tomc-book-organization__identity-overlay-close"></i>
-                    <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__identity-overlay-close">X</span> -->
                     <div class="overlay-input-container">
                         <input type="text" placeholder="Main Character Identity" id="tomc-book-organization__new-identity">
                         <p class="hidden centered-text" id="tomc-book-organization--identity-overlay-error">Cannot be blank.</p>
@@ -288,7 +285,6 @@ get_header();
             <div class="tomc-book-organization__overlay" id="tomc-book-organization__pen-name-overlay">
                 <div class="overlay-main-container"> 
                     <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-label="close overlay" id="tomc-book-organization__pen-name-overlay-close"></i>
-                    <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__pen-name-overlay-close">X</span> -->
                     <div class="overlay-input-container">
                         <input type="text" placeholder="New Name" id="tomc-book-organization__new-pen-name">
                         <textarea class="tomc-book-organization-textarea--edit" id="tomc-book-organization__new-name-bio" placeholder="Author bio (up to 1000 characters)"></textarea>
@@ -299,11 +295,10 @@ get_header();
             </div>
             <div class="tomc-book-organization__overlay" id="tomc-book-organization__language-overlay">
                 <div class="overlay-main-container"> 
-                    <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-label="close overlay" id="tomc-book-organization__pen-name-overlay-close"></i>
-                    <!-- <span class="fa fa-window-close tomc-book-organization__overlay__close" aria-hidden = "true" aria-label = "close button" id="tomc-book-organization__language-overlay-close">X</span> -->
+                    <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-label="close overlay" id="tomc-book-organization__language-overlay-close"></i>
                     <div>
                         <input type="text" placeholder="New Language" id="tomc-book-organization__new-language">
-                        <p class="hidden centered-text" id="tomc-book-organization--pen-name-overlay-error">Cannot be blank.</p>
+                        <p class="hidden centered-text" id="tomc-book-organization--language-overlay-error">Cannot be blank.</p>
                         <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-language">save</button>
                     </div>
                 </div>
