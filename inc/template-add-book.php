@@ -27,8 +27,8 @@ get_header();
     <?php if (is_user_logged_in()){
         if (in_array( 'dc_vendor', (array) $user->roles ) ){
             ?><div class="banner"><h1 class="centered-text banner-heading-46">Add Book Details</h1></div>
-            <p class="centered-text">Before adding book details, <a href="<?php echo esc_url(site_url('/dashboard/edit-product'));?>">enter product details</a> (one product for each format, such as audiobook and e-book.)</p>
-            <p class="centered-text">Feeling lost when it comes to adding your book? Check out our <a href="<?php echo esc_url(site_url('/creator-roadmap'));?>">Creator Roadmap</a>.</p>
+            <p class="centered-text padding-x-20">Before adding book details, <a href="<?php echo esc_url(site_url('/dashboard/edit-product'));?>">enter product details</a> (one product for each format, such as audiobook and e-book.)</p>
+            <p class="centered-text padding-x-20">Feeling lost when it comes to adding your book? Check out our <a href="<?php echo esc_url(site_url('/creator-roadmap'));?>">Creator Roadmap</a>.</p>
             <div id="tomc-book-organization--new-book-forms-section">
                 <div class="tomc-book-organization--form" id="tomc-book-organization--add-book" >
                     <h2 class="centered-text">Your Book's Details</h2>
