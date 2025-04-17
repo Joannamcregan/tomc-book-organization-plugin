@@ -196,9 +196,9 @@ get_header();
             <?php }
         } else {
             ?><div>
-                <p class="centered-text">Only authors can edit books.</p>
-                <p class="centered-text">Looking for books you've purchased? You can find your ebook and audiobook downloads <a href="<?php echo esc_url(site_url('/my-account/downloads'));?>">here</a>.</p>
-                <p class="centered-text">As a reader, you can also create and manage <a href="<?php echo esc_url(site_url('/my-bookshelves')); ?>">bookshelves</a>.</p>
+                <p class="centered-text padding-x-20">Only authors can edit books.</p>
+                <p class="centered-text padding-x-20">Looking for books you've purchased? You can find your ebook and audiobook downloads <a href="<?php echo esc_url(site_url('/my-account/downloads'));?>">here</a>.</p>
+                <p class="centered-text padding-x-20">As a reader, you can also create and manage <a href="<?php echo esc_url(site_url('/my-bookshelves')); ?>">bookshelves</a>.</p>
             </div>
         <?php }
     } else {
