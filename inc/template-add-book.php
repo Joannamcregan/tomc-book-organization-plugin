@@ -50,7 +50,7 @@ get_header();
                         <textarea class="tomc-book-organization--new-book centered-text" name="tomc-book-organization--description" id="tomc-book-organization--description" required></textarea>
                     </div>
                     <div class="tomc-book-organization--form-div">
-                        <label for="tomc-book-organization--excerpt">Enter a short excerpt from your book (up to 1000 characters.)</label><br>
+                        <label for="tomc-book-organization--excerpt">Enter a short excerpt from your book (up to 1000 characters).</label><br>
                         <textarea class="tomc-book-organization--new-book centered-text" name="tomc-book-organization--excerpt" id="tomc-book-organization--excerpt" required></textarea>
                     </div>     
                     <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text" id="tomc-book-organization--add-book-errors">
@@ -63,7 +63,7 @@ get_header();
 
                 <div class="tomc-book-organization--form opacity-30" aria-disabled="true" id="tomc-book-organization--book-languages-form" >
                     <h3>Which language(s) is your book written in?</h3>
-                    <p>Please choose up to three.</p>
+                    <p>Please add or choose up to three.</p>
                     <?php $languages = $wpdb->get_results("SELECT * from $publication_languages_table ORDER BY language_name;"); ?>
                     <div class="tomc-book-organization--options-container" id="tomc-book-organization--languages">
                         <?php if ($languages) {
@@ -74,11 +74,11 @@ get_header();
                         ?><span class="tomc-book-organization--add-language tomc-book-organization--add-option hidden" data-user-id="<?php echo $userid; ?>">add a new language</span>
                     </div>
                     <div class="hidden tomc-book-organization--red-text tomc-book-organization--languages-error-section">
-                        <p class="tomc-book-organization--genres-error-section-mobile">To add another language, first deselect one of the identities you've already chosen by tapping it again.</p>
-                        <p class="tomc-book-organization--genres-error-section-desktop">To add another language, first deselect one of the identities you've already chosen by clicking it again.</p>
+                        <p class="tomc-book-organization--genres-error-section-mobile">To add another language, first deselect one of the languages you've already chosen by tapping it again.</p>
+                        <p class="tomc-book-organization--genres-error-section-desktop">To add another language, first deselect one of the languages you've already chosen by clicking it again.</p>
                     </div>
                     <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text tomc-book-organization--add-no-languages-selected">
-                        <p>Please choose as least one language to ensure your book shows up in search results.</p>
+                        <p>Please add or choose as least one language to ensure your book shows up in search results.</p>
                     </div>
                     <button class="hidden" id="tomc-book-organization--save-book-languages">save and continue</button>
                 </div>
@@ -133,14 +133,14 @@ get_header();
                         </div>     
                     </div>
                     <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text tomc-book-organization--no-genres-added-error">
-                        <p>Please choose at least one thing that your book is about.</p>
+                        <p>Please add or choose at least one thing that your book is about.</p>
                     </div>
                     <button class="hidden" id="tomc-book-organization--save-book-genres">save and continue</button>
                 </div>
 
                 <div class="tomc-book-organization--form opacity-30" aria-disabled="true" id="tomc-book-organization--book-identities-form" >
                     <h3>Which identities describe your main character(s)?</h3>
-                    <p>Please choose up to five.</p>
+                    <p>Please add or choose up to five separate ways to identify your main character. e.g. Black female or Queer or Neurodivergent. When adding, please enter one identity at a time.</p>
                     <?php $identities = $wpdb->get_results("SELECT * from $identities_table ORDER BY identity_name;"); ?>
                     <div class="tomc-book-organization--options-container" id="tomc-book-organization--identities">
                         <?php if ($identities) {
@@ -159,7 +159,7 @@ get_header();
 
                 <div class="tomc-book-organization--form opacity-30" aria-disabled="true" id="tomc-book-organization--book-warnings-form" >
                     <h3>Does your book need any content warnings?</h3>
-                    <p>Please choose up to ten.</p>
+                    <p>Please add or choose up to ten.</p>
                     <p><em>This step is optional but appreciated by many readers. If a reader indicates that they find certain topics triggering, we will exclude books with matching content warnings from their search results.</em></p>
                     <?php $warnings = $wpdb->get_results("SELECT * from $warnings_table ORDER BY warning_name;"); ?>
                     <div class="tomc-book-organization--options-container" id="tomc-book-organization--warnings">
