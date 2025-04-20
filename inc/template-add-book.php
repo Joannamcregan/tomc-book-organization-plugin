@@ -50,7 +50,7 @@ get_header();
                         <textarea class="tomc-book-organization--new-book centered-text" name="tomc-book-organization--description" id="tomc-book-organization--description" required></textarea>
                     </div>
                     <div class="tomc-book-organization--form-div">
-                        <label for="tomc-book-organization--excerpt">Enter a short excerpt from your book (up to 10,00 characters.)</label><br>
+                        <label for="tomc-book-organization--excerpt">Enter a short excerpt from your book (up to 1,000 characters.)</label><br>
                         <textarea class="tomc-book-organization--new-book centered-text" name="tomc-book-organization--excerpt" id="tomc-book-organization--excerpt" required></textarea>
                     </div>     
                     <div class="tomc-book-organization--form-div hidden tomc-book-organization--red-text" id="tomc-book-organization--add-book-errors">
