@@ -112,8 +112,7 @@ get_header();
                             <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-label="close overlay"></i>
                             <h2 class="centered-text" id="tomc-book-organization__edit-languages-overlay--heading"></h2>
                             <h3 class="centered-text">Languages</h3>
-                            <div class="tomc-book-organization__edit-languages-container tomc-book-organization--options-container tomc-book-org-html"></div>
-                            <span class="tomc-book-organization--add-language tomc-book-organization--add-option hidden" data-user-id="<?php echo $userid; ?>">add a new language</span>
+                            <div class="tomc-book-organization__edit-languages-container tomc-book-organization--options-container tomc-book-org-html" id="tomc-book-organization--languages"></div>
                             <div class="hidden tomc-book-organization--red-text tomc-book-organization--languages-error-section">
                                 <p class="centered-text tomc-book-organization--genres-error-section-mobile">To add another language, first deselect one of the identities you've already chosen by tapping it again.</p>
                                 <p class="centered-text tomc-book-organization--genres-error-section-desktop">To add another language, first deselect one of the identities you've already chosen by clicking it again.</p>
@@ -122,6 +121,7 @@ get_header();
                                 <p class="hidden" id="tomc-book-organization--edit-no-languages-selected">Please choose as least one language to ensure your book shows up in search results.</p>
                                 <p class="hidden" id="tomc-book-organization--edit-languages-no-changes">No changes appear to have been made.</p>
                             </div>
+                            <span class="tomc-book-organization--add-language tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new language</span>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-languages-edits">save</button>
                         </div>
                     </div>
