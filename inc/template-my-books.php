@@ -19,14 +19,15 @@ get_header();
     <?php if (is_user_logged_in()){
         ?><div class="banner"><h1 class="centered-text banner-heading-46">Manage Your Books</h1></div>
         <?php if (in_array( 'dc_vendor', (array) $user->roles ) ){
-            $books = $wpdb->get_results("SELECT * from $books_table WHERE createdby = $userid ORDER BY title;");
+            $query = "SELECT * from %i WHERE createdby = %d ORDER BY title";
+            $books = $wpdb->get_results($wpdb->prepare($query, $books_table, $userid), ARRAY_A);
             if ($books){
                 ?><div class="third-screen">
                     <h2 class="centered-text">Choose a Book to Edit</h2>
-                    <?php foreach($books as $book){
+                    <?php for($i = 0; $i < count($books); $i++){
                         ?><div class="tomc-book-organization--book-to-edit page-accent-alt-thin">
-                            <p class="centered-text"><strong class="tomc-book-organization--book-to-edit-title tomc-book-options--cursor-pointer underlined-text"><?php echo $book->title; ?></strong></p>
-                            <div class="tomc-book-organization--edit-book-options hidden" data-book="<?php echo $book->id; ?>" data-title="<?php echo $book->title; ?>" data-edition="<?php echo $book->publication_edition; ?>">
+                            <p class="centered-text"><strong class="tomc-book-organization--book-to-edit-title tomc-book-options--cursor-pointer underlined-text"><?php echo $books[$i]['title']; ?></strong></p>
+                            <div class="tomc-book-organization--edit-book-options hidden" data-book="<?php echo $books[$i]['id']; ?>" data-title="<?php echo $books[$i]['title']; ?>" data-edition="<?php echo $books[$i]['publication_edition']; ?>">
                                 <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-basic-info">basic info</p>
                                 <p class="transparent-stripe-1 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-languages">languages</p>
                                 <p class="transparent-stripe-2 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-genres">genres</p>
@@ -35,7 +36,7 @@ get_header();
                                 <p class="transparent-stripe-2 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-content-warnings">content warnings</p>
                                 <p class="transparent-stripe-0 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-author-name">author name</p>
                                 <p class="transparent-stripe-1 centered-text tomc-book-organization--blue-text tomc-book-options--cursor-pointer tomc-book-organization--edit-linked-products">linked products</p>
-                                <?php if ($book->islive == 1){
+                                <?php if ($books[$i]['islive'] == 1){
                                     ?><button data-toggle=0 class="tomc-book-organization--save-button tomc-book-organization--unpublish">unpublish</button>
                                     <p class="centered-text"><em>Unpublishing your book will remove it from search results and browsing areas.</em></p>
                                 <?php } else {
@@ -72,27 +73,7 @@ get_header();
                             <div class="tomc-book-organization__edit-pen-name-container tomc-book-organization__container tomc-book-org-html"></div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-pen-name-edits">save</button>
                         </div>
-                    </div>
-
-                    <div class="tomc-book-organization__overlay" id="tomc-book-organization__edit-languages-overlay">
-                        <div class="overlay-main-container"> 
-                            <br><br>
-                            <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-label="close overlay"></i>
-                            <h2 class="centered-text" id="tomc-book-organization__edit-languages-overlay--heading"></h2>
-                            <h3 class="centered-text">Languages</h3>
-                            <div class="tomc-book-organization__edit-languages-container tomc-book-organization--options-container tomc-book-org-html"></div>
-                            <span class="tomc-book-organization--add-language tomc-book-organization--add-option hidden" data-user-id="<?php echo $userid; ?>">add a new language</span>
-                            <div class="hidden tomc-book-organization--red-text tomc-book-organization--languages-error-section">
-                                <p class="centered-text tomc-book-organization--genres-error-section-mobile">To add another language, first deselect one of the identities you've already chosen by tapping it again.</p>
-                                <p class="centered-text tomc-book-organization--genres-error-section-desktop">To add another language, first deselect one of the identities you've already chosen by clicking it again.</p>
-                            </div>
-                            <div class="centered-text tomc-book-organization--form-div hidden tomc-book-organization--red-text" id="tomc-book-organization--edit-languages-errors">
-                                <p class="hidden" id="tomc-book-organization--edit-no-languages-selected">Please choose as least one language to ensure your book shows up in search results.</p>
-                                <p class="hidden" id="tomc-book-organization--edit-languages-no-changes">No changes appear to have been made.</p>
-                            </div>
-                            <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-languages-edits">save</button>
-                        </div>
-                    </div>
+                    </div>                    
 
                     <div class="tomc-book-organization__overlay" id="tomc-book-organization__edit-genres-overlay">
                         <div class="overlay-main-container">
@@ -122,6 +103,26 @@ get_header();
                             </div>
                             <p class="hidden centered-text tomc-book-organization--red-text" id="tomc-book-organization--edit-genres-no-changes">No changes appear to have been made.</p>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-genres-edits">save</button>
+                        </div>
+                    </div>
+
+                    <div class="tomc-book-organization__overlay" id="tomc-book-organization__edit-languages-overlay">
+                        <div class="overlay-main-container"> 
+                            <br><br>
+                            <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-label="close overlay"></i>
+                            <h2 class="centered-text" id="tomc-book-organization__edit-languages-overlay--heading"></h2>
+                            <h3 class="centered-text">Languages</h3>
+                            <div class="tomc-book-organization__edit-languages-container tomc-book-organization--options-container tomc-book-org-html"></div>
+                            <span class="tomc-book-organization--add-language tomc-book-organization--add-option hidden" data-user-id="<?php echo $userid; ?>">add a new language</span>
+                            <div class="hidden tomc-book-organization--red-text tomc-book-organization--languages-error-section">
+                                <p class="centered-text tomc-book-organization--genres-error-section-mobile">To add another language, first deselect one of the identities you've already chosen by tapping it again.</p>
+                                <p class="centered-text tomc-book-organization--genres-error-section-desktop">To add another language, first deselect one of the identities you've already chosen by clicking it again.</p>
+                            </div>
+                            <div class="centered-text tomc-book-organization--form-div hidden tomc-book-organization--red-text" id="tomc-book-organization--edit-languages-errors">
+                                <p class="hidden" id="tomc-book-organization--edit-no-languages-selected">Please choose as least one language to ensure your book shows up in search results.</p>
+                                <p class="hidden" id="tomc-book-organization--edit-languages-no-changes">No changes appear to have been made.</p>
+                            </div>
+                            <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-languages-edits">save</button>
                         </div>
                     </div>
 

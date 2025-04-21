@@ -1304,8 +1304,8 @@ class BookInfo{
                             $('.tomc-book-organization__edit-identities-container').append(this.newSpan);
                         }
                         $('#tomc-book-organization__edit-identities-overlay--heading').html(headingTitle + headingEdition);
-                        this.identitiesOverlay.addClass("tomc-book-organization__box--active");
                     }
+                    this.identitiesOverlay.addClass("tomc-book-organization__box--active");
                 }
             },
             failure: (response) => {
@@ -1315,6 +1315,7 @@ class BookInfo{
     }
     
     openLanguagesOverlay(e){
+        console.log('called');
         $(e.target).addClass('contracting');
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
         let headingTitle = $(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
@@ -1330,6 +1331,7 @@ class BookInfo{
                 'book' : this.bookId
             },
             success: (response) => {
+                console.log(response);
                 $(e.target).removeClass('contracting');
                 if (this.languageOverlayIsOpen != true){
                     this.languageOverlayIsOpen = true;
@@ -1344,9 +1346,9 @@ class BookInfo{
                             $('.tomc-book-organization__edit-languages-container').append(this.newSpan);
                         }
                         $('#tomc-book-organization__edit-languages-overlay--heading').html(headingTitle + headingEdition);
-                        this.languagesOverlay.addClass("tomc-book-organization__box--active");
                     }
-                }
+                    this.languagesOverlay.addClass("tomc-book-organization__box--active");
+                } 
             },
             failure: (response) => {
                 // console.log(response);
@@ -1384,8 +1386,8 @@ class BookInfo{
                             $('.tomc-book-organization__edit-content-warnings-container').append(this.newSpan);
                         }
                         $('#tomc-book-organization__edit-content-warnings-overlay--heading').html(headingTitle + headingEdition);
-                        this.contentWarningsOverlay.addClass("tomc-book-organization__box--active");
                     }
+                    this.contentWarningsOverlay.addClass("tomc-book-organization__box--active");
                 }
             },
             failure: (response) => {
@@ -1571,7 +1573,9 @@ class BookInfo{
             },
             success: (response) => {
                 $(e.target).removeClass('contracting');
+                console.log('called');
                 if (this.readalikesOverlayIsOpen != true){
+                    console.log('if');
                     this.readalikesOverlayIsOpen = true;
                     this.newFormDiv = $('<div />').addClass('tomc-book-organization--edit-overlay-new-form');
                     if (response[0]){
