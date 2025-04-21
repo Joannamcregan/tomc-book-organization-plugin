@@ -444,7 +444,7 @@ class BookInfo{
                         $(e.target).html('save');
 
                         this.newSpan = $('<span />').addClass('tomc-book-organization--option-span').attr('data-genre-id', response).attr('aria-label', this.genreName + ' is selected').html(this.genreName).on('click', this.toggleGenreSelection.bind(this));
-                        $('#tomc-book-organization--genres-' + this.addedGenreLevel).prepend(this.newSpan);
+                        $('#tomc-book-organization--genres-' + this.addedGenreLevel).append(this.newSpan);
                         if (this.addedGenreLevel == 2){
                             if (this.chosenGenres2.length < 2) {
                                 this.chosenGenres2.push(response);
@@ -497,7 +497,7 @@ class BookInfo{
                         $(e.target).removeClass('contracting');
                         $(e.target).html('save');
                         this.newSpan = $('<span />').addClass('tomc-book-organization--option-span').attr('data-identity-id', response).attr('aria-label', this.identityName + ' is selected').html(this.identityName).on('click', this.toggleIdentitySelection.bind(this));
-                        $('#tomc-book-organization--identities').prepend(this.newSpan);                 
+                        $('#tomc-book-organization--identities').append(this.newSpan);                 
                         if (this.chosenIdentities.length < 5) {
                             this.chosenIdentities.push(response);
                             this.newSpan.addClass('tomc-book-organization--option-selected');
@@ -540,7 +540,7 @@ class BookInfo{
                         this.addNewLanguageButton.removeClass('contracting');
                         this.addNewLanguageButton.html("save");
                         this.newSpan = $('<span />').addClass('tomc-book-organization--option-span').attr('data-language-id', response).attr('aria-label', this.languageName + ' is selected').html(this.languageName).on('click', this.toggleLanguageSelection.bind(this));
-                        $('#tomc-book-organization--languages').prepend(this.newSpan);                 
+                        $('#tomc-book-organization--languages').append(this.newSpan);                 
                         if (this.chosenLanguages.length < 3) {
                             this.chosenLanguages.push(response);
                             this.newSpan.addClass('tomc-book-organization--option-selected');
@@ -582,7 +582,7 @@ class BookInfo{
                         $(e.target).removeClass('contracting');
                         $(e.target).html('save');
                         this.newSpan = $('<span />').addClass('tomc-book-organization--option-span').attr('data-warning-id', response).attr('aria-label', this.warningName + ' is selected').html(this.warningName).on('click', this.toggleWarningSelection.bind(this));
-                        $('#tomc-book-organization--warnings').prepend(this.newSpan);
+                        $('#tomc-book-organization--warnings').append(this.newSpan);
                         if (this.chosenWarnings.length < 10) {
                             this.chosenWarnings.push(response);
                             this.newSpan.addClass('tomc-book-organization--option-selected');
