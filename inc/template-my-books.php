@@ -71,6 +71,7 @@ get_header();
                             <h2 class="centered-text" id="tomc-book-organization__edit-pen-name-overlay--heading"></h2>
                             <h3 class="centered-text">Which name are you publishing this book under?</h3>
                             <div class="tomc-book-organization__edit-pen-name-container tomc-book-organization__container tomc-book-org-html"></div>
+                            <span class="tomc-book-organization--add-pen-name tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new author name</span>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-pen-name-edits">save</button>
                         </div>
                     </div>                    
@@ -174,7 +175,9 @@ get_header();
                             <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-label="close overlay"></i>
                             <h2 class="centered-text" id="tomc-book-organization__edit-content-warnings-overlay--heading"></h2>
                             <h3 class="centered-text">Content Warnings</h3>
-                            <div class="tomc-book-organization__edit-content-warnings-container  tomc-book-organization--options-container tomc-book-org-html"></div>
+                            <div class="tomc-book-organization__edit-content-warnings-container  tomc-book-organization--options-container tomc-book-org-html" id="tomc-book-organization--warnings">
+                                <span class="tomc-book-organization--add-warning tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new warning</span>
+                            </div>
                             <div id="tomc-book-organization--edit-warnings-no-changes" class="hidden">
                                 <p class="centered-text tomc-book-organization--red-text">No changes appear to have been made.</p>
                             </div>
