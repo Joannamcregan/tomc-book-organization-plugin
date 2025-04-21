@@ -120,8 +120,8 @@ get_header();
                                 <span class="tomc-book-organization--add-language tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new language</span>
                             </div>
                             <div class="hidden tomc-book-organization--red-text tomc-book-organization--languages-error-section">
-                                <p class="centered-text tomc-book-organization--genres-error-section-mobile">To add another language, first deselect one of the identities you've already chosen by tapping it again.</p>
-                                <p class="centered-text tomc-book-organization--genres-error-section-desktop">To add another language, first deselect one of the identities you've already chosen by clicking it again.</p>
+                                <p class="centered-text tomc-book-organization--genres-error-section-mobile">To add another language, first deselect one of the languages you've already chosen by tapping it again.</p>
+                                <p class="centered-text tomc-book-organization--genres-error-section-desktop">To add another language, first deselect one of the languages you've already chosen by clicking it again.</p>
                             </div>
                             <div class="centered-text tomc-book-organization--form-div hidden tomc-book-organization--red-text" id="tomc-book-organization--edit-languages-errors">
                                 <p class="hidden" id="tomc-book-organization--edit-no-languages-selected">Please choose as least one language to ensure your book shows up in search results.</p>
@@ -137,7 +137,9 @@ get_header();
                             <i class="fa fa-window-close tomc-book-organization__overlay__close tomc-book-organization--close-overlay" aria-label="close overlay"></i>
                             <h2 class="centered-text" id="tomc-book-organization__edit-identities-overlay--heading"></h2>
                             <h3 class="centered-text">Main Character Identities</h3>
-                            <div class="tomc-book-organization__edit-identities-container  tomc-book-organization--options-container tomc-book-org-html"></div>
+                            <div class="tomc-book-organization__edit-identities-container  tomc-book-organization--options-container tomc-book-org-html" id="tomc-book-organization--identities">
+                                <span class="tomc-book-organization--add-identity tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new identity</span>
+                            </div>
                             <div class="hidden tomc-book-organization--red-text tomc-book-organization--identities-error-section centered-text">
                                 <p class="tomc-book-organization--genres-error-section-mobile">To add another identity, first deselect one of the identities you've already chosen by tapping it again.</p>
                                 <p class="tomc-book-organization--genres-error-section-desktop">To add another identity, first deselect one of the identities you've already chosen by clicking it again.</p>
