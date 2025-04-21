@@ -81,6 +81,7 @@ get_header();
                             <h2 class="centered-text" id="tomc-book-organization__edit-languages-overlay--heading"></h2>
                             <h3 class="centered-text">Languages</h3>
                             <div class="tomc-book-organization__edit-languages-container tomc-book-organization--options-container tomc-book-org-html"></div>
+                            <span class="tomc-book-organization--add-language tomc-book-organization--add-option hidden" data-user-id="<?php echo $userid; ?>">add a new language</span>
                             <div class="hidden tomc-book-organization--red-text tomc-book-organization--languages-error-section">
                                 <p class="centered-text tomc-book-organization--genres-error-section-mobile">To add another language, first deselect one of the identities you've already chosen by tapping it again.</p>
                                 <p class="centered-text tomc-book-organization--genres-error-section-desktop">To add another language, first deselect one of the identities you've already chosen by clicking it again.</p>
@@ -184,6 +185,58 @@ get_header();
                                 <p class="centered-text">Please select the product whose image you want to use as the main image for this book.</p>
                             </div>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-products-edits">save</button>
+                        </div>
+                    </div>
+
+                    <div class="tomc-book-organization__overlay" id="tomc-book-organization__genre-overlay">
+                        <div class="overlay-main-container"> 
+                            <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-label="close overlay" id="tomc-book-organization__genre-overlay-close"></i>
+                            <div class="overlay-input-container">
+                                <input type="text" placeholder="What's your book about?" id="tomc-book-organization__new-genre">
+                                <p class="hidden centered-text" id="tomc-book-organization--genre-overlay-error">Cannot be blank.</p>
+                                <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-genre">save</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tomc-book-organization__overlay" id="tomc-book-organization__warning-overlay">
+                        <div class="overlay-main-container"> 
+                            <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-label="close overlay" id="tomc-book-organization__warning-overlay-close"></i>
+                            <div class="overlay-input-container">
+                                <input type="text" placeholder="Content Warning" id="tomc-book-organization__new-warning">
+                                <p class="hidden centered-text" id="tomc-book-organization--warning-overlay-error">Cannot be blank.</p>
+                                <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-warning">save</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tomc-book-organization__overlay" id="tomc-book-organization__identity-overlay">
+                        <div class="overlay-main-container"> 
+                            <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-label="close overlay" id="tomc-book-organization__identity-overlay-close"></i>
+                            <div class="overlay-input-container">
+                                <input type="text" placeholder="Main Character Identity" id="tomc-book-organization__new-identity">
+                                <p class="hidden centered-text" id="tomc-book-organization--identity-overlay-error">Cannot be blank.</p>
+                                <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-identity">save</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tomc-book-organization__overlay" id="tomc-book-organization__pen-name-overlay">
+                        <div class="overlay-main-container"> 
+                            <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-label="close overlay" id="tomc-book-organization__pen-name-overlay-close"></i>
+                            <div class="overlay-input-container">
+                                <input type="text" placeholder="New Name" id="tomc-book-organization__new-pen-name">
+                                <textarea class="tomc-book-organization-textarea--edit" id="tomc-book-organization__new-name-bio" placeholder="Author bio (up to 1000 characters)"></textarea>
+                                <p class="hidden centered-text" id="tomc-book-organization--pen-name-overlay-error">Cannot be blank.</p>
+                                <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-pen-name">save</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tomc-book-organization__overlay" id="tomc-book-organization__language-overlay">
+                        <div class="overlay-main-container"> 
+                            <i class="fa fa-window-close tomc-book-organization__overlay__close" aria-label="close overlay" id="tomc-book-organization__language-overlay-close"></i>
+                            <div>
+                                <input type="text" placeholder="New Language" id="tomc-book-organization__new-language">
+                                <p class="hidden centered-text" id="tomc-book-organization--language-overlay-error">Cannot be blank.</p>
+                                <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-language">save</button>
+                            </div>
                         </div>
                     </div>
 
