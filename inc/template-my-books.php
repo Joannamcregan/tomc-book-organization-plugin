@@ -71,7 +71,7 @@ get_header();
                             <h2 class="centered-text" id="tomc-book-organization__edit-pen-name-overlay--heading"></h2>
                             <h3 class="centered-text">Which name are you publishing this book under?</h3>
                             <div class="tomc-book-organization__edit-pen-name-container tomc-book-organization__container tomc-book-org-html"></div>
-                            <span class="tomc-book-organization--add-pen-name tomc-book-organization--add-option" data-user-id="<?php echo $userid; ?>">add a new author name</span>
+                            <span class="tomc-book-organization--add-pen-name tomc-book-organization--add-option margin-auto-block fit-content" data-user-id="<?php echo $userid; ?>">add a new author name</span>
                             <button class="tomc-book-organization--save-button" id="tomc-book-organization--save-pen-name-edits">save</button>
                         </div>
                     </div>                    
