@@ -629,7 +629,7 @@ class BookInfo{
                     newOption.attr('aria-selected', true);
                     newOption.attr('selected', 'selected');
                     newOption.html(response.title.rendered);
-                    this.selectPenName.prepend(newOption);                        
+                    $('#edit-book-pen-name-dropdown').prepend(newOption);                        
                     $("#tomc-book-organization--add-pen-name-errors").addClass("hidden");                   
                     this.closePenNameOverlay();
                     // $('html, body').animate({ scrollTop: 0 }, 'fast');
@@ -1422,6 +1422,7 @@ class BookInfo{
                         if (this.penNameOverlayIsOpen != true){
                             this.penNameOverlayIsOpen = true;                            
                             let dropdown = $('<select />').attr('id', 'tomc-book-organization--book-pen-name-select');
+                            dropdown.addClass('edit-book-pen-name-dropdown');
                             let selectedId = 0;
                             if (response.length > 0){
                                 selectedId = response[0]['id'];

@@ -491,8 +491,8 @@
         margin: 20px 0px 10px 10px;
     }
 }
-#edit-book-pen-name-dropdown{
-    margin: auto;
+.edit-book-pen-name-dropdown{
+    margin: 20px auto;
     display: block;
     max-width: 280;
     padding: 5px 10px;
