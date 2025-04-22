@@ -622,7 +622,7 @@ class BookInfo {
           newOption.attr('aria-selected', true);
           newOption.attr('selected', 'selected');
           newOption.html(response.title.rendered);
-          jquery__WEBPACK_IMPORTED_MODULE_0___default()('#edit-book-pen-name-dropdown').prepend(newOption);
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--book-pen-name-select').prepend(newOption);
           jquery__WEBPACK_IMPORTED_MODULE_0___default()("#tomc-book-organization--add-pen-name-errors").addClass("hidden");
           this.closePenNameOverlay();
           // $('html, body').animate({ scrollTop: 0 }, 'fast');
@@ -1640,7 +1640,7 @@ class BookInfo {
     }
   }
   savePenNameEdits(e) {
-    let selectedPenName = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#edit-book-pen-name-dropdown').val();
+    let selectedPenName = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization--book-pen-name-select').val();
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
       beforeSend: xhr => {
         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);

@@ -629,7 +629,7 @@ class BookInfo{
                     newOption.attr('aria-selected', true);
                     newOption.attr('selected', 'selected');
                     newOption.html(response.title.rendered);
-                    $('#edit-book-pen-name-dropdown').prepend(newOption);                        
+                    $('#tomc-book-organization--book-pen-name-select').prepend(newOption);                        
                     $("#tomc-book-organization--add-pen-name-errors").addClass("hidden");                   
                     this.closePenNameOverlay();
                     // $('html, body').animate({ scrollTop: 0 }, 'fast');
@@ -1692,7 +1692,7 @@ class BookInfo{
     }
 
     savePenNameEdits(e){
-        let selectedPenName = $('#edit-book-pen-name-dropdown').val();
+        let selectedPenName = $('#tomc-book-organization--book-pen-name-select').val();
         $.ajax({
             beforeSend: (xhr) => {
                 xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
