@@ -909,9 +909,9 @@ class BookInfo{
     }
 
     addNewBook(e){
-        this.addBookSaveButton.addClass('contracting');
-        this.addBookSaveButton.html('saving...');
-        if (this.bookTitle.val() != '' && this.bookDescription.val() != '' && this.bookExcerpt.val() != ''){
+        if (this.bookTitle.val() != '' && this.bookDescription.val() != ''){
+            this.addBookSaveButton.addClass('contracting');
+            this.addBookSaveButton.html('saving...');
             $.ajax({
                 beforeSend: (xhr) => {
                     xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -958,11 +958,6 @@ class BookInfo{
                 this.addBookDescriptionError.removeClass("hidden");
             } else {
                 this.addBookDescriptionError.addClass("hidden");
-            }
-            if (this.bookExcerpt.val() == ''){
-                this.addBookExcerptError.removeClass("hidden");
-            } else {
-                this.addBookExcerptError.addClass("hidden");
             }
         }        
     }
@@ -1426,7 +1421,7 @@ class BookInfo{
                     success: (response) => {
                         if (this.penNameOverlayIsOpen != true){
                             this.penNameOverlayIsOpen = true;                            
-                            let dropdown = $('<select />').attr('id', 'edit-book-pen-name-dropdown');
+                            let dropdown = $('<select />').attr('id', 'tomc-book-organization--book-pen-name-select');
                             let selectedId = 0;
                             if (response.length > 0){
                                 selectedId = response[0]['id'];
