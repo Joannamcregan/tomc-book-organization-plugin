@@ -116,6 +116,11 @@ class BookInfo{
         // update publication status
         this.unpublishButtons = $('.tomc-book-organization--unpublish');
         this.publishButtons = $('.tomc-book-organization--publish');
+        // delete book
+        this.deleteButtons = $('.tomc-book-organization--delete');
+        this.permanentDeletionOverlay = $('#tomc-book-organization__permanently-delete-book-overlay');
+        this.permanentlyDeleteButton = $('#tomc-book-org__permanently-delete-button');
+        this.cancelPermanentDeletionButton = $('#tomc-book-org__cancel-permanent-deletion-button');
         this.events();
         this.createdBookId;
         this.currentUserId;
@@ -211,6 +216,10 @@ class BookInfo{
         this.savePenNameEditsButton.on('click', this.savePenNameEdits.bind(this));
         this.publishButtons.on('click', this.togglePublish.bind(this));
         this.unpublishButtons.on('click', this.togglePublish.bind(this));
+        //delete
+        this.permanentlyDeleteButton.on('click', this.permanentlyDeleteBook.bind(this));
+        this.cancelPermanentDeletionButton.on('click', ()=>{this.permanentDeletionOverlay.removeClass('tomc-book-organization__box--active')});
+        this.deleteButtons.on('click', this.deleteBook.bind(this));
         //products
         this.noMatchingProductsSeeAll.on('click', this.populateProductsByAuthor.bind(this));
     }
@@ -1760,6 +1769,14 @@ class BookInfo{
                 }
             })
         }
+    }
+
+    permanentlyDeleteBook(e){
+        console.log($(e.target).parent('.tomc-book-organization--edit-book-options').data('book') + ' ' + $(e.target).parent('.tomc-book-organization--edit-book-options').data('title'));
+    }
+
+    deleteBook(e){
+        this.permanentDeletionOverlay.addClass('tomc-book-organization__box--active');
     }
 
     togglePublish(e){

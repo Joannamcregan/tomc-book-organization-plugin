@@ -42,6 +42,7 @@ get_header();
                                 <?php } else {
                                     ?><button data-toggle=1 class="tomc-book-organization--save-button tomc-book-organization--publish">publish</button>
                                     <p class="centered-text"><em>Publishing your book will add it to search results and browsing areas.</em></p>
+                                    <button class="tomc-book-organization--delete">delete</button>
                                 <?php } ?>
                             </div>
                         </div>
@@ -248,6 +249,13 @@ get_header();
                                 <p class="hidden centered-text" id="tomc-book-organization--language-overlay-error">Cannot be blank.</p>
                                 <button class="tomc-book-organization--save-button" id="tomc-book-organization--new-language">save</button>
                             </div>
+                        </div>
+                    </div>
+                    <div class="tomc-book-organization__overlay" id="tomc-book-organization__permanently-delete-book-overlay">
+                        <div class="overlay-main-container">
+                            <p class="centered-text" id="tomc-book-org__permanent-deletion-warning-message">Are you sure you want to permanently delete this book and its related information?</p>
+                            <button id="tomc-book-org__permanently-delete-button" class="tomc-book-organization--delete">Yes, delete this book</button>
+                            <button id="tomc-book-org__cancel-permanent-deletion-button" class="tomc-book-organization--cancel-button">Cancel</button>
                         </div>
                     </div>
 

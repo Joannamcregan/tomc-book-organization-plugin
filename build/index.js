@@ -131,6 +131,11 @@ class BookInfo {
     // update publication status
     this.unpublishButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--unpublish');
     this.publishButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--publish');
+    // delete book
+    this.deleteButtons = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.tomc-book-organization--delete');
+    this.permanentDeletionOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__permanently-delete-book-overlay');
+    this.permanentlyDeleteButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-org__permanently-delete-button');
+    this.cancelPermanentDeletionButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-org__cancel-permanent-deletion-button');
     this.events();
     this.createdBookId;
     this.currentUserId;
@@ -225,6 +230,12 @@ class BookInfo {
     this.savePenNameEditsButton.on('click', this.savePenNameEdits.bind(this));
     this.publishButtons.on('click', this.togglePublish.bind(this));
     this.unpublishButtons.on('click', this.togglePublish.bind(this));
+    //delete
+    this.permanentlyDeleteButton.on('click', this.permanentlyDeleteBook.bind(this));
+    this.cancelPermanentDeletionButton.on('click', () => {
+      this.permanentDeletionOverlay.removeClass('tomc-book-organization__box--active');
+    });
+    this.deleteButtons.on('click', this.deleteBook.bind(this));
     //products
     this.noMatchingProductsSeeAll.on('click', this.populateProductsByAuthor.bind(this));
   }
@@ -1706,6 +1717,12 @@ class BookInfo {
         }
       });
     }
+  }
+  permanentlyDeleteBook(e) {
+    console.log(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book') + ' ' + jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('title'));
+  }
+  deleteBook(e) {
+    this.permanentDeletionOverlay.addClass('tomc-book-organization__box--active');
   }
   togglePublish(e) {
     let bookToUpdate = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
