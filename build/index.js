@@ -232,9 +232,7 @@ class BookInfo {
     this.unpublishButtons.on('click', this.togglePublish.bind(this));
     //delete
     this.permanentlyDeleteButton.on('click', this.permanentlyDeleteBook.bind(this));
-    this.cancelPermanentDeletionButton.on('click', () => {
-      this.permanentDeletionOverlay.removeClass('tomc-book-organization__box--active');
-    });
+    this.cancelPermanentDeletionButton.on('click', this.closeDeletionOverlay.bind(this));
     this.deleteButtons.on('click', this.deleteBook.bind(this));
     //products
     this.noMatchingProductsSeeAll.on('click', this.populateProductsByAuthor.bind(this));
@@ -1718,10 +1716,22 @@ class BookInfo {
       });
     }
   }
+  closeDeletionOverlay(e) {
+    this.permanentDeletionOverlay.removeClass('tomc-book-organization__box--active');
+    this.permanentDeletionOverlay.data('book', 0);
+    this.permanentDeletionOverlay.data('title', 0);
+  }
   permanentlyDeleteBook(e) {
-    console.log(jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book') + ' ' + jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('title'));
+    let bookid = this.permanentDeletionOverlay.data('book');
+    let title = this.permanentDeletionOverlay.data('title');
+    console.log(bookid + ' ' + title);
   }
   deleteBook(e) {
+    let bookid = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
+    let title = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
+    this.permanentDeletionOverlay.removeClass('tomc-book-organization__box--active');
+    this.permanentDeletionOverlay.data('book', bookid);
+    this.permanentDeletionOverlay.data('title', title);
     this.permanentDeletionOverlay.addClass('tomc-book-organization__box--active');
   }
   togglePublish(e) {
