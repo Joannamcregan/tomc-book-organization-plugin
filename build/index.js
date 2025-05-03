@@ -136,6 +136,7 @@ class BookInfo {
     this.permanentDeletionOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-organization__permanently-delete-book-overlay');
     this.permanentlyDeleteButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-org__permanently-delete-button');
     this.cancelPermanentDeletionButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-org__cancel-permanent-deletion-button');
+    this.deleteBookMessage = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-org__permanent-deletion-warning-message');
     this.events();
     this.createdBookId;
     this.currentUserId;
@@ -1720,11 +1721,26 @@ class BookInfo {
     this.permanentDeletionOverlay.removeClass('tomc-book-organization__box--active');
     this.permanentDeletionOverlay.data('book', 0);
     this.permanentDeletionOverlay.data('title', 0);
+    this.deleteBookMessage.text('Are you sure you want to permanently delete this book and its related information?');
   }
   permanentlyDeleteBook(e) {
     let bookid = this.permanentDeletionOverlay.data('book');
-    let title = this.permanentDeletionOverlay.data('title');
-    console.log(bookid + ' ' + title);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      beforeSend: xhr => {
+        xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+      },
+      url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/permanentlyDeleteBook',
+      type: 'POST',
+      data: {
+        'book': bookid
+      },
+      success: response => {
+        location.reload(true);
+      },
+      error: response => {
+        // console.log(response);
+      }
+    });
   }
   deleteBook(e) {
     let bookid = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
@@ -1733,6 +1749,7 @@ class BookInfo {
     this.permanentDeletionOverlay.data('book', bookid);
     this.permanentDeletionOverlay.data('title', title);
     this.permanentDeletionOverlay.addClass('tomc-book-organization__box--active');
+    this.deleteBookMessage.text('Are you sure you want to permanently delete ' + title + ' and its related information?');
   }
   togglePublish(e) {
     let bookToUpdate = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book');

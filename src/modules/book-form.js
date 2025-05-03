@@ -121,6 +121,7 @@ class BookInfo{
         this.permanentDeletionOverlay = $('#tomc-book-organization__permanently-delete-book-overlay');
         this.permanentlyDeleteButton = $('#tomc-book-org__permanently-delete-button');
         this.cancelPermanentDeletionButton = $('#tomc-book-org__cancel-permanent-deletion-button');
+        this.deleteBookMessage = $('#tomc-book-org__permanent-deletion-warning-message');
         this.events();
         this.createdBookId;
         this.currentUserId;
@@ -1775,12 +1776,27 @@ class BookInfo{
         this.permanentDeletionOverlay.removeClass('tomc-book-organization__box--active');
         this.permanentDeletionOverlay.data('book', 0);
         this.permanentDeletionOverlay.data('title', 0);
+        this.deleteBookMessage.text('Are you sure you want to permanently delete this book and its related information?');
     }
 
     permanentlyDeleteBook(e){
         let bookid = this.permanentDeletionOverlay.data('book');
-        let title = this.permanentDeletionOverlay.data('title');
-        console.log(bookid + ' ' + title);
+        $.ajax({
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
+            },
+            url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/permanentlyDeleteBook',
+            type: 'POST',
+            data: {
+                'book' : bookid
+            },
+            success: (response) => {
+                location.reload(true);
+            },
+            error: (response) => {
+                // console.log(response);
+            }
+        })
     }
 
     deleteBook(e){
@@ -1790,6 +1806,7 @@ class BookInfo{
         this.permanentDeletionOverlay.data('book', bookid);
         this.permanentDeletionOverlay.data('title', title);
         this.permanentDeletionOverlay.addClass('tomc-book-organization__box--active');
+        this.deleteBookMessage.text('Are you sure you want to permanently delete ' + title + ' and its related information?');
     }
 
     togglePublish(e){
