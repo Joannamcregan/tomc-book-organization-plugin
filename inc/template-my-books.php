@@ -254,7 +254,8 @@ get_header();
                     <div class="tomc-book-organization__overlay" id="tomc-book-organization__permanently-delete-book-overlay">
                         <div class="overlay-main-container">
                             <p class="centered-text" id="tomc-book-org__permanent-deletion-warning-message">Are you sure you want to permanently delete this book and its related information?</p>
-                            <button id="tomc-book-org__permanently-delete-button" class="tomc-book-organization--delete">Yes, delete this book</button>
+                            <button id="tomc-book-org__permanently-delete-button">Yes, delete this book</button>
+                            <p class="red-text centered-text hidden" id="tomc-book-org__deletion-error">We're sorry! Something went wrong. Please try again later.</p>
                             <button id="tomc-book-org__cancel-permanent-deletion-button" class="tomc-book-organization--cancel-button">Cancel</button>
                         </div>
                     </div>

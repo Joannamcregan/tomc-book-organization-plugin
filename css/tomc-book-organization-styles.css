@@ -72,8 +72,31 @@
     display: block;
     margin: 20px auto;
 }
+#tomc-book-org__permanent-deletion-warning-message{
+    margin: 50px 20px 30px 20px;
+}
+.tomc-book-organization--delete, #tomc-book-org__permanently-delete-button{
+    background-color: #893e43;
+    color: white;
+    font-size: 16;
+    border-radius: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto 40px auto;
+}
 .tomc-book-organization--save-button{
     background-color: #0c6980;
+    color: white;
+    font-size: 16;
+    border-radius: 15px;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: block;
+    margin: 40px auto 10px auto;
+}
+.tomc-book-organization--cancel-button{
+    background-color: #e44e2d;
     color: white;
     font-size: 16;
     border-radius: 15px;

@@ -1717,14 +1717,15 @@ class BookInfo {
       });
     }
   }
-  closeDeletionOverlay(e) {
+  closeDeletionOverlay() {
     this.permanentDeletionOverlay.removeClass('tomc-book-organization__box--active');
     this.permanentDeletionOverlay.data('book', 0);
-    this.permanentDeletionOverlay.data('title', 0);
+    this.permanentDeletionOverlay.data('title', '');
     this.deleteBookMessage.text('Are you sure you want to permanently delete this book and its related information?');
   }
   permanentlyDeleteBook(e) {
     let bookid = this.permanentDeletionOverlay.data('book');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('contracting');
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
       beforeSend: xhr => {
         xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -1735,21 +1736,26 @@ class BookInfo {
         'book': bookid
       },
       success: response => {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).removeClass('contracting');
         location.reload(true);
       },
       error: response => {
-        // console.log(response);
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).addClass('contracting');
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-org__deletion-error').removeClass('hidden');
+        setTimeout(() => {
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()('#tomc-book-org__deletion-error').addClass('hidden');
+          location.reload(true);
+        }, 5000);
       }
     });
   }
   deleteBook(e) {
     let bookid = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
-    let title = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
-    this.permanentDeletionOverlay.removeClass('tomc-book-organization__box--active');
+    let booktitle = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
     this.permanentDeletionOverlay.data('book', bookid);
-    this.permanentDeletionOverlay.data('title', title);
+    this.permanentDeletionOverlay.data('title', booktitle);
     this.permanentDeletionOverlay.addClass('tomc-book-organization__box--active');
-    this.deleteBookMessage.text('Are you sure you want to permanently delete ' + title + ' and its related information?');
+    this.deleteBookMessage.text('Are you sure you want to permanently delete ' + booktitle + ' and its related information?');
   }
   togglePublish(e) {
     let bookToUpdate = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.tomc-book-organization--edit-book-options').data('book');

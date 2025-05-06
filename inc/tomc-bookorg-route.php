@@ -139,6 +139,10 @@ function tomcBookorgRegisterRoute() {
         'methods' => 'POST',
         'callback' => 'togglePublish'
     ));
+    register_rest_route('tomcBookorg/v1', 'permanentlyDeleteBook', array(
+        'methods' => 'POST',
+        'callback' => 'permanentlyDeleteBook'
+    ));
 }
 
 function addNewBook($data){
@@ -372,6 +376,58 @@ function editBookIdentities($data) {
             array('bookid' => $book));
             addNewBookIdentities($data);
             return 'success';
+    } else {
+        wp_safe_redirect(site_url('/my-account'));
+        return 'fail';
+    }
+}
+
+function permanentlyDeleteBook($data) {
+    $book = sanitize_text_field($data['book']);
+    $user = wp_get_current_user();
+    global $wpdb;
+    $book_identities_table = $wpdb->prefix . "tomc_book_identities";
+    $book_languages_table = $wpdb->prefix . "tomc_book_languages";
+    $book_genres_table = $wpdb->prefix . "tomc_book_genres";
+    $readalikes_table = $wpdb->prefix .  "tomc_readalikes";
+    $pennames_books_table = $wpdb->prefix . "tomc_pen_names_books";
+    $book_warnings_table = $wpdb->prefix . "tomc_book_warnings";
+    $products_table = $wpdb->prefix .  "tomc_book_products";
+    $books_table = $wpdb->prefix . "tomc_books";
+    if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
+        $wpdb->delete(
+            $book_identities_table,
+            array('bookid' => $book)
+        );
+        $wpdb->delete(
+            $book_languages_table,
+            array('bookid' => $book)
+        );
+        $wpdb->delete(
+            $book_genres_table,
+            array('bookid' => $book)
+        );
+        $wpdb->delete(
+            $readalikes_table,
+            array('bookid' => $book)
+        );
+        $wpdb->delete(
+            $pennames_books_table,
+            array('bookid' => $book)
+        );
+        $wpdb->delete(
+            $book_warnings_table,
+            array('bookid' => $book)
+        );
+        $wpdb->delete(
+            $products_table,
+            array('bookid' => $book)
+        );
+        $wpdb->delete(
+            $books_table,
+            array('id' => $book)
+        );
+        return 'success';
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';
