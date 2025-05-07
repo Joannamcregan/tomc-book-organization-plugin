@@ -222,7 +222,7 @@ class BookInfo{
         this.cancelPermanentDeletionButton.on('click', this.closeDeletionOverlay.bind(this));
         this.deleteButtons.on('click', this.deleteBook.bind(this));
         //products
-        this.noMatchingProductsSeeAll.on('click', this.populateProductsByAuthor.bind(this));
+        this.showAllProducts.on('click', this.populateProductsByAuthor.bind(this));
     }
 
     toggleLanguageSelection(e){
