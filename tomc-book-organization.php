@@ -447,6 +447,14 @@ class TOMCBookOrganizationPlugin {
             return plugin_dir_path(__FILE__) . 'inc/template-suggestions.php';
         } elseif (is_page('ebooks')){
             return plugin_dir_path(__FILE__) . 'inc/template-ebooks.php';
+        } elseif (is_page('audiobooks')){
+            return plugin_dir_path(__FILE__) . 'inc/template-audiobooks.php';
+        } elseif (is_page('physical-books')){
+            return plugin_dir_path(__FILE__) . 'inc/template-physical-books.php';
+        } elseif (is_page('physical-zines')){
+            return plugin_dir_path(__FILE__) . 'inc/template-physical-zines.php';
+        } elseif (is_page('digital-zines')){
+            return plugin_dir_path(__FILE__) . 'inc/template-digital-zines.php';
         } elseif (!(is_null($post))){
             if (str_contains($post->post_name, 'members-only-space')){
                 return plugin_dir_path(__FILE__) . 'inc/template-private-forum.php';
