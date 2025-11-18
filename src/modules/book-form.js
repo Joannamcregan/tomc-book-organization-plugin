@@ -973,6 +973,7 @@ class BookInfo{
     }
 
     populateProductsByAuthor(){
+        console.log('called populate products by author');
         $.ajax({
             beforeSend: (xhr) => {
                 xhr.setRequestHeader('X-WP-Nonce', marketplaceData.nonce);
@@ -980,6 +981,7 @@ class BookInfo{
             url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getProductsByAuthor',
             type: 'GET',
             success: (response) => {
+                console.log(response);
                 this.noMatchingProductsError.addClass('hidden');
                 this.authorProductsContainer.html('');
                 if (response != 0 && response != 'fail' && response.length > 0) {
@@ -1020,7 +1022,7 @@ class BookInfo{
                 }
             },
             error: (response) => {
-                // console.log(response);
+                console.log(response);
             }
         })
     }
@@ -1891,6 +1893,7 @@ class BookInfo{
     }
 
     openProductsOverlay(e){
+        console.log('called open products overlay');
         $(e.target).addClass('contracting');
         this.bookId = $(e.target).parent('.tomc-book-organization--edit-book-options').data('book');
         let headingTitle = $(e.target).parent('.tomc-book-organization--edit-book-options').data('title');
@@ -1904,6 +1907,7 @@ class BookInfo{
             url: tomcBookorgData.root_url + '/wp-json/tomcBookorg/v1/getProductTypes',
             type: 'GET',
             success: (response) => {
+                console.log(response);
                 $(e.target).removeClass('contracting');
                 for(let i = 0; i < response.length; i++){
                     formatOptions.push(response[i]);
@@ -1965,7 +1969,7 @@ class BookInfo{
                         }
                     },
                     failure: (response) => {
-                        // console.log(response);
+                        console.log(response);
                     }
                 })
             },
