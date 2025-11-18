@@ -1907,8 +1907,10 @@ class BookInfo {
     });
   }
   closeEditOverlay(e) {
+    console.log('calllllllled!!!');
     this.bookId = 0;
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent('.overlay-main-container').find('.tomc-book-org-html').html('');
+    // $(e.target).parent('.overlay-main-container').find('.tomc-book-org-html').html('');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.overlay-main-container').find('.tomc-book-org-html').html('');
     this.basicInfoOverlayIsOpen = false;
     this.languageOverlayIsOpen = false;
     this.genresOverlayIsOpen = false;
@@ -1948,7 +1950,8 @@ class BookInfo {
     this.oldGenres2 = [];
     this.chosenGenres3 = [];
     this.oldGenres3 = [];
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parent().parent('.tomc-book-organization__overlay').removeClass("tomc-book-organization__box--active");
+    // $(e.target).parent().parent('.tomc-book-organization__overlay').removeClass("tomc-book-organization__box--active");
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest('.tomc-book-organization__overlay').removeClass("tomc-book-organization__box--active");
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BookInfo);
