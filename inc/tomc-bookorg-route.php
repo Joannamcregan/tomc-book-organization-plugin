@@ -389,7 +389,7 @@ function permanentlyDeleteBook($data) {
     $book_identities_table = $wpdb->prefix . "tomc_book_identities";
     $book_languages_table = $wpdb->prefix . "tomc_book_languages";
     $book_genres_table = $wpdb->prefix . "tomc_book_genres";
-    $readalikes_table = $wpdb->prefix .  "tomc_readalikes";
+    $readalikes_table = $wpdb->prefix .  "tomc_book_readalikes";
     $pennames_books_table = $wpdb->prefix . "tomc_pen_names_books";
     $book_warnings_table = $wpdb->prefix . "tomc_book_warnings";
     $products_table = $wpdb->prefix .  "tomc_book_products";
@@ -908,6 +908,7 @@ function getBookProducts($data){
     if (is_user_logged_in() && (in_array( 'dc_vendor', (array) $user->roles ) )){
         $results = $wpdb->get_results($wpdb->prepare($query, $books_table, $book_products_table, $book, $posts_table, $term_relationships_table, $terms_table, $term_taxonomy_table, $meta_table, '_thumbnail_id', $posts_table, 'product', 'publish', $userId), ARRAY_A);
         return $results;
+        // return $wpdb->prepare($query, $books_table, $book_products_table, $book, $posts_table, $term_relationships_table, $terms_table, $term_taxonomy_table, $meta_table, '_thumbnail_id', $posts_table, 'product', 'publish', $userId);
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';
@@ -949,6 +950,7 @@ function addNewBookProducts($data) {
             )
         );
         return 'success';
+        // return $wpdb->prepare($bookProductsQuery);
     } else {
         wp_safe_redirect(site_url('/my-account'));
         return 'fail';
