@@ -198,7 +198,7 @@
 .tomc-book-organization__overlay{
     overflow-y: auto;
     overflow-x: hidden;
-    z-index: 1110;
+    z-index: 3110;
     position: fixed;
     top: 0;
     left: 0;
