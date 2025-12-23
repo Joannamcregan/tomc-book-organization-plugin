@@ -60,7 +60,7 @@ class TOMCBookOrganizationPlugin {
         register_post_type('author-profile', array(
             'show_in_rest' => true,
             'supports' => array('title', 'editor', 'thumbnail'),
-            'rewrite' => array('slug' => 'pen-name'),
+            'rewrite' => array('slug' => 'written-by'),
             'has_archive' => false,
             'public' => true,
             'menu_position' => 1,
